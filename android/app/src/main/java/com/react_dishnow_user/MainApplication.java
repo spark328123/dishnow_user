@@ -3,6 +3,7 @@ package com.react_dishnow_user;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import com.dooboolab.kakaologins.RNKakaoLoginsPackage;
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
 import com.facebook.react.shell.MainReactPackage;
@@ -22,7 +23,8 @@ public class MainApplication extends Application implements ReactApplication {
     @Override
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
-          new MainReactPackage()
+          new MainReactPackage(),
+            new RNKakaoLoginsPackage()
       );
     }
 
