@@ -1,0 +1,3 @@
+rootProject.name = 'react_dishnow_user'
+
+include ':app'
