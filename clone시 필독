@@ -1,1 +1,0 @@
-clone 한 다음에 manifest allowbackup = "true" 하고 npm install, 키값과 카카오 로그인 공식 git에 있는 subproject부분 그것만 복붙하면 컴파일이 된다.
