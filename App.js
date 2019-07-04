@@ -3,6 +3,7 @@ import LinearGradient from "react-native-linear-gradient";
 // const { RNKakaoLogins } = NativeModules;
 import RNKakaoLogins from "react-native-kakao-logins";
 //import { loadFontFromFile } from 'react-native-dynamic-fonts';
+import { LoginButton, AccessToken, LoginManager } from "react-native-fbsdk";
 
 import {
   Platform,
@@ -124,14 +125,22 @@ export default class App extends Component {
                   source={require("./assets/naver_btn_medium.png")}
                 />
               </TouchableOpacity>
-              <TouchableOpacity>
-                <Image
-                  activeOpacity={0.5}
-                  style={styles.btnNaverLogin}
-                  textStyle={styles.txtNaverLogin}
-                  source={require("./assets/facebook_btn_icon.png")}
+              <View>
+                <LoginButton
+                  onLoginFinished={(error, result) => {
+                    if (error) {
+                      console.log("login has error: " + result.error);
+                    } else if (result.isCancelled) {
+                      console.log("login is cancelled.");
+                    } else {
+                      AccessToken.getCurrentAccessToken().then(data => {
+                        console.log(data.accessToken.toString());
+                      });
+                    }
+                  }}
+                  onLogoutFinished={() => console.log("logout.")}
                 />
-              </TouchableOpacity>
+              </View>
             </View>
           </View>
           <View style={styles.newAccount}>
