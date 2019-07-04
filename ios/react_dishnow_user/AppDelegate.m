@@ -11,6 +11,9 @@
 #import <React/RCTBundleURLProvider.h>
 #import <React/RCTRootView.h>
 #import <KakaoOpenSDK/KakaoOpenSDK.h>
+#import <FBSDKCoreKit/FBSDKCoreKit.h>
+#import <FBSDKLoginKit/FBSDKLoginKit.h>
+#import <FBSDKShareKit/FBSDKShareKit.h>
 
 @implementation AppDelegate
 
@@ -58,8 +61,9 @@
     return [KOSession handleOpenURL:url];
   }
   
-  return false;
+  return NO;
 }
+
 
 - (void)applicationDidBecomeActive:(UIApplication *)application
 {
