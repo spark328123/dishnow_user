@@ -85,12 +85,14 @@ const styles = StyleSheet.create({
     alignSelf: "center",
     backgroundColor: "#F8E71C",
     borderRadius: 0,
-    borderWidth: 0
+    borderWidth: 0,
+    marginBottom: 50
   },
   txtNaverLogin: {
     fontSize: 16,
     color: "#3d3d3d",
     borderRadius: 0,
-    borderWidth: 0
+    borderWidth: 0,
+    marginBottom: 50
   }
 });

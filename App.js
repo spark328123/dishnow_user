@@ -16,6 +16,7 @@ import {
   Dimensions,
   Button,
   TouchableOpacity,
+  TextInput,
   Image
 } from "react-native";
 import { thisTypeAnnotation } from "@babel/types";
@@ -48,34 +49,18 @@ export default class App extends Component {
             />
           </View>
 
+          <View style={styles.loginContainer} />
           <View style={styles.snsLoginContainer}>
             <Text style={styles.snsText}>SNS 로그인</Text>
             <View style={styles.snsButtonContainer}>
-<<<<<<< HEAD
               <Loginkakao />
-=======
-              <TouchableOpacity
-                onPress={() => {
-                  this.kakaoLogin();
-                }}
-              >
-                <Image
-                  isLoading={this.state.isNaverLoggingin}
-                  onPress={() => this.kakaoLogin()}
-                  activeOpacity={0.5}
-                  style={styles.btnLogin}
-                  textStyle={styles.txtNaverLogin}
-                  source={require("./assets/kakaolink_btn_medium.png")}
-                />
-              </TouchableOpacity>
->>>>>>> 0af1743d79881de668c6fb260cae9c63314b45d2
               <TouchableOpacity>
                 <Image
                   onPress={() => {
                     this.kakaoLogin();
                   }}
                   activeOpacity={0.5}
-                  style={styles.btnLogin}
+                  style={styles.btnKakaoLogin}
                   textStyle={styles.txtNaverLogin}
                   source={require("./assets/naver_btn_medium.png")}
                 />
@@ -134,16 +119,19 @@ const styles = StyleSheet.create({
     alignSelf: "stretch",
     alignItems: "center"
   },
-
-  btnLogin: {
+  title: {
+    fontSize: 24,
+    fontWeight: "bold"
+  },
+  btnKakaoLogin: {
     height: 50,
     width: 50,
     alignSelf: "center",
     backgroundColor: "#F8E71C",
     borderRadius: 0,
-    borderWidth: 0,
-    marginBottom: 50
+    borderWidth: 0
   },
+
   txtNaverLogin: {
     fontSize: 16,
     color: "#3d3d3d",
@@ -163,6 +151,11 @@ const styles = StyleSheet.create({
     resizeMode: "contain"
   },
 
+  loginContainer: {
+    flex: 166 / 640,
+    alignItems: "center",
+    justifyContent: "center"
+  },
   loginButton: {
     width: 260.5,
     height: 50,
@@ -193,7 +186,7 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     justifyContent: "space-around",
     width: 260,
-    marginTop: 100
+    marginTop: 20
   },
   newAccount: {
     alignItems: "center",
