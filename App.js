@@ -20,6 +20,7 @@ import {
   Image
 } from "react-native";
 import { thisTypeAnnotation } from "@babel/types";
+import Loginkakao from "./login_kakao";
 
 const { height, width } = Dimensions.get("window");
 export default class App extends Component {
@@ -29,43 +30,6 @@ export default class App extends Component {
     this.state = {
       isKakaoLogging: false
     };
-    if (!RNKakaoLogins) {
-      console.log("Not Linked");
-    }
-  }
-
-  // 카카오 로그인 시작.
-  kakaoLogin() {
-    console.log("   kakaoLogin   ");
-    RNKakaoLogins.login((err, result) => {
-      if (err) {
-        return;
-      }
-      console.log("Login!", result);
-    });
-  }
-
-  kakaoLogout() {
-    console.log("   kakaoLogout   ");
-    RNKakaoLogins.logout((err, result) => {
-      if (err) {
-        console.log("error", err.toString());
-        return;
-      }
-      console.log("Logout!", result);
-    });
-  }
-
-  // 로그인 후 내 프로필 가져오기.
-  getProfile() {
-    console.log("getKakaoProfile");
-    RNKakaoLogins.getProfile((err, result) => {
-      if (err) {
-        console.log("error", err.toString());
-        return;
-      }
-      console.log("result", result);
-    });
   }
 
   render() {
@@ -85,42 +49,18 @@ export default class App extends Component {
             />
           </View>
 
-          <View style={styles.loginContainer}>
-            <TouchableOpacity>
-              <View style={styles.loginButton}>
-                <Text style={styles.loginButtonText}>로그인</Text>
-              </View>
-            </TouchableOpacity>
-            <TouchableOpacity>
-              <Text style={styles.findAccountText}>
-                아이디 또는 비밀번호를 잊으셨나요?
-              </Text>
-            </TouchableOpacity>
-          </View>
+          <View style={styles.loginContainer} />
           <View style={styles.snsLoginContainer}>
             <Text style={styles.snsText}>SNS 로그인</Text>
             <View style={styles.snsButtonContainer}>
-              <TouchableOpacity
-                onPress={() => {
-                  this.kakaoLogin();
-                }}
-              >
-                <Image
-                  isLoading={this.state.isNaverLoggingin}
-                  onPress={() => this.kakaoLogin()}
-                  activeOpacity={0.5}
-                  style={styles.btnKakaoLogin}
-                  textStyle={styles.txtNaverLogin}
-                  source={require("./assets/kakaolink_btn_medium.png")}
-                />
-              </TouchableOpacity>
+              <Loginkakao />
               <TouchableOpacity>
                 <Image
                   onPress={() => {
                     this.kakaoLogin();
                   }}
                   activeOpacity={0.5}
-                  style={styles.btnNaverLogin}
+                  style={styles.btnKakaoLogin}
                   textStyle={styles.txtNaverLogin}
                   source={require("./assets/naver_btn_medium.png")}
                 />
@@ -138,6 +78,7 @@ export default class App extends Component {
                       });
                     }
                   }}
+                  alignSelf="center"
                   onLogoutFinished={() => console.log("logout.")}
                 />
               </View>
@@ -190,11 +131,7 @@ const styles = StyleSheet.create({
     borderRadius: 0,
     borderWidth: 0
   },
-  btnNaverLogin: {
-    height: 50,
-    width: 50,
-    alignSelf: "center"
-  },
+
   txtNaverLogin: {
     fontSize: 16,
     color: "#3d3d3d",
@@ -213,24 +150,7 @@ const styles = StyleSheet.create({
     width: "76%",
     resizeMode: "contain"
   },
-  inputInformation: {
-    flex: 0.1875,
-    alignItems: "center",
-    justifyContent: "space-around"
-  },
-  inputContainer: {
-    width: 259.5,
-    height: 41,
-    borderColor: "#FFFFFF",
-    borderBottomWidth: 1.2,
-    opacity: 1
-  },
-  input: {
-    color: "white",
-    opacity: 1,
 
-    fontSize: 18
-  },
   loginContainer: {
     flex: 166 / 640,
     alignItems: "center",
@@ -254,7 +174,7 @@ const styles = StyleSheet.create({
     color: "#431AAF"
   },
   snsLoginContainer: {
-    flex: 107 / 640,
+    flex: 407 / 640,
     alignItems: "center",
     justifyContent: "flex-start"
   },
@@ -263,7 +183,7 @@ const styles = StyleSheet.create({
     color: "#FFFFFF"
   },
   snsButtonContainer: {
-    flexDirection: "row",
+    flexDirection: "column",
     justifyContent: "space-around",
     width: 260,
     marginTop: 20
