@@ -16,7 +16,6 @@ import {
   Dimensions,
   Button,
   TouchableOpacity,
-  TextInput,
   Image
 } from "react-native";
 import { thisTypeAnnotation } from "@babel/types";
@@ -49,29 +48,34 @@ export default class App extends Component {
             />
           </View>
 
-          <View style={styles.loginContainer}>
-            <TouchableOpacity>
-              <View style={styles.loginButton}>
-                <Text style={styles.loginButtonText}>로그인</Text>
-              </View>
-            </TouchableOpacity>
-            <TouchableOpacity>
-              <Text style={styles.findAccountText}>
-                아이디 또는 비밀번호를 잊으셨나요?
-              </Text>
-            </TouchableOpacity>
-          </View>
           <View style={styles.snsLoginContainer}>
             <Text style={styles.snsText}>SNS 로그인</Text>
             <View style={styles.snsButtonContainer}>
+<<<<<<< HEAD
               <Loginkakao />
+=======
+              <TouchableOpacity
+                onPress={() => {
+                  this.kakaoLogin();
+                }}
+              >
+                <Image
+                  isLoading={this.state.isNaverLoggingin}
+                  onPress={() => this.kakaoLogin()}
+                  activeOpacity={0.5}
+                  style={styles.btnLogin}
+                  textStyle={styles.txtNaverLogin}
+                  source={require("./assets/kakaolink_btn_medium.png")}
+                />
+              </TouchableOpacity>
+>>>>>>> 0af1743d79881de668c6fb260cae9c63314b45d2
               <TouchableOpacity>
                 <Image
                   onPress={() => {
                     this.kakaoLogin();
                   }}
                   activeOpacity={0.5}
-                  style={styles.btnNaverLogin}
+                  style={styles.btnLogin}
                   textStyle={styles.txtNaverLogin}
                   source={require("./assets/naver_btn_medium.png")}
                 />
@@ -89,6 +93,7 @@ export default class App extends Component {
                       });
                     }
                   }}
+                  alignSelf="center"
                   onLogoutFinished={() => console.log("logout.")}
                 />
               </View>
@@ -129,22 +134,15 @@ const styles = StyleSheet.create({
     alignSelf: "stretch",
     alignItems: "center"
   },
-  title: {
-    fontSize: 24,
-    fontWeight: "bold"
-  },
-  btnKakaoLogin: {
+
+  btnLogin: {
     height: 50,
     width: 50,
     alignSelf: "center",
     backgroundColor: "#F8E71C",
     borderRadius: 0,
-    borderWidth: 0
-  },
-  btnNaverLogin: {
-    height: 50,
-    width: 50,
-    alignSelf: "center"
+    borderWidth: 0,
+    marginBottom: 50
   },
   txtNaverLogin: {
     fontSize: 16,
@@ -164,29 +162,7 @@ const styles = StyleSheet.create({
     width: "76%",
     resizeMode: "contain"
   },
-  inputInformation: {
-    flex: 0.1875,
-    alignItems: "center",
-    justifyContent: "space-around"
-  },
-  inputContainer: {
-    width: 259.5,
-    height: 41,
-    borderColor: "#FFFFFF",
-    borderBottomWidth: 1.2,
-    opacity: 1
-  },
-  input: {
-    color: "white",
-    opacity: 1,
 
-    fontSize: 18
-  },
-  loginContainer: {
-    flex: 166 / 640,
-    alignItems: "center",
-    justifyContent: "center"
-  },
   loginButton: {
     width: 260.5,
     height: 50,
@@ -205,7 +181,7 @@ const styles = StyleSheet.create({
     color: "#431AAF"
   },
   snsLoginContainer: {
-    flex: 107 / 640,
+    flex: 407 / 640,
     alignItems: "center",
     justifyContent: "flex-start"
   },
@@ -214,10 +190,10 @@ const styles = StyleSheet.create({
     color: "#FFFFFF"
   },
   snsButtonContainer: {
-    flexDirection: "row",
+    flexDirection: "column",
     justifyContent: "space-around",
     width: 260,
-    marginTop: 20
+    marginTop: 100
   },
   newAccount: {
     alignItems: "center",
