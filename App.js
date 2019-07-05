@@ -4,7 +4,7 @@ import LinearGradient from "react-native-linear-gradient";
 import RNKakaoLogins from "react-native-kakao-logins";
 //import { loadFontFromFile } from 'react-native-dynamic-fonts';
 import { LoginButton, AccessToken, LoginManager } from "react-native-fbsdk";
-
+import MapView, { PROVIDER_GOOGLE } from "react-native-maps";
 import {
   Platform,
   Alert,
@@ -41,14 +41,12 @@ export default class App extends Component {
           start={{ x: 0, y: 0 }}
           end={{ x: 0, y: 1 }}
         >
-          <Text>{this.state.token}</Text>
           <View style={styles.logo}>
             <Image
               style={styles.dishnowLogo}
               source={require("./assets/DISHNOW_LOGO_white.png")}
             />
           </View>
-
           <View style={styles.loginContainer} />
           <View style={styles.snsLoginContainer}>
             <Text style={styles.snsText}>SNS 로그인</Text>
@@ -92,6 +90,17 @@ export default class App extends Component {
             </TouchableOpacity>
           </View>
         </LinearGradient>
+        <MapView
+          provider={PROVIDER_GOOGLE}
+          style={{ flex: 1 }}
+          region={{
+            latitude: 37.5514642,
+            longitude: 126.9250106,
+            latitudeDelta: 0.0922,
+            longitudeDelta: 0.0421
+          }}
+          showsUserLocation
+        />
       </View>
     );
   }
