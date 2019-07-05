@@ -4,9 +4,9 @@ import android.app.Application;
 
 import com.facebook.CallbackManager;
 import com.facebook.react.ReactApplication;
+import com.dooboolab.kakaologins.RNKakaoLoginsPackage;
 import com.facebook.reactnative.androidsdk.FBSDKPackage;
 import com.BV.LinearGradient.LinearGradientPackage;
-import com.dooboolab.kakaologins.RNKakaoLoginsPackage;
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
 import com.facebook.react.shell.MainReactPackage;
@@ -27,9 +27,9 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
+            new RNKakaoLoginsPackage(),
             new FBSDKPackage(mCallbackManager),
-            new LinearGradientPackage(),
-            new RNKakaoLoginsPackage()
+            new LinearGradientPackage()
       );
     }
 
