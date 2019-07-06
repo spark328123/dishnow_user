@@ -14,6 +14,9 @@
         tools:ignore="GoogleAppIndexingWarning">
         <meta-data android:name="com.facebook.sdk.ApplicationId"
             android:value="@string/facebook_app_id"/>
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyD86CzlV8y_4IMmp0W1BCgXSnDVlrn0NZY"/>
       <activity
         android:name=".MainActivity"
         android:label="@string/app_name"
