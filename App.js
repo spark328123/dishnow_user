@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import LinearGradient from "react-native-linear-gradient";
-// const { RNKakaoLogins } = NativeModules;
 import RNKakaoLogins from "react-native-kakao-logins";
 //import { loadFontFromFile } from 'react-native-dynamic-fonts';
 import { LoginButton, AccessToken, LoginManager } from "react-native-fbsdk";
