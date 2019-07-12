@@ -1,79 +1,17 @@
-import React, { Component } from "react";
+import React from "react";
 import LinearGradient from "react-native-linear-gradient";
-// const { RNKakaoLogins } = NativeModules;
-import RNKakaoLogins from "react-native-kakao-logins";
-//import { loadFontFromFile } from 'react-native-dynamic-fonts';
-import { LoginButton, AccessToken, LoginManager } from "react-native-fbsdk";
-import MapView, { PROVIDER_GOOGLE, Marker } from "react-native-maps";
+import { LoginButton, AccessToken } from "react-native-fbsdk";
 import {
-  Platform,
-  Alert,
   StyleSheet,
   Text,
   View,
-  NativeModules,
-  //StatusBar,
-  Dimensions,
-  Button,
   TouchableOpacity,
-  TextInput,
-  Image
+  Image,
 } from "react-native";
-import { thisTypeAnnotation } from "@babel/types";
-import Loginkakao from "./login_kakao";
+import Loginkakao from '../utill/kakaologin';
 
-const { height, width } = Dimensions.get("window");
-const ASPECT_RATIO = width / height;
-const LATITUDE = 0;
-const LONGITUDE = 0;
-const LATITUDE_DELTA = 0.0922;
-const LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO;
-export default class App extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      isKakaoLogging: false,
-      region: {
-        latitude: 37.5514642,
-        longitude: 126.9250106,
-        latitudeDelta: 0.0922,
-        longitudeDelta: 0.0421
-      }
-    };
-  }
-
-  componentDidMount() {
-    navigator.geolocation.getCurrentPosition(
-      position => {
-        this.setState({
-          region: {
-            latitude: position.coords.latitude,
-            longitude: position.coords.longitude,
-            latitudeDelta: LATITUDE_DELTA,
-            longitudeDelta: LONGITUDE_DELTA
-          }
-        });
-      },
-      error => console.log(error.message),
-      { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 }
-    );
-    this.watchID = navigator.geolocation.watchPosition(position => {
-      this.setState({
-        region: {
-          latitude: position.coords.latitude,
-          longitude: position.coords.longitude,
-          latitudeDelta: LATITUDE_DELTA,
-          longitudeDelta: LONGITUDE_DELTA
-        }
-      });
-    });
-  }
-  componentWillUnmount() {
-    navigator.geolocation.clearWatch(this.watchID);
-  }
-
-  render() {
+const Login = (props) => {
+    const { navigation } = props;
     return (
       <View style={styles.container}>
         <LinearGradient
@@ -85,14 +23,14 @@ export default class App extends Component {
           <View style={styles.logo}>
             <Image
               style={styles.dishnowLogo}
-              source={require("./assets/DISHNOW_LOGO_white.png")}
+              source={require("../assets/DISHNOW_LOGO_white.png")}
             />
           </View>
           <View style={styles.loginContainer} />
           <View style={styles.snsLoginContainer}>
             <Text style={styles.snsText}>SNS 로그인</Text>
             <View style={styles.snsButtonContainer}>
-              <Loginkakao />
+              <Loginkakao navigation = {navigation}/>
               <TouchableOpacity>
                 <Image
                   onPress={() => {
@@ -101,7 +39,7 @@ export default class App extends Component {
                   activeOpacity={0.5}
                   style={styles.btnKakaoLogin}
                   textStyle={styles.txtNaverLogin}
-                  source={require("./assets/naver_btn_medium.png")}
+                  source={require("../assets/naver_btn_medium.png")}
                 />
               </TouchableOpacity>
               <View>
@@ -118,7 +56,6 @@ export default class App extends Component {
                     }
                   }}
                   alignSelf="center"
-                  onLogoutFinished={() => console.log("logout.")}
                 />
               </View>
             </View>
@@ -131,23 +68,11 @@ export default class App extends Component {
             </TouchableOpacity>
           </View>
         </LinearGradient>
-        <MapView
-          provider={PROVIDER_GOOGLE}
-          style={{ flex: 1 }}
-          region={{
-            latitude: 37.5514642,
-            longitude: 126.9250106,
-            latitudeDelta: 0.0922,
-            longitudeDelta: 0.0421
-          }}
-          showsUserLocation
-        >
-          <Marker draggable coordinate={this.state.region} />
-        </MapView>
       </View>
     );
-  }
 }
+
+export default Login;
 
 const styles = StyleSheet.create({
   container: {
@@ -258,3 +183,5 @@ const styles = StyleSheet.create({
     marginTop: 10
   }
 });
+
+

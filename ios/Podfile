@@ -39,6 +39,8 @@ target 'react_dishnow_user' do
     pod 'GoogleMaps'  # Uncomment this line if you want to support GoogleMaps on iOS
     pod 'RNKakaoLogins', :path => '../node_modules/react-native-kakao-logins'
 
+    pod 'RNGestureHandler', :path => '../node_modules/react-native-gesture-handler'
+
   end
   
   post_install do |installer|
