@@ -1,6 +1,7 @@
 import React from "react";
 import LinearGradient from "react-native-linear-gradient";
 import { LoginButton, AccessToken } from "react-native-fbsdk";
+
 import {
   StyleSheet,
   Text,
@@ -28,7 +29,7 @@ const Login = (props) => {
           </View>
           <View style={styles.loginContainer} />
           <View style={styles.snsLoginContainer}>
-            <Text style={styles.snsText}>SNS 로그인</Text>
+            <Text style={styles.snsText}>SNS 로그인!</Text>
             <View style={styles.snsButtonContainer}>
               <Loginkakao navigation = {navigation}/>
               <TouchableOpacity>
