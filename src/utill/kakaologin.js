@@ -9,7 +9,6 @@ from "react-native";
 import RNKakaoLogins from 'react-native-kakao-logins';
 
 const KakaoLogin = ({navigation}) =>{
-
   // 카카오 로그인 시작.
    kakaoLogin= () => {
     console.log("   kakaoLogin   ");
