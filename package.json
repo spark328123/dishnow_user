@@ -9,6 +9,7 @@
   "dependencies": {
     "all": "0.0.0",
     "apsl-react-native-button": "^3.1.1",
+    "console": "^0.7.2",
     "react": "16.8.6",
     "react-native": "0.59.10",
     "react-native-fbsdk": "^0.10.1",
