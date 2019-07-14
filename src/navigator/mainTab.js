@@ -6,6 +6,7 @@ import Booked from './bookedstack';
 import My from './mystack';
 
 import TabItem from '../component/tabItem';
+import * as Utill from '../utill';
 
 const mainTab = createBottomTabNavigator(
     {
@@ -17,7 +18,7 @@ const mainTab = createBottomTabNavigator(
         defaultNavigationOptions: ({ navigation }) => ({
             tabBarIcon : ({ tintColor }) => {
                 const { routeName } = navigation.state;
-               /*
+               /* image source
                 switch (routeName) {
                     case 'tab1' : break;
                     case 'tab2' : break;
@@ -38,10 +39,9 @@ const mainTab = createBottomTabNavigator(
             inactiveTintColor : '#333333',
             allowFontScaling : false,
             showLabel : false,
-            style : {height : 30, padding : 0},
-
-
+            style : {height : Utill.screen.bottomTabHeight, padding : 0},
         },
+        initialRouteName :'tab2',
     }
 )
 
