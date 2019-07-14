@@ -1,17 +1,17 @@
 import React, {useState} from 'react';
 import { View, StyleSheet, Animated, Text } from 'react-native';
-import GoogleMap from '../utill/googlemap';
+import GoogleMap from '../utill/googlemap.js';
 
 const TabHome = ()=>{
     const [isPressed, toggle] = useState(false);
     return(
         <View style = {styles.container}>
             <GoogleMap
-               toggle = {()=>toggle(isPressed => !isPressed)}
-                style = {styles.map} 
+              toggle = {()=>toggle(isPressed => !isPressed)}
+               style = {styles.map} 
             ></GoogleMap>
               <View style = {styles.address}>
-                    <Text style ={{fontSize:20,paddingLeft:10}}>hello</Text>
+                    <Text style ={{fontSize:13,paddingLeft:10}}>출발지 : 찾는 중 ...</Text>
                 </View>
             {!isPressed ? ( 
             <View style = {styles.input}>
@@ -37,6 +37,7 @@ const styles = StyleSheet.create({
         flex : 1
     },
     address : {
+        height : 20,
         justifyContent : 'center',
     },
     input : {
