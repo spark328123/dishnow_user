@@ -1,9 +1,9 @@
 import { createStackNavigator } from 'react-navigation';
 
-import TabHome from '../utill/googlemap'
+import TabHome from '../container/tabHome'
 const HomeStack = createStackNavigator(
     {
-        TabHome : {screen : TabHome}
+        TabHome : { screen : TabHome }
     },
     {
         initialRouteName : 'TabHome',

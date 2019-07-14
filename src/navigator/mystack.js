@@ -4,7 +4,7 @@ import TabMy from '../container/tabMy'
 
 const MyStack = createStackNavigator(
     {
-        TabMy : {screen : TabMy }
+        TabMy : { screen : TabMy }
     },
     {
         initialRouteName : 'TabMy',
@@ -12,4 +12,4 @@ const MyStack = createStackNavigator(
     }
 )
 
-export default MyStack
+export default MyStack;

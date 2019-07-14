@@ -1,6 +1,8 @@
 import React from 'react';
 import { View, Text, Image, StyleSheet }from 'react-native';
 
+import * as Utill from '../utill'
+
 const TabItem = ({label, tintColor, source }) => {
     return(
         <View style = {styles.container}>
@@ -20,8 +22,8 @@ export default TabItem;
 
 const styles = StyleSheet.create({
     container : {
-        paddingTop : 8,
+        paddingTop : 10,
         alignItems : 'center',
-        height : 50,
+        height : Utill.screen.bottomTabHeight,
     }
 })
