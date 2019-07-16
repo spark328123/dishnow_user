@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import { View, StyleSheet, Text, } from 'react-native';
+import { View, StyleSheet, Text, TouchableOpacity} from 'react-native';
 import GoogleMap from '../utill/googlemap.js';
 import * as Utill from '../utill';
 
@@ -10,16 +10,22 @@ const StackDeparture = (props)=>{
             <GoogleMap style={styles.map}
                 isPressed = {true}
                 navigation = {navigation}
+                latitudeDelta = {0.0062}
             ></GoogleMap>
             <View style = {styles.address}>
                     <Text style ={{fontSize:15,padding:10}}>출발지 : 찾는 중 ...</Text>
             </View>
+            <TouchableOpacity
+                onPress = {()=>{
+                    navigation.pop();
+                }}
+            >
             <View style = {styles.departure}>
                 <Text style = {styles.departureText}>
                     출발지로 설정
                 </Text>
-
             </View>
+            </TouchableOpacity>
         </View>
     )
 } 

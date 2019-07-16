@@ -4,14 +4,13 @@ import { View, Dimensions, StyleSheet, Image, TouchableOpacity } from "react-nat
 
 const { height, width } = Dimensions.get("window");
 const ASPECT_RATIO = width / height;
-const LATITUDE_DELTA = 0.0015;
-const LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO;
 
-
-export default ({isPressed,toggle,navigation}) => {
+export default ({isPressed,toggle,navigation,latitudeDelta}) => {
     let watchID;
     let mounted = true;
-
+    const LATITUDE_DELTA = latitudeDelta;
+    const LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO;
+    
     const _getPosition = (event)=>{
         if(mounted){
             setRegion({
@@ -56,12 +55,13 @@ export default ({isPressed,toggle,navigation}) => {
             onPress = {toggle}
             scrollEnabled = {isPressed}
             zoomEnabled = {isPressed}
+            
             >
             </MapView>
             {isPressed? (
                 <View style = {styles.backFixed}>
                     <TouchableOpacity
-                        onPress = {()=>{navigation.pop()}}
+                        onPressIn = {()=>{navigation.pop()}}
                     >
                         <Image source = {require('../assets/icon_squareBracket.png')} />
                     </TouchableOpacity>

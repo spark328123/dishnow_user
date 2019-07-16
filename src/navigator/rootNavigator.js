@@ -11,7 +11,7 @@ const rootNav = createSwitchNavigator(
         Main,
     },
     {
-        initialRouteName : 'Main',
+        initialRouteName : 'Splash',
         headerMode : 'none',
     }
 );
