@@ -13,6 +13,7 @@ const TabHome = (props)=>{
                isPressed = {false}
                navigatation = {navigation}   
                toggle = {()=>{navigation.push('Departure')}}
+               latitudeDelta = {0.0065}
                style = {styles.map}
             ></GoogleMap>
               <View style = {styles.address}>
