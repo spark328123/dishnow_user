@@ -8,16 +8,29 @@ import {
 from "react-native";
 import RNKakaoLogins from 'react-native-kakao-logins';
 
+import * as API from './API'
+
+const type = 'kakao'
+
 const KakaoLogin = ({navigation}) =>{
+    const login = async (token) => {
+        const loginRes = await API.login({token,type});
+        console.log(loginRes);
+        await API.setLocal(API.LOCALKEY_TOKEN, loginRes.token);
+        return true;
+    }
   // 카카오 로그인 시작.
-   kakaoLogin= () => {
+   kakaoLogin =  () => {
     console.log("   kakaoLogin   ");
     RNKakaoLogins.login((err, result) => {
       if (err) {
         return;
       }
-      console.log("Login!", result);
-      navigation.navigate('Main');
+     login(result.token)
+      .then(res=>{if(res){
+        navigation.navigate('Main');
+      }}
+      )
     });
   }
   kakaoLogout = () => {
