@@ -5,11 +5,6 @@ import { NavigationActions } from 'react-navigation'
 
 const TabHome = (props)=>{
     const {navigation} = props;
-    const prevRegion = navigation.getParam('region',{
-        latitude :null,
-        longitude : null,
-      
-     });
    
     return(
         <View style = {styles.container}>
@@ -18,8 +13,7 @@ const TabHome = (props)=>{
                navigation = {navigation}   
                latitudeDelta = {0.0065}
                style = {styles.map}
-               toggle  = {()=>{navigation.navigate('Departure')}
-                }
+               toggle  = {()=>{navigation.navigate('Departure')}}
             ></GoogleMap>
             <View style = {styles.input}>
                 <Text>테마</Text>
@@ -33,6 +27,7 @@ const TabHome = (props)=>{
 }
 
 
+
 export default TabHome;
 
 const styles = StyleSheet.create({
@@ -44,7 +39,7 @@ const styles = StyleSheet.create({
     },
   
     input : {
-        flex : 2,
+        flex : 1,
         alignItems : 'center',
         justifyContent : 'space-around',
         backgroundColor : '#FFF'

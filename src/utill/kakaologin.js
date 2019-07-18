@@ -15,8 +15,8 @@ const type = 'kakao'
 const KakaoLogin = ({navigation}) =>{
     const login = async (token) => {
         const loginRes = await API.login({token,type});
-        console.log(loginRes);
         await API.setLocal(API.LOCALKEY_TOKEN, loginRes.token);
+        if(loginRes.error) {return false;}
         return true;
     }
   // 카카오 로그인 시작.
