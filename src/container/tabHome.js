@@ -5,21 +5,22 @@ import { NavigationActions } from 'react-navigation'
 
 const TabHome = (props)=>{
     const {navigation} = props;
+    const prevRegion = navigation.getParam('region',{
+        latitude :null,
+        longitude : null,
+      
+     });
    
     return(
-        //toggle(isPressed => !isPressed)
         <View style = {styles.container}>
             <GoogleMap
                isPressed = {false}
-               navigatation = {navigation}   
-               toggle = {()=>{navigation.push('Departure')}}
+               navigation = {navigation}   
                latitudeDelta = {0.0065}
                style = {styles.map}
+               toggle  = {()=>{navigation.navigate('Departure')}
+                }
             ></GoogleMap>
-              <View style = {styles.address}>
-                    <Text style ={{fontSize:15,padding:10}}>출발지 : 찾는 중 ...</Text>
-                </View>
-          
             <View style = {styles.input}>
                 <Text>테마</Text>
                 <Text>안주가격</Text>
@@ -31,9 +32,6 @@ const TabHome = (props)=>{
     )
 }
 
-TabHome.NavigationOptions = screenProps => ({
-    tabBarVisible : screenProps.navigation.getParam('tabBarVisible')
-})
 
 export default TabHome;
 
@@ -44,9 +42,7 @@ const styles = StyleSheet.create({
     map : {
         flex : 1
     },
-    address : {
-        justifyContent : 'center',
-    },
+  
     input : {
         flex : 2,
         alignItems : 'center',
@@ -54,4 +50,3 @@ const styles = StyleSheet.create({
         backgroundColor : '#FFF'
     },
 })
-
