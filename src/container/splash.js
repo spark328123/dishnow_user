@@ -1,17 +1,38 @@
-import React, {useEffect} from 'react';
-import { View } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { View, Text } from 'react-native';
+import { useDispatch } from 'react-redux';
+import * as API from '../utill/API';
+import {updateLocation} from '../store/modules/maps';
 
 import LinearGradient from 'react-native-linear-gradient';
 
 export default (props) => {
-    const {navigation} = props;
-
+    let latitude;
+    let longitude;
+    const _getPosition = async ()=>{
+        await navigator.geolocation.getCurrentPosition((position)=>{
+            latitude = position.coords.latitude;
+            longitude = position.coords.longitude;
+            dispatch(updateLocation({latitude,longitude}));
+         });    
+    }
+   
+    const { navigation } = props;
+    const dispatch = useDispatch();
+   
+    _getPosition();
     useEffect(()=>{
-        // 토큰 값을 asyncStorage에 저장 하고 async 본 다음에 있으면 자동 로그인, 없으면 그냥 로그인 페이지로 가게끔
-        navigation.navigate('Login');
+        setTimeout(()=>{
+            if(API.getLocal(API.LOCALKEY_TOKEN)!==null){
+                navigation.navigate('Main');
+            
+            }else{
+                navigation.navigate('Login');
+            }
+        },1000)
     }, []);
 
     return (
-        <View></View>
+        <View><Text>hello world!</Text></View>
     );
 }

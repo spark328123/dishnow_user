@@ -2,60 +2,68 @@ import React ,{ useState, useEffect }from "react";
 import MapView, { PROVIDER_GOOGLE, Marker, } from "react-native-maps";
 import { View, Dimensions, StyleSheet, Image, TouchableOpacity, Text } from "react-native";
 import * as Utill from '../utill';
+import { connect, useDispatch } from 'react-redux';
+import { updateLocation } from '../store/modules/maps';
+
 
 const { height, width } = Dimensions.get("window");
 const ASPECT_RATIO = width / height;
 
-export default ({isPressed, toggle, navigation, latitudeDelta}) => {
-    let watchID;
-    let mounted = true;
+const google_url = 'https://maps.googleapis.com/maps/api/geocode/json?latlng=';
+const GOOGLE_API_KEY = 'AIzaSyAFU82_JAporZ8W7FhWdBatmP9Qr-JdOUc';
+
+const GoogleMaps =  ({isPressed, toggle, navigation, latitudeDelta, latitude, longitude}) => {
     const LATITUDE_DELTA = latitudeDelta;
     const LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO;
+    const dispatch = useDispatch();
 
-    const prevRegion = navigation.getParam('region',{
-        latitude :null,
-        longitude : null,
+    const [region,setRegion] = useState({
+        latitude,
+        longitude,
         latitudeDelta : LATITUDE_DELTA,
         longitudeDelta : LONGITUDE_DELTA,
-     });
+    });
 
-    const _getPosition = (event)=>{
-        if(mounted && prevRegion.latitude===null){
-            setRegion({
-                latitude : event.coords.latitude,
-                longitude : event.coords.longitude,
-                latitudeDelta : LATITUDE_DELTA,
-                longitudeDelta : LONGITUDE_DELTA,
-            })
-        }
-     }
-    
-    const [region,setRegion] = useState(prevRegion);
+    const [address, setAddress] = useState('출발지 : 찾는 중...');
 
-    useEffect(() => {
-       navigator.geolocation.getCurrentPosition(_getPosition);
-       //watchId = navigator.geolocation.watchPosition(_getPosition);
-        return () =>{
-        alert(JSON.stringify(prevRegion));
-
-            mounted = false;
-            //navigator.geolocation.clearWatch(watchID);
-        }
-    }, []);
-   
-  const _goBack = ()=>{
-        navigation.setParams({region : region});
+    const _goBack = ()=>{
         navigation.navigate('TabHome');
     }
 
+    const _getAddress = async (lat,lon) =>{
+        const url = `${google_url}${lat},${lon}&key=${GOOGLE_API_KEY}`
+        fetch(url)
+            .then((res)=>{
+                return res.json()
+            })
+            .then((json)=>{
+                let address = JSON.stringify(json.results[0].formatted_address);
+                address = address.substring(5,address.length-1);
+                setAddress(address)
+            })
+    }
+
+    const _updateLocation = ()=>{
+        dispatch(updateLocation({
+            latitude : region.region.latitude,
+            longitude : region.region.longitude,
+            
+        }));
+        _goBack();
+    }
+
     return (
-        region.latitude !== null && (
         <View style = {{flex:1}}>
             <MapView
             provider={PROVIDER_GOOGLE}
             style={{ flex: 1 }}
             initialRegion = {region}
-            onRegionChangeComplete = {region=>{setRegion({region});alert(JSON.stringify(region))}}
+            onRegionChange = {region=>{setRegion({region})}}
+            onRegionChangeComplete = {
+                region=>{
+                    setRegion({region}),
+                    _getAddress(region.latitude,region.longitude)
+                }}
             showsMyLocationButton = {isPressed}
             showsUserLocation
             onPress = {toggle}
@@ -66,8 +74,7 @@ export default ({isPressed, toggle, navigation, latitudeDelta}) => {
             {isPressed? (
                 <View style = {styles.backFixed}>
                     <TouchableOpacity
-                        onPressIn = {()=>{navigation.navigate('TabHome')}}
-                    >
+                        onPressIn = {_goBack}>
                         <Image source = {require('../assets/icon_squareBracket.png')} />
                     </TouchableOpacity>
                 </View>
@@ -75,15 +82,15 @@ export default ({isPressed, toggle, navigation, latitudeDelta}) => {
             }
             <View style={styles.markerFixed}>
                 <Image style = {styles.marker} source = {
-                    require('../assets/f_logo.png')
+                    require('../assets/icon_departure.png')
                 }></Image>
             </View>
             <View style = {styles.address}>
-                <Text style ={{fontSize:15,padding:10}}>출발지 : 찾는 중 ...</Text>
+                <Text style ={{fontSize:15,padding:10}}>{address}</Text>
             </View>
             {isPressed? (
                 <TouchableOpacity
-                onPress = {_goBack}>
+                onPress = {_updateLocation}>
             <View style = {styles.departure}>
                 <Text style = {styles.departureText}>
                     출발지로 설정
@@ -92,10 +99,17 @@ export default ({isPressed, toggle, navigation, latitudeDelta}) => {
             </TouchableOpacity>
             ): null}
         </View>
-        
-        )
     );
 }
+
+const mapStateToProps= (state)=>{
+    return {
+        latitude : state.Maps._root.entries[0][1].latitude,
+        longitude : state.Maps._root.entries[0][1].longitude,
+    }
+}
+
+export default connect(mapStateToProps)(GoogleMaps);
 
 const styles = StyleSheet.create({
     markerFixed: {

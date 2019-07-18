@@ -1,9 +1,9 @@
-import { createStackNavigator } from 'react-navigation';
+import { createSwitchNavigator } from 'react-navigation';
 import { Animated, Easing } from 'react-native';
 
 import TabHome from '../container/tabHome'
 import Departure from '../container/stackDeparture'
-const HomeStack = createStackNavigator(
+const HomeStack = createSwitchNavigator(
     {
         TabHome : { screen : TabHome },
         Departure : {screen : Departure, }
