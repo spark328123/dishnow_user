@@ -1,7 +1,6 @@
 import React from "react";
 import {
   StyleSheet,
-  //StatusBar,
   TouchableOpacity,
   Image
 } 
@@ -56,15 +55,11 @@ const KakaoLogin = ({navigation}) =>{
   }
     return (
       <TouchableOpacity
-        onPress={() => {
-          this.kakaoLogin();
-        }}
+        onPress={kakaoLogin}
       >
         <Image
-          onPress={() => this.kakaoLogin()}
           activeOpacity={0.5}
           style={styles.btnKakaoLogin}
-          textStyle={styles.txtNaverLogin}
           source={require("../assets/kakaolink_btn_medium.png")}
         />
       </TouchableOpacity>
@@ -81,13 +76,6 @@ const styles = StyleSheet.create({
     borderWidth: 0,
     marginBottom: 50
   },
-  txtNaverLogin: {
-    fontSize: 16,
-    color: "#3d3d3d",
-    borderRadius: 0,
-    borderWidth: 0,
-    marginBottom: 50
-  }
 });
 
 export default KakaoLogin;

@@ -1,7 +1,5 @@
 import React from "react";
 import LinearGradient from "react-native-linear-gradient";
-import { LoginButton, AccessToken } from "react-native-fbsdk";
-
 import {
   StyleSheet,
   Text,
@@ -9,7 +7,9 @@ import {
   TouchableOpacity,
   Image,
 } from "react-native";
-import Loginkakao from '../utill/kakaologin';
+import KaKaoLogin from '../utill/kakaologin';
+import FaceBookLogin from '../utill/facebooklogin';
+import NaverLogin from '../utill/naverlogin'
 
 const Login = (props) => {
     const { navigation } = props;
@@ -27,46 +27,13 @@ const Login = (props) => {
               source={require("../assets/DISHNOW_LOGO_white.png")}
             />
           </View>
-          <View style={styles.loginContainer} />
           <View style={styles.snsLoginContainer}>
             <Text style={styles.snsText}>SNS 로그인!</Text>
             <View style={styles.snsButtonContainer}>
-              <Loginkakao navigation = {navigation}/>
-              <TouchableOpacity>
-                <Image
-                  onPress={() => {
-                    this.kakaoLogin();
-                  }}
-                  activeOpacity={0.5}
-                  style={styles.btnKakaoLogin}
-                  textStyle={styles.txtNaverLogin}
-                  source={require("../assets/naver_btn_medium.png")}
-                />
-              </TouchableOpacity>
-              <View>
-                <LoginButton
-                  onLoginFinished={(error, result) => {
-                    if (error) {
-                      console.log("login has error: " + result.error);
-                    } else if (result.isCancelled) {
-                      console.log("login is cancelled.");
-                    } else {
-                      AccessToken.getCurrentAccessToken().then(data => {
-                        console.log(data.accessToken.toString());
-                      });
-                    }
-                  }}
-                  alignSelf="center"
-                />
-              </View>
+                <KaKaoLogin navigation = { navigation }/>
+                <FaceBookLogin navigation = { navigation } />
+                <NaverLogin navigation = { navigation } />
             </View>
-          </View>
-          <View style={styles.newAccount}>
-            <TouchableOpacity>
-              <View style={styles.newAccountTextContainer}>
-                <Text style={styles.newAccountText}>새로운 계정 만들기</Text>
-              </View>
-            </TouchableOpacity>
           </View>
         </LinearGradient>
       </View>
@@ -83,24 +50,6 @@ const styles = StyleSheet.create({
     //paddingTop: Platform.OS === 'ios' ? 24 : 0,
     backgroundColor: "white"
   },
-  header: {
-    flex: 8.8,
-    flexDirection: "row",
-    alignSelf: "stretch",
-    justifyContent: "center",
-    alignItems: "center"
-  },
-  content: {
-    flex: 87.5,
-    flexDirection: "column",
-    justifyContent: "center",
-    alignSelf: "stretch",
-    alignItems: "center"
-  },
-  title: {
-    fontSize: 24,
-    fontWeight: "bold"
-  },
   btnKakaoLogin: {
     height: 50,
     width: 50,
@@ -110,12 +59,6 @@ const styles = StyleSheet.create({
     borderWidth: 0
   },
 
-  txtNaverLogin: {
-    fontSize: 16,
-    color: "#3d3d3d",
-    borderRadius: 0,
-    borderWidth: 0
-  },
   linearGradient: {
     flex: 1
   },
