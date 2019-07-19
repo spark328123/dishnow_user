@@ -5,7 +5,6 @@ import * as Utill from '../utill';
 import { connect, useDispatch } from 'react-redux';
 import { updateLocation } from '../store/modules/maps';
 
-
 const { height, width } = Dimensions.get("window");
 const ASPECT_RATIO = width / height;
 
@@ -15,6 +14,7 @@ const GOOGLE_API_KEY = 'AIzaSyAFU82_JAporZ8W7FhWdBatmP9Qr-JdOUc';
 const GoogleMaps =  ({isPressed, toggle, navigation, latitudeDelta, latitude, longitude}) => {
     const LATITUDE_DELTA = latitudeDelta;
     const LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO;
+
     const dispatch = useDispatch();
 
     const [region,setRegion] = useState({
@@ -38,7 +38,7 @@ const GoogleMaps =  ({isPressed, toggle, navigation, latitudeDelta, latitude, lo
             })
             .then((json)=>{
                 let address = JSON.stringify(json.results[0].formatted_address);
-                address = address.substring(5,address.length-1);
+                address = address.substring(5,address.length-1);    //"대한민국"
                 setAddress(address)
             })
     }
