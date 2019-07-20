@@ -1,8 +1,26 @@
 import React from 'react';
 import {StyleSheet, Image, TouchableOpacity} from 'react-native';
-const NaverLogin = () =>{
+
+import { NaverLogin, getProfile } from 'react-native-naver-login';
+
+const initials = {
+    kConsumerKey: 'ySQNgtddjDom1KTllxOM',
+    kConsumerSecret: 'sOHeAXkGAf',
+    kServiceAppName: '디쉬나우',
+    kServiceAppUrlScheme: 'naverlogin', // only for iOS
+};
+
+const naverLogin = () => {
+    NaverLogin.login(initials,(err,token)=>{
+        console.log(token);
+    });
+  };
+
+export default() =>{
     return (
-        <TouchableOpacity>
+        <TouchableOpacity
+        style = {styles.btnNaverLogin}
+        onPressIn = {naverLogin} >
         <Image
           activeOpacity={0.5}
           style={styles.btnKakaoLogin}
@@ -14,7 +32,7 @@ const NaverLogin = () =>{
 
 
 const styles = StyleSheet.create({
-    btnKakaoLogin: {
+    btnNaverLogin: {
         height: 50,
         width: 50,
         alignSelf: "center",
@@ -23,6 +41,3 @@ const styles = StyleSheet.create({
         borderWidth: 0
       },
   });
-
-
-export default NaverLogin;
