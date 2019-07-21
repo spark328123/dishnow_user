@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text } from 'react-native';
+import { View, Text, StyleSheet } from 'react-native';
 import { useDispatch } from 'react-redux';
 import * as API from '../utill/API';
 import {updateLocation} from '../store/modules/maps';
@@ -23,8 +23,8 @@ export default (props) => {
     _getPosition();
     useEffect(()=>{
         setTimeout(()=>{
-            if(API.getLocal(API.LOCALKEY_TOKEN)!==null){
-                navigation.navigate('Main');
+            if(API.getLocal(API.LOCALKEY_TOKEN)===null){
+                navigation.navigate('Main'); 
             
             }else{
                 navigation.navigate('Login');
@@ -33,6 +33,16 @@ export default (props) => {
     }, []);
 
     return (
-        <View><Text>hello world!</Text></View>
+        <View style = {styles.container}>
+            <Text style = {{fontSize : 30}}>디쉬나우 </Text>
+            </View>
     );
 }
+
+const styles = StyleSheet.create({
+    container : {
+        flex : 1,
+        justifyContent : 'center',
+        alignItems : 'center',
+    }
+})

@@ -72,4 +72,11 @@ export const me = (token) => {
     .catch(error => ({error}));   
 }
 
+export const phoneAuth = (phone) => {
+    const url = `${apiUrl}user/phoneAuth`;
+    return fetch.getServer(url, phone)
+    .then(res=> res.json())
+    .catch(error => ({error}));  
+}
+
 

@@ -1,7 +1,7 @@
 import {createSwitchNavigator, createAppContainer} from 'react-navigation';
 
 import Splash from '../container/splash';
-import Login from '../container/login'
+import Login from './loginstack'
 import Main from './mainTab'
 
 const rootNav = createSwitchNavigator(

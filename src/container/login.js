@@ -28,7 +28,7 @@ const Login = (props) => {
             />
           </View>
           <View style={styles.snsLoginContainer}>
-            <Text style={styles.snsText}>SNS 로그인!</Text>
+            <Text style={styles.snsText}>SNS 로그인</Text>
             <View style={styles.snsButtonContainer}>
                 <KaKaoLogin navigation = { navigation }/>
                 <FaceBookLogin navigation = { navigation } />

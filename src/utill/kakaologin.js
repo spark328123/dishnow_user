@@ -1,8 +1,8 @@
-import React from "react";
+import React , {useState} from "react";
 import {
   StyleSheet,
   TouchableOpacity,
-  Image
+  Image,
 } 
 from "react-native";
 import RNKakaoLogins from 'react-native-kakao-logins';
@@ -22,12 +22,12 @@ const KakaoLogin = ({navigation}) =>{
    kakaoLogin =  () => {
     console.log("   kakaoLogin   ");
     RNKakaoLogins.login((err, result) => {
-      if (err) {
-        return;
-      }
      login(result.token)
       .then(res=>{if(res){
-        navigation.navigate('Main');
+        navigation.push('Register',{
+            type,
+            token : result.token,
+        });
       }}
       )
     });
@@ -56,6 +56,7 @@ const KakaoLogin = ({navigation}) =>{
     return (
       <TouchableOpacity
         onPress={kakaoLogin}
+        style={styles.btnKakaoLogin}
       >
         <Image
           activeOpacity={0.5}

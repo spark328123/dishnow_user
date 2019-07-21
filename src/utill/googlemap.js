@@ -45,11 +45,10 @@ const GoogleMaps =  ({isPressed, toggle, navigation, latitudeDelta, latitude, lo
 
     const _updateLocation = ()=>{
         dispatch(updateLocation({
-            latitude : region.region.latitude,
-            longitude : region.region.longitude,
-            
+            latitude : region.region.latitude,      
+            longitude : region.region.longitude,  
         }));
-        _goBack();
+        _goBack(); 
     }
 
     return (
@@ -61,11 +60,11 @@ const GoogleMaps =  ({isPressed, toggle, navigation, latitudeDelta, latitude, lo
             onRegionChange = {region=>{setRegion({region})}}
             onRegionChangeComplete = {
                 region=>{
-                    setRegion({region}),
-                    _getAddress(region.latitude,region.longitude)
+                    setRegion({region})
+                    //_getAddress(region.latitude,region.longitude)
                 }}
             showsMyLocationButton = {isPressed}
-            showsUserLocation
+            showsUserLocation = {isPressed}
             onPress = {toggle}
             scrollEnabled = {isPressed}
             zoomEnabled = {isPressed}
@@ -102,7 +101,8 @@ const GoogleMaps =  ({isPressed, toggle, navigation, latitudeDelta, latitude, lo
     );
 }
 
-const mapStateToProps= (state)=>{
+const mapStateToProps = (state)=>{
+    console.log(state);
     return {
         latitude : state.Maps._root.entries[0][1].latitude,
         longitude : state.Maps._root.entries[0][1].longitude,

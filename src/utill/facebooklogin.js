@@ -20,7 +20,8 @@ const facebooklogin = () =>{
 const FaceBookLogin = () =>{
     return (
         <TouchableOpacity
-            onPress = {facebooklogin}
+            style = {styles.btnFaceBookLogin}
+            onPressIn = {facebooklogin}
         >
             <Image
                 style = {styles.btnFaceBookLogin}
