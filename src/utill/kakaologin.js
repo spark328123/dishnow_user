@@ -24,7 +24,7 @@ const KakaoLogin = ({navigation}) =>{
     RNKakaoLogins.login((err, result) => {
      login(result.token)
       .then(res=>{if(res){
-        navigation.navigate('Register',{
+        navigation.push('Register',{
             type,
             token : result.token,
         });

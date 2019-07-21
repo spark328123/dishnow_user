@@ -19,17 +19,14 @@ const naverLogin = () => {
 export default() =>{
     return (
         <TouchableOpacity
-        style = {styles.btnNaverLogin}
-        onPressIn = {naverLogin} >
-        <Image
-          activeOpacity={0.5}
-          style={styles.btnKakaoLogin}
-          source={require("../assets/naver_btn_medium.png")}
-        />
+            style = {styles.btnNaverLogin}
+            onPressIn = {naverLogin} >
+            <Image
+                style={styles.btnNaverLogin}
+                source={require("../assets/naver_btn_medium.png")} />
       </TouchableOpacity>
     )
 }
-
 
 const styles = StyleSheet.create({
     btnNaverLogin: {
@@ -37,7 +34,5 @@ const styles = StyleSheet.create({
         width: 50,
         alignSelf: "center",
         backgroundColor: "#F8E71C",
-        borderRadius: 0,
-        borderWidth: 0
       },
   });

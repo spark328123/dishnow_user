@@ -3,7 +3,7 @@ import { View, Text, StyleSheet, } from 'react-native';
 
 import * as API from '../utill/API';
 
-export default (props) =>{
+const Register = (props) =>{
 
     const _phoneAuth = async() =>{
         const phoneRes =  await API.phoneAuth({phone : '01083278936'});
@@ -11,7 +11,7 @@ export default (props) =>{
     }
     console.log(props)
     console.log(props.navigation.getParam('type'),props.navigation.getParam('token'));
-    props.navigation.navigate('Main');
+    //props.navigation.navigate('Main');
     
     return (
         <View>
@@ -19,3 +19,6 @@ export default (props) =>{
         </View>
     )
 }
+
+export default Register;
+
