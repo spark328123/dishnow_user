@@ -12,11 +12,25 @@ const initials = {
     kServiceAppUrlScheme: 'naverlogin', // only for iOS
 };
 
+const login = async (token) => {
+    const loginRes = await API.login({token,type});
+    await API.setLocal(API.LOCALKEY_TOKEN, loginRes.token);
+    if(loginRes.error) {return false;}
+    return true;
+}
+
 const naverLogin = (navigation) => {
     NaverLogin.login(initials,(err,token)=>{
-        navigation.push('Register',{
-            token,
-            type
+        login(token)
+        .then(res=>{
+            if(!res){
+                navigation.push('Terms',{
+                    token,
+                    type
+                })
+            }else{
+                navigation.navigate('Main');
+            }
         })
         console.log(token);
     });

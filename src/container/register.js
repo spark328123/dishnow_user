@@ -11,6 +11,8 @@ const Register = (props) => {
     const [birthDate, setBirth] = useState('');
     const [phoneRes, setPhoneRes] = useState('');
 
+    const {navigation} = props;
+
     const _phoneAuth = async() =>{
         console.log(phone.text);
         const phoneRes = await API.phoneAuth({phone:phone.text});
@@ -20,19 +22,28 @@ const Register = (props) => {
 
     const _register = async() =>{
         console.log(name.text);
-            const regRes = await API.register({
-                token, 
-                type,
-                sex,
-                birthDate : birthDate.text,
-                phone : phone.text,
-                name : name.text,
-            })
-            const token = props.navigation.getParam('token');
-            const type = props.navigation.getParam('type');
-            await API.login({token,type});
-            console.log(regRes);
-            alert('회원가입이 완료되었습니다.');
+        let token = navigation.getParam('token');
+        const type = navigation.getParam('type');
+        
+        const regRes = await API.register({
+            token, 
+            type,
+            sex,
+            birthDate : birthDate.text,
+            phone : phone.text,
+            name : name.text,
+        })
+        if(!regRes){
+            alert('정보를 확인해주세요');
+            return;
+        }
+        const loginRes = await API.login({token,type});
+        API.setLocal(API.LOCALKEY_TOKEN,loginRes.token);
+        
+        alert('회원가입이 완료되었습니다.');
+        navigation.navigate('Welcome',{
+            name : name.text
+        });
     }    
 
     return (
@@ -51,14 +62,14 @@ const Register = (props) => {
                 selectionColor = '#733FFF'
                 placeholder ={'이름을 입력하세요'}
                 onChangeText={(text) => setName({text})}
-                value={name} />
+                />
             <Text style = {styles.textTitle}>휴대폰번호</Text>
             <TextInput 
                 style = {styles.textInput}
                 selectionColor = '#733FFF'
                 placeholder ={'휴대폰 번호를 ‘-‘ 없이 입력하세요.'}
                 onChangeText={(text) => setPhone({text})}
-                value={phone} /> 
+               /> 
             <Button title='인증번호 전송'
                 onPress = {_phoneAuth} />
             <Text style = {styles.textTitle}>인증번호</Text>
@@ -67,7 +78,7 @@ const Register = (props) => {
                 selectionColor = '#733FFF'
                 placeholder ={'인증번호를 입력하세요.'} 
                 onChangeText={(text) => setVerifyNum({text})}
-                value={verifyNum} /> 
+                 /> 
             <Text style ={{fontSize : 16,fontWeight : 'bold',marginBottom : 18}}>추가 정보</Text>
             <Text style = {styles.textTitle}>성별</Text>
             <TextInput 
@@ -75,14 +86,14 @@ const Register = (props) => {
                 selectionColor = '#733FFF'
                 placeholder ={'남자,여자'} 
                 ChangeText={(text) => setSex({text})}
-                value={sex} />
+                 />
             <Text style = {styles.textTitle}>생년월일</Text>
             <TextInput 
                 style = {styles.textInput}
                 selectionColor = '#733FFF'
                 placeholder ={'생년월일을 입력하세요. ex)19901231'} 
                 onChangeText={(text) => setBirth({text})}
-                value={birthDate} /> 
+                 /> 
            <Button
            onPress = {_register} 
            title='회원가입' />
@@ -108,5 +119,4 @@ const styles = StyleSheet.create({
         borderBottomWidth: 1,
         borderBottomColor: 'gray',
     }
-
 })
