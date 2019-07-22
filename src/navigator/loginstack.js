@@ -9,15 +9,15 @@ import Left from '../component/leftButton';
 
 const LoginStack = createStackNavigator(
     {
-        Login : { screen : Login },
-        Terms : { screen : Terms },
-        Register : { screen : Register },
-        Welcome : { screen : Welcome }
+        Login: { screen: Login },
+        Terms: { screen: Terms },
+        Register: { screen: Register },
+        Welcome: { screen: Welcome },
     },
     {
-        initialRouteName : 'Login',
-        headerMode : 'none',
-      
+        initialRouteName: 'Login',
+        headerMode: 'none',
+
     }
 )
 

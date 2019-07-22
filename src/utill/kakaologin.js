@@ -1,35 +1,37 @@
-import React , {useState} from "react";
+import React, { useState } from "react";
 import {
   StyleSheet,
   TouchableOpacity,
   Image,
-} 
-from "react-native";
+}
+  from "react-native";
 import RNKakaoLogins from 'react-native-kakao-logins';
 
 import * as API from './API'
 
 const type = 'kakao'
 
-const KakaoLogin = ({navigation}) =>{
-    const login = async (token) => {
-        const loginRes = await API.login({token,type});
-        await API.setLocal(API.LOCALKEY_TOKEN, loginRes.token);
-        if(loginRes.error) {return false;}
-        return true;
-    }
+const KakaoLogin = ({ navigation }) => {
+  const login = async (token) => {
+    const loginRes = await API.login({ token, type });
+    await API.setLocal(API.LOCALKEY_TOKEN, loginRes.token);
+    if (loginRes.error) { return false; }
+    return true;
+  }
   // 카카오 로그인 시작.
-   kakaoLogin =  () => {
+  kakaoLogin = () => {
     console.log("   kakaoLogin   ");
     RNKakaoLogins.login((err, result) => {
-     login(result.token)
-      .then(res=>{if(res){
-        navigation.push('Register',{
-            type,
-            token : result.token,
-        });
-      }}
-      )
+      login(result.token)
+        .then(res => {
+          if (res) {
+            navigation.push('Terms', {
+              type,
+              token: result.token,
+            });
+          }
+        }
+        )
     });
   }
   kakaoLogout = () => {
@@ -43,7 +45,7 @@ const KakaoLogin = ({navigation}) =>{
     });
   }
   // 로그인 후 내 프로필 가져오기.
-   getProfile = () => {
+  getProfile = () => {
     console.log("getKakaoProfile");
     RNKakaoLogins.getProfile((err, result) => {
       if (err) {
@@ -53,19 +55,19 @@ const KakaoLogin = ({navigation}) =>{
       console.log("result", result);
     });
   }
-    return (
-      <TouchableOpacity
-        onPress={kakaoLogin}
+  return (
+    <TouchableOpacity
+      onPress={kakaoLogin}
+      style={styles.btnKakaoLogin}
+    >
+      <Image
+        activeOpacity={0.5}
         style={styles.btnKakaoLogin}
-      >
-        <Image
-          activeOpacity={0.5}
-          style={styles.btnKakaoLogin}
-          source={require("../assets/kakaolink_btn_medium.png")}
-        />
-      </TouchableOpacity>
-    );
-  }
+        source={require("../assets/kakaolink_btn_medium.png")}
+      />
+    </TouchableOpacity>
+  );
+}
 
 const styles = StyleSheet.create({
   btnKakaoLogin: {

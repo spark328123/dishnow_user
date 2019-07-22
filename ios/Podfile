@@ -42,6 +42,8 @@ target 'react_dishnow_user' do
 
     pod 'RNCAsyncStorage', :path => '../node_modules/@react-native-community/async-storage'
 
+    pod 'react-native-fbsdk', :path => '../node_modules/react-native-fbsdk'
+
   end
   
   post_install do |installer|

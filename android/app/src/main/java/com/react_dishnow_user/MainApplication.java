@@ -5,11 +5,12 @@ import android.app.Application;
 import com.facebook.CallbackManager;
 import com.facebook.react.ReactApplication;
 import com.dooboolab.naverlogin.RNNaverLoginPackage;
+import com.facebook.reactnative.androidsdk.FBSDKPackage;
 import com.reactnativecommunity.asyncstorage.AsyncStoragePackage;
 import com.swmansion.gesturehandler.react.RNGestureHandlerPackage;
 import com.airbnb.android.react.maps.MapsPackage;
 import com.dooboolab.kakaologins.RNKakaoLoginsPackage;
-import com.facebook.reactnative.androidsdk.FBSDKPackage;
+
 import com.BV.LinearGradient.LinearGradientPackage;
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
