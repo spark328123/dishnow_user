@@ -16,31 +16,32 @@ export default (props) => {
             dispatch(updateLocation({latitude,longitude}));
          });    
     }
+
+    const _me = async() =>{
+        const token = await API.getLocal(API.LOCALKEY_TOKEN);
+        console.log(token);
+        const meRes = await API.me(token);
+        console.log(meRes);
+        if(token!==null){
+            navigation.navigate('Main'); 
+        }else{
+            navigation.navigate('Login');
+        }
+    }
    
     const { navigation } = props;
     const dispatch = useDispatch();
-
-    const _me = async () =>{
-        const meRes = await API.me({token :'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiO…k1Mn0.wsrNK4PqMWrDGbwH71lnFIMpgabl5J66p1zVeCf6eWI'});
-        console.log(meRes);
-    }
    
     _getPosition();
     useEffect(()=>{
-        _me();
         setTimeout(()=>{
-            if(API.getLocal(API.LOCALKEY_TOKEN)===null){
-                navigation.navigate('Main'); 
-            
-            }else{
-                navigation.navigate('Login');
-            }
+            _me();
         },1000)
     }, []);
 
     return (
         <View style = {styles.container}>
-            <Text style = {{fontSize : 30}}>디쉬나우 </Text>
+            <Text style = {{fontSize : 30}}> 디쉬나우 스플래시 </Text>
             </View>
     );
 }

@@ -9,29 +9,32 @@ const Register = (props) => {
     const [verifyNum, setVerifyNum] = useState('');
     const [sex, setSex] = useState('male');
     const [birthDate, setBirth] = useState('');
+    const [phoneRes, setPhoneRes] = useState('');
 
     const _phoneAuth = async() =>{
         console.log(phone.text);
-        const phoneRes =  await API.phoneAuth({phone:phone.text});
-        alert('인증번호가 잔송되었습니다.');
-        console.log(phoneRes);
+        const phoneRes = await API.phoneAuth({phone:phone.text});
+        alert('인증번호가 전송되었습니다.');
+        setPhoneRes(phoneRes);
     }
 
     const _register = async() =>{
-        const regRes = await API.register({
-            token : props.navigation.getParam('token'),
-            type : props.navigation.getParam('type'),
-            sex,
-            birthDate,
-            phone,
-            name,
-        })
-        console.log(regRes);
-    }
+        console.log(name.text);
+            const regRes = await API.register({
+                token, 
+                type,
+                sex,
+                birthDate : birthDate.text,
+                phone : phone.text,
+                name : name.text,
+            })
+            const token = props.navigation.getParam('token');
+            const type = props.navigation.getParam('type');
+            await API.login({token,type});
+            console.log(regRes);
+            alert('회원가입이 완료되었습니다.');
+    }    
 
-    //console.log(props)
-    //props.navigation.navigate('Main');
-    
     return (
         <ScrollView
             pagingEnabled
@@ -70,7 +73,9 @@ const Register = (props) => {
             <TextInput 
                 style = {styles.textInput}
                 selectionColor = '#733FFF'
-                placeholder ={'남자,여자'} />
+                placeholder ={'남자,여자'} 
+                ChangeText={(text) => setSex({text})}
+                value={sex} />
             <Text style = {styles.textTitle}>생년월일</Text>
             <TextInput 
                 style = {styles.textInput}

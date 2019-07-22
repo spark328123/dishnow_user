@@ -6,13 +6,29 @@ import {
 } 
 from "react-native";
 import { AccessToken, LoginManager } from "react-native-fbsdk";
+import * as API from '../utill/API';
 
+const type = 'facebook';
+
+const login = async (token) => {
+    const loginRes = await API.login({token,type});
+    await API.setLocal(API.LOCALKEY_TOKEN, loginRes.token);
+    if(loginRes.error) {return false;}
+    return true;
+}
 
 const facebooklogin = () =>{
     LoginManager.logInWithPermissions(['public_profile', 'email'])
     .then(result=>{
         AccessToken.getCurrentAccessToken().then(data => {
-            console.log(data.accessToken.toString());
+           login(data.accessToken.toString())
+          .then(res=>{
+              if(!res){
+
+              }else{
+                  
+              }
+          })
         })
     })
 }
