@@ -24,9 +24,12 @@ const facebooklogin = () =>{
            login(data.accessToken.toString())
           .then(res=>{
               if(!res){
-
+                navigation.push('Terms',{
+                    type,
+                    token : result.token,
+                })
               }else{
-                  
+                navigation.navigate('Main');                  
               }
           })
         })
