@@ -16,20 +16,25 @@ const KakaoLogin = ({navigation}) =>{
         const loginRes = await API.login({token,type});
         await API.setLocal(API.LOCALKEY_TOKEN, loginRes.token);
         if(loginRes.error) {return false;}
-        const meRes = await API.me({token:loginRes.token});
-        console.log(meRes);
         return true;
     }
-  // 카카오 로그인 시작.
+
    kakaoLogin = () => {
     console.log("   kakaoLogin   ");
     RNKakaoLogins.login((err, result) => {
+        if(err){
+            console.log('카카오 인증 문제');
+            return;
+        }
      login(result.token)
-      .then(res=>{if(res){
-        navigation.push('Register',{
-            type,
-            token : result.token,
-        });
+      .then(res=>{
+          if(!res){
+            navigation.push('Register',{
+                type,
+                token : result.token,
+            });
+        }else{
+            navigation.navigate('Main');
       }}
       )
     });
