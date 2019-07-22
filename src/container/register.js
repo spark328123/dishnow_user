@@ -11,7 +11,7 @@ const Register = (props) => {
     const [birthDate, setBirth] = useState('');
     const [phoneRes, setPhoneRes] = useState('');
 
-    const {navigation} = props;
+    const { navigation } = props;
 
     const _phoneAuth = async() =>{
         console.log(phone.text);

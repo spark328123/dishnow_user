@@ -1,19 +1,42 @@
-import React, {useState,useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, StyleSheet, Animated, Text } from 'react-native';
 import GoogleMap from '../utill/googlemap.js';
-import { NavigationActions } from 'react-navigation'
+import { useDispatch } from 'react-redux';
+import * as API from '../utill/API';
+import * as User from '../store/modules/user'
 
 const TabHome = (props)=>{
-    const {navigation} = props;
+    const dispatch = useDispatch();
+    const _me = async() => {
+        const token = await API.getLocal(API.LOCALKEY_TOKEN);
+        const meRes = await API.me(token);
+        const userid = meRes.userId;
+        const point = meRes.point;
+        const name = meRes.name;
+        const phone = meRes.phone;
+        const image = meRes.image;
+        const reviewcount = meRes.reviewcount;
+        dispatch(User.updateuserid(userid));
+        dispatch(User.updatepoint(point));
+        dispatch(User.upadtename(name));
+        dispatch(User.updatephone(phone));
+        dispatch(User.updateimage(image));
+        dispatch(User.updatereviewcount(reviewcount));
+    }
+    const { navigation } = props;
+
+    useEffect(()=>{
+        _me();
+    },[]);
    
     return(
         <View style = {styles.container}>
             <GoogleMap
-               isPressed = {false}
-               navigation = {navigation}   
-               latitudeDelta = {0.0065}
+               isPressed = { false }
+               navigation = { navigation }   
+               latitudeDelta = {0.0025}
                style = {styles.map}
-               toggle  = {()=>{navigation.navigate('Departure')}}
+               toggle  = {()=>{ navigation.navigate('Departure') }}
             ></GoogleMap>
             <View style = {styles.input}>
                 <Text>테마</Text>
@@ -26,8 +49,6 @@ const TabHome = (props)=>{
     )
 }
 
-
-
 export default TabHome;
 
 const styles = StyleSheet.create({
@@ -37,7 +58,6 @@ const styles = StyleSheet.create({
     map : {
         flex : 1
     },
-  
     input : {
         flex : 1,
         alignItems : 'center',

@@ -3,7 +3,7 @@ import modules from './modules';
 
 const configure = () =>{
     const store = createStore(
-        modules,
+        modules
     );
     return store;
 }
