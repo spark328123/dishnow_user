@@ -19,9 +19,15 @@ export default (props) => {
    
     const { navigation } = props;
     const dispatch = useDispatch();
+
+    const _me = async () =>{
+        const meRes = await API.me({token :'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiO…k1Mn0.wsrNK4PqMWrDGbwH71lnFIMpgabl5J66p1zVeCf6eWI'});
+        console.log(meRes);
+    }
    
     _getPosition();
     useEffect(()=>{
+        _me();
         setTimeout(()=>{
             if(API.getLocal(API.LOCALKEY_TOKEN)===null){
                 navigation.navigate('Main'); 

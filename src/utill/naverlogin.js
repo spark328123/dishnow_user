@@ -3,6 +3,8 @@ import {StyleSheet, Image, TouchableOpacity} from 'react-native';
 
 import { NaverLogin, getProfile } from 'react-native-naver-login';
 
+const type = 'naver';
+
 const initials = {
     kConsumerKey: 'ySQNgtddjDom1KTllxOM',
     kConsumerSecret: 'sOHeAXkGAf',
@@ -10,17 +12,21 @@ const initials = {
     kServiceAppUrlScheme: 'naverlogin', // only for iOS
 };
 
-const naverLogin = () => {
+const naverLogin = (navigation) => {
     NaverLogin.login(initials,(err,token)=>{
+        navigation.push('Register',{
+            token,
+            type
+        })
         console.log(token);
     });
   };
 
-export default() =>{
+export default({navigation}) =>{
     return (
         <TouchableOpacity
             style = {styles.btnNaverLogin}
-            onPressIn = {naverLogin} >
+            onPressIn = {()=>{naverLogin(navigation)}} >
             <Image
                 style={styles.btnNaverLogin}
                 source={require("../assets/naver_btn_medium.png")} />

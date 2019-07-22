@@ -16,10 +16,12 @@ const KakaoLogin = ({navigation}) =>{
         const loginRes = await API.login({token,type});
         await API.setLocal(API.LOCALKEY_TOKEN, loginRes.token);
         if(loginRes.error) {return false;}
+        const meRes = await API.me({token:loginRes.token});
+        console.log(meRes);
         return true;
     }
   // 카카오 로그인 시작.
-   kakaoLogin =  () => {
+   kakaoLogin = () => {
     console.log("   kakaoLogin   ");
     RNKakaoLogins.login((err, result) => {
      login(result.token)
