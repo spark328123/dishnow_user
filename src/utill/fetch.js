@@ -25,7 +25,6 @@ const urlEncoder = (url, data) => {
 }
 
 
-
 export const getServer = async (url, data = null) => {
 
     try{
