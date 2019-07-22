@@ -1,5 +1,6 @@
 import React from "react";
 import LinearGradient from "react-native-linear-gradient";
+import Toast, { DURATION } from 'react-native-easy-toast';
 import {
   StyleSheet,
   Text,
@@ -12,32 +13,35 @@ import FaceBookLogin from '../utill/facebooklogin';
 import NaverLogin from '../utill/naverlogin'
 
 const Login = (props) => {
-    const { navigation } = props;
-    return (
-      <View style={styles.container}>
-        <LinearGradient
-          style={styles.linearGradient}
-          colors={["#733FFF", "#8C31CB"]}
-          start={{ x: 0, y: 0 }}
-          end={{ x: 0, y: 1 }}
-        >
-          <View style={styles.logo}>
-            <Image
-              style={styles.dishnowLogo}
-              source={require("../assets/DISHNOW_LOGO_white.png")}
-            />
+  const { navigation } = props;
+  return (
+    <View style={styles.container}>
+      <LinearGradient
+        style={styles.linearGradient}
+        colors={["#733FFF", "#8C31CB"]}
+        start={{ x: 0, y: 0 }}
+        end={{ x: 0, y: 1 }}
+      >
+        <View style={styles.logo}>
+          <Image
+            style={styles.dishnowLogo}
+            source={require("../assets/DISHNOW_LOGO_white.png")}
+          />
+        </View>
+        <View style={styles.snsLoginContainer}>
+          <Text style={styles.snsText}>SNS 로그인</Text>
+          <View style={styles.snsButtonContainer}>
+            <KaKaoLogin navigation={navigation} />
+            <FaceBookLogin navigation={navigation} />
+            <NaverLogin navigation={navigation} />
           </View>
-          <View style={styles.snsLoginContainer}>
-            <Text style={styles.snsText}>SNS 로그인</Text>
-            <View style={styles.snsButtonContainer}>
-                <KaKaoLogin navigation = { navigation }/>
-                <FaceBookLogin navigation = { navigation } />
-                <NaverLogin navigation = { navigation } />
-            </View>
-          </View>
-        </LinearGradient>
-      </View>
-    );
+          <Text
+            style={styles.snsText}
+          >새로운 계정 만들기</Text>
+        </View>
+      </LinearGradient>
+    </View>
+  );
 }
 
 export default Login;

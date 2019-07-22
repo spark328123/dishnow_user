@@ -1,7 +1,7 @@
 import { createStore } from 'redux';
 import modules from './modules';
 
-const configure = () =>{
+const configure = () => {
     const store = createStore(
         modules
     );
