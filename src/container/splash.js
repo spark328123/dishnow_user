@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { useDispatch } from 'react-redux';
 import * as API from '../utill/API';
-import {updateLocation} from '../store/modules/maps';
+import { updateLocation } from '../store/modules/maps';
 
 export default (props) => {
     let latitude;
@@ -18,8 +18,6 @@ export default (props) => {
     const _me = async () => {
         let token = await API.getLocal(API.LOCALKEY_TOKEN);
         const meRes = await API.me(token);
-        console.log(meRes);
-        token = null;
         if (token !== null) {
             navigation.navigate('Main');
         } else {

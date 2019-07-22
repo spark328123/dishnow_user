@@ -1,4 +1,4 @@
-import React ,{ useState, useEffect }from "react";
+import React ,{ useState, useEffect, useStore }from "react";
 import MapView, { PROVIDER_GOOGLE, Marker, } from "react-native-maps";
 import { View, Dimensions, StyleSheet, Image, TouchableOpacity, Text } from "react-native";
 import * as Utill from '../utill';
@@ -61,7 +61,7 @@ const GoogleMaps =  ({isPressed, toggle, navigation, latitudeDelta, latitude, lo
             onRegionChangeComplete = {
                 region=>{
                     setRegion({region})
-                    //_getAddress(region.latitude,region.longitude)
+                    _getAddress(region.latitude,region.longitude)   
                 }}
             showsMyLocationButton = {isPressed}
             showsUserLocation = {isPressed}
@@ -101,8 +101,7 @@ const GoogleMaps =  ({isPressed, toggle, navigation, latitudeDelta, latitude, lo
     );
 }
 
-const mapStateToProps = (state)=>{
-    console.log(state);
+const mapStateToProps = (state) => {
     return {
         latitude : state.Maps._root.entries[0][1].latitude,
         longitude : state.Maps._root.entries[0][1].longitude,
