@@ -1,10 +1,10 @@
-import React , {useState} from "react";
+import React, { useState } from "react";
 import {
   StyleSheet,
   TouchableOpacity,
   Image,
-} 
-from "react-native";
+}
+  from "react-native";
 import RNKakaoLogins from 'react-native-kakao-logins';
 
 import * as API from './API'
@@ -50,7 +50,7 @@ const KakaoLogin = ({navigation}) =>{
     });
   }
   // 로그인 후 내 프로필 가져오기.
-   getProfile = () => {
+  getProfile = () => {
     console.log("getKakaoProfile");
     RNKakaoLogins.getProfile((err, result) => {
       if (err) {
@@ -60,19 +60,19 @@ const KakaoLogin = ({navigation}) =>{
       console.log("result", result);
     });
   }
-    return (
-      <TouchableOpacity
-        onPress={kakaoLogin}
+  return (
+    <TouchableOpacity
+      onPress={kakaoLogin}
+      style={styles.btnKakaoLogin}
+    >
+      <Image
+        activeOpacity={0.5}
         style={styles.btnKakaoLogin}
-      >
-        <Image
-          activeOpacity={0.5}
-          style={styles.btnKakaoLogin}
-          source={require("../assets/kakaolink_btn_medium.png")}
-        />
-      </TouchableOpacity>
-    );
-  }
+        source={require("../assets/kakaolink_btn_medium.png")}
+      />
+    </TouchableOpacity>
+  );
+}
 
 const styles = StyleSheet.create({
   btnKakaoLogin: {

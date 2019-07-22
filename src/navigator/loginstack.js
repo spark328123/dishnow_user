@@ -8,10 +8,10 @@ import Welcome from '../component/welcome';
 
 const LoginStack = createStackNavigator(
     {
-        Login : { screen : Login },
-        Terms : { screen : Terms },
-        Register : { screen : Register },
-        Welcome : { screen : Welcome }
+        Login: { screen: Login },
+        Terms: { screen: Terms },
+        Register: { screen: Register },
+        Welcome: { screen: Welcome },
     },
     {
         initialRouteName : 'Login',

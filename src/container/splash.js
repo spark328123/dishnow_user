@@ -7,29 +7,28 @@ import {updateLocation} from '../store/modules/maps';
 export default (props) => {
     let latitude;
     let longitude;
-    const _getPosition = async ()=>{
-        await navigator.geolocation.getCurrentPosition((position)=>{
+    const _getPosition = async () => {
+        await navigator.geolocation.getCurrentPosition((position) => {
             latitude = position.coords.latitude;
             longitude = position.coords.longitude;
-            dispatch(updateLocation({latitude,longitude}));
-         });    
+            dispatch(updateLocation({ latitude, longitude }));
+        });
     }
 
-    const _me = async() =>{
+    const _me = async () => {
         let token = await API.getLocal(API.LOCALKEY_TOKEN);
         const meRes = await API.me(token);
         console.log(meRes);
         token = null;
-        if(token!==null){
-            navigation.navigate('Main'); 
-        }else{
+        if (token !== null) {
+            navigation.navigate('Main');
+        } else {
             navigation.navigate('Login');
         }
     }
-   
     const { navigation } = props;
     const dispatch = useDispatch();
-   
+
     _getPosition();
     useEffect(()=>{
         setTimeout(()=>{
@@ -45,9 +44,9 @@ export default (props) => {
 }
 
 const styles = StyleSheet.create({
-    container : {
-        flex : 1,
-        justifyContent : 'center',
-        alignItems : 'center',
+    container: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
     }
 })
