@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { useDispatch } from 'react-redux';
 import * as API from '../utill/API';
-import { updateLocation } from '../store/modules/maps';
+import {updateLocation} from '../store/modules/maps';
 
 export default (props) => {
     let latitude;
@@ -26,22 +26,20 @@ export default (props) => {
             navigation.navigate('Login');
         }
     }
-
     const { navigation } = props;
     const dispatch = useDispatch();
 
     _getPosition();
-    useEffect(() => {
-        setTimeout(() => {
+    useEffect(()=>{
+        setTimeout(()=>{
             _me();
-        }, 1000)
+        },1000)
     }, []);
 
     return (
-        <View style={styles.container}>
-            <Text style={{ fontSize: 30 }}>디쉬나우 </Text>
-
-        </View>
+        <View style = {styles.container}>
+            <Text style = {{fontSize : 30}}> 디쉬나우 스플래시 </Text>
+            </View>
     );
 }
 

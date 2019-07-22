@@ -11,27 +11,32 @@ import * as API from './API'
 
 const type = 'kakao'
 
-const KakaoLogin = ({ navigation }) => {
-  const login = async (token) => {
-    const loginRes = await API.login({ token, type });
-    await API.setLocal(API.LOCALKEY_TOKEN, loginRes.token);
-    if (loginRes.error) { return false; }
-    return true;
-  }
-  // 카카오 로그인 시작.
-  kakaoLogin = () => {
+const KakaoLogin = ({navigation}) =>{
+    const login = async (token) => {
+        const loginRes = await API.login({token,type});
+        await API.setLocal(API.LOCALKEY_TOKEN, loginRes.token);
+        if(!loginRes) {return false;}
+        return true;
+    }
+
+   kakaoLogin = () => {
     console.log("   kakaoLogin   ");
     RNKakaoLogins.login((err, result) => {
-      login(result.token)
-        .then(res => {
-          if (res) {
-            navigation.push('Terms', {
-              type,
-              token: result.token,
-            });
-          }
+        if(err){
+            console.log('카카오 인증 문제');
+            return;
         }
-        )
+     login(result.token)
+      .then(res=>{
+          if(!res){
+            navigation.push('Terms',{
+                type,
+                token : result.token,
+            });
+        }else{
+            navigation.navigate('Main');
+      }}
+      )
     });
   }
   kakaoLogout = () => {
