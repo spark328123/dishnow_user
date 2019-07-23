@@ -7,32 +7,66 @@ import {
     Button,
     TouchableOpacity,
     ScrollView,
-    WebView,
 } from 'react-native';
 import * as Utill from '../utill';
 import CheckView from './register/TermsCheck';
 
 const Terms = (props) => {
-    
-    const [isPress,setPress] = useState(false);
-
-    const webview = () => {
-        setPress(true);
-    }
-    const { navigation } = props;
+    const {navigation} = props;
     const [type] = useState(navigation.getParam('type'));
     const [token] = useState(navigation.getParam('token'));
     console.log(type, token);
-    console.log(webview);
     return (
-        <View style = {styles.container}>
-            {!isPress?(
-              <WebView
-            source={{ uri: "http://dishnow.kr/Terms.html" }}
-            javaScriptEnabled={true}
-            />
-            ):null}
-        </View>
+        <ScrollView style={styles.pageContainer}>
+            <View style = {styles.container}>
+                <View>
+                    <Text style={styles.title}>{"디쉬나우 서비스 이용약관"}</Text>
+                </View>
+                <CheckView 
+                    title='모두 확인 동의합니다.'
+                    titleStyle={styles.checkTitleText}
+                />
+                <View style={styles.termsArea}>
+                    <CheckView 
+                        title='(필수) 서비스 이용 약관 동의'
+                        titleStyle={styles.checkContentText}
+                        onPressBracket={true}
+                    />
+                    <CheckView 
+                        title='(필수) 개인정보 처리방침 동의'
+                        titleStyle={styles.checkContentText}
+                        onPressBracket={true}
+                    />
+                    <CheckView 
+                        title='(필수) 위치 기반 서비스 동의'
+                        titleStyle={styles.checkContentText}
+                        onPressBracket={true}
+                    />
+                    <CheckView 
+                        title='(선택) 마케팅 수신 동의'
+                        titleStyle={styles.checkContentText}
+                        onPressBracket={true}
+                    />
+                </View>
+                <TouchableOpacity 
+                    style = {styles.btnWebView}
+                    onPress={() => navigation.push('Register', {
+                        type,
+                        token
+                    })}
+                >
+                    <View><Text>Register로 화면 전환</Text></View>
+                    
+                </TouchableOpacity>
+
+                <TouchableOpacity
+                    style = {styles.btnWebView}
+                    onPress = { () => navigation.navigate('webView') }>
+                    <View><Text>웹뷰용 버튼</Text></View>
+                </TouchableOpacity>
+        
+            </View>
+        </ScrollView>
     )
 }
 export default Terms;
@@ -42,12 +76,11 @@ export default Terms;
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        alignItems: "center",
         padding : 22.5,
     },
     btnWebView: {
-        height: 100,
-        width: 100,
+        height: 75,
+        width: 75,
         backgroundColor: "#bbb",
         borderRadius: 0,
         borderWidth: 0,

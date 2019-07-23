@@ -14,7 +14,7 @@ export default (props) =>{
                 <Text style = {styles.text}>님, 회원가입을 축하합니다.</Text>
             </View>
             <Text style = {styles.text}>로그인 후 매장을 등록하실 수 있습니다.</Text>
-            <Image source = {require('../assets/iconmonstr-eat-5-thin.png')}></Image>
+            <Image source = {require('../assets/iconmonstr_eat_thin.png')}></Image>
             <Button title = '확인' onPress ={()=>{navigation.navigate('Main')}}></Button>
         </View>
     )
