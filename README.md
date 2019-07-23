@@ -6,7 +6,9 @@ git clone = git init + set remote url to origin + git fetch 의 의미
 
 git checkout -b [본인 원하는 브렌치 명]
 
-git commit -a -m [msg]
+git add .
+
+git commit -m [msg]
 
 git push origin [본인의 브렌치 명]
 
@@ -33,6 +35,8 @@ api 키 값 확인
 
 [본인 브렌치로] checkout
 
-git commit -a -m [msg]
+git add .
+
+git commit -m [msg]
 
 git push origin [본인 브렌치]
