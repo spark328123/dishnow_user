@@ -17,8 +17,8 @@ export default (props) => {
     const _me = async () => {
         let token = await API.getLocal(API.LOCALKEY_TOKEN);
         const meRes = await API.me(token);
-        if (token === null) {
-            navigation.navigate('Terms');
+        if (token !== null) {
+            navigation.navigate('Main');
         } else {
             navigation.navigate('Login');
         }
