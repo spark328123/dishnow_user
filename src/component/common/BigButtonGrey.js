@@ -3,7 +3,7 @@ import {TouchableHighlight, StyleSheet, View} from 'react-native';
 import Text from './Text';
 import * as Utill from '../../utill';
 
-
+//바탕이 회색, text는 흰색 버튼
 const BigButton = (props) => {
 
     const {disabled=false, onPress} = props;
@@ -48,7 +48,7 @@ const styles = StyleSheet.create({
 
     buttonNormal : {
         borderRadius : 25,
-        width : 260.5,
+        width : 300.5,
         height : 50,
         justifyContent : 'center',
         alignItems : 'center',
@@ -56,7 +56,7 @@ const styles = StyleSheet.create({
     },
     buttonDisable : {
         borderRadius : 25,
-        width : 260.5,
+        width : 300.5,
         height : 50,
         justifyContent : 'center',
         alignItems : 'center',
