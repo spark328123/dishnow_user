@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import { View, Text, StyleSheet, Image, Button } from 'react-native';
-
+import {BigButton} from './common'
 export default (props) =>{
     const {navigation} = props;
     const [name] = useState(navigation.getParam('name'));
@@ -15,7 +15,7 @@ export default (props) =>{
             </View>
             <Text style = {styles.text}>로그인 후 매장을 등록하실 수 있습니다.</Text>
             <Image source = {require('../assets/iconmonstr_eat_thin.png')}></Image>
-            <Button title = '확인' onPress ={()=>{navigation.navigate('Main')}}></Button>
+            <BigButton title = '확인' onPress ={()=>{navigation.navigate('Main')}}></BigButton>
         </View>
     )
 }

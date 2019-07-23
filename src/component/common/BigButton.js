@@ -3,15 +3,13 @@ import {TouchableHighlight, StyleSheet, View} from 'react-native';
 import Text from './Text';
 import * as Utill from '../../utill';
 
-
+//글씨만 보라색, 테두리 투명 타원 버튼
 // TouchableHighlight 로 변경 / TouchableOpacity 로 가리기
 
 const BigButton = (props) => {
 
     const {disable=false} = props;
     const [pressed, setPressed] = useState(false);
- 
-
 
     const _onHide = () => {
         setPressed(true);

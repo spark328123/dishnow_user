@@ -4,7 +4,7 @@ import { View, Dimensions, StyleSheet, Image, TouchableOpacity, Text } from "rea
 import * as Utill from '../utill';
 import { connect, useDispatch } from 'react-redux';
 import { updateLocation } from '../store/modules/maps';
-
+import {Images} from '../assets/images';
 const { height, width } = Dimensions.get("window");
 const ASPECT_RATIO = width / height;
 
@@ -74,7 +74,7 @@ const GoogleMaps =  ({isPressed, toggle, navigation, latitudeDelta, latitude, lo
                 <View style = {styles.backFixed}>
                     <TouchableOpacity
                         onPressIn = {_goBack}>
-                        <Image source = {require('../assets/icon_square_bracket.png')} />
+                        <Image source = {Images.images.icon_square_bracket} />
                     </TouchableOpacity>
                 </View>
             ):null

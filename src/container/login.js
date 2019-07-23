@@ -24,7 +24,7 @@ const Login = (props) => {
         <View style={styles.logo}>
           <Image
             style={styles.dishnowLogo}
-            source={require("../assets/DISHNOW_LOGO_white.png")}
+            source={require("../assets/dishnow_logo_white.png")}
           />
         </View>
         <View style={styles.snsLoginContainer}>
