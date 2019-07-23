@@ -19,7 +19,7 @@ export default (props) => {
         const meRes = await API.me(token);
         console.log(meRes);
         if (token === null) {
-            navigation.navigate('Main');
+            navigation.navigate('Terms');
         } else {
             navigation.navigate('Login');
         }

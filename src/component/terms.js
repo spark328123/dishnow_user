@@ -10,7 +10,7 @@ import {
 } from 'react-native';
 import * as Utill from '../utill';
 import CheckView from './register/TermsCheck';
-
+import {BigButtonBorder} from '../component/common';
 const Terms = (props) => {
     const {navigation} = props;
     const [type] = useState(navigation.getParam('type'));
@@ -48,24 +48,24 @@ const Terms = (props) => {
                         onPressBracket={true}
                     />
                 </View>
-                <TouchableOpacity 
-                    style = {styles.btnWebView}
+
+                <BigButtonBorder 
+                    style = {styles.nextButton}
                     onPress={() => navigation.push('Register', {
                         type,
                         token
                     })}
+                    title = {'다음'}
                 >
-                    <View><Text>Register로 화면 전환</Text></View>
-                    
-                </TouchableOpacity>
+                </BigButtonBorder>
 
                 <TouchableOpacity
-                    style = {styles.btnWebView}
+                    style = {styles.btnWebView} 
                     onPress = { () => navigation.navigate('webView') }>
                     <View><Text>웹뷰용 버튼</Text></View>
                 </TouchableOpacity>
         
-            </View>
+            </View> 
         </ScrollView>
     )
 }
