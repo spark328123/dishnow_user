@@ -1,11 +1,10 @@
 import React from "react";
 import LinearGradient from "react-native-linear-gradient";
-import Toast, { DURATION } from 'react-native-easy-toast';
+
 import {
   StyleSheet,
   Text,
   View,
-  TouchableOpacity,
   Image,
 } from "react-native";
 import KaKaoLogin from '../utill/kakaologin';
@@ -35,9 +34,6 @@ const Login = (props) => {
             <FaceBookLogin navigation={navigation} />
             <NaverLogin navigation={navigation} />
           </View>
-          <Text
-            style={styles.snsText}
-          >새로운 계정 만들기</Text>
         </View>
       </LinearGradient>
     </View>
@@ -54,15 +50,6 @@ const styles = StyleSheet.create({
     //paddingTop: Platform.OS === 'ios' ? 24 : 0,
     backgroundColor: "white"
   },
-  btnKakaoLogin: {
-    height: 50,
-    width: 50,
-    alignSelf: "center",
-    backgroundColor: "#F8E71C",
-    borderRadius: 0,
-    borderWidth: 0
-  },
-
   linearGradient: {
     flex: 1
   },
@@ -75,28 +62,10 @@ const styles = StyleSheet.create({
     width: "76%",
     resizeMode: "contain"
   },
-
   loginContainer: {
     flex: 166 / 640,
     alignItems: "center",
     justifyContent: "center"
-  },
-  loginButton: {
-    width: 260.5,
-    height: 50,
-    alignItems: "center",
-    justifyContent: "center",
-    backgroundColor: "#FFFFFF",
-    borderRadius: 25,
-    marginBottom: 23
-  },
-  loginButtonText: {
-    fontSize: 18,
-    color: "#733FFF"
-  },
-  findAccountText: {
-    fontSize: 15,
-    color: "#431AAF"
   },
   snsLoginContainer: {
     flex: 407 / 640,
@@ -113,23 +82,6 @@ const styles = StyleSheet.create({
     width: 260,
     marginTop: 20
   },
-  newAccount: {
-    alignItems: "center",
-    justifyContent: "center"
-  },
-  newAccountTextContainer: {
-    height: 35,
-    width: 150,
-    borderBottomWidth: 0.7,
-    borderColor: "#FFFFFF",
-    alignItems: "center",
-    justifyContent: "center"
-  },
-  newAccountText: {
-    fontSize: 16,
-    color: "#FFFFFF",
-    marginTop: 10
-  }
 });
 
 
