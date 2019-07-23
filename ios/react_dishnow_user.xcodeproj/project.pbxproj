@@ -5,6 +5,7 @@
 	};
 	objectVersion = 46;
 	objects = {
+
 /* Begin PBXBuildFile section */
 		00C302E51ABCBA2D00DB3ED1 /* libRCTActionSheet.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302AC1ABCB8CE00DB3ED1 /* libRCTActionSheet.a */; };
 		00C302E71ABCBA2D00DB3ED1 /* libRCTGeolocation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302BA1ABCB90400DB3ED1 /* libRCTGeolocation.a */; };
@@ -41,11 +42,6 @@
 		ADBDB9381DFEBF1600ED6528 /* libRCTBlob.a in Frameworks */ = {isa = PBXBuildFile; fileRef = ADBDB9271DFEBF0700ED6528 /* libRCTBlob.a */; };
 		C3A6A07FF33C48C3BB5DC733 /* libBVLinearGradient.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FB584D86DB21498A8E0F30C6 /* libBVLinearGradient.a */; };
 		DB19F70422CC957000400112 /* KakaoOpenSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DB19F70322CC957000400112 /* KakaoOpenSDK.framework */; };
-		DBF35E5822CE3EE800CF684F /* FBSDKShareKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DBF35E5722CE3EE800CF684F /* FBSDKShareKit.framework */; };
-		DBF35E5A22CE3EF100CF684F /* FBSDKPlacesKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DBF35E5922CE3EF100CF684F /* FBSDKPlacesKit.framework */; };
-		DBF35E5C22CE3EFB00CF684F /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DBF35E5B22CE3EFB00CF684F /* FBSDKLoginKit.framework */; };
-		DBF35E5E22CE3F0600CF684F /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DBF35E5D22CE3F0600CF684F /* FBSDKCoreKit.framework */; };
-		DBF35E6822CE401800CF684F /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DBF35E6722CE401800CF684F /* Bolts.framework */; };
 		ED297163215061F000B7C4FE /* JavaScriptCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ED297162215061F000B7C4FE /* JavaScriptCore.framework */; };
 		ED2971652150620600B7C4FE /* JavaScriptCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ED2971642150620600B7C4FE /* JavaScriptCore.framework */; };
 		FE9DC6FDB3A745AF935363DD /* libRNKakaoLogins.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E5D45E15B14040C5AE894797 /* libRNKakaoLogins.a */; };
@@ -389,11 +385,6 @@
 		BFA26AD56904461CBB3D54DC /* RNKakaoLogins.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNKakaoLogins.xcodeproj; path = "../node_modules/react-native-kakao-logins/ios/RNKakaoLogins.xcodeproj"; sourceTree = "<group>"; };
 		D44C1C4E49E4416F97F59FF8 /* BVLinearGradient.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = BVLinearGradient.xcodeproj; path = "../node_modules/react-native-linear-gradient/BVLinearGradient.xcodeproj"; sourceTree = "<group>"; };
 		DB19F70322CC957000400112 /* KakaoOpenSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = KakaoOpenSDK.framework; sourceTree = "<group>"; };
-		DBF35E5722CE3EE800CF684F /* FBSDKShareKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKShareKit.framework; sourceTree = "<group>"; };
-		DBF35E5922CE3EF100CF684F /* FBSDKPlacesKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKPlacesKit.framework; sourceTree = "<group>"; };
-		DBF35E5B22CE3EFB00CF684F /* FBSDKLoginKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKLoginKit.framework; sourceTree = "<group>"; };
-		DBF35E5D22CE3F0600CF684F /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKCoreKit.framework; sourceTree = "<group>"; };
-		DBF35E6722CE401800CF684F /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Bolts.framework; sourceTree = "<group>"; };
 		DF5185B39DAFD3370F211B5E /* libPods-react_dishnow_user.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-react_dishnow_user.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E5D45E15B14040C5AE894797 /* libRNKakaoLogins.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNKakaoLogins.a; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
@@ -415,10 +406,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				ED297163215061F000B7C4FE /* JavaScriptCore.framework in Frameworks */,
-				DBF35E5C22CE3EFB00CF684F /* FBSDKLoginKit.framework in Frameworks */,
 				ADBDB9381DFEBF1600ED6528 /* libRCTBlob.a in Frameworks */,
-				DBF35E5E22CE3F0600CF684F /* FBSDKCoreKit.framework in Frameworks */,
-				DBF35E5A22CE3EF100CF684F /* FBSDKPlacesKit.framework in Frameworks */,
 				DB19F70422CC957000400112 /* KakaoOpenSDK.framework in Frameworks */,
 				11D1A2F320CAFA9E000508D9 /* libRCTAnimation.a in Frameworks */,
 				146834051AC3E58100842450 /* libReact.a in Frameworks */,
@@ -430,9 +418,7 @@
 				139105C61AF99C1200B5F7CC /* libRCTSettings.a in Frameworks */,
 				832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */,
 				00C302EA1ABCBA2D00DB3ED1 /* libRCTVibration.a in Frameworks */,
-				DBF35E5822CE3EE800CF684F /* FBSDKShareKit.framework in Frameworks */,
 				139FDEF61B0652A700C62182 /* libRCTWebSocket.a in Frameworks */,
-				DBF35E6822CE401800CF684F /* Bolts.framework in Frameworks */,
 				C3A6A07FF33C48C3BB5DC733 /* libBVLinearGradient.a in Frameworks */,
 				7AE8379D48DD28A1880CCC38 /* libPods-react_dishnow_user.a in Frameworks */,
 				FE9DC6FDB3A745AF935363DD /* libRNKakaoLogins.a in Frameworks */,
@@ -595,11 +581,6 @@
 		2D16E6871FA4F8E400B85C8A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				DBF35E6722CE401800CF684F /* Bolts.framework */,
-				DBF35E5D22CE3F0600CF684F /* FBSDKCoreKit.framework */,
-				DBF35E5B22CE3EFB00CF684F /* FBSDKLoginKit.framework */,
-				DBF35E5922CE3EF100CF684F /* FBSDKPlacesKit.framework */,
-				DBF35E5722CE3EE800CF684F /* FBSDKShareKit.framework */,
 				DB19F70322CC957000400112 /* KakaoOpenSDK.framework */,
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
 				ED2971642150620600B7C4FE /* JavaScriptCore.framework */,
@@ -698,7 +679,6 @@
 			isa = PBXGroup;
 			children = (
 				FB584D86DB21498A8E0F30C6 /* libBVLinearGradient.a */,
-				9265449E1DDC4535AE314BD6 /* libRCTFBSDK.a */,
 				E5D45E15B14040C5AE894797 /* libRNKakaoLogins.a */,
 				462AC8CB6E2A421C8586EE1E /* libRNNaverLogin.a */,
 			);
@@ -1281,10 +1261,12 @@
 			);
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-react_dishnow_user/Pods-react_dishnow_user-resources.sh",
+				"${PODS_ROOT}/FBSDKCoreKit/FacebookSDKStrings.bundle",
 				"${PODS_ROOT}/GoogleMaps/Maps/Frameworks/GoogleMaps.framework/Resources/GoogleMaps.bundle",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/FacebookSDKStrings.bundle",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GoogleMaps.bundle",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1398,9 +1380,7 @@
 				INFOPLIST_FILE = react_dishnow_userTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-				);
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"-lc++",
@@ -1427,9 +1407,7 @@
 				INFOPLIST_FILE = react_dishnow_userTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-				);
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"-lc++",
@@ -1533,9 +1511,7 @@
 				);
 				INFOPLIST_FILE = "react_dishnow_user-tvOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-				);
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"-lc++",
@@ -1570,9 +1546,7 @@
 				);
 				INFOPLIST_FILE = "react_dishnow_user-tvOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-				);
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"-lc++",
@@ -1606,9 +1580,7 @@
 				);
 				INFOPLIST_FILE = "react_dishnow_user-tvOSTests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-				);
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"-lc++",
@@ -1642,9 +1614,7 @@
 				);
 				INFOPLIST_FILE = "react_dishnow_user-tvOSTests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-				);
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"-lc++",
