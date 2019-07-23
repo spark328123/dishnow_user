@@ -44,6 +44,8 @@ target 'react_dishnow_user' do
 
     pod 'react-native-fbsdk', :path => '../node_modules/react-native-fbsdk'
 
+    pod 'react-native-webview', :path => '../node_modules/react-native-webview'
+
   end
   
   post_install do |installer|

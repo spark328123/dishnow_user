@@ -4,6 +4,7 @@ import android.app.Application;
 
 import com.facebook.CallbackManager;
 import com.facebook.react.ReactApplication;
+import com.reactnativecommunity.webview.RNCWebViewPackage;
 import com.dooboolab.naverlogin.RNNaverLoginPackage;
 import com.facebook.reactnative.androidsdk.FBSDKPackage;
 import com.reactnativecommunity.asyncstorage.AsyncStoragePackage;
@@ -32,6 +33,7 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
+            new RNCWebViewPackage(),
             new RNNaverLoginPackage(),
             new AsyncStoragePackage(),
             new RNGestureHandlerPackage(),
