@@ -3,13 +3,11 @@ import {TouchableHighlight, StyleSheet, View} from 'react-native';
 import Text from './Text';
 import * as Utill from '../../utill';
 
-
+//테두리, 텍스트만 보라색
 const BigButton = (props) => {
 
     const {onPress, disabled=false} = props;
     const [pressed, setPressed] = useState(false);
- 
-
 
     const _onHide = () => {
         setPressed(true);
