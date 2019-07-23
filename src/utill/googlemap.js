@@ -1,6 +1,14 @@
 import React ,{ useState, useEffect, useStore }from "react";
 import MapView, { PROVIDER_GOOGLE, Marker, } from "react-native-maps";
-import { View, Dimensions, StyleSheet, Image, TouchableOpacity, Text } from "react-native";
+import { 
+    View,
+    Dimensions,
+    StyleSheet,
+    Image, 
+    TouchableOpacity, 
+    Text,
+    BackHandler,
+} from "react-native";
 import * as Utill from '../utill';
 import { connect, useDispatch } from 'react-redux';
 import { updateLocation } from '../store/modules/maps';
@@ -13,6 +21,7 @@ const google_url = 'https://maps.googleapis.com/maps/api/geocode/json?latlng=';
 const GOOGLE_API_KEY = 'AIzaSyAFU82_JAporZ8W7FhWdBatmP9Qr-JdOUc';
 
 const GoogleMaps =  ({isPressed, toggle, navigation, latitudeDelta, latitude, longitude}) => {
+
     const LATITUDE_DELTA = latitudeDelta;
     const LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO;
 
@@ -72,15 +81,18 @@ const GoogleMaps =  ({isPressed, toggle, navigation, latitudeDelta, latitude, lo
             >
             </MapView>
             {isPressed? (
+
                 <View style = {styles.backFixed}>
-                    <TouchableOpacity
+                    <TouchableOpacity 
                         onPressIn = {_goBack}>
                         <Image source = {
                             Images.images.icon_square_bracket
                         } />
                     </TouchableOpacity>
                 </View>
-            ):null
+
+            )
+            :null
             }
             <View style={styles.markerFixed}>
                 <Image style = {styles.marker} source = {
