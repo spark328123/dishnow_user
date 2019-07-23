@@ -1,5 +1,6 @@
 import React from "react";
 import LinearGradient from "react-native-linear-gradient";
+import Images from '../assets/images'
 
 import {
   StyleSheet,
@@ -24,7 +25,7 @@ const Login = (props) => {
         <View style={styles.logo}>
           <Image
             style={styles.dishnowLogo}
-            source={require("../assets/dishnow_logo_white.png")}
+            source={Images.images.dishnow_logo_white}
           />
         </View>
         <View style={styles.snsLoginContainer}>
