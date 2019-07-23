@@ -4,14 +4,6 @@ import { View, Text, StyleSheet, TextInput, Button, ScrollView } from 'react-nat
 import * as API from '../utill/API';
 
 const Register = (props) => {
-    //props.navigation.navigate('Main');
-    const [name, setName] = useState('');
-    const [phone, setPhone] = useState('');
-    const [verifyNum, setVerifyNum] = useState('');
-    const [sex, setSex] = useState('male');
-    const [birthDate, setBirth] = useState('');
-    const [phoneRes, setPhoneRes] = useState('');
-
     const { navigation } = props;
     const [name, setName] = useState('');
     const [phone, setPhone] = useState('');
@@ -19,8 +11,6 @@ const Register = (props) => {
     const [sex, setSex] = useState('male');
     const [birthDate, setBirth] = useState('');
     const [phoneRes, setPhoneRes] = useState('');
-
-    const { navigation } = props;
 
     const _phoneAuth = async() =>{
         console.log(phone.text);
@@ -107,7 +97,6 @@ const Register = (props) => {
             <Button
                 onPress={_register}
                 title='회원가입' />
-
         </ScrollView>
     )
 }
