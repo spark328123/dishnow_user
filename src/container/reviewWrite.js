@@ -6,13 +6,17 @@ import { View,
     Keyboard,
     TouchableWithoutFeedback,
     Button,
+    Image,
+    TouchableOpacity,
 } from 'react-native';
 import * as API from '../utill/API';
 import * as Utill from '../utill';
+import Images from '../assets/images';
 
 export default () =>{
     const [ content, setContent ] = useState('');
     return (
+        
         <TouchableWithoutFeedback 
         onPress  = {()=>{Keyboard.dismiss();}}>
         <View style = {styles.container}>
@@ -32,9 +36,14 @@ export default () =>{
              <Text>
              식당과 관계없는 글, 광고성, 명예훼손, 욕설, 비방글 등은 예고 없이 삭제됩니다.
              </Text>
+             <View>
+             <Image
+                style = {styles.picker}
+                source = {Images.images.icon_addimage}
+            />
+            </View>
              <Button
                 title = '작성하기'
-                height = {Utill.screen.bottomTabHeight}
                 onPress = {
                     ()=>{
                         alert(content);
@@ -66,6 +75,10 @@ const styles = StyleSheet.create({
         paddingLeft : 10,
         paddingRight : 10,
         height: 200, borderColor: 'gray', borderWidth: 1
+    },
+    picker :{
+        width : 30,
+        height : 30,
     }
     
 })
