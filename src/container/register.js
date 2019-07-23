@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, TextInput, ScrollView } from 'react-native';
-import {Button, BigButtonGrey} from '../component/common/'
+import {Button, BigButtonColor, BigButton, BigButtonBorder} from '../component/common/'
 import * as API from '../utill/API';
 
 const Register = (props) => {
@@ -94,9 +94,10 @@ const Register = (props) => {
                 placeholder={'생년월일을 입력하세요. ex)19901231'}
                 onChangeText={(text) => setBirth({ text })}
             />
-            <BigButtonGrey
+            <BigButtonColor     
                 onPress={_register}
-                title='회원가입' />
+                title='회원가입' 
+                disabled = {false}/>
         </ScrollView>
     )
 }

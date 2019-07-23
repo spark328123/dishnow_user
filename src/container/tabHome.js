@@ -5,7 +5,7 @@ import { useDispatch } from 'react-redux';
 import * as API from '../utill/API';
 import * as User from '../store/modules/user'
 import ModalDropdown from 'react-native-modal-dropdown';
-
+import {BigButtonColor} from '../component/common'
 const TabHome = (props)=>{
     
     const dispatch = useDispatch();
@@ -155,10 +155,19 @@ const TabHome = (props)=>{
                         </View>
                     </View>
                 </View>
-                <View style={styles.find}>
-                    <Text style = {styles.tst}>식당 찾기</Text>     
+                <BigButtonColor 
+                    style={styles.find}
+                    onPress ={()=> navigation.push('onWait',{
+                        userid,
+                        point,
+                        people,
+                        phone,
+                    })}
+                    title = {'술집 찾기'}
+                />
+                    
 
-                </View>
+                
             </View>
         </View>
     )

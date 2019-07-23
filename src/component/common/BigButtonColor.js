@@ -19,7 +19,7 @@ const BigButton = (props) => {
     }
 
 
-    if (!disabled)  
+    if (disabled)  
         return (
             <View style = {styles.buttonDisable} >
                 <Text style={styles.title}>
