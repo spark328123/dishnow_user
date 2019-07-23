@@ -74,7 +74,7 @@ const GoogleMaps =  ({isPressed, toggle, navigation, latitudeDelta, latitude, lo
                 <View style = {styles.backFixed}>
                     <TouchableOpacity
                         onPressIn = {_goBack}>
-                        <Image source = {require('../assets/icon_squareBracket.png')} />
+                        <Image source = {require('../assets/icon_square_bracket.png')} />
                     </TouchableOpacity>
                 </View>
             ):null

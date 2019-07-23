@@ -14,7 +14,7 @@ const LoginStack = createStackNavigator(
         Welcome: { screen: Welcome },
     },
     {
-        initialRouteName : 'Login',
+        initialRouteName : 'Terms',
         headerMode : 'none',
     }
 )
