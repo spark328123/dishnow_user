@@ -9,7 +9,7 @@ const StackDeparture = (props)=>{
             <GoogleMap style={styles.map}
                 isPressed = {true}
                 navigation = {navigation}
-                latitudeDelta = {0.0062}
+                latitudeDelta = {0.0162}
             ></GoogleMap>
         </View>
     )
