@@ -15,7 +15,7 @@ const LoginStack = createStackNavigator(
         webView : {screen : webView}
     },
     {
-        initialRouteName : 'Terms',
+        initialRouteName : 'Login',
         headerMode : 'none',
     }
 )

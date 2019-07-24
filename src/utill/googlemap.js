@@ -1,6 +1,14 @@
 import React ,{ useState, useEffect, useStore }from "react";
 import MapView, { PROVIDER_GOOGLE, Marker, } from "react-native-maps";
-import { View, Dimensions, StyleSheet, Image, TouchableOpacity, Text } from "react-native";
+import { 
+    View,
+    Dimensions,
+    StyleSheet,
+    Image, 
+    TouchableOpacity, 
+    Text,
+    BackHandler,
+} from "react-native";
 import * as Utill from '../utill';
 import { connect, useDispatch } from 'react-redux';
 import { updateLocation } from '../store/modules/maps';
@@ -13,6 +21,7 @@ const google_url = 'https://maps.googleapis.com/maps/api/geocode/json?latlng=';
 const GOOGLE_API_KEY = 'AIzaSyAFU82_JAporZ8W7FhWdBatmP9Qr-JdOUc';
 
 const GoogleMaps =  ({isPressed, toggle, navigation, latitudeDelta, latitude, longitude}) => {
+
     const LATITUDE_DELTA = latitudeDelta;
     const LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO;
 
@@ -26,13 +35,23 @@ const GoogleMaps =  ({isPressed, toggle, navigation, latitudeDelta, latitude, lo
     });
 
     const [address, setAddress] = useState('출발지 : 찾는 중...');
+    const [flex, setFlex] = useState(0.9997);
 
     const _goBack = ()=>{
         navigation.navigate('TabHome');
     }
 
+    const _getPosition = async () => {
+        await navigator.geolocation.getCurrentPosition((position) => {
+        setRegion ({
+            ...region,
+            latitude : position.coords.latitude,
+            longitude : position.coords.longitude
+        });
+    })}
+
     const _getAddress = async (lat,lon) =>{
-        const url = `${google_url}${lat},${lon}&key=${GOOGLE_API_KEY}`
+        const url = `${google_url}${lat},${lon}&key=${GOOGLE_API_KEY}&language=ko`
         fetch(url)
             .then((res)=>{
                 return res.json()
@@ -52,11 +71,24 @@ const GoogleMaps =  ({isPressed, toggle, navigation, latitudeDelta, latitude, lo
         _goBack(); 
     }
 
+    const _setFlex =()=>{
+        setFlex(1);
+    }
+
+    useEffect(()=>{
+        setTimeout(()=>{
+            _setFlex();
+        _getPosition();
+        }, 200);
+    }, [])
+    
+
     return (
+       
         <View style = {{flex:1}}>
             <MapView
             provider={PROVIDER_GOOGLE}
-            style={{ flex: 1 }}
+            style={{ flex: flex }}
             initialRegion = {region}
             onRegionChange = {region=>{setRegion({region})}}
             onRegionChangeComplete = {
@@ -64,23 +96,27 @@ const GoogleMaps =  ({isPressed, toggle, navigation, latitudeDelta, latitude, lo
                     setRegion({region})
                     _getAddress(region.latitude,region.longitude)   
                 }}
-            showsMyLocationButton = {isPressed}
             showsUserLocation = {isPressed}
+            showsMyLocationButton = {isPressed}
             onPress = {toggle}
             scrollEnabled = {isPressed}
             zoomEnabled = {isPressed}
+            followsUserLocation = {isPressed}
             >
             </MapView>
             {isPressed? (
+
                 <View style = {styles.backFixed}>
-                    <TouchableOpacity
+                    <TouchableOpacity 
                         onPressIn = {_goBack}>
                         <Image source = {
                             Images.images.icon_square_bracket
                         } />
                     </TouchableOpacity>
                 </View>
-            ):null
+
+            )
+            :null
             }
             <View style={styles.markerFixed}>
                 <Image style = {styles.marker} source = {

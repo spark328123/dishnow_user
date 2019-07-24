@@ -34,7 +34,7 @@ const TabHome = (props)=>{
             <GoogleMap
                isPressed = { false }
                navigation = { navigation }   
-               latitudeDelta = {0.0025}
+               latitudeDelta = {0.0125}
                style = {styles.map}
                toggle  = {()=>{ navigation.navigate('Departure') }}
             ></GoogleMap>
