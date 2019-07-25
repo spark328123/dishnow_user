@@ -41,6 +41,7 @@ git commit -m [msg]
 
 git push origin [본인 브렌치]
 
-->브렌치만 clone 
+
+- > 브렌치만 clone 
 
 git clone -b [브렌치명] --single-branch []
