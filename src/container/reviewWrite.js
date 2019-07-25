@@ -8,34 +8,77 @@ import { View,
     Button,
     TouchableOpacity,
     ActivityIndicator,
+    ScrollView,
 } from 'react-native';
 import FastImage from 'react-native-fast-image'
 import * as API from '../utill/API';
 import * as Utill from '../utill';
 import Images from '../assets/images';
 import ImagePicker from 'react-native-image-picker';
+const defaultImageSource = Images.images.icon_addimage;
+const addImageSource = Images.images.icon_x;
 
 export default () => {
     const [ content, setContent ] = useState('');
-    const [ source, setSource ] = useState(Images.images.icon_addimage);
-    const [ loaded, setLoaded ] = useState(false);
+    const [ imageArray, setImageArray ] = useState([{
+        id : 0,
+        source : defaultImageSource,
+        isLoaded : false,
+    }]);
 
-    const _picker = async () =>{
-        setLoaded(true);
+    const _picker = async (i) => {
+        _setLoad(i,true);
         await ImagePicker.showImagePicker(options,(response)=>{
             if (response.didCancel) {
                 console.log('User cancelled image picker');
-                setLoaded(false);
               } else if (response.error) {
                 console.log('ImagePicker Error: ', response.error);
-                setLoaded(false);
               } else if (response.customButton) {
                 console.log('User tapped custom button: ', response.customButton);
               } else {
-                const _source = { uri: response.uri };
-                setSource(_source);
+                const source = { uri: response.uri };
+                _addSource(source);
               }
         })
+    }
+
+    const _addSource = (source) =>{
+        setImageArray(imageArray.map(
+            item => item.id === imageArray.length-1 ?
+             {...item, source} : item
+        ).concat({
+            id : imageArray.length,
+            source : addImageSource,
+            isLoaded : false,
+        }))
+    }
+
+    const _setLoad = (index,bool) =>{
+        setImageArray(imageArray.map(
+            item => item.id === index ? 
+            {...item,isLoaded : bool} : item
+        ))
+    }
+
+
+    const Show = () => {    
+        let rows = [];
+        for(var i=0; i< imageArray.length; i++){
+            rows.push(
+                <TouchableOpacity
+                    style = {styles.picker}
+                    onPress = {_picker}
+                > 
+                    <FastImage
+                        onLoadEnd={()=>_setLoad(i,false)}
+                        style = {styles.addimage}
+                        source = {imageArray[i].source}
+                    />
+                    {imageArray[i].isLoaded && <ActivityIndicator style = {styles.indicator}/>}
+                </TouchableOpacity>
+            )
+        }
+        return rows;
     }
 
 
@@ -67,21 +110,11 @@ export default () => {
                 onChangeText = { (text) => setContent(text)
                 }
              />
-                <TouchableOpacity
-                   style = {styles.picker}
-                    onPress = {_picker}
-                > 
-                    <FastImage
-                    
-                        onLoadEnd={()=>setLoaded(false)}
-                        style = {styles.addimage}
-                        source = {source}
-                       
-                        
-                    />
-                    {loaded && <ActivityIndicator style = {styles.indicator}/>}
-                </TouchableOpacity>
-              
+             <ScrollView horizontal = {true}>
+            <View style = {{flexDirection: 'row'}}>
+                <Show />
+            </View>
+            </ScrollView>
             <Text>
              식당과 관계없는 글, 광고성, 명예훼손, 욕설, 비방글 등은 예고 없이 삭제됩니다.
              </Text>
@@ -123,7 +156,8 @@ const styles = StyleSheet.create({
         justifyContent : 'center',
         width : 60,
         height : 60,
-        backgroundColor : Utill.color.secondary2
+        backgroundColor : Utill.color.secondary2,
+        marginRight : 6
     },
     addimage : {
         width : 60,
@@ -138,5 +172,5 @@ const styles = StyleSheet.create({
         opacity: 0.7,
         justifyContent: "center",
         alignItems: "center",
-    }
+    },
 })
