@@ -83,9 +83,9 @@ const TabHome = (props)=>{
     return(
         <View style = {styles.container}>
             <GoogleMap
-               isPressed = {false}
-               navigation = {navigation}   
-               latitudeDelta = {0.0065}
+               isPressed = { false }
+               navigation = { navigation }   
+               latitudeDelta = {0.0125}
                style = {styles.map}
                toggle  = {()=>{navigation.navigate('Departure')}}
             ></GoogleMap>

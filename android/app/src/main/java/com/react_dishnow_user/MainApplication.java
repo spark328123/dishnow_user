@@ -4,6 +4,9 @@ import android.app.Application;
 
 import com.facebook.CallbackManager;
 import com.facebook.react.ReactApplication;
+import com.dylanvann.fastimage.FastImageViewPackage;
+import com.imagepicker.ImagePickerPackage;
+import com.reactnative.ivpusic.imagepicker.PickerPackage;
 import com.reactnativecommunity.webview.RNCWebViewPackage;
 import com.dooboolab.naverlogin.RNNaverLoginPackage;
 import com.facebook.reactnative.androidsdk.FBSDKPackage;
@@ -33,6 +36,9 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
+            new FastImageViewPackage(),
+            new ImagePickerPackage(),
+            new PickerPackage(),
             new RNCWebViewPackage(),
             new RNNaverLoginPackage(),
             new AsyncStoragePackage(),
