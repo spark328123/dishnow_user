@@ -27,7 +27,6 @@ export default () => {
     }]);
 
     const _picker = async (i) => {
-        _setLoad(i,true);
         await ImagePicker.showImagePicker(options,(response)=>{
             if (response.didCancel) {
                 console.log('User cancelled image picker');
@@ -53,12 +52,6 @@ export default () => {
         }))
     }
 
-    const _setLoad = (index,bool) =>{
-        setImageArray(imageArray.map(
-            item => item.id === index ? 
-            {...item,isLoaded : bool} : item
-        ))
-    }
 
 
     const Show = () => {    
@@ -70,7 +63,7 @@ export default () => {
                     onPress = {_picker}
                 > 
                     <FastImage
-                        onLoadEnd={()=>_setLoad(i,false)}
+                      
                         style = {styles.addimage}
                         source = {imageArray[i].source}
                     />
