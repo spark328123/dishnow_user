@@ -1,9 +1,13 @@
 import React, {useState} from 'react';
 import { View, StyleSheet, Text, TouchableOpacity} from 'react-native';
 import GoogleMap from '../utill/googlemap';
-
+import {handleAndroidBackButton, removeAndroidBackButtonHandler} from '../component/common/hardwareBackButton'
 const StackDeparture = (props)=>{
     const { navigation } = props;
+    const _goBack = ()=>{
+        navigation.navigate('TabHome');
+    }
+    handleAndroidBackButton(_goBack)
     return(
         <View style = {styles.container}>
             <GoogleMap style={styles.map}
@@ -12,7 +16,9 @@ const StackDeparture = (props)=>{
                 latitudeDelta = {0.0162}
             ></GoogleMap>
         </View>
+        
     )
+    
 } 
 
 export default StackDeparture;
