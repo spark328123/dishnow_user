@@ -21,6 +21,7 @@ const images = {
         icon_departure : require('./icon_departure.png'),
         icon_check_circle_disable : require('./icon_check_circle_disable.png'),
         icon_addimage : require('./icon_addimage.png'),
+        icon_x : require('./icon_x.png'),
         ic_icon : require('./ic_icon.png'),
         ic_icon_logo : require('./ic_icon_logo.png'),
         facebook_btn_icon : require('./facebook_btn_icon.png'),

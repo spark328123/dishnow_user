@@ -46,8 +46,6 @@ target 'react_dishnow_user' do
 
     pod 'react-native-webview', :path => '../node_modules/react-native-webview'
 
-    pod 'RNImageCropPicker', :path => '../node_modules/react-native-image-crop-picker'
-
     pod 'react-native-image-picker', :path => '../node_modules/react-native-image-picker'
 
     pod 'RNFastImage', :path => '../node_modules/react-native-fast-image'
