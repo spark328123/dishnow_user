@@ -2,28 +2,43 @@ import React from 'react';
 import { View, Text, Image, StyleSheet }from 'react-native';
 
 import * as Utill from '../utill'
-
-const TabItem = ({label, tintColor, source }) => {
-    return(
-        <View style = {styles.container}>
+import Images from '../assets/images'
+const TabItem = ({label, tintColor, source, navigation }) => {
+    console.log(source.uri);
+    return (
+        <View style={styles.container}>
             <View>
+                <Image
+                    resizeMode = 'contain'
+                    style={styles.icon}
+                    source={Images.images[source.uri]}
+                />    
             </View>
             <View>
-                <Text
+                <Text 
                     style={{color:tintColor}}>
-                        {label}
+                    {label}
                 </Text>
             </View>
         </View>
     )
-}
+} 
 
 export default TabItem;
 
 const styles = StyleSheet.create({
     container : {
-        paddingTop : 10,
+        paddingTop : 8,
         alignItems : 'center',
         height : Utill.screen.bottomTabHeight,
+    },
+    icon : {
+        width : 20,
+        height : 20,
+        marginBottom : 6,
+    },
+    label : {
+        textAlign : 'center',
+        fontSize : 16,
     }
 })

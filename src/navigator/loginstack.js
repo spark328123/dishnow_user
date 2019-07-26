@@ -25,10 +25,15 @@ const LoginStack = createStackNavigator(
                     fontWeight: 'bold',
                 },
             }),
-            },
+        },
         Register: { screen: Register },
         Welcome: { screen: Welcome },
-        webView : {screen : webView}
+        webView : {
+            screen : webView,
+            navigationOptions: ({ navigation }) => ({
+            header: null,
+            }),
+        }
     },
     {
         initialRouteName : 'Login',
