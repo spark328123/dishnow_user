@@ -10,24 +10,30 @@ import { View,
     ActivityIndicator,
     ScrollView,
 } from 'react-native';
-import FastImage from 'react-native-fast-image'
+
+import Image from 'react-native-fast-image'
 import * as API from '../utill/API';
 import * as Utill from '../utill';
 import Images from '../assets/images';
 import ImagePicker from 'react-native-image-picker';
+import Dialog from "react-native-dialog";
+
 const defaultImageSource = Images.images.icon_addimage;
 const addImageSource = Images.images.icon_x;
 
 export default () => {
+    const [ isLoaded, setIsLoaded ] = useState(false);
     const [ content, setContent ] = useState('');
     const [ imageArray, setImageArray ] = useState([{
         id : 0,
         source : defaultImageSource,
         isLoaded : false,
     }]);
+    const [ visible, setVisible ] = useState(false);
+    const [ imageReq, setImageReq ] = useState([]);
 
-    const _picker = async (i) => {
-        await ImagePicker.showImagePicker(options,(response)=>{
+    const _picker = async (item) => {
+       await ImagePicker.showImagePicker(options,(response)=>{
             if (response.didCancel) {
                 console.log('User cancelled image picker');
               } else if (response.error) {
@@ -36,42 +42,97 @@ export default () => {
                 console.log('User tapped custom button: ', response.customButton);
               } else {
                 const source = { uri: response.uri };
+                setImageReq(imageReq.concat(response.uri));
                 _addSource(source);
               }
         })
     }
 
     const _addSource = (source) =>{
+        const length = imageArray.length-1 ;
         setImageArray(imageArray.map(
-            item => item.id === imageArray.length-1 ?
-             {...item, source} : item
+            (item, i) => {
+                if(i===length){
+                    return {...item,source}
+                }else{
+                    return item
+                }
+            }
         ).concat({
             id : imageArray.length,
             source : addImageSource,
             isLoaded : false,
-        }))
+        }));
     }
 
+    const _deleteSource = (item) => {
+        setImageArray(
+            imageArray.filter(info => info.id !== item.id)
+        );
+        setImageReq(
+            imageReq.filter(info => info !== item.source.uri)
+        );
+    }
 
+    const _uploadPhoto = async(data) => {
+        const res = await API.uploadPhoto(data);
+        return JSON.stringify(res.data);
+    }
+
+    const _uploadReview = async() => {
+        var image = await _uploadPhoto(imageReq);
+        if(image===undefined)image='[]';
+        const token = await API.getLocal(API.LOCALKEY_TOKEN);
+        const data = {
+            content,
+            rating : 5,
+            reviewId : 13,
+            image
+        }
+        console.log(token,data);
+        const res = await API.reviewWirte(token,data);
+        console.log(res);
+    }
 
     const Show = () => {    
-        let rows = [];
-        for(var i=0; i< imageArray.length; i++){
-            rows.push(
+        const list = imageArray.map(
+            item => 
+              (
                 <TouchableOpacity
                     style = {styles.picker}
-                    onPress = {_picker}
+                    onPress = {()=>{
+                        if(item.source===defaultImageSource ||
+                            item.source===addImageSource){_picker(item)}
+                        else {_deleteSource(item);
+                        }
+                    }
+                }
                 > 
-                    <FastImage
-                      
-                        style = {styles.addimage}
-                        source = {imageArray[i].source}
+                <Image
+                    onProgress = {()=>setIsLoaded(true)}
+                    onLoadEnd = {()=>setIsLoaded(false)}
+                    style = {styles.addimage}
+                    source = {item.source}
+                />
+                  {isLoaded && <ActivityIndicator style = {styles.indicator}/>}
+                {/*
+                <Dialog.Container
+                visible = {visible}>
+                <Dialog.Title>사진 삭제</Dialog.Title>
+                <Dialog.Description>
+                    사진을 삭제하시겠습니까?
+                </Dialog.Description>
+                <Dialog.Button label="취소"
+                    onPress = {()=>setVisible(false)} />
+                <Dialog.Button label="삭제"
+                    onPress = {()=>{setVisible(false);_deleteSource(item.id)}} 
                     />
-                    {imageArray[i].isLoaded && <ActivityIndicator style = {styles.indicator}/>}
-                </TouchableOpacity>
-            )
-        }
-        return rows;
+            </Dialog.Container>
+                */}
+            </TouchableOpacity>
+              )
+        )
+        return list;
     }
 
 
@@ -104,6 +165,7 @@ export default () => {
                 }
              />
              <ScrollView horizontal = {true}>
+           
             <View style = {{flexDirection: 'row'}}>
                 <Show />
             </View>
@@ -113,6 +175,7 @@ export default () => {
              </Text>
              <Button
                 title = '작성하기'
+                onPress = {()=>_uploadReview()}
                 >
              </Button>
         </View>  

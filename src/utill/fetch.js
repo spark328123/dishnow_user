@@ -69,7 +69,6 @@ export const getAuthServer = async (url, token, data = null) => {
     }catch(e){
         console.log('getAuth' + e);
     }
-
 }
 
 
@@ -154,23 +153,34 @@ export const postAuthServer = async (url, token, data = null) => {
     }
 }
 
-
-export const postAuthMultipartServer = async (url, token, data) => {
+export const postMultipartServer = async (url, data=null) => {
+    console.log(data);
     try{
+        let formData = new FormData();
+        const date = new Date();
+        data.map((item,index) => {
+            formData.append("file",{
+                uri:item,
+                type: 'image/jpg',
+                name: date + index,
+                filename:`${date}${index}${'storeImage'}.jpg`
+            })
+        })
+        
         let res = await fetch(url, {
             method : 'POST',
             headers: {
                 Accept: '*/*',
                 'Content-Type' : HEADER_MULTIPART,
-                'Authorization' : `Bearer ${token}`
             },
-            body : data
+            body : formData
         });
-        
-        if(res.ok) return res;
+        console.log(res);
+        if (res.ok) return res;
+        return null
         
     }
     catch(e){
-        console.log('postAuth / Multipart : ' + e);
+        console.log('post / Multipart : ' + e);
     }
 }
