@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
-import { View, StyleSheet, Text, TouchableOpacity} from 'react-native';
+import { View, StyleSheet, TouchableOpacity} from 'react-native';
+import { Text } from '../component/common'
 import GoogleMap from '../utill/googlemap';
 import {handleAndroidBackButton, removeAndroidBackButtonHandler} from '../component/common/hardwareBackButton'
 const StackDeparture = (props)=>{

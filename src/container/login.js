@@ -1,16 +1,14 @@
 import React from "react";
 import LinearGradient from "react-native-linear-gradient";
-import Images from '../assets/images'
-
 import {
   StyleSheet,
-  Text,
   View,
   Image,
 } from "react-native";
 import KaKaoLogin from '../utill/kakaologin';
 import FaceBookLogin from '../utill/facebooklogin';
 import NaverLogin from '../utill/naverlogin'
+import { Text } from '../component/common'
 
 const Login = (props) => {
   const { navigation } = props;
@@ -25,7 +23,7 @@ const Login = (props) => {
         <View style={styles.logo}>
           <Image
             style={styles.dishnowLogo}
-            source={Images.images.dishnow_logo_white}
+            source={{uri: "dishnow_logo_white"}}
           />
         </View>
         <View style={styles.snsLoginContainer}>
@@ -60,8 +58,8 @@ const styles = StyleSheet.create({
     justifyContent: "center"
   },
   dishnowLogo: {
-    width: "76%",
-    resizeMode: "contain"
+    width: 262,
+    height: 55.24
   },
   loginContainer: {
     flex: 166 / 640,

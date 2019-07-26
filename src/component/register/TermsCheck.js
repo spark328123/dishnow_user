@@ -1,7 +1,6 @@
-import React, {Component} from 'react';
-import {View,  Image, StyleSheet} from 'react-native';
-
-import {Button, CheckCircle, Text} from '../common';
+import React, { Component } from 'react';
+import { View,  Image, StyleSheet } from 'react-native';
+import { Button, CheckCircle, Text } from '../common';
 
 
 export default (props) => {
@@ -13,7 +12,7 @@ export default (props) => {
             <Text style={[titleStyle, styles.title]}>{title}</Text>
             {onPressBracket!==null && 
                 <Button
-                    style={styles.bracket} source={'../../assets/icon_square_bracket.png'}
+                    style={styles.bracket} source={{uri: 'icon_back_button'}}
                 >
                   
                 </Button>

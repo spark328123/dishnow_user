@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { View,
-    Text,
     StyleSheet,
     TextInput,
     Keyboard,
@@ -14,12 +13,12 @@ import { View,
 import Image from 'react-native-fast-image'
 import * as API from '../utill/API';
 import * as Utill from '../utill';
-import Images from '../assets/images';
 import ImagePicker from 'react-native-image-picker';
 import Dialog from "react-native-dialog";
+import {Text} from '../component/common/'
 
-const defaultImageSource = Images.images.icon_addimage;
-const addImageSource = Images.images.icon_x;
+const defaultImageSource = {uri: 'icon_add_photo'};
+const addImageSource = {uri: 'icon_delete_photo'};
 
 export default () => {
     const [ isLoaded, setIsLoaded ] = useState(false);
