@@ -4,9 +4,16 @@ import android.app.Application;
 
 import com.facebook.CallbackManager;
 import com.facebook.react.ReactApplication;
+import com.dylanvann.fastimage.FastImageViewPackage;
+import com.imagepicker.ImagePickerPackage;
+import com.reactnativecommunity.webview.RNCWebViewPackage;
+import com.dooboolab.naverlogin.RNNaverLoginPackage;
+import com.facebook.reactnative.androidsdk.FBSDKPackage;
+import com.reactnativecommunity.asyncstorage.AsyncStoragePackage;
+import com.swmansion.gesturehandler.react.RNGestureHandlerPackage;
 import com.airbnb.android.react.maps.MapsPackage;
 import com.dooboolab.kakaologins.RNKakaoLoginsPackage;
-import com.facebook.reactnative.androidsdk.FBSDKPackage;
+
 import com.BV.LinearGradient.LinearGradientPackage;
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
@@ -28,6 +35,12 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
+            new FastImageViewPackage(),
+            new ImagePickerPackage(),
+            new RNCWebViewPackage(),
+            new RNNaverLoginPackage(),
+            new AsyncStoragePackage(),
+            new RNGestureHandlerPackage(),
             new MapsPackage(),
             new RNKakaoLoginsPackage(),
             new FBSDKPackage(mCallbackManager),

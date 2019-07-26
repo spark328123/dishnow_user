@@ -37,7 +37,18 @@ target 'react_dishnow_user' do
     pod 'react-native-google-maps', path: rn_maps_path  # Uncomment this line if you want to support GoogleMaps on iOS
     pod 'Google-Maps-iOS-Utils' # Uncomment this line if you want to support GoogleMaps on iOS
     pod 'GoogleMaps'  # Uncomment this line if you want to support GoogleMaps on iOS
-    pod 'RNKakaoLogins', :path => '../node_modules/react-native-kakao-logins'
+
+    pod 'RNGestureHandler', :path => '../node_modules/react-native-gesture-handler'
+
+    pod 'RNCAsyncStorage', :path => '../node_modules/@react-native-community/async-storage'
+
+    pod 'react-native-fbsdk', :path => '../node_modules/react-native-fbsdk'
+
+    pod 'react-native-webview', :path => '../node_modules/react-native-webview'
+
+    pod 'react-native-image-picker', :path => '../node_modules/react-native-image-picker'
+
+    pod 'RNFastImage', :path => '../node_modules/react-native-fast-image'
 
   end
   

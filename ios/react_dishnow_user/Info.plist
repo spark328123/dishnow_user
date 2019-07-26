@@ -2,6 +2,14 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>NSCameraUsageDescription</key>
+	<string></string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string></string>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string></string>
+	<key> NSLocationWhenInUseUsageDescription</key>
+	<string></string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleDisplayName</key>
@@ -27,29 +35,40 @@
 			<string>Editor</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-        <string>fb440547963402116</string>
+				<string>fb440547963402116</string>
 				<string>kakao5fd512ec1b08bf6a6e785b1813c1f49d</string>
 			</array>
 		</dict>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLName</key>
+			<string>naverlogin</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>naverlogin</string>
+			</array>
+		</dict>
 	</array>
-  <key>FacebookAppID</key>
-  <string>440547963402116</string>
-  <key>FacebookDisplayName</key>
-  <string>dishnow</string>
-
+	<key>CFBundleVersion</key>
+	<string>1</string>
+	<key>FacebookAppID</key>
+	<string>440547963402116</string>
+	<key>FacebookDisplayName</key>
+	<string>dishnow</string>
 	<key>KAKAO_APP_KEY</key>
 	<string>5fd512ec1b08bf6a6e785b1813c1f49d</string>
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
-    <string>fbapi</string>
-    <string>fb-messenger-api</string>
-    <string>fbauth2</string>
-    <string>fbshareextension</string>
+		<string>fbapi</string>
+		<string>fb-messenger-api</string>
+		<string>fbauth2</string>
+		<string>fbshareextension</string>
 		<string>kakao5fd512ec1b08bf6a6e785b1813c1f49d</string>
 		<string>kakaokompassauth</string>
+		<string>naversearchapp</string>
+		<string>naversearchthirdlogin</string>
 	</array>
-	<key>CFBundleVersion</key>
-	<string>1</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSAppTransportSecurity</key>
