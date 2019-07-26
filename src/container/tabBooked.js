@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
-import { View, Text, FlatList } from 'react-native';
+import { View, FlatList } from 'react-native';
+import { Text } from '../component/common/'
 
 export default () =>{
     const [data] = useState([

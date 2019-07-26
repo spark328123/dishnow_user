@@ -1,13 +1,13 @@
 import React from 'react';
-import {Text, Platform} from 'react-native';
+import { Text, Platform } from 'react-native';
 
 const DefaultText = (props) => {
     const defaultStyle = Platform.select({
         ios : {
-            fontFamily : 'AppleSDGothicNeo-Regular',
+            fontFamily : "NanumSquareOTFR",
         },
         android : {
-            fontFamily : 'roboto',
+            fontFamily : "NanumSquareOTFR",
             includeFontPadding : false
         }
     });

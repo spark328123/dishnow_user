@@ -1,11 +1,11 @@
 import React, {useState,useEffect} from 'react';
-import { View, StyleSheet, AppRegistry, Text, ScrollView, TouchableOpacity, TextInput } from 'react-native';
+import { View, StyleSheet, AppRegistry, ScrollView, TouchableOpacity, TextInput } from 'react-native';
 import GoogleMap from '../utill/googlemap.js';
 import { useDispatch } from 'react-redux';
 import * as API from '../utill/API';
 import * as User from '../store/modules/user'
 import ModalDropdown from 'react-native-modal-dropdown';
-import {BigButtonColor} from '../component/common'
+import { BigButtonColor, Text } from '../component/common'
 const TabHome = (props)=>{
     
     const dispatch = useDispatch();
