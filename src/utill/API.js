@@ -8,7 +8,6 @@ export const LOCALKEY_TOKEN = 'LOC_STORE_KEY_TOKEN'
 export const getLocal =  async (key) => {
     try {
         const value = await AsyncStorage.getItem(key);
-        console.log(`get # ${key} : ${value}`);
         return value;
     } catch(e) {
         console.log(e);
@@ -33,23 +32,13 @@ export const getPostList = (token, option) => {
     .catch(error => ({error})); 
 }
 
-export const uploadPhoto = (token, images) => {
-    const url = `${apiUrl}upload`;
-    return fetch.postAuthMultipartServer(url, token, images)
+export const uploadPhoto = (image) => {
+    const url = `http://54.180.6.107:8001/api/upload`;
+    return fetch.postMultipartServer(url, image)
     .then(res => res.json())
-    .then(res => ({data: res.location})) // res 을 data 로
+    .then(res => {return {data: res.location}}) // res 을 data 로
     .catch(error => ({error})); 
 }
-
-export const uploadPost = (token, data) => {
-    const url = `${apiUrl}post/post`;
-    return fetch.postAuthServer(url, token, data)
-    .then(res => {
-        if(res) return {success : true}
-    })
-    .catch(error => ({error})); 
-}
-
 
 export const register = (data) => {
     const url = `${apiUrl}user/register`;
@@ -77,6 +66,20 @@ export const phoneAuth = (phone) => {
     return fetch.getServer(url, phone)
     .then(res=> res.json())
     .catch(error => ({error}));  
+}
+
+export const showRes = (token) => {
+    const url = `${apiUrl}review/`;
+    return fetch.getAuthServer(url, token)
+    .then(res=> res.json())
+    .catch(error => ({error}));  
+}
+
+export const reviewWirte = (token, data) => {
+    const url = `${apiUrl}user/review`;
+    return fetch.putAuthServer(url,token,data)
+    .then(res=>res.json())
+    .catch(error=>({error}));
 }
 
 
