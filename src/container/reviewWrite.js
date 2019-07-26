@@ -15,6 +15,8 @@ import * as API from '../utill/API';
 import * as Utill from '../utill';
 import Images from '../assets/images';
 import ImagePicker from 'react-native-image-picker';
+import Dialog from "react-native-dialog";
+
 const defaultImageSource = Images.images.icon_addimage;
 const addImageSource = Images.images.icon_x;
 
@@ -25,9 +27,11 @@ export default () => {
         source : defaultImageSource,
         isLoaded : false,
     }]);
+    const [ visible, setVisible ] = useState(false);
 
-    const _picker = async (i) => {
-        await ImagePicker.showImagePicker(options,(response)=>{
+    const _picker = (item) => {
+        ImagePicker.showImagePicker(options,(response)=>{
+            //setIsLoad(true)
             if (response.didCancel) {
                 console.log('User cancelled image picker');
               } else if (response.error) {
@@ -49,29 +53,58 @@ export default () => {
             id : imageArray.length,
             source : addImageSource,
             isLoaded : false,
-        }))
+        }));
+    }
+
+    const _deleteSource = (id) => {
+        setImageArray(
+            imageArray.filter(info => info.id!==id)
+        );
+        if(!imageArray.length){
+            _addSource(defaultImageSource);
+        }
     }
 
 
-
     const Show = () => {    
-        let rows = [];
-        for(var i=0; i< imageArray.length; i++){
-            rows.push(
+        const list = imageArray.map(
+            item => 
+              (
                 <TouchableOpacity
                     style = {styles.picker}
-                    onPress = {_picker}
+                    onPress = {()=>{
+                        if(item.source===defaultImageSource
+                            || item.source===addImageSource){
+                        _picker(item)}
+                        else {_deleteSource(item.id);
+                        }
+                    }
+                }
                 > 
-                    <FastImage
-                      
-                        style = {styles.addimage}
-                        source = {imageArray[i].source}
+                <FastImage
+                    style = {styles.addimage}
+                    source = {item.source}
+                    //onLoad = {setIsLoad(false)}
+                />
+                {item.isLoaded && <ActivityIndicator style = {styles.indicator}/>}
+                {/*
+                <Dialog.Container
+                visible = {visible}>
+                <Dialog.Title>사진 삭제</Dialog.Title>
+                <Dialog.Description>
+                    사진을 삭제하시겠습니까?
+                </Dialog.Description>
+                <Dialog.Button label="취소"
+                    onPress = {()=>setVisible(false)} />
+                <Dialog.Button label="삭제"
+                    onPress = {()=>{setVisible(false);_deleteSource(item.id)}} 
                     />
-                    {imageArray[i].isLoaded && <ActivityIndicator style = {styles.indicator}/>}
-                </TouchableOpacity>
-            )
-        }
-        return rows;
+            </Dialog.Container>
+                */}
+            </TouchableOpacity>
+              )
+        )
+        return list;
     }
 
 
