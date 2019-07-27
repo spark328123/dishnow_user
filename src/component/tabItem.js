@@ -1,19 +1,20 @@
-import React from 'react';
+import React, {useState,useEffect}  from 'react';
 import { View, Text, Image, StyleSheet }from 'react-native';
 
 import * as Utill from '../utill'
-import Images from '../assets/images'
 const TabItem = ({label, tintColor, source, navigation }) => {
-    console.log(source.uri);
+    
+    console.log(source)
     return (
         <View style={styles.container}>
             <View>
                 <Image
                     resizeMode = 'contain'
                     style={styles.icon}
-                    source={Images.images[source.uri]}
+                    source={source}
                 />    
             </View>
+
             <View>
                 <Text 
                     style={{color:tintColor}}>
@@ -22,6 +23,7 @@ const TabItem = ({label, tintColor, source, navigation }) => {
             </View>
         </View>
     )
+    
 } 
 
 export default TabItem;

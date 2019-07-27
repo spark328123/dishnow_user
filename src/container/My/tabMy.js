@@ -83,8 +83,10 @@ const TabMy = ({navigation}) => {
                 </Text >
               
             </TouchableOpacity>
-  <Image source = {{uri : 'icon_add_photo',isStatic:true}}
-        style = {{width:50,height:50}}/>
+            <Image 
+                source = {{uri : 'icon_add_photo',isStatic:true}}
+                style = {{width:50,height:50}}
+            />
             <BigButtonColor     
                 title='이용약관' 
                 disabled = {false}/>

@@ -1,6 +1,5 @@
 import React from 'react';
 import { createBottomTabNavigator } from 'react-navigation';
-
 import Home from './homestack';
 import Booked from './bookedstack';
 import My from './MyStack';
@@ -23,9 +22,9 @@ const mainTab = createBottomTabNavigator(
                 const { routeName } = navigation.state;
                 let uri = '';
                 switch (routeName) {
-                    case 'tab1' : uri = focused ? 'bfa_violet' : 'bfa_grey' ; break; //예약 내역
-                    case 'tab2' : uri = focused ? 'icon_onwait_purple' : 'menu_bar' ; break; //home
-                    case 'tab3' : uri = focused ? 'iconfinder_user_violet' : 'iconfinder_user_grey' ;  break; //My
+                    case 'tab1' : uri = focused ? "icon_clock_purple_main" : "icon_clock_grey_main" ; break; //예약 내역
+                    case 'tab2' : uri = focused ? "icon_logo_purple_main" : "icon_logo_grey_main" ; break; //home
+                    case 'tab3' : uri = focused ? "icon_user_purple_main" : "icon_user_grey_main" ;  break; //My
                 }
                 let label = ' ';
                 switch (routeName) {
