@@ -1,7 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import Button from './Button';
 
-
 //const IconOff = 'icon_check_circle_disable';
 //const IconOn = 'icon_check_circle';
 
