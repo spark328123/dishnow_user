@@ -3,7 +3,7 @@ import { View, StyleSheet, AppRegistry, ScrollView, TouchableOpacity, TextInput 
 import GoogleMap from '../utill/googlemap.js';
 import { useDispatch } from 'react-redux';
 import * as API from '../utill/API';
-import * as User from '../store/modules/user'
+import user, * as User from '../store/modules/user'
 import ModalDropdown from 'react-native-modal-dropdown';
 import { BigButtonColor, Text } from '../component/common'
 const TabHome = (props)=>{
@@ -21,7 +21,7 @@ const TabHome = (props)=>{
         dispatch(User.updateuserid(userid));
         dispatch(User.updatepoint(point));
         dispatch(User.upadtename(name));
-        dispatch(User.updatephone(콜));
+        dispatch(User.updatephone(phone));
         dispatch(User.updateimage(image));
         dispatch(User.updatereviewcount(reviewcount));
     }

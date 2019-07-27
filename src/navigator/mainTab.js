@@ -2,7 +2,7 @@ import React from 'react';
 import { createBottomTabNavigator } from 'react-navigation';
 import Home from './homestack';
 import Booked from './bookedstack';
-import My from './MyStack';
+import My from './mystack';
 
 import TabItem from '../component/tabItem';
 import * as Utill from '../utill';
