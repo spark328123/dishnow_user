@@ -1,17 +1,21 @@
 import { createStackNavigator } from 'react-navigation';
 
 import TabMy from '../container/My/tabMy'
+import Review from '../container/My/myreview'
+import Point from '../container/My/point'
 import webView from '../container/webView'
 import Profile from '../container/My/profile_manage'
 import Client from '../container/My/client_center'
-import Alarm from '../container/My/push_alarm'
+import Notice from '../container/My/notice'
 const MyStack = createStackNavigator(
     {
         TabMy : { screen : TabMy },
-        // Profile : { screen : Profile },
+        Profile : { screen : Profile },
         webView : { screen : webView },
-        // Client : { screen : Client },
-        // Alarm : { screen : Alarm },
+        Client : { screen : Client },
+        Notice : {screen : Notice},
+        Review : {screen : Review},
+        Point : {screen : Point},
     },
     {
         initialRouteName : 'TabMy',

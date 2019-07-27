@@ -6,48 +6,50 @@ import {
     TextInput, 
     ScrollView,
     TouchableOpacity,
-    Alert,
     Image,
+    Alert,
 } from 'react-native';
+import LogOut from './logout'
 import {Button, BigButtonColor} from '../../component/common'
-
+import * as Color from '../../utill/color'
 const TabMy = ({navigation}) => { 
 
     _logOut = () => {
-        <Alert>
-            
-        </Alert>
+        <LogOut/>
     }
     return (
         <View
             style={styles.container}
             contentContainerStyle={{ flexGrow: 1, justifyContent: 'center' }}>
             
-            <TouchableOpacity>
+            <TouchableOpacity
+                onPress = {()=>navigation.navigate('Profile')}
+            >
                 <Text style={{ fontSize: 16, fontWeight: 'bold', marginBottom: 8, marginRight:20,marginTop:30}}>
                     끄덕이는 씨발
                 </Text >
             </TouchableOpacity>
 
+            <View style = { styles.txt }>
+                <TouchableOpacity
+                    onPress = {()=>navigation.navigate('Point')}
+                >
+                    <Text style={{ fontSize: 16, fontWeight: 'bold', marginBottom: 8, marginRight:20,marginTop:30}}>
+                        디나포인트
+                    </Text >
+                </TouchableOpacity>
 
-            <View
-                style = {{
-                    height : 40,
-                    width : 200,
-                    flexDirection : 'row',
-                }}
-            >
-                <Text style={{ fontSize: 16, fontWeight: 'bold', marginBottom: 8, marginRight:20,marginTop:30}}>
-                    디나포인트
-                </Text >
-                <Text style={{ fontSize: 16, fontWeight: 'bold', marginBottom: 8, marginRight:20,marginTop:30}}>
-                    나의리뷰
-                </Text>
+                <TouchableOpacity
+                    onPress = {()=>navigation.navigate('Review')}
+                >
+                    <Text style={{ fontSize: 16, fontWeight: 'bold', marginBottom: 8, marginRight:20,marginTop:30}}>
+                        나의 리뷰
+                    </Text >
+                </TouchableOpacity>
             </View>
 
-
            <TouchableOpacity
-                onPress = {()=>navigation.navigate('')}
+                onPress = {()=>navigation.navigate('Notice')}
            >
                 <Text style={{ fontSize: 16, fontWeight: 'bold', marginBottom: 8, marginRight:20,marginTop:30}}>
                     공지사항
@@ -62,7 +64,9 @@ const TabMy = ({navigation}) => {
                 </Text >
             </TouchableOpacity>
 
-            <TouchableOpacity>
+            <TouchableOpacity
+                onPress = {()=>navigation.navigate('Client')}
+            >
                 <Text style={{ fontSize: 16, fontWeight: 'bold', marginBottom: 8, marginRight:20,marginTop:30}}>
                     고객센터
                 </Text >
@@ -70,26 +74,36 @@ const TabMy = ({navigation}) => {
             
             <TouchableOpacity>
                 <Text style={{ fontSize: 16, fontWeight: 'bold', marginBottom: 8, marginRight:20,marginTop:30}}>
-                    푸쉬알림sdfvs
+                    푸쉬알림
                 </Text >
             </TouchableOpacity>
 
 
-             <TouchableOpacity
-               // onPress = {}
+            <TouchableOpacity
+                onPress = {()=>
+                Alert.alert(
+                    '로그아웃',
+                    '로그아웃 하시겠습니까?',
+                    [
+                        {
+                            text: '취소',
+                            onPress: () => console.log('Cancel Pressed'),
+                            style: 'cancel',
+                        },
+                        {
+                            text: '확인', 
+                            onPress: () => console.log('OK Pressed')},
+                    ],
+                        {cancelable: false},
+                    )
+               }
              >
                 <Text style={{ fontSize: 16, fontWeight: 'bold', marginBottom: 8, marginRight:20,marginTop:30}}>
                     로그아웃
                 </Text >
               
             </TouchableOpacity>
-            <Image 
-                source = {{uri : 'icon_add_photo',isStatic:true}}
-                style = {{width:50,height:50}}
-            />
-            <BigButtonColor     
-                title='이용약관' 
-                disabled = {false}/>
+            
         </View> 
     )
 }
@@ -103,12 +117,18 @@ const styles = StyleSheet.create({
     },
     textTitle: {
         fontSize: 14,
-        marginBottom: 12,
+        marginBottom: 20,
     },
     textInput: {
         fontSize: 16,
         marginBottom: 29,
         borderBottomWidth: 1,
         borderBottomColor: 'gray',
-    }
+    },
+    txt : {
+        flexDirection : 'row',
+        height : 50,
+        width : 200,
+    },
+
 })

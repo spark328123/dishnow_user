@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 
-export default () =>{
+export default Review = () =>{
     return(
         <View style ={
         {
@@ -13,7 +13,7 @@ export default () =>{
             <Text style ={{
                 fontSize : 20,
             }
-            }>My</Text>
+            }>내 리뷰 보기</Text>
         </View>
     )
 }

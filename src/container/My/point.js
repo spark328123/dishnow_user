@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 
-export default Notice = () =>{
+export default Point = () =>{
     return(
         <View style ={
         {
@@ -13,7 +13,7 @@ export default Notice = () =>{
             <Text style ={{
                 fontSize : 20,
             }
-            }>공지사항</Text>
+            }>디나포인트</Text>
         </View>
     )
 }

@@ -8,9 +8,9 @@ import { View,
     TouchableOpacity,
     ActivityIndicator,
     ScrollView,
+    Image,
 } from 'react-native';
 
-import Image from 'react-native-fast-image'
 import * as API from '../utill/API';
 import * as Utill from '../utill';
 import ImagePicker from 'react-native-image-picker';
