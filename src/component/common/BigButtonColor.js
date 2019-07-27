@@ -22,7 +22,9 @@ const BigButton = (props) => {
     if (disabled)  
         return (
             <View style = {styles.buttonDisable} >
-                <Text style={styles.title}>
+                <Text 
+                    style={styles.title}
+                    color = {props.color}>
                     {props.title}
                 </Text>
             </View>
@@ -35,6 +37,7 @@ const BigButton = (props) => {
             onPress = {onPress}
             onHideUnderlay = {_onHide}
             onShowUnderlay = {_onShow}
+            
         >
             <Text style={styles.title}>
                 {props.title}
@@ -64,6 +67,6 @@ const styles = StyleSheet.create({
     },
     title : {
         fontSize : 18,
-        color : Utill.color.onColorBackground,
+        color : Utill.color.white,
     },
 })
