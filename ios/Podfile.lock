@@ -81,7 +81,7 @@ PODS:
     - Google-Maps-iOS-Utils (= 2.1.0)
     - GoogleMaps (= 2.5.0)
     - React
-  - react-native-image-picker (0.14.3):
+  - react-native-image-picker (0.28.1):
     - React
   - react-native-maps (0.24.2):
     - React
@@ -239,7 +239,7 @@ SPEC CHECKSUMS:
   React: 36d0768f9e93be2473b37e7fa64f92c1d5341eef
   react-native-fbsdk: 38ee580e77319d03f8ed0bf4a020cbfd70dc4d2d
   react-native-google-maps: 568cb03d0eae7fef93626f65d05be55642404ed4
-  react-native-image-picker: 3693786b3d5958c8f71deed66ec068b323565e0d
+  react-native-image-picker: fd93361c666f397bdf72f9c6c23f13d2685b9173
   react-native-maps: 0316ed017dbb64b33b227751fa810e2454fcfa39
   react-native-webview: 21c396687cb983fadc6ccc0751cc74f554131f3f
   RNCAsyncStorage: 2808c378f6a70f22f66eeb6c11a8d69f326dd795
@@ -251,4 +251,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: 17c8a8ab258d8a73e8bfe2b05c45a86b186e4aac
 
-COCOAPODS: 1.7.3
+COCOAPODS: 1.7.4

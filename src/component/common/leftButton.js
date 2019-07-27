@@ -4,7 +4,7 @@ import {TouchableHighlight, Image} from 'react-native';
 export default ({ onPress }) => (
     <TouchableHighlight onPress={onPress}>
       <Image
-        source={require('../assets/icon_squareBracket.png')}
+        source={{uri: 'icon_back_button'}}
       />
     </TouchableHighlight>
   );

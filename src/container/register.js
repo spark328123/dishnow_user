@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, TextInput, ScrollView } from 'react-native';
-import {Button, BigButtonColor, BigButton, BigButtonBorder} from '../component/common/'
+import { View, StyleSheet, TextInput, ScrollView} from 'react-native';
+import {Button, BigButtonColor, BigButton, BigButtonBorder, Text} from '../component/common/'
 import * as API from '../utill/API';
 
 const Register = (props) => {
@@ -79,7 +79,7 @@ const Register = (props) => {
                 placeholder={'인증번호를 입력하세요.'}
                 onChangeText={(text) => setVerifyNum({ text })}
             />
-            <Text style={{ fontSize: 16, fontWeight: 'bold', marginBottom: 18 }}>추가 정보</Text>
+            <Text style={{ fontSize: 16, fontWeight: 'bold', marginBottom: 18}}>추가 정보</Text>
             <Text style={styles.textTitle}>성별</Text>
             <TextInput
                 style={styles.textInput}

@@ -1,5 +1,7 @@
-import React, {useState,useEffect}  from 'react';
-import { View, Text, Image, StyleSheet }from 'react-native';
+import React from 'react';
+import { View, Image, StyleSheet }from 'react-native';
+import { Text } from './common/'
+
 
 import * as Utill from '../utill'
 const TabItem = ({label, tintColor, source, navigation }) => {

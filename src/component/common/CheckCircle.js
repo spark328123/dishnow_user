@@ -1,6 +1,4 @@
 import React, {useState, useEffect} from 'react';
-import Images from '../../assets/images/'
-
 import Button from './Button';
 
 //const IconOff = 'icon_check_circle_disable';
@@ -24,7 +22,7 @@ export default (props) => {
         <Button 
             style={{width : 22, height : 22,}} 
             onPress={_trigger}
-            source={Images.images.naver}
+            source={{uri: "icon_check_circle_grey"}}
         />
     )
 }

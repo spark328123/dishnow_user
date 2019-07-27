@@ -2,7 +2,6 @@
 import React, { useState } from 'react';
 import {
     View,
-    Text,
     StyleSheet,
     Button,
     TouchableOpacity,
@@ -10,7 +9,7 @@ import {
 } from 'react-native';
 import * as Utill from '../utill';
 import CheckView from './register/TermsCheck';
-import {BigButtonBorder} from '../component/common';
+import { BigButtonBorder, Text } from '../component/common';
 const Terms = (props) => {
     const {navigation} = props;
     const [type] = useState(navigation.getParam('type'));

@@ -12,7 +12,7 @@ import {
 import * as Utill from '../utill';
 import { connect, useDispatch } from 'react-redux';
 import { updateLocation } from '../store/modules/maps';
-import Images from '../assets/images';
+
 
 const { height, width } = Dimensions.get("window");
 const ASPECT_RATIO = width / height;
@@ -110,7 +110,7 @@ const GoogleMaps =  ({isPressed, toggle, navigation, latitudeDelta, latitude, lo
                     <TouchableOpacity 
                         onPressIn = {_goBack}>
                         <Image source = {
-                            Images.images.icon_square_bracket
+                            {uri: 'icon_back_button'}
                         } />
                     </TouchableOpacity>
                 </View>
@@ -120,7 +120,7 @@ const GoogleMaps =  ({isPressed, toggle, navigation, latitudeDelta, latitude, lo
             }
             <View style={styles.markerFixed}>
                 <Image style = {styles.marker} source = {
-                    Images.images.icon_departure
+                    {uri: 'icon_departure'}
                 }></Image>
             </View>
             <View style = {styles.address}>
