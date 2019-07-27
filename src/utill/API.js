@@ -22,8 +22,6 @@ export const setLocal = async (key, data) => {
     }
 }
 
-
-
 export const getPostList = (token, option) => {
     const url = `${apiUrl}post/${option.type}/${option.order}/${option.page}`;
     return fetch.getAuthServer(url, token)
@@ -76,10 +74,8 @@ export const showRes = (token) => {
 }
 
 export const reviewWirte = (token, data) => {
-    const url = `${apiUrl}user/review`;
+    const url = `${apiUrl}review/`;
     return fetch.putAuthServer(url,token,data)
-    .then(res=>res.json())
+    .then(res => ({isSuccess : res ? true: false}))
     .catch(error=>({error}));
 }
-
-

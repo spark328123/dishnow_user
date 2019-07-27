@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, memo, useEffect } from 'react';
 import { View,
     StyleSheet,
     TextInput,
@@ -8,23 +8,24 @@ import { View,
     TouchableOpacity,
     ActivityIndicator,
     ScrollView,
+    Image,
 } from 'react-native';
 
-import Image from 'react-native-fast-image'
+//import Image from 'react-native-fast-image'
 import * as API from '../utill/API';
 import * as Utill from '../utill';
 import ImagePicker from 'react-native-image-picker';
 import Dialog from "react-native-dialog";
-import {Text} from '../component/common/'
+import { Text } from '../component/common/'
 
-const defaultImageSource = {uri: 'icon_add_photo'};
-const addImageSource = {uri: 'icon_delete_photo'};
+const defaultImageSource = ({uri: 'icon_add_photo'});
+const addImageSource = ({uri: 'icon_add_photo_add'});
 
 export default () => {
     const [ isLoaded, setIsLoaded ] = useState(false);
     const [ content, setContent ] = useState('');
     const [ imageArray, setImageArray ] = useState([{
-        id : 0,
+        id : 1,
         source : defaultImageSource,
         isLoaded : false,
     }]);
@@ -73,67 +74,24 @@ export default () => {
         );
     }
 
-    const _uploadPhoto = async(data) => {
+    const _uploadPhoto = async(data) => {       //사진 업로드(s3) 
         const res = await API.uploadPhoto(data);
         return JSON.stringify(res.data);
     }
 
-    const _uploadReview = async() => {
+    const _uploadReview = async() => {  // 리뷰 업로드
         var image = await _uploadPhoto(imageReq);
         if(image===undefined)image='[]';
         const token = await API.getLocal(API.LOCALKEY_TOKEN);
         const data = {
             content,
             rating : 5,
-            reviewId : 13,
+            reviewId : 93,
             image
         }
-        console.log(token,data);
         const res = await API.reviewWirte(token,data);
         console.log(res);
     }
-
-    const Show = () => {    
-        const list = imageArray.map(
-            item => 
-              (
-                <TouchableOpacity
-                    style = {styles.picker}
-                    onPress = {()=>{
-                        if(item.source===defaultImageSource ||
-                            item.source===addImageSource){_picker(item)}
-                        else {_deleteSource(item);
-                        }
-                    }
-                }
-                > 
-                <Image
-                    onProgress = {()=>setIsLoaded(true)}
-                    onLoadEnd = {()=>setIsLoaded(false)}
-                    style = {styles.addimage}
-                    source = {item.source}
-                />
-                  {isLoaded && <ActivityIndicator style = {styles.indicator}/>}
-                {/*
-                <Dialog.Container
-                visible = {visible}>
-                <Dialog.Title>사진 삭제</Dialog.Title>
-                <Dialog.Description>
-                    사진을 삭제하시겠습니까?
-                </Dialog.Description>
-                <Dialog.Button label="취소"
-                    onPress = {()=>setVisible(false)} />
-                <Dialog.Button label="삭제"
-                    onPress = {()=>{setVisible(false);_deleteSource(item.id)}} 
-                    />
-            </Dialog.Container>
-                */}
-            </TouchableOpacity>
-              )
-        )
-        return list;
-    }
-
 
     const options = {
         title: '올리실 사진을 선택해주세요.',
@@ -160,13 +118,47 @@ export default () => {
                 maxLength = {1000}
                 multiline = {true}
                 numberOfLines = {6}
-                onChangeText = { (text) => setContent(text)
-                }
+                onChangeText = { (text) => setContent(text)}
              />
+             {isLoaded && <ActivityIndicator style = {styles.indicator}/>}
              <ScrollView horizontal = {true}>
-           
             <View style = {{flexDirection: 'row'}}>
-                <Show />
+                {imageArray.map(
+                item => 
+                (
+                    <TouchableOpacity
+                        style = {styles.picker}
+                        onPress = {()=>{
+                            if(item.source===defaultImageSource ||
+                                item.source===addImageSource){_picker(item)}
+                            else {_deleteSource(item);
+                            }
+                        }}> 
+                        <Image 
+                            source = {item.source} 
+                            style = {styles.addimage}
+                            onLoadStart = {()=>{setIsLoaded(true)}}
+                            onLoadEnd = {()=>setIsLoaded(false)}
+                        
+                        />
+                        {isLoaded && <ActivityIndicator style = {styles.indicator}/>}
+                        {/*
+                        <Dialog.Container
+                        visible = {visible}>
+                        <Dialog.Title>사진 삭제</Dialog.Title>
+                        <Dialog.Description>
+                            사진을 삭제하시겠습니까?
+                        </Dialog.Description>
+                        <Dialog.Button label="취소"
+                            onPress = {()=>setVisible(false)} />
+                        <Dialog.Button label="삭제"
+                            onPress = {()=>{setVisible(false);_deleteSource(item.id)}} 
+                            />
+                        </Dialog.Container>
+                        */}
+                    </TouchableOpacity>
+                    )
+                )}
             </View>
             </ScrollView>
             <Text>
@@ -211,8 +203,7 @@ const styles = StyleSheet.create({
         justifyContent : 'center',
         width : 60,
         height : 60,
-        backgroundColor : Utill.color.secondary2,
-        marginRight : 6
+        marginRight : 6,
     },
     addimage : {
         width : 60,
