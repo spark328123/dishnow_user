@@ -1,18 +1,40 @@
-import React, {useState} from 'react';
-import { View, FlatList } from 'react-native';
-import { Text } from '../component/common/'
+import React, {useState, useEffect} from 'react';
+import { View, Text, FlatList, StyleSheet, TouchableOpacity } from 'react-native';
+import { useDispatch } from 'react-redux';
+import { ReviewButton } from '../component/common/'
+import * as API from '../utill/API';
 
-export default () =>{
-    const [data] = useState([
-        {
-            resName : '아웃치킨 홍대점',
-            resTime : '예약시간 :  2019년 6월 19일 오후 6:30',
-        }
-    ])
+const TabBooked = (props) =>{
+
+    const {navigation} = props;
+    const dispatch = useDispatch();
+    const [data, setdata] = useState([ 
+
+    ]);
+
+    const _me = async() => {
+        const token = await API.getLocal(API.LOCALKEY_TOKEN);
+        const meRes = await API.me(token);
+        const resList = await API.reserveList(token);
+        await setdata(resList);
+        console.log(data);
+    }
+
+    useEffect(() => {
+        _me();
+    }, []);
 
     const _renderItem = ({item}) => {
         return (
-            <Text >{item.resName}</Text>
+            <View>
+                <Text style={styles.resname}>{item.name}</Text>
+                <Text>{item.createdAt}</Text>
+                <ReviewButton
+                    date = {item.createdAt}
+                    id = {item.reviewId}
+                    rate = {item.rating}
+                />
+            </View>
         )
     }
 
@@ -28,6 +50,28 @@ export default () =>{
             data = {data}
             renderItem = {_renderItem}
           />
+            <TouchableOpacity onPress = {()=>_me()}>
+                <Text> SiPal </Text>
+            </TouchableOpacity>
         </View>
     )
 }
+
+export default TabBooked
+
+const styles = StyleSheet.create({
+
+    resname: {              // 맨위에서부터 식당이름, 예약시간, 리뷰작성버튼
+        fontSize : 20,        
+    },
+    restime: {
+        fontSize : 12,
+    },
+    reviewbutton: {
+        fontSize : 16,
+    },
+    timeout: {              // 리뷰작성시간 지났습니다
+        fontSize : 16,
+    },
+
+})
