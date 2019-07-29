@@ -7,7 +7,7 @@ import webView from '../container/webView'
 import Profile from '../container/My/profile_manage'
 import Client from '../container/My/client_center'
 import Notice from '../container/My/notice'
-const MyStack = createStackNavigator(
+const myStack = createStackNavigator(
     {
         TabMy : { screen : TabMy },
         Profile : { screen : Profile },
@@ -23,7 +23,7 @@ const MyStack = createStackNavigator(
     }
 )
 
-export default MyStack; 
+export default myStack; 
 //프로필관리
 //디나포인트 나의리뷰
 //공지사항
