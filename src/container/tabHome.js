@@ -1,7 +1,7 @@
 import React, {useState,useEffect} from 'react';
 import { View, StyleSheet, AppRegistry, ScrollView, TouchableOpacity, TextInput } from 'react-native';
 import GoogleMap from '../utill/googlemap.js';
-import { useDispatch } from 'react-redux';
+import { useDispatch, connect } from 'react-redux';
 import * as API from '../utill/API';
 import user, * as User from '../store/modules/user'
 import ModalDropdown from 'react-native-modal-dropdown';
@@ -44,6 +44,23 @@ const TabHome = (props)=>{
             OneSignal.removeEventListener('ids',onIds);
         }
     },[]);
+    const _reservation = async()=>{
+        const token = await API.getLocal(API.LOCALKEY_TOKEN);
+        const data = {
+            storeTypeId : 1,
+            peopleNumber : parseInt(people.text),
+            minutes : parseInt(time),
+            latitude,
+            longitude, 
+        }
+        console.log(data);
+        const res = await API.reservation(token,data);
+        console.log(res);
+    }
+    const onIds = ((device) => {
+        let token = device.userId;
+        API.setPush(API.PUSH_TOKEN,token);
+      })
 
     const onIds = ((device) => {
         let token = device.userId;
@@ -147,7 +164,7 @@ const TabHome = (props)=>{
                             selectionColor = '#733FFF'
                             placeholder ={'00'}
                             onChangeText={(text) => setPeople({text})}
-                            value={people} />
+                            value={people.text} />
                             <Text> 명 </Text>
                         </View>
                     </View>
@@ -165,12 +182,7 @@ const TabHome = (props)=>{
                 </View>
                 <BigButtonColor 
                     style={styles.find}
-                    onPress ={()=> navigation.push('onWait',{
-                        userid,
-                        point,
-                        people,
-                        phone,
-                    })}
+                    onPress ={_reservation}
                     title = {'술집 찾기'}
                 />
                     
@@ -182,7 +194,14 @@ const TabHome = (props)=>{
 }
 
 
-export default TabHome;
+const mapStateToProps = (state) => {
+    return {
+        latitude : state.Maps._root.entries[0][1].latitude,
+        longitude : state.Maps._root.entries[0][1].longitude,
+    }
+}
+
+export default connect(mapStateToProps)(TabHome);
 
 const styles = StyleSheet.create({
     container : {                       // 화면전체

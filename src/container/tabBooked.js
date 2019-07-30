@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
-import { View, Text, FlatList, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, Text, FlatList, StyleSheet, TouchableOpacity, Button } from 'react-native';
 import { useDispatch } from 'react-redux';
-import { ReviewButton } from '../component/common/'
+import { ReviewButton, } from '../component/common/'
 import * as API from '../utill/API';
 
 const TabBooked = (props) =>{
@@ -9,16 +9,21 @@ const TabBooked = (props) =>{
     const {navigation} = props;
     const dispatch = useDispatch();
     const [data, setdata] = useState([ 
-
+        
     ]);
 
-    const _me = async() => {
+    const _showRes = async() => {
         const token = await API.getLocal(API.LOCALKEY_TOKEN);
-        const meRes = await API.me(token);
-        const resList = await API.reserveList(token);
-        await setdata(resList);
-        console.log(data);
+        console.log(token);
+        const resList = await API.showRes(token);
+        console.log(resList)
     }
+
+    useEffect(() => {
+        _showRes();
+    },[]);
+
+
 
     useEffect(() => {
         _me();
@@ -34,6 +39,8 @@ const TabBooked = (props) =>{
                     id = {item.reviewId}
                     rate = {item.rating}
                 />
+            
+               
             </View>
         )
     }
@@ -46,10 +53,13 @@ const TabBooked = (props) =>{
                 justifyContent : 'center',
             }
         }>
+            
           <FlatList
             data = {data}
             renderItem = {_renderItem}
           />
+            
+           <Button title = 'asd' onPress ={_showRes}/>
             <TouchableOpacity onPress = {()=>_me()}>
                 <Text> SiPal </Text>
             </TouchableOpacity>

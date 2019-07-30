@@ -9,7 +9,7 @@ const BookStack = createStackNavigator(
         ReviewWrite : { screen : ReviewWrite }
     },
     {
-        initialRouteName : 'ReviewWrite',
+        initialRouteName : 'TabBooked',
         headerMode : 'none',
     }
 )

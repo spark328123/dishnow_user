@@ -17,8 +17,12 @@ import ImagePicker from 'react-native-image-picker';
 import Dialog from "react-native-dialog";
 import { Text } from '../component/common/';
 
-const defaultImageSource = ({uri: 'icon_add_photo'});
-const addImageSource = ({uri: 'icon_add_photo_add'});
+
+
+const defaultImageSource = {uri: 'icon_add_photo'};
+const addImageSource = {uri: 'icon_add_photo_add'};
+const defaultStar = {uri : 'icon_star_empty_review'};
+const checkStar = {uri : 'icon_star_full_review'};
 
 export default () => {
     const [ isLoaded, setIsLoaded ] = useState(false);
@@ -29,6 +33,31 @@ export default () => {
         isLoaded : false,
     }]);
     const [ visible, setVisible ] = useState(false);
+
+    const [ imageReq, setImageReq ] = useState([]);
+    const [ starArray, setStarArray ] = useState([
+        {
+            id : 1,
+            check : false,
+        },
+        {
+            id : 2,
+            check : false,
+        },
+        {
+            id : 3,
+            check : false,
+        },
+        {
+            id : 4,
+            check : false,
+        },
+        {
+            id : 5,
+            check : false,
+        },
+    ])
+    const [ rating, setRating ] = useState(0);
     const [ imageReq, setImageReq ] = useState([]);
  
     const _picker = async (item) => {
@@ -66,6 +95,8 @@ export default () => {
 
     const _deleteSource = (item) => {   //view && req remove
         setImageArray(
+
+            imageArray.filter(info => info.source !== item.source)
             imageArray.filter(info => info.id !== item.id)
         );
         setImageReq(
@@ -73,6 +104,18 @@ export default () => {
         );
     }
 
+
+    const _updateRating = async(id) => {
+        setStarArray(starArray.map(
+            item => {
+                if(item.id <= id){
+                    return {...item,check : true}
+                }else{
+                    return  {...item, check : false}
+                }
+            }
+        ))
+        setRating(id);
     const _uploadPhoto = async(data) => {       //upload(s3) 
         const res = await API.uploadPhoto(data);
         return JSON.stringify(res.data);
@@ -109,7 +152,15 @@ export default () => {
         <View style = {styles.container}>
             <View style = {styles.header}>
                 <Text>별점을 선택해주세요</Text>
-                <Text>*****</Text>
+                <View style = {styles.contentStar}>
+                    {starArray.map(
+                        item => (
+                            <TouchableOpacity style = {styles.star} onPress = {()=>_updateRating(item.id)}>
+                            <Image source = {!item.check?defaultStar:checkStar} style = {styles.star}/>
+                            </TouchableOpacity>
+                        )
+                    )}
+                </View>
             </View>
             <TextInput
                 style = {[styles.textinput]}
@@ -135,9 +186,7 @@ export default () => {
                         }}> 
                         <Image 
                             source = {item.source} 
-                            style = {styles.addimage}
-                            onLoadStart = {()=>{setIsLoaded(true)}}
-                            onLoadEnd = {()=>setIsLoaded(false)}
+                            style = {styles.addimage}                        
                         
                         />
                         {isLoaded && <ActivityIndicator style = {styles.indicator}/>}
@@ -165,7 +214,7 @@ export default () => {
              </Text>
              <Button
                 title = '작성하기'
-                onPress = {()=>_uploadReview()}
+                onPress = {_uploadReview}
                 >
              </Button>
         </View>  
@@ -218,4 +267,16 @@ const styles = StyleSheet.create({
         justifyContent: "center",
         alignItems: "center",
     },
+    contentStar : {
+        marginTop : 20,
+        flexDirection : 'row',
+        alignItems : 'center',
+        justifyContent : 'center',
+
+    },  
+    star : {
+        width : 41.87,
+        height : 40,
+        marginRight : 13.1,
+    }
 })

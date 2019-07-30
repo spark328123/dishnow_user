@@ -31,7 +31,6 @@ const ReviewButton = (props) => {
 export default ReviewButton;
 
 const styles = StyleSheet.create({
-
     CanWrite : {
 
     },
