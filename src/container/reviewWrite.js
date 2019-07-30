@@ -114,6 +114,7 @@ export default () => {
             }
         ))
         setRating(id);
+    }
     const _uploadPhoto = async(data) => {       //upload(s3) 
         const res = await API.uploadPhoto(data);
         return JSON.stringify(res.data);
