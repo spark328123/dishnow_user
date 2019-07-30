@@ -23,12 +23,6 @@ const TabBooked = (props) =>{
         _showRes();
     },[]);
 
-
-
-    useEffect(() => {
-        _me();
-    }, []);
-
     const _renderItem = ({item}) => {
         return (
             <View>
