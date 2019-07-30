@@ -96,7 +96,6 @@ export default () => {
         setImageArray(
 
             imageArray.filter(info => info.source !== item.source)
-            imageArray.filter(info => info.id !== item.id)
         );
         setImageReq(
             imageReq.filter(info => info !== item.source.uri)
