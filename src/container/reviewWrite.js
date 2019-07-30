@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { View,
-    Text,
     StyleSheet,
     TextInput,
     Keyboard,
@@ -17,8 +16,13 @@ import Images from '../assets/images';
 import ImagePicker from 'react-native-image-picker';
 import Dialog from "react-native-dialog";
 
-const defaultImageSource = Images.images.icon_addimage;
-const addImageSource = Images.images.icon_x;
+
+import { Text } from '../component/common/';
+
+const defaultImageSource = {uri: 'icon_add_photo'};
+const addImageSource = {uri: 'icon_add_photo_add'};
+const defaultStar = {uri : 'icon_star_empty_review'};
+const checkStar = {uri : 'icon_star_full_review'};
 
 export default () => {
     const [ content, setContent ] = useState('');
@@ -29,9 +33,33 @@ export default () => {
     }]);
     const [ visible, setVisible ] = useState(false);
 
-    const _picker = (item) => {
-        ImagePicker.showImagePicker(options,(response)=>{
-            //setIsLoad(true)
+    const [ imageReq, setImageReq ] = useState([]);
+    const [ starArray, setStarArray ] = useState([
+        {
+            id : 1,
+            check : false,
+        },
+        {
+            id : 2,
+            check : false,
+        },
+        {
+            id : 3,
+            check : false,
+        },
+        {
+            id : 4,
+            check : false,
+        },
+        {
+            id : 5,
+            check : false,
+        },
+    ])
+    const [ rating, setRating ] = useState(0);
+ 
+    const _picker = async (item) => {
+       await ImagePicker.showImagePicker(options,(response)=>{
             if (response.didCancel) {
                 console.log('User cancelled image picker');
               } else if (response.error) {
@@ -58,7 +86,11 @@ export default () => {
 
     const _deleteSource = (id) => {
         setImageArray(
-            imageArray.filter(info => info.id!==id)
+
+            imageArray.filter(info => info.source !== item.source)
+        );
+        setImageReq(
+            imageReq.filter(info => info !== item.source.uri)
         );
         if(!imageArray.length){
             _addSource(defaultImageSource);
@@ -66,47 +98,35 @@ export default () => {
     }
 
 
-    const Show = () => {    
-        const list = imageArray.map(
-            item => 
-              (
-                <TouchableOpacity
-                    style = {styles.picker}
-                    onPress = {()=>{
-                        if(item.source===defaultImageSource
-                            || item.source===addImageSource){
-                        _picker(item)}
-                        else {_deleteSource(item.id);
-                        }
-                    }
-                }
-                > 
-                <FastImage
-                    style = {styles.addimage}
-                    source = {item.source}
-                    //onLoad = {setIsLoad(false)}
-                />
-                {item.isLoaded && <ActivityIndicator style = {styles.indicator}/>}
-                {/*
-                <Dialog.Container
-                visible = {visible}>
-                <Dialog.Title>사진 삭제</Dialog.Title>
-                <Dialog.Description>
-                    사진을 삭제하시겠습니까?
-                </Dialog.Description>
-                <Dialog.Button label="취소"
-                    onPress = {()=>setVisible(false)} />
-                <Dialog.Button label="삭제"
-                    onPress = {()=>{setVisible(false);_deleteSource(item.id)}} 
-                    />
-            </Dialog.Container>
-                */}
-            </TouchableOpacity>
-              )
-        )
-        return list;
+
+    const _uploadReview = async() => {  // review upload
+        var image = await _uploadPhoto(imageReq);
+        if(image===undefined)image='[]';
+        const token = await API.getLocal(API.LOCALKEY_TOKEN);
+        const data = {
+            content,
+            rating,
+            reviewId : 93,
+            image
+        }
+        console.log(data);
+        const res = await API.reviewWirte(token,data);
+        if(res)alert('리뷰가 등록되었습니다!');
+        else alert('통신 상태를 확인해 주세요');
     }
 
+    const _updateRating = async(id) => {
+        setStarArray(starArray.map(
+            item => {
+                if(item.id <= id){
+                    return {...item,check : true}
+                }else{
+                    return  {...item, check : false}
+                }
+            }
+        ))
+        setRating(id);
+    }
 
     const options = {
         title: '올리실 사진을 선택해주세요.',
@@ -124,7 +144,15 @@ export default () => {
         <View style = {styles.container}>
             <View style = {styles.header}>
                 <Text>별점을 선택해주세요</Text>
-                <Text>*****</Text>
+                <View style = {styles.contentStar}>
+                    {starArray.map(
+                        item => (
+                            <TouchableOpacity style = {styles.star} onPress = {()=>_updateRating(item.id)}>
+                            <Image source = {!item.check?defaultStar:checkStar} style = {styles.star}/>
+                            </TouchableOpacity>
+                        )
+                    )}
+                </View>
             </View>
             <TextInput
                 style = {[styles.textinput]}
@@ -138,7 +166,39 @@ export default () => {
              />
              <ScrollView horizontal = {true}>
             <View style = {{flexDirection: 'row'}}>
-                <Show />
+
+                {imageArray.map(
+                item => 
+                (
+                    <TouchableOpacity
+                        style = {styles.picker}
+                        onPress = {()=>{
+                            if(item.source===defaultImageSource ||
+                                item.source===addImageSource){_picker(item)}
+                            else _deleteSource(item);
+                        }}> 
+                        <Image 
+                            source = {item.source} 
+                            style = {styles.addimage}                        
+                        />
+                        {isLoaded && <ActivityIndicator style = {styles.indicator}/>}
+                        {
+                        <Dialog.Container
+                        visible = {visible}>
+                        <Dialog.Title>사진 삭제</Dialog.Title>
+                        <Dialog.Description>
+                            사진을 삭제하시겠습니까?
+                        </Dialog.Description>
+                        <Dialog.Button label="취소"
+                            onPress = {()=>setVisible(false)} />
+                        <Dialog.Button label="삭제"
+                            onPress = {()=>{setVisible(false);_deleteSource(item)}} 
+                            />
+                        </Dialog.Container>
+                        }
+                    </TouchableOpacity>
+                    )
+                )}
             </View>
             </ScrollView>
             <Text>
@@ -146,6 +206,7 @@ export default () => {
              </Text>
              <Button
                 title = '작성하기'
+                onPress = {_uploadReview}
                 >
              </Button>
         </View>  
@@ -199,4 +260,16 @@ const styles = StyleSheet.create({
         justifyContent: "center",
         alignItems: "center",
     },
+    contentStar : {
+        marginTop : 20,
+        flexDirection : 'row',
+        alignItems : 'center',
+        justifyContent : 'center',
+
+    },  
+    star : {
+        width : 41.87,
+        height : 40,
+        marginRight : 13.1,
+    }
 })

@@ -63,9 +63,12 @@ export const getAuthServer = async (url, token, data = null) => {
                 Authorization : `Bearer ${token}`
             },
         });
+         console.log(res);
+         console.log(token);
+        if (res.ok) return res;
+        console.log(await res.json());
+        return null;
         
-        return res;
-
     }catch(e){
         console.log('getAuth' + e);
     }

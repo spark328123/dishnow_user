@@ -1,13 +1,14 @@
 import React, {useState,useEffect} from 'react';
-import { View, StyleSheet, AppRegistry, Text, ScrollView, TouchableOpacity, TextInput } from 'react-native';
+import { View, StyleSheet, AppRegistry, ScrollView, TouchableOpacity, TextInput } from 'react-native';
 import GoogleMap from '../utill/googlemap.js';
-import { useDispatch } from 'react-redux';
+import { useDispatch, connect } from 'react-redux';
 import * as API from '../utill/API';
-import * as User from '../store/modules/user'
+import user, * as User from '../store/modules/user'
 import ModalDropdown from 'react-native-modal-dropdown';
-import {BigButtonColor} from '../component/common'
+import { BigButtonColor, Text } from '../component/common'
+import OneSignal from 'react-native-onesignal';
+
 const TabHome = (props)=>{
-    
     const dispatch = useDispatch();
     const _me = async() => {
         const token = await API.getLocal(API.LOCALKEY_TOKEN);
@@ -21,11 +22,14 @@ const TabHome = (props)=>{
         dispatch(User.updateuserid(userid));
         dispatch(User.updatepoint(point));
         dispatch(User.upadtename(name));
-        dispatch(User.updatephone(콜));
+        dispatch(User.updatephone(phone));
         dispatch(User.updateimage(image));
         dispatch(User.updatereviewcount(reviewcount));
+        const pushToken = await API.getPush(API.PUSH_TOKEN);
+        console.log(pushToken);
+        const ret = await API.setPushToken(token,{pushToken});
+        console.log(ret);
     }
-
 
     const [people, setPeople] = useState('');
     const [time, setTime] = useState('');
@@ -34,8 +38,29 @@ const TabHome = (props)=>{
     const {navigation} = props;
 
     useEffect(()=>{
+        OneSignal.addEventListener('ids',onIds);
         _me();
+        return () => {
+            OneSignal.removeEventListener('ids',onIds);
+        }
     },[]);
+    const _reservation = async()=>{
+        const token = await API.getLocal(API.LOCALKEY_TOKEN);
+        const data = {
+            storeTypeId : 1,
+            peopleNumber : parseInt(people.text),
+            minutes : parseInt(time),
+            latitude,
+            longitude, 
+        }
+        console.log(data);
+        const res = await API.reservation(token,data);
+        console.log(res);
+    }
+    const onIds = ((device) => {
+        let token = device.userId;
+        API.setPush(API.PUSH_TOKEN,token);
+      })
 
     const [temaList, settemaList] = useState([  // 테마배열
         {   color : '#979797', isselect : false, id : '전체',},
@@ -62,7 +87,6 @@ const TabHome = (props)=>{
         let newTemaList = [...temaList];
         if(newTemaList[i].color === '#979797'){
           await _toggle(i,newTemaList);
-          console.log(tema);
         }else{
             newTemaList[i].color = '#979797';
             newTemaList[i].isselect = false;
@@ -75,9 +99,7 @@ const TabHome = (props)=>{
     }
 
     const _selectTime = (rowData) =>{
-        console.log(time);
         setTime(rowData);
-        console.log(time);
     }
 
     return(
@@ -97,9 +119,7 @@ const TabHome = (props)=>{
                     style = {styles.scroll}
                     horizontal = {true}
                     showsVerticalScrollIndicator = {true}
-                    onMomentumScrollEnd = {
-                        () => {console.log('Scroll End')}
-                    }>
+                    >
                         <View style = {styles.item}>
                         <TouchableOpacity onPress = {()=>_changeTemaColor(0)}>
                             <View style = {styles.item}><Text  style = {{color : temaList[0].color }}> 전체 </Text></View>
@@ -139,7 +159,7 @@ const TabHome = (props)=>{
                             selectionColor = '#733FFF'
                             placeholder ={'00'}
                             onChangeText={(text) => setPeople({text})}
-                            value={people} />
+                            value={people.text} />
                             <Text> 명 </Text>
                         </View>
                     </View>
@@ -157,24 +177,26 @@ const TabHome = (props)=>{
                 </View>
                 <BigButtonColor 
                     style={styles.find}
-                    onPress ={()=> navigation.push('onWait',{
-                        userid,
-                        point,
-                        people,
-                        phone,
-                    })}
+                    onPress ={_reservation}
                     title = {'술집 찾기'}
                 />
                     
 
-                
+
             </View>
         </View>
     )
 }
 
 
-export default TabHome;
+const mapStateToProps = (state) => {
+    return {
+        latitude : state.Maps._root.entries[0][1].latitude,
+        longitude : state.Maps._root.entries[0][1].longitude,
+    }
+}
+
+export default connect(mapStateToProps)(TabHome);
 
 const styles = StyleSheet.create({
     container : {                       // 화면전체

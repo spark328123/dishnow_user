@@ -79,4 +79,30 @@ export const phoneAuth = (phone) => {
     .catch(error => ({error}));  
 }
 
+export const setPushToken = (token, data) => {
+    const url = `${apiUrl}user/pushToken`;
+    return fetch.putAuthServer(url,token,data)
+    .then(res => ({isSuccess : res? true: false}))
+    .catch(error=>({error}));
+}
 
+export const reservation = (token, data) => {
+    const url = `${apiUrl}reservation`;
+    return fetch.postAuthServer(url,token,data)
+    .then(res => ({isSuccess : res? true : false}))
+    .catch(error=>({error}));
+}
+
+export const showRes = (token) => {
+    const url = `${apiUrl}review`;
+    return fetch.getAuthServer(url, token)
+    .then(res=> res.json())
+    .catch(error => ({error}));  
+}
+
+export const reviewWirte = (token, data) => {
+    const url = `${apiUrl}review`;
+    return fetch.putAuthServer(url,token,data)
+    .then(res => ({isSuccess : res ? true: false}))
+    .catch(error=>({error}));
+}
