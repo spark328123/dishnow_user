@@ -13,14 +13,12 @@ const Register = (props) => {
     const [birthDate, setBirth] = useState('');
     const [phoneRes, setPhoneRes] = useState('');
     const _phoneAuth = async() =>{
-        console.log(phone.text);
         const phoneRes = await API.phoneAuth({ phone: phone.text });
         alert('인증번호가 전송되었습니다.');
         setPhoneRes(phoneRes);
     }
 
     const _register = async () => {
-        console.log(name.text);
         let token = navigation.getParam('token');
         const type = navigation.getParam('type');
 

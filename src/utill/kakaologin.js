@@ -28,7 +28,7 @@ const KakaoLogin = ({ navigation }) => {
       }
       login(result.token)
         .then(res => {
-          if (res) {
+          if (!res) {
             navigation.push('Terms', {
               type,
               token: result.token,

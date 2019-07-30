@@ -14,7 +14,6 @@ const Terms = (props) => {
     const {navigation} = props;
     const [type] = useState(navigation.getParam('type'));
     const [token] = useState(navigation.getParam('token'));
-    console.log(type, token);
     return (
         <ScrollView style={styles.pageContainer}>
             <View style = {styles.container}>

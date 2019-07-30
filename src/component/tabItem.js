@@ -6,7 +6,6 @@ import { Text } from './common/'
 import * as Utill from '../utill'
 const TabItem = ({label, tintColor, source, navigation }) => {
     
-    console.log(source)
     return (
         <View style={styles.container}>
             <View>

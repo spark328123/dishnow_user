@@ -2,7 +2,6 @@ const HEADER_APPJSON = 'application/json';
 const HEADER_WWWENCODED = 'application/x-www-form-urlencoded;charset=UTF-8';
 const HEADER_MULTIPART = 'multipart/form-data';
 
-
 const bodyEncoder = (data=null) => {
     let formBody = [];
     for (let property in data) {
@@ -13,15 +12,6 @@ const bodyEncoder = (data=null) => {
     formBody = formBody.join("&");
     return formBody;
 }
-const urlEncoder = (url, data) => {
-    
-    if(data){
-        return url + '?' + bodyEncoder(data);
-    }
-    return url;
-}
-
-
 
 export const getServer = async (url, data = null) => {
 
@@ -221,5 +211,3 @@ export const postAuthMultipartServer = async (url, token, data) => {
         console.log('postAuth / Multipart : ' + e);
     }
 }
-
-

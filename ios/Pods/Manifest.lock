@@ -61,6 +61,7 @@ PODS:
   - libwebp/utils (1.0.2):
     - libwebp/core
   - libwebp/webp (1.0.2)
+  - OneSignal (2.10.0)
   - React (0.59.10):
     - React/Core (= 0.59.10)
   - react-native-fbsdk (0.10.1):
@@ -85,6 +86,9 @@ PODS:
     - React
   - react-native-maps (0.24.2):
     - React
+  - react-native-onesignal (3.3.1):
+    - OneSignal (= 2.10.0)
+    - React (< 1.0.0, >= 0.13.0)
   - react-native-webview (5.12.1):
     - React
   - React/Core (0.59.10):
@@ -166,6 +170,7 @@ DEPENDENCIES:
   - react-native-google-maps (from `../node_modules/react-native-maps`)
   - react-native-image-picker (from `../node_modules/react-native-image-picker`)
   - react-native-maps (from `../node_modules/react-native-maps`)
+  - react-native-onesignal (from `../node_modules/react-native-onesignal/react-native-onesignal.podspec`)
   - react-native-webview (from `../node_modules/react-native-webview`)
   - React/Core (from `../node_modules/react-native`)
   - React/CxxBridge (from `../node_modules/react-native`)
@@ -194,6 +199,7 @@ SPEC REPOS:
     - Google-Maps-iOS-Utils
     - GoogleMaps
     - libwebp
+    - OneSignal
     - SDWebImage
     - SDWebImageWebPCoder
 
@@ -214,6 +220,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-image-picker"
   react-native-maps:
     :path: "../node_modules/react-native-maps"
+  react-native-onesignal:
+    :path: "../node_modules/react-native-onesignal/react-native-onesignal.podspec"
   react-native-webview:
     :path: "../node_modules/react-native-webview"
   RNCAsyncStorage:
@@ -236,11 +244,13 @@ SPEC CHECKSUMS:
   Google-Maps-iOS-Utils: c32891ff472eaaa1fca032beedafa1a013af7875
   GoogleMaps: c087b8e5dfe87ca6ebf59adb9b4894a4146bec4f
   libwebp: b068a3bd7c45f7460f6715be7bed1a18fd5d6b48
+  OneSignal: 0f5ff711d9f25da54885e4ab06ef0abc221a46ef
   React: 36d0768f9e93be2473b37e7fa64f92c1d5341eef
   react-native-fbsdk: 38ee580e77319d03f8ed0bf4a020cbfd70dc4d2d
   react-native-google-maps: 568cb03d0eae7fef93626f65d05be55642404ed4
   react-native-image-picker: fd93361c666f397bdf72f9c6c23f13d2685b9173
   react-native-maps: 0316ed017dbb64b33b227751fa810e2454fcfa39
+  react-native-onesignal: d5497ae1e9b85e4c20836f7fb98df5945736f6b9
   react-native-webview: 21c396687cb983fadc6ccc0751cc74f554131f3f
   RNCAsyncStorage: 2808c378f6a70f22f66eeb6c11a8d69f326dd795
   RNFastImage: 9b0c22643872bb7494c8d87bbbb66cc4c0d9e7a2
@@ -249,6 +259,6 @@ SPEC CHECKSUMS:
   SDWebImageWebPCoder: 7568737603c50f6237850afedd7e9e28e5917e6b
   yoga: 684513b14b03201579ba3cee20218c9d1298b0cc
 
-PODFILE CHECKSUM: 17c8a8ab258d8a73e8bfe2b05c45a86b186e4aac
+PODFILE CHECKSUM: edd8bad4f5e69555c5e3f96940756e3d83439a60
 
 COCOAPODS: 1.7.3
