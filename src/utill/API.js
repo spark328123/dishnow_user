@@ -4,6 +4,7 @@ import AsyncStorage from '@react-native-community/async-storage';
 export const apiUrl = 'http://54.180.6.107:8001/api/user/'; 
 
 export const LOCALKEY_TOKEN = 'LOC_STORE_KEY_TOKEN'
+export const PUSH_TOKEN = 'PUSH_TOKEN';
 
 export const getLocal =  async (key) => {
     try {
@@ -22,12 +23,21 @@ export const setLocal = async (key, data) => {
     }
 }
 
-export const getPostList = (token, option) => {
-    const url = `${apiUrl}post/${option.type}/${option.order}/${option.page}`;
-    return fetch.getAuthServer(url, token)
-    .then(res => res.json())
-    .then(res => ({data: res})) // res 을 data 로
-    .catch(error => ({error})); 
+export const getPush = async (key) => {
+    try {
+        const value = await AsyncStorage.getItem(key);
+        return value;
+    } catch(e) {
+        console.log(e);
+    }
+}
+
+export const setPush = async (key ,data) => {
+    try {
+        await AsyncStorage.setItem(key,data);
+    } catch(e) {
+        console.log(e);
+    }
 }
 
 export const uploadPhoto = (image) => {
@@ -64,6 +74,13 @@ export const phoneAuth = (phone) => {
     return fetch.getServer(url, phone)
     .then(res=> res.json())
     .catch(error => ({error}));  
+}
+
+export const setPushToken = (token, data) => {
+    const url = `${apiUrl}user/pushToken`;
+    return fetch.putAuthServer(url,token,data)
+    .then(res => ({isSuccess : res? true: false}))
+    .catch(error=>({error}));
 }
 
 export const showRes = (token) => {

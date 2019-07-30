@@ -15,7 +15,7 @@ import * as API from '../utill/API';
 import * as Utill from '../utill';
 import ImagePicker from 'react-native-image-picker';
 import Dialog from "react-native-dialog";
-import { Text } from '../component/common/'
+import { Text } from '../component/common/';
 
 const defaultImageSource = ({uri: 'icon_add_photo'});
 const addImageSource = ({uri: 'icon_add_photo_add'});
@@ -24,13 +24,13 @@ export default () => {
     const [ isLoaded, setIsLoaded ] = useState(false);
     const [ content, setContent ] = useState('');
     const [ imageArray, setImageArray ] = useState([{
-        id : 1,
+        id : 0,
         source : defaultImageSource,
         isLoaded : false,
     }]);
     const [ visible, setVisible ] = useState(false);
     const [ imageReq, setImageReq ] = useState([]);
-
+ 
     const _picker = async (item) => {
        await ImagePicker.showImagePicker(options,(response)=>{
             if (response.didCancel) {
@@ -64,7 +64,7 @@ export default () => {
         }));
     }
 
-    const _deleteSource = (item) => {
+    const _deleteSource = (item) => {   //view && req remove
         setImageArray(
             imageArray.filter(info => info.id !== item.id)
         );
@@ -73,12 +73,12 @@ export default () => {
         );
     }
 
-    const _uploadPhoto = async(data) => {       //사진 업로드(s3) 
+    const _uploadPhoto = async(data) => {       //upload(s3) 
         const res = await API.uploadPhoto(data);
         return JSON.stringify(res.data);
     }
 
-    const _uploadReview = async() => {  // 리뷰 업로드
+    const _uploadReview = async() => {  // review upload
         var image = await _uploadPhoto(imageReq);
         if(image===undefined)image='[]';
         const token = await API.getLocal(API.LOCALKEY_TOKEN);
@@ -89,7 +89,8 @@ export default () => {
             image
         }
         const res = await API.reviewWirte(token,data);
-        console.log(res);
+        if(res)alert('리뷰가 등록되었습니다!');
+        else alert('통신 상태를 확인해 주세요');
     }
 
     const options = {
@@ -130,8 +131,7 @@ export default () => {
                         onPress = {()=>{
                             if(item.source===defaultImageSource ||
                                 item.source===addImageSource){_picker(item)}
-                            else {_deleteSource(item);
-                            }
+                            else _deleteSource(item);
                         }}> 
                         <Image 
                             source = {item.source} 
@@ -141,7 +141,7 @@ export default () => {
                         
                         />
                         {isLoaded && <ActivityIndicator style = {styles.indicator}/>}
-                        {/*
+                        {
                         <Dialog.Container
                         visible = {visible}>
                         <Dialog.Title>사진 삭제</Dialog.Title>
@@ -151,10 +151,10 @@ export default () => {
                         <Dialog.Button label="취소"
                             onPress = {()=>setVisible(false)} />
                         <Dialog.Button label="삭제"
-                            onPress = {()=>{setVisible(false);_deleteSource(item.id)}} 
+                            onPress = {()=>{setVisible(false);_deleteSource(item)}} 
                             />
                         </Dialog.Container>
-                        */}
+                        }
                     </TouchableOpacity>
                     )
                 )}
