@@ -58,7 +58,6 @@ export default () => {
         },
     ])
     const [ rating, setRating ] = useState(0);
-    const [ imageReq, setImageReq ] = useState([]);
  
     const _picker = async (item) => {
        await ImagePicker.showImagePicker(options,(response)=>{
