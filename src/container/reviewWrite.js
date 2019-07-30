@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, memo, useEffect } from 'react';
 import { View,
     StyleSheet,
     TextInput,
@@ -8,16 +8,16 @@ import { View,
     TouchableOpacity,
     ActivityIndicator,
     ScrollView,
+    Image,
 } from 'react-native';
-import FastImage from 'react-native-fast-image'
+
 import * as API from '../utill/API';
 import * as Utill from '../utill';
-import Images from '../assets/images';
 import ImagePicker from 'react-native-image-picker';
 import Dialog from "react-native-dialog";
-
-
 import { Text } from '../component/common/';
+
+
 
 const defaultImageSource = {uri: 'icon_add_photo'};
 const addImageSource = {uri: 'icon_add_photo_add'};
@@ -25,6 +25,7 @@ const defaultStar = {uri : 'icon_star_empty_review'};
 const checkStar = {uri : 'icon_star_full_review'};
 
 export default () => {
+    const [ isLoaded, setIsLoaded ] = useState(false);
     const [ content, setContent ] = useState('');
     const [ imageArray, setImageArray ] = useState([{
         id : 0,
@@ -57,6 +58,7 @@ export default () => {
         },
     ])
     const [ rating, setRating ] = useState(0);
+    const [ imageReq, setImageReq ] = useState([]);
  
     const _picker = async (item) => {
        await ImagePicker.showImagePicker(options,(response)=>{
@@ -68,15 +70,22 @@ export default () => {
                 console.log('User tapped custom button: ', response.customButton);
               } else {
                 const source = { uri: response.uri };
+                setImageReq(imageReq.concat(response.uri));
                 _addSource(source);
               }
         })
     }
 
     const _addSource = (source) =>{
+        const length = imageArray.length-1 ;
         setImageArray(imageArray.map(
-            item => item.id === imageArray.length-1 ?
-             {...item, source} : item
+            (item, i) => {
+                if(i===length){
+                    return {...item,source}
+                }else{
+                    return item
+                }
+            }
         ).concat({
             id : imageArray.length,
             source : addImageSource,
@@ -84,36 +93,17 @@ export default () => {
         }));
     }
 
-    const _deleteSource = (id) => {
+    const _deleteSource = (item) => {   //view && req remove
         setImageArray(
 
             imageArray.filter(info => info.source !== item.source)
+            imageArray.filter(info => info.id !== item.id)
         );
         setImageReq(
             imageReq.filter(info => info !== item.source.uri)
         );
-        if(!imageArray.length){
-            _addSource(defaultImageSource);
-        }
     }
 
-
-
-    const _uploadReview = async() => {  // review upload
-        var image = await _uploadPhoto(imageReq);
-        if(image===undefined)image='[]';
-        const token = await API.getLocal(API.LOCALKEY_TOKEN);
-        const data = {
-            content,
-            rating,
-            reviewId : 93,
-            image
-        }
-        console.log(data);
-        const res = await API.reviewWirte(token,data);
-        if(res)alert('리뷰가 등록되었습니다!');
-        else alert('통신 상태를 확인해 주세요');
-    }
 
     const _updateRating = async(id) => {
         setStarArray(starArray.map(
@@ -126,6 +116,24 @@ export default () => {
             }
         ))
         setRating(id);
+    const _uploadPhoto = async(data) => {       //upload(s3) 
+        const res = await API.uploadPhoto(data);
+        return JSON.stringify(res.data);
+    }
+
+    const _uploadReview = async() => {  // review upload
+        var image = await _uploadPhoto(imageReq);
+        if(image===undefined)image='[]';
+        const token = await API.getLocal(API.LOCALKEY_TOKEN);
+        const data = {
+            content,
+            rating : 5,
+            reviewId : 93,
+            image
+        }
+        const res = await API.reviewWirte(token,data);
+        if(res)alert('리뷰가 등록되었습니다!');
+        else alert('통신 상태를 확인해 주세요');
     }
 
     const options = {
@@ -161,12 +169,11 @@ export default () => {
                 maxLength = {1000}
                 multiline = {true}
                 numberOfLines = {6}
-                onChangeText = { (text) => setContent(text)
-                }
+                onChangeText = { (text) => setContent(text)}
              />
+             {isLoaded && <ActivityIndicator style = {styles.indicator}/>}
              <ScrollView horizontal = {true}>
             <View style = {{flexDirection: 'row'}}>
-
                 {imageArray.map(
                 item => 
                 (
@@ -180,6 +187,7 @@ export default () => {
                         <Image 
                             source = {item.source} 
                             style = {styles.addimage}                        
+                        
                         />
                         {isLoaded && <ActivityIndicator style = {styles.indicator}/>}
                         {
@@ -243,8 +251,7 @@ const styles = StyleSheet.create({
         justifyContent : 'center',
         width : 60,
         height : 60,
-        backgroundColor : Utill.color.secondary2,
-        marginRight : 6
+        marginRight : 6,
     },
     addimage : {
         width : 60,

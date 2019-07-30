@@ -62,6 +62,11 @@ const TabHome = (props)=>{
         API.setPush(API.PUSH_TOKEN,token);
       })
 
+    const onIds = ((device) => {
+        let token = device.userId;
+        API.setPush(API.PUSH_TOKEN,token);
+      })
+
     const [temaList, settemaList] = useState([  // 테마배열
         {   color : '#979797', isselect : false, id : '전체',},
         {   color : '#979797', isselect : false, id : '단체',},

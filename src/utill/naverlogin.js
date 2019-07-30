@@ -2,6 +2,7 @@ import React from 'react';
 import {StyleSheet, Image, TouchableOpacity} from 'react-native';
 
 import { NaverLogin, getProfile } from 'react-native-naver-login';
+import * as API from './API'
 
 const type = 'naver';
 
@@ -43,16 +44,15 @@ export default({navigation}) =>{
             onPressIn = {()=>{naverLogin(navigation)}} >
             <Image
                 style={styles.btnNaverLogin}
-                source={require("../assets/naver_btn_medium.png")} />
+                source={{uri: 'naver_login_button'}} />
       </TouchableOpacity>
     )
 }
 
 const styles = StyleSheet.create({
     btnNaverLogin: {
-        height: 50,
-        width: 50,
+        height: 45,
+        width: 282,
         alignSelf: "center",
-        backgroundColor: "#F8E71C",
       },
   });

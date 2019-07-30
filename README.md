@@ -40,3 +40,11 @@ git add .
 git commit -m [msg]
 
 git push origin [본인 브렌치]
+
+
+- > 브렌치만 clone 
+
+git clone -b [브렌치명] --single-branch []
+
+- > Push, Pull 시 유의
+파일명은 Push or Pull 한다고 해도 바뀐게 적용이 안됨 조심해라

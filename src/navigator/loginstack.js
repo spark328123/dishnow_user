@@ -8,15 +8,35 @@ import Welcome from '../component/welcome';
 import webView from '../container/webView';
 const LoginStack = createStackNavigator(
     {
-        Login: { screen: Login },
-        Terms: { screen: Terms },
+        Login: { 
+            screen: Login ,
+            navigationOptions: ({ navigation }) => ({
+            header: null,
+            }),
+        },
+        Terms: { 
+            screen: Terms ,
+            navigationOptions: ({ navigation }) => ({
+                headerStyle: {
+                    backgroundColor: '#f4511e',
+                },
+                headerTintColor: '#fff',
+                headerTitleStyle: {
+                    fontWeight: 'bold',
+                },
+            }),
+        },
         Register: { screen: Register },
         Welcome: { screen: Welcome },
-        webView : {screen : webView}
+        webView : {
+            screen : webView,
+            navigationOptions: ({ navigation }) => ({
+            header: null,
+            }),
+        }
     },
     {
         initialRouteName : 'Login',
-        headerMode : 'none',
     }
 )
 

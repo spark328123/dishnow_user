@@ -23,12 +23,17 @@ const TabBooked = (props) =>{
         _showRes();
     },[]);
 
+
+
+    useEffect(() => {
+        _me();
+    }, []);
+
     const _renderItem = ({item}) => {
         return (
             <View>
                 <Text style={styles.resname}>{item.name}</Text>
                 <Text>{item.createdAt}</Text>
-                
                 <ReviewButton
                     date = {item.createdAt}
                     id = {item.reviewId}
@@ -55,6 +60,9 @@ const TabBooked = (props) =>{
           />
             
            <Button title = 'asd' onPress ={_showRes}/>
+            <TouchableOpacity onPress = {()=>_me()}>
+                <Text> SiPal </Text>
+            </TouchableOpacity>
         </View>
     )
 }
@@ -75,4 +83,5 @@ const styles = StyleSheet.create({
     timeout: {              // 리뷰작성시간 지났습니다
         fontSize : 16,
     },
+
 })
