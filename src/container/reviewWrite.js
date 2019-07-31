@@ -16,12 +16,13 @@ import * as Utill from '../utill';
 import ImagePicker from 'react-native-image-picker';
 import Dialog from "react-native-dialog";
 import { Text } from '../component/common/';
+import { screenWidth } from '../utill/screen';
 
 const defaultImageSource = {uri: 'icon_add_photo'};
 const addImageSource = {uri: 'icon_add_photo_add'};
 const defaultStar = {uri : 'icon_star_empty_review'};
 const checkStar = {uri : 'icon_star_full_review'};
-
+ 
 export default (props) => {
     const { navigation } = props;
     const [ reviewId ] = useState(navigation.getParam('reviewId'));
@@ -30,10 +31,12 @@ export default (props) => {
     const [ imageArray, setImageArray ] = useState([{
         id : 0,
         source : defaultImageSource,
-        isLoaded : false,
+        isLoaded : false, 
     }]);
     const [ visible, setVisible ] = useState(false);
-
+    const [ canPress, setCanPress ] = useState(false);
+    const [ screenWidth ] = useState(Utill.screen.screenWidth);
+    const [ screenHeight ] = useState(Utill.screen.screenHeight);
     const [ imageReq, setImageReq ] = useState([]);
     const [ starArray, setStarArray ] = useState([
         {
@@ -73,6 +76,13 @@ export default (props) => {
                 _addSource(source);
               }
         })
+    }
+
+    const _textListener = ( text ) => {
+        setContent(text)
+        console.log(content,content.length);
+        if(content.length>=5)setCanPress(true);
+        else setCanPress(false);
     }
 
     const _addSource = (source) =>{
@@ -149,77 +159,62 @@ export default (props) => {
       };
     
     return (      
-        <TouchableWithoutFeedback 
-        onPress  = {()=>{Keyboard.dismiss();}}>
-        <View style = {styles.container}>
-            <View style = {styles.header}>
-                <Text>별점을 선택해주세요</Text>
-                <View style = {styles.contentStar}>
-                    {starArray.map(
-                        item => (
-                            <TouchableOpacity style = {styles.star} onPress = {()=>_updateRating(item.id)}>
-                            <Image source = {!item.check?defaultStar:checkStar} style = {styles.star}/>
-                            </TouchableOpacity>
-                        )
-                    )}
+        <TouchableWithoutFeedback onPress  = {()=>{Keyboard.dismiss();}}>
+            <View style = {styles.container}>
+                <View style ={styles.contentContainer}>
+                    <View style = {styles.header}>
+                        <Text>별점을 선택해주세요</Text>
+                        <View style = {styles.contentStar}>
+                            {starArray.map(
+                                item => (
+                                    <TouchableOpacity style = {styles.star} onPress = {()=>_updateRating(item.id)}>
+                                        <Image source = {!item.check?defaultStar:checkStar} style = {styles.star}/>
+                                    </TouchableOpacity>
+                                        ))}
+                        </View>
+                    </View>
+                    <View style={[styles.textInputContainer, {height: 150 / 640 * screenHeight}]}>
+                        <TextInput 
+                            placeholder = {'솔직한 리뷰를 작성해주세요.'}
+                            editable = {true}
+                            maxLength = {1000}
+                            multiline = {true}
+                            numberOfLines = {6}
+                            onChangeText = { (text)=>_textListener(text) } />
+                    </View>
+                    {isLoaded && <ActivityIndicator style = {styles.indicator}/>}
+                        <View style = {{flexDirection: 'row'}}>
+                            {imageArray.map( item => (
+                                <TouchableOpacity
+                                    style = {styles.picker}
+                                    onPress = {()=>
+                                    { if(item.source===defaultImageSource || item.source===addImageSource){_picker(item)} else _deleteSource(item);}}>
+                                <Image
+                                    source = {item.source} 
+                                    style = {styles.addimage} />
+                                {isLoaded && <ActivityIndicator style = {styles.indicator}/>}
+                                {
+                                    <Dialog.Container visible = {visible}>
+                                    <Dialog.Title>사진 삭제</Dialog.Title>
+                                    <Dialog.Description>사진을 삭제하시겠습니까?</Dialog.Description>
+                                    <Dialog.Button label="취소" onPress = {()=>setVisible(false)} />
+                                    <Dialog.Button label="삭제"
+                                        onPress = {()=>{setVisible(false);_deleteSource(item)}}/>
+                                    </Dialog.Container>
+                                }
+                                </TouchableOpacity>
+                            ))}
+                        </View>
+                    {canPress ? (<Text>으악</Text>) : ( <Text>식당과 관계없는 글, 광고성, 명예훼손, 욕설, 비방글 등은 예고 없이 삭제됩니다.</Text>)}
                 </View>
+                {canPress ? 
+                    (<TouchableOpacity style={[styles.writeButton, {width: screenWidth}]} onPress = {_uploadReview}>
+                        <Text style={styles.writeButtonText}>작성하기</Text>
+                    </TouchableOpacity>) : 
+                    (<View style={[styles.unWriteButton, {width: screenWidth}]}>
+                        <Text style={styles.unWriteButtonText}>작성하기</Text>
+                    </View>)}
             </View>
-            <TextInput
-                style = {[styles.textinput]}
-                placeholder = {'솔직한 리뷰를 작성해주세요.'}
-                editable = {true}
-                maxLength = {1000}
-                multiline = {true}
-                numberOfLines = {6}
-                onChangeText = { (text) => setContent(text)}
-             />
-             {isLoaded && <ActivityIndicator style = {styles.indicator}/>}
-             <ScrollView horizontal = {true}>
-            <View style = {{flexDirection: 'row'}}>
-                {imageArray.map(
-                item => 
-                (
-                    <TouchableOpacity
-                        style = {styles.picker}
-                        onPress = {()=>{
-                            if(item.source===defaultImageSource ||
-                                item.source===addImageSource){_picker(item)}
-                            else _deleteSource(item);
-                        }}> 
-                        <Image 
-                            source = {item.source} 
-                            style = {styles.addimage}                        
-                        
-                        />
-                        {isLoaded && <ActivityIndicator style = {styles.indicator}/>}
-                        {
-                        <Dialog.Container
-                        visible = {visible}>
-                        <Dialog.Title>사진 삭제</Dialog.Title>
-                        <Dialog.Description>
-                            사진을 삭제하시겠습니까?
-                        </Dialog.Description>
-                        <Dialog.Button label="취소"
-                            onPress = {()=>setVisible(false)} />
-                        <Dialog.Button label="삭제"
-                            onPress = {()=>{setVisible(false);_deleteSource(item)}} 
-                            />
-                        </Dialog.Container>
-                        }
-                    </TouchableOpacity>
-                    )
-                )}
-            </View>
-            </ScrollView>
-            <Text>
-             식당과 관계없는 글, 광고성, 명예훼손, 욕설, 비방글 등은 예고 없이 삭제됩니다.
-             </Text>
-             <Button
-                title = '작성하기'
-                onPress = {_uploadReview}
-                >
-             </Button>
-        </View>  
         </TouchableWithoutFeedback>
     );
 }
@@ -227,8 +222,11 @@ export default (props) => {
 const styles = StyleSheet.create({
     container : {
         flex : 1,
-        paddingLeft : 20,
-        paddingRight : 20,
+    },
+    contentContainer: {
+        paddingLeft: 20,
+        paddingRight: 20,
+        flex: 1
     },
     header : {
         marginTop : 50,
@@ -239,12 +237,16 @@ const styles = StyleSheet.create({
     content : {
         
     },
-    textinput : {
-        paddingLeft : 10,
-        paddingRight : 10,
-        height: 200,
-        borderColor: 'gray',
-        borderWidth: 1
+    textInputContainer:{
+        paddingLeft : 15,
+        paddingRight : 15,
+        shadowColor: "#000",
+        shadowOffset: {width: 0,height: 3,},
+        shadowOpacity: 0.27,
+        shadowRadius: 4.65,
+        elevation: 6,
+        width: 330,
+        backgroundColor: "#FFFFFF"
     },
     picker : {
         marginTop : 15,
@@ -274,11 +276,30 @@ const styles = StyleSheet.create({
         flexDirection : 'row',
         alignItems : 'center',
         justifyContent : 'center',
-
     },  
     star : {
         width : 41.87,
         height : 40,
         marginRight : 13.1,
+    },
+    writeButton :{
+        height: 50,
+        backgroundColor: '#733FFF',
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
+    writeButtonText:{
+        color: '#FFFFFF',
+        fontSize: 16
+    },
+    unWriteButton :{
+        height: 50,
+        backgroundColor: '#CCCCCC',
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
+    unWriteButtonText:{
+        color: '#FFFFFF',
+        fontSize: 16
     }
 })
