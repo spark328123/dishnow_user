@@ -22,7 +22,7 @@ const BookStack = createStackNavigator(
                 headerTitleStyle: {
                     fontWeight: 'bold',
                 },
-            }), 
+            }),   
         }
     },
     {
