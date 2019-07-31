@@ -5,3 +5,4 @@ export {default as Alert} from './Alert';
 export {default as BigButton} from './BigButton';
 export {default as BigButtonBorder} from './BigButtonBorder';
 export {default as BigButtonColor} from './BigButtonColor';
+export {default as ReviewButton} from './ReviewButton';

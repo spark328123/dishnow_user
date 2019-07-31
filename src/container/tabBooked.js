@@ -1,22 +1,21 @@
 import React, {useState, useEffect} from 'react';
 import { View, Text, FlatList, StyleSheet, TouchableOpacity, Button } from 'react-native';
 import { useDispatch } from 'react-redux';
-import { ReviewButton, } from '../component/common/'
+import ReviewButton from '../component/common/ReviewButton';
 import * as API from '../utill/API';
 
 const TabBooked = (props) =>{
 
     const {navigation} = props;
     const dispatch = useDispatch();
-    const [data, setdata] = useState([ 
+    const [ data, setdata ] = useState([ 
         
     ]);
 
     const _showRes = async() => {
         const token = await API.getLocal(API.LOCALKEY_TOKEN);
-        console.log(token);
         const resList = await API.showRes(token);
-        console.log(resList)
+        setdata(resList);
     }
 
     useEffect(() => {
@@ -25,16 +24,17 @@ const TabBooked = (props) =>{
 
     const _renderItem = ({item}) => {
         return (
-            <View>
+            <View style={{marginTop : 50}}>
                 <Text style={styles.resname}>{item.name}</Text>
                 <Text>{item.createdAt}</Text>
+               
                 <ReviewButton
                     date = {item.createdAt}
-                    id = {item.reviewId}
+                    reviewId = {item.reviewId}
                     rate = {item.rating}
-                />
-            
-               
+                    storeName = {item.name}
+                    navigation = {navigation}
+                />   
             </View>
         )
     }
@@ -52,11 +52,6 @@ const TabBooked = (props) =>{
             data = {data}
             renderItem = {_renderItem}
           />
-            
-           <Button title = 'asd' onPress ={_showRes}/>
-            <TouchableOpacity onPress = {()=>_me()}>
-                <Text> SiPal </Text>
-            </TouchableOpacity>
         </View>
     )
 }

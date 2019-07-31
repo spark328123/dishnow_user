@@ -17,14 +17,14 @@ import ImagePicker from 'react-native-image-picker';
 import Dialog from "react-native-dialog";
 import { Text } from '../component/common/';
 
-
-
 const defaultImageSource = {uri: 'icon_add_photo'};
 const addImageSource = {uri: 'icon_add_photo_add'};
 const defaultStar = {uri : 'icon_star_empty_review'};
 const checkStar = {uri : 'icon_star_full_review'};
 
-export default () => {
+export default (props) => {
+    const { navigation } = props;
+    const [ reviewId ] = useState(navigation.getParam('reviewId'));
     const [ isLoaded, setIsLoaded ] = useState(false);
     const [ content, setContent ] = useState('');
     const [ imageArray, setImageArray ] = useState([{
@@ -126,11 +126,14 @@ export default () => {
         const token = await API.getLocal(API.LOCALKEY_TOKEN);
         const data = {
             content,
-            rating : 5,
-            reviewId : 93,
-            image
+            rating,
+            reviewId,
+            image,
+            isUpdate : true,
         }
+        console.log(data);
         const res = await API.reviewWirte(token,data);
+        console.log(res);
         if(res)alert('리뷰가 등록되었습니다!');
         else alert('통신 상태를 확인해 주세요');
     }

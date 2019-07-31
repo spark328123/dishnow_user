@@ -1,7 +1,41 @@
-import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { View, Text, StyleSheet, FlatList, Image } from 'react-native';
+
+import * as API from '../../utill/API';
 
 export default Review = () =>{
+
+    const _showReview = async() =>{
+        const token = await API.getLocal(API.LOCALKEY_TOKEN);
+        const res = await API.reviewMe(token);
+        setData(res);
+    }
+
+    useEffect(()=>{
+        _showReview();
+    },[])
+
+    const [ data, setData ] = useState([]);
+    const [ imageList, setImageList ] = useState([]);
+    const [ isLoaded, setIsLoaded ] = useState(false);
+
+    const _renderItem = ({item}) => {
+        let imageUrl = JSON.stringify(item.image);
+        imageUrl = ((imageUrl.substring(4,imageUrl.length-4)).split(','));
+
+        return (
+            <View style = {styles.container}>
+                <Text>{item.name}</Text>
+                <Text>{item.content}</Text>
+                <Text>{item.createdAt}</Text>
+                <Text>{item.rating}</Text>
+                <Image onLoad = {setIsLoaded(false)} style = {{width : 330, height : 132}}source = {{uri : imageUrl[0]}}></Image>
+                <Text>사장님</Text>
+                <Text>{item.answer}</Text>
+            </View>
+        )
+    }
+
     return(
         <View style ={
         {
@@ -10,10 +44,10 @@ export default Review = () =>{
             justifyContent : 'center',
         }
         }>
-            <Text style ={{
-                fontSize : 20,
-            }
-            }>내 리뷰 보기</Text>
+          <FlatList
+            data = {data}
+            renderItem = {_renderItem}
+          />
         </View>
     )
 }
@@ -22,5 +56,6 @@ const styles = StyleSheet.create({
     container : {
         flex : 1,
         justifyContent:'center',
+        marginTop : 50,
     }
 })

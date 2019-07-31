@@ -103,3 +103,10 @@ export const reviewWirte = (token, data) => {
     .then(res => ({isSuccess : res ? true: false}))
     .catch(error=>({error}));
 }
+
+export const reviewMe = (token) => {
+    const url = `${apiUrl}review/me`;
+    return fetch.getAuthServer(url,token)
+    .then(res=>res.json())
+    .catch(error=>({error}));
+}
