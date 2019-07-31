@@ -17,6 +17,7 @@ import ImagePicker from 'react-native-image-picker';
 import Dialog from "react-native-dialog";
 import { Text } from '../component/common/';
 import Screen from '../utill/screen'
+import { screenWidth } from '../utill/screen';
 const defaultImageSource = {uri: 'icon_add_photo'};
 const addImageSource = {uri: 'icon_add_photo_add'};
 const defaultStar = {uri : 'icon_star_empty_review'};
@@ -33,7 +34,9 @@ export default (props) => {
         isLoaded : false,
     }]);
     const [ visible, setVisible ] = useState(false);
-
+const [ canPress, setCanPress ] = useState(false);
+    const [ screenWidth ] = useState(Utill.screen.screenWidth);
+    const [ screenHeight ] = useState(Utill.screen.screenHeight);
     const [ imageReq, setImageReq ] = useState([]);
     const [ starArray, setStarArray ] = useState([
         {
