@@ -16,7 +16,7 @@ import * as Utill from '../utill';
 import ImagePicker from 'react-native-image-picker';
 import Dialog from "react-native-dialog";
 import { Text } from '../component/common/';
-
+import Screen from '../utill/screen'
 const defaultImageSource = {uri: 'icon_add_photo'};
 const addImageSource = {uri: 'icon_add_photo_add'};
 const defaultStar = {uri : 'icon_star_empty_review'};
