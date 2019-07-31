@@ -18,7 +18,7 @@ const mainTab = createBottomTabNavigator(
         defaultNavigationOptions: ({ navigation }) => ({
             allowFontScaling : false,
             keyboardHidesTabBar : true,
-            tabBarIcon : ({ focused, tintColor }) => {
+            tabBarIcon : ({ focused, tintColor }) => { 
                 const { routeName } = navigation.state;
                 let uri = '';
                 switch (routeName) {
