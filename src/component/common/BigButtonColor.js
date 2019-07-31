@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react';
 import {TouchableHighlight, StyleSheet, View} from 'react-native';
 import Text from './Text';
 import * as Utill from '../../utill';
-
+import Screen from '../../utill'
 //바탕이 회색, text는 흰색 버튼
 const BigButton = (props) => {
 
