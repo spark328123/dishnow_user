@@ -38,7 +38,20 @@ export const Screen = {
         return  x==0 ? 0 : width * (x/100);
     },
 
+    customWidth: (x) => {
+        return x== 0 ? 0 : width * (x/360);
+    },
+
     PerHeight: (x) => {
-        return  x==0 ? 0 : Height * (x/100);
-    }
+        return  x==0 ? 0 : height * (x/100);
+    },
+
+    customHeight: (x) => {
+        return x== 0 ? 0 : height * (x/640);
+    },
+
+    customHomeHeight: (x) => {
+        return x== 0 ? 0 : height * (x/590);
+    },
+
 };
