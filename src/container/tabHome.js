@@ -41,7 +41,8 @@ const TabHome = (props)=>{
         ['3', '5', '8', '10', '15', '20']
     );
 
-    const {navigation,latitude,longitude} = props;
+    const {navigation, latitude, longitude} = props;
+
 
     useEffect(()=>{
         OneSignal.addEventListener('ids',onIds);
