@@ -7,6 +7,7 @@ import user, * as User from '../store/modules/user'
 import ModalDropdown from 'react-native-modal-dropdown';
 import { BigButtonColor, Text } from '../component/common'
 import OneSignal from 'react-native-onesignal';
+import Screen from '../utill/screen'
 
 const TabHome = (props)=>{
     const dispatch = useDispatch();
@@ -19,16 +20,16 @@ const TabHome = (props)=>{
         const phone = meRes.phone;
         const image = meRes.image;
         const reviewcount = meRes.reviewcount;
+        const nickname = meRes.nickname;
         dispatch(User.updateuserid(userid));
         dispatch(User.updatepoint(point));
         dispatch(User.upadtename(name));
         dispatch(User.updatephone(phone));
         dispatch(User.updateimage(image));
         dispatch(User.updatereviewcount(reviewcount));
+        dispatch(User.updatenickname(nickname));
         const pushToken = await API.getPush(API.PUSH_TOKEN);
-        console.log(pushToken);
         const ret = await API.setPushToken(token,{pushToken});
-        console.log(ret);
     }
 
     const [people, setPeople] = useState('');

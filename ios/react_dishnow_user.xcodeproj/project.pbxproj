@@ -5,7 +5,6 @@
 	};
 	objectVersion = 46;
 	objects = {
-
 /* Begin PBXBuildFile section */
 		00C302E51ABCBA2D00DB3ED1 /* libRCTActionSheet.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302AC1ABCB8CE00DB3ED1 /* libRCTActionSheet.a */; };
 		00C302E71ABCBA2D00DB3ED1 /* libRCTGeolocation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302BA1ABCB90400DB3ED1 /* libRCTGeolocation.a */; };
@@ -22,7 +21,6 @@
 		13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB11A68108700A75B9A /* LaunchScreen.xib */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
-		1F525C7970F146F080F905E7 /* libRNNaverLogin.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 462AC8CB6E2A421C8586EE1E /* libRNNaverLogin.a */; };
 		2D02E4BC1E0B4A80006451C7 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
 		2D02E4BD1E0B4A84006451C7 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		2D02E4BF1E0B4AB3006451C7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
@@ -45,7 +43,6 @@
 		DB19F70422CC957000400112 /* KakaoOpenSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DB19F70322CC957000400112 /* KakaoOpenSDK.framework */; };
 		ED297163215061F000B7C4FE /* JavaScriptCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ED297162215061F000B7C4FE /* JavaScriptCore.framework */; };
 		ED2971652150620600B7C4FE /* JavaScriptCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ED2971642150620600B7C4FE /* JavaScriptCore.framework */; };
-		FE9DC6FDB3A745AF935363DD /* libRNKakaoLogins.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E5D45E15B14040C5AE894797 /* libRNKakaoLogins.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -210,13 +207,6 @@
 			remoteGlobalIDString = 358F4ED71D1E81A9004DF814;
 			remoteInfo = RCTBlob;
 		};
-		DB4E91DD22E1A7E500B52822 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = BEE0F0017A344625843EB460 /* RNNaverLogin.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 134814201AA4EA6300B7C361;
-			remoteInfo = RNNaverLogin;
-		};
 		DBF35DF822CE2B3100CF684F /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = D44C1C4E49E4416F97F59FF8 /* BVLinearGradient.xcodeproj */;
@@ -230,13 +220,6 @@
 			proxyType = 2;
 			remoteGlobalIDString = 64AA15081EF7F30100718508;
 			remoteInfo = "BVLinearGradient-tvOS";
-		};
-		DBF3634522CFA26500CF684F /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = BFA26AD56904461CBB3D54DC /* RNKakaoLogins.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 134814201AA4EA6300B7C361;
-			remoteInfo = RNKakaoLogins;
 		};
 		FFCBF67822EB177D002C2660 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -385,20 +368,16 @@
 		2D02E4901E0B4A5D006451C7 /* react_dishnow_user-tvOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "react_dishnow_user-tvOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2D16E6891FA4F8E400B85C8A /* libReact.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libReact.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		34012C0B7FB7D3224144BA37 /* Pods-react_dishnow_user.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-react_dishnow_user.release.xcconfig"; path = "Target Support Files/Pods-react_dishnow_user/Pods-react_dishnow_user.release.xcconfig"; sourceTree = "<group>"; };
-		462AC8CB6E2A421C8586EE1E /* libRNNaverLogin.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNNaverLogin.a; sourceTree = "<group>"; };
 		5E91572D1DD0AC6500FF2AA8 /* RCTAnimation.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTAnimation.xcodeproj; path = "../node_modules/react-native/Libraries/NativeAnimation/RCTAnimation.xcodeproj"; sourceTree = "<group>"; };
 		78C398B01ACF4ADC00677621 /* RCTLinking.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTLinking.xcodeproj; path = "../node_modules/react-native/Libraries/LinkingIOS/RCTLinking.xcodeproj"; sourceTree = "<group>"; };
 		832341B01AAA6A8300B99B32 /* RCTText.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTText.xcodeproj; path = "../node_modules/react-native/Libraries/Text/RCTText.xcodeproj"; sourceTree = "<group>"; };
 		ADBDB91F1DFEBF0600ED6528 /* RCTBlob.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTBlob.xcodeproj; path = "../node_modules/react-native/Libraries/Blob/RCTBlob.xcodeproj"; sourceTree = "<group>"; };
-		BEE0F0017A344625843EB460 /* RNNaverLogin.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNNaverLogin.xcodeproj; path = "../node_modules/react-native-naver-login/ios/RNNaverLogin.xcodeproj"; sourceTree = "<group>"; };
-		BFA26AD56904461CBB3D54DC /* RNKakaoLogins.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNKakaoLogins.xcodeproj; path = "../node_modules/react-native-kakao-logins/ios/RNKakaoLogins.xcodeproj"; sourceTree = "<group>"; };
 		C2E7B7BDF7AD44878FE6DCA7 /* NanumSquareOTFBold.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = NanumSquareOTFBold.otf; path = ../src/assets/fonts/NanumSquareOTFBold.otf; sourceTree = "<group>"; };
 		C69104E808AE49ADA9AEB1E0 /* NanumSquareOTFRegular.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = NanumSquareOTFRegular.otf; path = ../src/assets/fonts/NanumSquareOTFRegular.otf; sourceTree = "<group>"; };
 		D44C1C4E49E4416F97F59FF8 /* BVLinearGradient.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = BVLinearGradient.xcodeproj; path = "../node_modules/react-native-linear-gradient/BVLinearGradient.xcodeproj"; sourceTree = "<group>"; };
 		DB10050A22EED0A9000D7895 /* react_dishnow_user.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = react_dishnow_user.entitlements; path = react_dishnow_user/react_dishnow_user.entitlements; sourceTree = "<group>"; };
 		DB19F70322CC957000400112 /* KakaoOpenSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = KakaoOpenSDK.framework; sourceTree = "<group>"; };
 		DF5185B39DAFD3370F211B5E /* libPods-react_dishnow_user.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-react_dishnow_user.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		E5D45E15B14040C5AE894797 /* libRNKakaoLogins.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNKakaoLogins.a; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		ED2971642150620600B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = Platforms/AppleTVOS.platform/Developer/SDKs/AppleTVOS12.0.sdk/System/Library/Frameworks/JavaScriptCore.framework; sourceTree = DEVELOPER_DIR; };
 		FB584D86DB21498A8E0F30C6 /* libBVLinearGradient.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libBVLinearGradient.a; sourceTree = "<group>"; };
@@ -432,8 +411,6 @@
 				139FDEF61B0652A700C62182 /* libRCTWebSocket.a in Frameworks */,
 				C3A6A07FF33C48C3BB5DC733 /* libBVLinearGradient.a in Frameworks */,
 				7AE8379D48DD28A1880CCC38 /* libPods-react_dishnow_user.a in Frameworks */,
-				FE9DC6FDB3A745AF935363DD /* libRNKakaoLogins.a in Frameworks */,
-				1F525C7970F146F080F905E7 /* libRNNaverLogin.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -611,8 +588,6 @@
 				00C302DF1ABCB9EE00DB3ED1 /* RCTVibration.xcodeproj */,
 				139FDEE61B06529A00C62182 /* RCTWebSocket.xcodeproj */,
 				D44C1C4E49E4416F97F59FF8 /* BVLinearGradient.xcodeproj */,
-				BFA26AD56904461CBB3D54DC /* RNKakaoLogins.xcodeproj */,
-				BEE0F0017A344625843EB460 /* RNNaverLogin.xcodeproj */,
 			);
 			name = Libraries;
 			sourceTree = "<group>";
@@ -674,27 +649,11 @@
 			name = "Recovered References";
 			sourceTree = "<group>";
 		};
-		DB4E91DA22E1A7E500B52822 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				DB4E91DE22E1A7E500B52822 /* libRNNaverLogin.a */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
 		DBF35DF222CE2B3000CF684F /* Products */ = {
 			isa = PBXGroup;
 			children = (
 				DBF35DF922CE2B3100CF684F /* libBVLinearGradient.a */,
 				DBF35DFB22CE2B3100CF684F /* libBVLinearGradient.a */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
-		DBF3634222CFA26500CF684F /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				DBF3634622CFA26500CF684F /* libRNKakaoLogins.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -822,11 +781,11 @@
 				TargetAttributes = {
 					00E356ED1AD99517003FC87E = {
 						CreatedOnToolsVersion = 6.2;
-						DevelopmentTeam = 945KXLFYQT;
+						DevelopmentTeam = PH39C7R335;
 						TestTargetID = 13B07F861A680F5B00A75B9A;
 					};
 					13B07F861A680F5B00A75B9A = {
-						DevelopmentTeam = 945KXLFYQT;
+						DevelopmentTeam = PH39C7R335;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
@@ -839,12 +798,12 @@
 					};
 					2D02E47A1E0B4A5D006451C7 = {
 						CreatedOnToolsVersion = 8.2.1;
-						DevelopmentTeam = 945KXLFYQT;
+						DevelopmentTeam = PH39C7R335;
 						ProvisioningStyle = Automatic;
 					};
 					2D02E48F1E0B4A5D006451C7 = {
 						CreatedOnToolsVersion = 8.2.1;
-						DevelopmentTeam = 945KXLFYQT;
+						DevelopmentTeam = PH39C7R335;
 						ProvisioningStyle = Automatic;
 						TestTargetID = 2D02E47A1E0B4A5D006451C7;
 					};
@@ -914,14 +873,6 @@
 				{
 					ProductGroup = FFCBF64F22EB177D002C2660 /* Products */;
 					ProjectRef = FFCBF64E22EB177D002C2660 /* React.xcodeproj */;
-				},
-				{
-					ProductGroup = DBF3634222CFA26500CF684F /* Products */;
-					ProjectRef = BFA26AD56904461CBB3D54DC /* RNKakaoLogins.xcodeproj */;
-				},
-				{
-					ProductGroup = DB4E91DA22E1A7E500B52822 /* Products */;
-					ProjectRef = BEE0F0017A344625843EB460 /* RNNaverLogin.xcodeproj */;
 				},
 			);
 			projectRoot = "";
@@ -1082,13 +1033,6 @@
 			remoteRef = ADBDB9261DFEBF0700ED6528 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		DB4E91DE22E1A7E500B52822 /* libRNNaverLogin.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = libRNNaverLogin.a;
-			remoteRef = DB4E91DD22E1A7E500B52822 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
 		DBF35DF922CE2B3100CF684F /* libBVLinearGradient.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
@@ -1101,13 +1045,6 @@
 			fileType = archive.ar;
 			path = libBVLinearGradient.a;
 			remoteRef = DBF35DFA22CE2B3100CF684F /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		DBF3634622CFA26500CF684F /* libRNKakaoLogins.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = libRNKakaoLogins.a;
-			remoteRef = DBF3634522CFA26500CF684F /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		FFCBF67922EB177D002C2660 /* libReact.a */ = {
@@ -1407,7 +1344,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
-				DEVELOPMENT_TEAM = 945KXLFYQT;
+				DEVELOPMENT_TEAM = PH39C7R335;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
@@ -1438,7 +1375,7 @@
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COPY_PHASE_STRIP = NO;
-				DEVELOPMENT_TEAM = 945KXLFYQT;
+				DEVELOPMENT_TEAM = PH39C7R335;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)..\node_modules\neact-native-linear-gradientBVLinearGradient",
@@ -1470,7 +1407,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = NO;
-				DEVELOPMENT_TEAM = 945KXLFYQT;
+				DEVELOPMENT_TEAM = PH39C7R335;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -1509,7 +1446,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 945KXLFYQT;
+				DEVELOPMENT_TEAM = PH39C7R335;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -1549,7 +1486,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
-				DEVELOPMENT_TEAM = 945KXLFYQT;
+				DEVELOPMENT_TEAM = PH39C7R335;
 				ENABLE_TESTABILITY = YES;
 				GCC_NO_COMMON_BLOCKS = YES;
 				HEADER_SEARCH_PATHS = (
@@ -1585,7 +1522,7 @@
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEVELOPMENT_TEAM = 945KXLFYQT;
+				DEVELOPMENT_TEAM = PH39C7R335;
 				GCC_NO_COMMON_BLOCKS = YES;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1618,7 +1555,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
-				DEVELOPMENT_TEAM = 945KXLFYQT;
+				DEVELOPMENT_TEAM = PH39C7R335;
 				ENABLE_TESTABILITY = YES;
 				GCC_NO_COMMON_BLOCKS = YES;
 				HEADER_SEARCH_PATHS = (
@@ -1653,7 +1590,7 @@
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEVELOPMENT_TEAM = 945KXLFYQT;
+				DEVELOPMENT_TEAM = PH39C7R335;
 				GCC_NO_COMMON_BLOCKS = YES;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
