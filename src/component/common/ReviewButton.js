@@ -14,7 +14,7 @@ export default  (props) => {
 
     if(true){
         return (
-            <TouchableOpacity style={styles.ReviewButton}
+            <TouchableOpacity style={[styles.ReviewButton, {width: Utill.screen.Screen.customWidth(330)}]}
                 onPressIn = {()=>navigation.push('ReviewWrite',{
                     reviewId,
                     storeName 
@@ -33,12 +33,10 @@ export default  (props) => {
             </View>
         )
     }
-
 }
 
 const styles = StyleSheet.create({
     ReviewButton:{
-        width: 330,
         height: 40,
         borderWidth: 1,
         borderColor: '#733FFF',

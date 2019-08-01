@@ -14,7 +14,6 @@ const type = 'kakao'
 const KakaoLogin = ({ navigation }) => {
   const login = async (token) => {
     const loginRes = await API.login({ token, type });
-    if (loginRes.token === '') { return false; }
     await API.setLocal(API.LOCALKEY_TOKEN, loginRes.token);
     return true;
   }
@@ -29,7 +28,7 @@ const KakaoLogin = ({ navigation }) => {
       login(result.token)
         .then(res => {
           if (res) {
-            navigation.push('Terms', {
+            navigation.push('Terms', { 
               type,
               token: result.token,
             });
