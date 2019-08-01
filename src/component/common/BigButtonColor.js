@@ -21,7 +21,7 @@ const BigButton = (props) => {
 
     if (disabled)  
         return (
-            <View style = {styles.buttonDisable} >
+            <View style = {[styles.buttonDisable, {width: Utill.screen.Screen.customWidth(282)}]} >
                 <Text 
                     style={styles.title}
                     color = {props.color}>
@@ -32,7 +32,7 @@ const BigButton = (props) => {
     return (
         <TouchableHighlight
             activeOpacity={1}
-            style = {styles.buttonNormal}
+            style = {[styles.buttonNormal, {width: Utill.screen.Screen.customWidth(282)}]}
             underlayColor = {Utill.color.primary2}
             onPress = {onPress}
             onHideUnderlay = {_onHide}
@@ -51,16 +51,14 @@ const styles = StyleSheet.create({
 
     buttonNormal : {
         borderRadius : 25,
-        width : 300.5,
-        height : 50,
+        height : 45,
         justifyContent : 'center',
         alignItems : 'center',
         backgroundColor : Utill.color.primary1,
     },
     buttonDisable : {
         borderRadius : 25,
-        width : 300.5,
-        height : 50,
+        height : 45,
         justifyContent : 'center',
         alignItems : 'center',
         backgroundColor : Utill.color.defaultColor,

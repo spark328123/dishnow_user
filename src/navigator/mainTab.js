@@ -3,7 +3,7 @@ import { createBottomTabNavigator } from 'react-navigation';
 import Home from './homestack';
 import Booked from './bookedstack';
 import My from './myStack';
-
+import TabItemMain from '../component/tabItemMain';
 import TabItem from '../component/tabItem';
 import * as Utill from '../utill';
 
@@ -28,11 +28,10 @@ const mainTab = createBottomTabNavigator(
                 }
                 let label = ' ';
                 switch (routeName) {
-                    case 'tab1' : label = '예약 내역'; break;
-                    case 'tab2' : label = 'home'; break;
-                    case 'tab3' : label = 'MY'; break;
+                    case 'tab1' : label = '예약 내역';   return <TabItem label={label} source = {{ uri }} tintColor={tintColor}/>;
+                    case 'tab2' : label = '';   return <TabItemMain source = {{ uri }} tintColor={tintColor}/>;
+                    case 'tab3' : label = 'MY';   return <TabItem label={label} source = {{ uri }} tintColor={tintColor}/>;
                 }
-                return <TabItem label={label} source = {{ uri }} tintColor={tintColor}/>
             }
         }),
         tabBarOptions: {

@@ -6,9 +6,9 @@ import {
     StyleSheet,
     Image, 
     TouchableOpacity, 
-    Text,
     BackHandler,
 } from "react-native";
+import Text from '../component/common/Text'
 import * as Utill from '../utill';
 import { connect, useDispatch } from 'react-redux';
 import { updateLocation } from '../store/modules/maps';
@@ -34,7 +34,7 @@ const GoogleMaps =  ({isPressed, toggle, navigation, latitudeDelta, latitude, lo
         longitudeDelta : LONGITUDE_DELTA,
     });
 
-    const [address, setAddress] = useState('출발지 : 찾는 중...');
+    const [address, setAddress] = useState('찾는 중...');
     const [flex, setFlex] = useState(0.9997);
 
     const _goBack = ()=>{
@@ -85,7 +85,7 @@ const GoogleMaps =  ({isPressed, toggle, navigation, latitudeDelta, latitude, lo
 
     return (
        
-        <View style = {{flex:1}}>
+        <View style = {{height:Utill.screen.Screen.customHeight(225)}}>
             <MapView
             provider={PROVIDER_GOOGLE}
             style={{ flex: flex }}
@@ -124,7 +124,7 @@ const GoogleMaps =  ({isPressed, toggle, navigation, latitudeDelta, latitude, lo
                 }></Image>
             </View>
             <View style = {styles.address}>
-                <Text style ={{fontSize:15,padding:10}}>{address}</Text>
+                <Text style ={{fontSize:13,padding:10}}>출발지 : {address}</Text>
             </View>
             {isPressed? (
                 <TouchableOpacity
@@ -174,6 +174,12 @@ const styles = StyleSheet.create({
       },
       address : {
         justifyContent : 'center',
+        shadowColor: "#000",
+        shadowOffset: {width: 0,height: 1},
+        shadowOpacity: 0.16,
+        shadowRadius: 1.00,
+        elevation: 3,
+        backgroundColor: "white",
         },
       departure : {
         height : Utill.screen.bottomTabHeight,
