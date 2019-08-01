@@ -87,6 +87,10 @@ export default (props) => {
 
     const _addSource = (source) =>{
         const length = imageArray.length-1 ;
+        if(length>=3){
+            alert('사진은 총 세장까지 올릴 수 있습니다.');
+            return;
+        }
         setImageArray(imageArray.map(
             (item, i) => {
                 if(i===length){
