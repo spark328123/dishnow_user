@@ -36,7 +36,7 @@ const TabHome = (props)=>{
     const [time, setTime] = useState('');
     const [tema, setTema] = useState('');
 
-    const {navigation} = props;
+    const {navigation, latitude, longitude} = props;
 
     useEffect(()=>{
         OneSignal.addEventListener('ids',onIds);
