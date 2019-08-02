@@ -5,7 +5,6 @@
 	};
 	objectVersion = 46;
 	objects = {
-
 /* Begin PBXBuildFile section */
 		00C302E51ABCBA2D00DB3ED1 /* libRCTActionSheet.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302AC1ABCB8CE00DB3ED1 /* libRCTActionSheet.a */; };
 		00C302E71ABCBA2D00DB3ED1 /* libRCTGeolocation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302BA1ABCB90400DB3ED1 /* libRCTGeolocation.a */; };
@@ -408,7 +407,6 @@
 		78C398B01ACF4ADC00677621 /* RCTLinking.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTLinking.xcodeproj; path = "../node_modules/react-native/Libraries/LinkingIOS/RCTLinking.xcodeproj"; sourceTree = "<group>"; };
 		82D4C099070745248B640C38 /* libRNKakaoLogins.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNKakaoLogins.a; sourceTree = "<group>"; };
 		832341B01AAA6A8300B99B32 /* RCTText.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTText.xcodeproj; path = "../node_modules/react-native/Libraries/Text/RCTText.xcodeproj"; sourceTree = "<group>"; };
-
 		8A236D7B39A8458185145C36 /* libRNNaverLogin.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNNaverLogin.a; sourceTree = "<group>"; };
 		ADBDB91F1DFEBF0600ED6528 /* RCTBlob.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTBlob.xcodeproj; path = "../node_modules/react-native/Libraries/Blob/RCTBlob.xcodeproj"; sourceTree = "<group>"; };
 		C2E7B7BDF7AD44878FE6DCA7 /* NanumSquareOTFBold.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = NanumSquareOTFBold.otf; path = ../src/assets/fonts/NanumSquareOTFBold.otf; sourceTree = "<group>"; };
@@ -631,7 +629,6 @@
 				00C302DF1ABCB9EE00DB3ED1 /* RCTVibration.xcodeproj */,
 				139FDEE61B06529A00C62182 /* RCTWebSocket.xcodeproj */,
 				D44C1C4E49E4416F97F59FF8 /* BVLinearGradient.xcodeproj */,
-
 				711F7F1918C84E8994A405B9 /* RNKakaoLogins.xcodeproj */,
 				F74013C139CD41DF861BD81E /* RNNaverLogin.xcodeproj */,
 			);
@@ -689,7 +686,6 @@
 			isa = PBXGroup;
 			children = (
 				FB584D86DB21498A8E0F30C6 /* libBVLinearGradient.a */,
-
 				FEF5107A1F174232B7457B04 /* libRNKakaoLogins.a */,
 				8A236D7B39A8458185145C36 /* libRNNaverLogin.a */,
 			);
@@ -954,7 +950,6 @@
 					ProjectRef = FFCBF64E22EB177D002C2660 /* React.xcodeproj */;
 				},
 				{
-
 					ProductGroup = DB87D83A22F2C41B0006E073 /* Products */;
 					ProjectRef = 711F7F1918C84E8994A405B9 /* RNKakaoLogins.xcodeproj */;
 				},
