@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { View, StyleSheet } from 'react-native';
 import { useDispatch } from 'react-redux';
 import * as API from '../utill/API';
-import { updateLocation } from '../store/modules/maps';
+import { updateLocation, updateAddress } from '../store/modules/maps';
 import { Text } from '../component/common/'
 
 export default (props) => {
@@ -12,6 +12,7 @@ export default (props) => {
             await navigator.geolocation.getCurrentPosition((position) => {
             latitude = position.coords.latitude;
             longitude = position.coords.longitude;
+            
             dispatch(updateLocation({ latitude, longitude }));
         });
     }
@@ -27,8 +28,9 @@ export default (props) => {
     const { navigation } = props;
     const dispatch = useDispatch();
 
-    _getPosition();
+   
     useEffect(() => {
+        _getPosition();
         setTimeout(() => {
             _me();
         }, 1000)

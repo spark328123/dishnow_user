@@ -31,17 +31,19 @@ const TabHome = (props)=>{
         dispatch(User.updatenickname(nickname));
         const pushToken = await API.getPush(API.PUSH_TOKEN);
         const ret = await API.setPushToken(token,{pushToken});
+        
     }
 
     const [people, setPeople] = useState('');
     const [time, setTime] = useState('');
-    const [tema, setTema] = useState('');
+    const [tema, setTema] = useState(0);
     const [bol, setBol] = useState(true);
     const [arr, setArr] = useState(
         ['3', '5', '8', '10', '15', '20']
     );
 
-    const {navigation, latitude, longitude} = props;
+    const {navigation, latitude, longitude, address} = props;
+
 
 
     useEffect(()=>{
@@ -63,7 +65,14 @@ const TabHome = (props)=>{
         console.log(data);
         const res = await API.reservation(token,data);
         console.log(res);
+        navigation.navigate('onWait',{
+            people : people.text,
+            time,
+            tema : temaList[tema].id,
+            address,
+        })
     }
+
     const onIds = ((device) => {
         let token = device.userId;
         API.setPush(API.PUSH_TOKEN,token);
@@ -219,6 +228,7 @@ const mapStateToProps = (state) => {
     return {
         latitude : state.Maps._root.entries[0][1].latitude,
         longitude : state.Maps._root.entries[0][1].longitude,
+        address : state.Maps._root.entries[1][1],
     }
 }
 
@@ -272,7 +282,6 @@ const styles = StyleSheet.create({
         fontFamily: "NanumSquareOTFR"
     },
     childchild1 : {
-
         marginBottom: Utill.screen.Screen.customHeight(15)    // 인원, 출발 예정 시간 (제목임)
     },
     dropdown :{
