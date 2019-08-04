@@ -12,6 +12,8 @@
 		00C302E91ABCBA2D00DB3ED1 /* libRCTNetwork.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302DC1ABCB9D200DB3ED1 /* libRCTNetwork.a */; };
 		00C302EA1ABCBA2D00DB3ED1 /* libRCTVibration.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302E41ABCB9EE00DB3ED1 /* libRCTVibration.a */; };
 		00E356F31AD99517003FC87E /* react_dishnow_userTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* react_dishnow_userTests.m */; };
+		05546BA4F7F54021B391334B /* libRNNaverLogin.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8A236D7B39A8458185145C36 /* libRNNaverLogin.a */; };
+		0862A7D2561444FD850B6928 /* libRNKakaoLogins.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FEF5107A1F174232B7457B04 /* libRNKakaoLogins.a */; };
 		0DFCE3B42B3D430193FC07BD /* NanumSquareOTFLight.otf in Resources */ = {isa = PBXBuildFile; fileRef = 21138270261E46DF8B632B91 /* NanumSquareOTFLight.otf */; };
 		11D1A2F320CAFA9E000508D9 /* libRCTAnimation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E9157331DD0AC6500FF2AA8 /* libRCTAnimation.a */; };
 		133E29F31AD74F7200F7D852 /* libRCTLinking.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 78C398B91ACF4ADC00677621 /* libRCTLinking.a */; };
@@ -35,8 +37,10 @@
 		2DCD954D1E0B4F2C00145EB5 /* react_dishnow_userTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* react_dishnow_userTests.m */; };
 		3938C229699C46C9BC1920BA /* NanumSquareOTFRegular.otf in Resources */ = {isa = PBXBuildFile; fileRef = C69104E808AE49ADA9AEB1E0 /* NanumSquareOTFRegular.otf */; };
 		6E75AADA37CF47DB9B9A84A1 /* NanumSquareOTFBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = C2E7B7BDF7AD44878FE6DCA7 /* NanumSquareOTFBold.otf */; };
+		7AC4F8473EAC4DE49999AC90 /* libRNKakaoLogins.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 82D4C099070745248B640C38 /* libRNKakaoLogins.a */; };
 		7AE8379D48DD28A1880CCC38 /* libPods-react_dishnow_user.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DF5185B39DAFD3370F211B5E /* libPods-react_dishnow_user.a */; };
 		832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 832341B51AAA6A8300B99B32 /* libRCTText.a */; };
+		861EA56F212B4614AD882597 /* libRNNaverLogin.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0817911D120947528028C266 /* libRNNaverLogin.a */; };
 		ADBDB9381DFEBF1600ED6528 /* libRCTBlob.a in Frameworks */ = {isa = PBXBuildFile; fileRef = ADBDB9271DFEBF0700ED6528 /* libRCTBlob.a */; };
 		C3A6A07FF33C48C3BB5DC733 /* libBVLinearGradient.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FB584D86DB21498A8E0F30C6 /* libBVLinearGradient.a */; };
 		D4DE3DF090044E8FB1ADCAFA /* NanumSquareOTFExtraBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 03374C41862540A0A3458039 /* NanumSquareOTFExtraBold.otf */; };
@@ -207,6 +211,20 @@
 			remoteGlobalIDString = 358F4ED71D1E81A9004DF814;
 			remoteInfo = RCTBlob;
 		};
+		DB87D83D22F2C41B0006E073 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 711F7F1918C84E8994A405B9 /* RNKakaoLogins.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 134814201AA4EA6300B7C361;
+			remoteInfo = RNKakaoLogins;
+		};
+		DB87D84222F2C41B0006E073 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F74013C139CD41DF861BD81E /* RNNaverLogin.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 134814201AA4EA6300B7C361;
+			remoteInfo = RNNaverLogin;
+		};
 		DBF35DF822CE2B3100CF684F /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = D44C1C4E49E4416F97F59FF8 /* BVLinearGradient.xcodeproj */;
@@ -220,6 +238,20 @@
 			proxyType = 2;
 			remoteGlobalIDString = 64AA15081EF7F30100718508;
 			remoteInfo = "BVLinearGradient-tvOS";
+		};
+		FF14354D22F31A0300F6C309 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 339043D534054D79A6AD153D /* RNKakaoLogins.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 134814201AA4EA6300B7C361;
+			remoteInfo = RNKakaoLogins;
+		};
+		FF14355022F31A0300F6C309 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 97E22AD1A66C4DB7BEC3412E /* RNNaverLogin.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 134814201AA4EA6300B7C361;
+			remoteInfo = RNNaverLogin;
 		};
 		FFCBF67822EB177D002C2660 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -353,6 +385,7 @@
 		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		00E356F21AD99517003FC87E /* react_dishnow_userTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = react_dishnow_userTests.m; sourceTree = "<group>"; };
 		03374C41862540A0A3458039 /* NanumSquareOTFExtraBold.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = NanumSquareOTFExtraBold.otf; path = ../src/assets/fonts/NanumSquareOTFExtraBold.otf; sourceTree = "<group>"; };
+		0817911D120947528028C266 /* libRNNaverLogin.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNNaverLogin.a; sourceTree = "<group>"; };
 		139105B61AF99BAD00B5F7CC /* RCTSettings.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTSettings.xcodeproj; path = "../node_modules/react-native/Libraries/Settings/RCTSettings.xcodeproj"; sourceTree = "<group>"; };
 		139FDEE61B06529A00C62182 /* RCTWebSocket.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTWebSocket.xcodeproj; path = "../node_modules/react-native/Libraries/WebSocket/RCTWebSocket.xcodeproj"; sourceTree = "<group>"; };
 		13B07F961A680F5B00A75B9A /* react_dishnow_user.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = react_dishnow_user.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -367,10 +400,14 @@
 		2D02E47B1E0B4A5D006451C7 /* react_dishnow_user-tvOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "react_dishnow_user-tvOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2D02E4901E0B4A5D006451C7 /* react_dishnow_user-tvOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "react_dishnow_user-tvOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2D16E6891FA4F8E400B85C8A /* libReact.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libReact.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		339043D534054D79A6AD153D /* RNKakaoLogins.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNKakaoLogins.xcodeproj; path = "../node_modules/react-native-kakao-logins/ios/RNKakaoLogins.xcodeproj"; sourceTree = "<group>"; };
 		34012C0B7FB7D3224144BA37 /* Pods-react_dishnow_user.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-react_dishnow_user.release.xcconfig"; path = "Target Support Files/Pods-react_dishnow_user/Pods-react_dishnow_user.release.xcconfig"; sourceTree = "<group>"; };
 		5E91572D1DD0AC6500FF2AA8 /* RCTAnimation.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTAnimation.xcodeproj; path = "../node_modules/react-native/Libraries/NativeAnimation/RCTAnimation.xcodeproj"; sourceTree = "<group>"; };
+		711F7F1918C84E8994A405B9 /* RNKakaoLogins.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNKakaoLogins.xcodeproj; path = "../node_modules/react-native-kakao-logins/ios/RNKakaoLogins.xcodeproj"; sourceTree = "<group>"; };
 		78C398B01ACF4ADC00677621 /* RCTLinking.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTLinking.xcodeproj; path = "../node_modules/react-native/Libraries/LinkingIOS/RCTLinking.xcodeproj"; sourceTree = "<group>"; };
+		82D4C099070745248B640C38 /* libRNKakaoLogins.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNKakaoLogins.a; sourceTree = "<group>"; };
 		832341B01AAA6A8300B99B32 /* RCTText.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTText.xcodeproj; path = "../node_modules/react-native/Libraries/Text/RCTText.xcodeproj"; sourceTree = "<group>"; };
+		8A236D7B39A8458185145C36 /* libRNNaverLogin.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNNaverLogin.a; sourceTree = "<group>"; };
 		ADBDB91F1DFEBF0600ED6528 /* RCTBlob.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTBlob.xcodeproj; path = "../node_modules/react-native/Libraries/Blob/RCTBlob.xcodeproj"; sourceTree = "<group>"; };
 		C2E7B7BDF7AD44878FE6DCA7 /* NanumSquareOTFBold.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = NanumSquareOTFBold.otf; path = ../src/assets/fonts/NanumSquareOTFBold.otf; sourceTree = "<group>"; };
 		C69104E808AE49ADA9AEB1E0 /* NanumSquareOTFRegular.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = NanumSquareOTFRegular.otf; path = ../src/assets/fonts/NanumSquareOTFRegular.otf; sourceTree = "<group>"; };
@@ -380,7 +417,9 @@
 		DF5185B39DAFD3370F211B5E /* libPods-react_dishnow_user.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-react_dishnow_user.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		ED2971642150620600B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = Platforms/AppleTVOS.platform/Developer/SDKs/AppleTVOS12.0.sdk/System/Library/Frameworks/JavaScriptCore.framework; sourceTree = DEVELOPER_DIR; };
+		F74013C139CD41DF861BD81E /* RNNaverLogin.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNNaverLogin.xcodeproj; path = "../node_modules/react-native-naver-login/ios/RNNaverLogin.xcodeproj"; sourceTree = "<group>"; };
 		FB584D86DB21498A8E0F30C6 /* libBVLinearGradient.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libBVLinearGradient.a; sourceTree = "<group>"; };
+		FEF5107A1F174232B7457B04 /* libRNKakaoLogins.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNKakaoLogins.a; sourceTree = "<group>"; };
 		FFCBF64E22EB177D002C2660 /* React.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = React.xcodeproj; path = "../node_modules/react-native/React/React.xcodeproj"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -411,6 +450,8 @@
 				139FDEF61B0652A700C62182 /* libRCTWebSocket.a in Frameworks */,
 				C3A6A07FF33C48C3BB5DC733 /* libBVLinearGradient.a in Frameworks */,
 				7AE8379D48DD28A1880CCC38 /* libPods-react_dishnow_user.a in Frameworks */,
+				0862A7D2561444FD850B6928 /* libRNKakaoLogins.a in Frameworks */,
+				05546BA4F7F54021B391334B /* libRNNaverLogin.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -588,6 +629,8 @@
 				00C302DF1ABCB9EE00DB3ED1 /* RCTVibration.xcodeproj */,
 				139FDEE61B06529A00C62182 /* RCTWebSocket.xcodeproj */,
 				D44C1C4E49E4416F97F59FF8 /* BVLinearGradient.xcodeproj */,
+				711F7F1918C84E8994A405B9 /* RNKakaoLogins.xcodeproj */,
+				F74013C139CD41DF861BD81E /* RNNaverLogin.xcodeproj */,
 			);
 			name = Libraries;
 			sourceTree = "<group>";
@@ -643,10 +686,26 @@
 			isa = PBXGroup;
 			children = (
 				FB584D86DB21498A8E0F30C6 /* libBVLinearGradient.a */,
-				E5D45E15B14040C5AE894797 /* libRNKakaoLogins.a */,
-				462AC8CB6E2A421C8586EE1E /* libRNNaverLogin.a */,
+				FEF5107A1F174232B7457B04 /* libRNKakaoLogins.a */,
+				8A236D7B39A8458185145C36 /* libRNNaverLogin.a */,
 			);
 			name = "Recovered References";
+			sourceTree = "<group>";
+		};
+		DB87D83A22F2C41B0006E073 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				DB87D83E22F2C41B0006E073 /* libRNKakaoLogins.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		DB87D83F22F2C41B0006E073 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				DB87D84322F2C41B0006E073 /* libRNNaverLogin.a */,
+			);
+			name = Products;
 			sourceTree = "<group>";
 		};
 		DBF35DF222CE2B3000CF684F /* Products */ = {
@@ -667,6 +726,22 @@
 				C69104E808AE49ADA9AEB1E0 /* NanumSquareOTFRegular.otf */,
 			);
 			name = Resources;
+			sourceTree = "<group>";
+		};
+		FF14354822F31A0200F6C309 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				FF14355122F31A0300F6C309 /* libRNNaverLogin.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		FF14354A22F31A0200F6C309 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				FF14354E22F31A0300F6C309 /* libRNKakaoLogins.a */,
+			);
+			name = Products;
 			sourceTree = "<group>";
 		};
 		FFCBF64F22EB177D002C2660 /* Products */ = {
@@ -781,11 +856,11 @@
 				TargetAttributes = {
 					00E356ED1AD99517003FC87E = {
 						CreatedOnToolsVersion = 6.2;
-						DevelopmentTeam = PH39C7R335;
+						DevelopmentTeam = 945KXLFYQT;
 						TestTargetID = 13B07F861A680F5B00A75B9A;
 					};
 					13B07F861A680F5B00A75B9A = {
-						DevelopmentTeam = PH39C7R335;
+						DevelopmentTeam = 945KXLFYQT;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
@@ -798,12 +873,12 @@
 					};
 					2D02E47A1E0B4A5D006451C7 = {
 						CreatedOnToolsVersion = 8.2.1;
-						DevelopmentTeam = PH39C7R335;
+						DevelopmentTeam = 945KXLFYQT;
 						ProvisioningStyle = Automatic;
 					};
 					2D02E48F1E0B4A5D006451C7 = {
 						CreatedOnToolsVersion = 8.2.1;
-						DevelopmentTeam = PH39C7R335;
+						DevelopmentTeam = 945KXLFYQT;
 						ProvisioningStyle = Automatic;
 						TestTargetID = 2D02E47A1E0B4A5D006451C7;
 					};
@@ -873,6 +948,14 @@
 				{
 					ProductGroup = FFCBF64F22EB177D002C2660 /* Products */;
 					ProjectRef = FFCBF64E22EB177D002C2660 /* React.xcodeproj */;
+				},
+				{
+					ProductGroup = DB87D83A22F2C41B0006E073 /* Products */;
+					ProjectRef = 711F7F1918C84E8994A405B9 /* RNKakaoLogins.xcodeproj */;
+				},
+				{
+					ProductGroup = DB87D83F22F2C41B0006E073 /* Products */;
+					ProjectRef = F74013C139CD41DF861BD81E /* RNNaverLogin.xcodeproj */;
 				},
 			);
 			projectRoot = "";
@@ -1033,6 +1116,20 @@
 			remoteRef = ADBDB9261DFEBF0700ED6528 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
+		DB87D83E22F2C41B0006E073 /* libRNKakaoLogins.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libRNKakaoLogins.a;
+			remoteRef = DB87D83D22F2C41B0006E073 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		DB87D84322F2C41B0006E073 /* libRNNaverLogin.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libRNNaverLogin.a;
+			remoteRef = DB87D84222F2C41B0006E073 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 		DBF35DF922CE2B3100CF684F /* libBVLinearGradient.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
@@ -1045,6 +1142,20 @@
 			fileType = archive.ar;
 			path = libBVLinearGradient.a;
 			remoteRef = DBF35DFA22CE2B3100CF684F /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		FF14354E22F31A0300F6C309 /* libRNKakaoLogins.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libRNKakaoLogins.a;
+			remoteRef = FF14354D22F31A0300F6C309 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		FF14355122F31A0300F6C309 /* libRNNaverLogin.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libRNNaverLogin.a;
+			remoteRef = FF14355022F31A0300F6C309 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		FFCBF67922EB177D002C2660 /* libReact.a */ = {
@@ -1344,7 +1455,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
-				DEVELOPMENT_TEAM = PH39C7R335;
+				DEVELOPMENT_TEAM = 945KXLFYQT;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
@@ -1355,11 +1466,17 @@
 					"$(SRCROOT)..\node_modules\neact-native-fbsdkiosRCTFBSDK/**",
 					"$(SRCROOT)/../node_modules/react-native-kakao-logins/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-naver-login/ios/**",
+					"$(SRCROOT)/../node_modules/react-native-kakao-logins/ios/**",
+					"$(SRCROOT)/../node_modules/react-native-naver-login/ios/**",
 				);
 				INFOPLIST_FILE = react_dishnow_userTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+				);
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"-lc++",
@@ -1375,18 +1492,24 @@
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COPY_PHASE_STRIP = NO;
-				DEVELOPMENT_TEAM = PH39C7R335;
+				DEVELOPMENT_TEAM = 945KXLFYQT;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)..\node_modules\neact-native-linear-gradientBVLinearGradient",
 					"$(SRCROOT)..\node_modules\neact-native-fbsdkiosRCTFBSDK/**",
 					"$(SRCROOT)/../node_modules/react-native-kakao-logins/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-naver-login/ios/**",
+					"$(SRCROOT)/../node_modules/react-native-kakao-logins/ios/**",
+					"$(SRCROOT)/../node_modules/react-native-naver-login/ios/**",
 				);
 				INFOPLIST_FILE = react_dishnow_userTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+				);
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"-lc++",
@@ -1407,7 +1530,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = NO;
-				DEVELOPMENT_TEAM = PH39C7R335;
+				DEVELOPMENT_TEAM = 945KXLFYQT;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -1418,6 +1541,8 @@
 					"$(inherited)",
 					"$(SRCROOT)..\node_modules\neact-native-linear-gradientBVLinearGradient",
 					"$(SRCROOT)..\node_modules\neact-native-fbsdkiosRCTFBSDK/**",
+					"$(SRCROOT)/../node_modules/react-native-kakao-logins/ios/**",
+					"$(SRCROOT)/../node_modules/react-native-naver-login/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-kakao-logins/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-naver-login/ios/**",
 				);
@@ -1446,7 +1571,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = PH39C7R335;
+				DEVELOPMENT_TEAM = 945KXLFYQT;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -1457,6 +1582,8 @@
 					"$(inherited)",
 					"$(SRCROOT)..\node_modules\neact-native-linear-gradientBVLinearGradient",
 					"$(SRCROOT)..\node_modules\neact-native-fbsdkiosRCTFBSDK/**",
+					"$(SRCROOT)/../node_modules/react-native-kakao-logins/ios/**",
+					"$(SRCROOT)/../node_modules/react-native-naver-login/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-kakao-logins/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-naver-login/ios/**",
 				);
@@ -1485,8 +1612,10 @@
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
 				DEBUG_INFORMATION_FORMAT = dwarf;
-				DEVELOPMENT_TEAM = PH39C7R335;
+				DEVELOPMENT_TEAM = 945KXLFYQT;
 				ENABLE_TESTABILITY = YES;
 				GCC_NO_COMMON_BLOCKS = YES;
 				HEADER_SEARCH_PATHS = (
@@ -1495,16 +1624,23 @@
 					"$(SRCROOT)..\node_modules\neact-native-fbsdkiosRCTFBSDK/**",
 					"$(SRCROOT)/../node_modules/react-native-kakao-logins/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-naver-login/ios/**",
+					"$(SRCROOT)/../node_modules/react-native-kakao-logins/ios/**",
+					"$(SRCROOT)/../node_modules/react-native-naver-login/ios/**",
 				);
 				INFOPLIST_FILE = "react_dishnow_user-tvOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+				);
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"-lc++",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.facebook.REACT.react_dishnow_user-tvOS";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = appletvos;
 				TARGETED_DEVICE_FAMILY = 3;
 				TVOS_DEPLOYMENT_TARGET = 9.2;
@@ -1520,9 +1656,11 @@
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEVELOPMENT_TEAM = PH39C7R335;
+				DEVELOPMENT_TEAM = 945KXLFYQT;
 				GCC_NO_COMMON_BLOCKS = YES;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1530,16 +1668,23 @@
 					"$(SRCROOT)..\node_modules\neact-native-fbsdkiosRCTFBSDK/**",
 					"$(SRCROOT)/../node_modules/react-native-kakao-logins/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-naver-login/ios/**",
+					"$(SRCROOT)/../node_modules/react-native-kakao-logins/ios/**",
+					"$(SRCROOT)/../node_modules/react-native-naver-login/ios/**",
 				);
 				INFOPLIST_FILE = "react_dishnow_user-tvOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+				);
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"-lc++",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.facebook.REACT.react_dishnow_user-tvOS";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = appletvos;
 				TARGETED_DEVICE_FAMILY = 3;
 				TVOS_DEPLOYMENT_TARGET = 9.2;
@@ -1555,7 +1700,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
-				DEVELOPMENT_TEAM = PH39C7R335;
+				DEVELOPMENT_TEAM = 945KXLFYQT;
 				ENABLE_TESTABILITY = YES;
 				GCC_NO_COMMON_BLOCKS = YES;
 				HEADER_SEARCH_PATHS = (
@@ -1564,10 +1709,16 @@
 					"$(SRCROOT)..\node_modules\neact-native-fbsdkiosRCTFBSDK/**",
 					"$(SRCROOT)/../node_modules/react-native-kakao-logins/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-naver-login/ios/**",
+					"$(SRCROOT)/../node_modules/react-native-kakao-logins/ios/**",
+					"$(SRCROOT)/../node_modules/react-native-naver-login/ios/**",
 				);
 				INFOPLIST_FILE = "react_dishnow_user-tvOSTests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+				);
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"-lc++",
@@ -1590,7 +1741,7 @@
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEVELOPMENT_TEAM = PH39C7R335;
+				DEVELOPMENT_TEAM = 945KXLFYQT;
 				GCC_NO_COMMON_BLOCKS = YES;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1598,10 +1749,16 @@
 					"$(SRCROOT)..\node_modules\neact-native-fbsdkiosRCTFBSDK/**",
 					"$(SRCROOT)/../node_modules/react-native-kakao-logins/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-naver-login/ios/**",
+					"$(SRCROOT)/../node_modules/react-native-kakao-logins/ios/**",
+					"$(SRCROOT)/../node_modules/react-native-naver-login/ios/**",
 				);
 				INFOPLIST_FILE = "react_dishnow_user-tvOSTests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+				);
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"-lc++",

@@ -16,22 +16,31 @@ import * as API from '../../utill/API'
 import  * as User from '../../store/modules/user'
 import { connect, useDispatch } from 'react-redux';
 
-const TabMy = ({navigation, userid, nickname, image, phone, point, name}) => { 
+const TabMy = ({navigation, userid, nickname, image, phone, point, name, reviewcount}) => { 
     
     const [id, idChange] = useState(userid);
     const [nick, nickChange] = useState(nickname);
-    const [img, imgChange] = useState(image);
+    const [photo, setPhoto] = useState(image);
     const [phonenum, phoChange] = useState(phone);
     const [pt, ptChange] = useState(point);
     const [nm, nmChange] = useState(name);
+    const [rvcount, rvcountChange] = useState(reviewcount);
 
     const _me = () => {
+        let imageString = JSON.stringify(image);
+        imageString = imageString.substring(4,imageString.length-4);
+        setPhoto({uri :imageString});
         if(nick===null){
             nickChange(name);
-            //dispatch(User.updatenickname(name));
+            dispatch(User.updatenickname(name));
+        }
+        if(rvcount===undefined){
+            rvcountChange('0');
+            dispatch(User.updatereviewcount('0'));
+            console.log(rvcount);
         }
     }
-    useEffect(()=>{
+    useEffect(()=>{ 
         _me();
     },[])
 
@@ -47,48 +56,65 @@ const TabMy = ({navigation, userid, nickname, image, phone, point, name}) => {
         <View
             style={styles.container}
             contentContainerStyle={{ flexGrow: 1, justifyContent: 'center' }}>
-            
-            <TouchableOpacity
+            <View style={styles.top}>
+            <TouchableOpacity 
+                style = {{flexDirection : 'row'}}
                 onPress = {()=>navigation.push('Profile',
                 {
                     name : nm,
                     userid : id,
                     nickname : nick,
-                    image : img,
+                    image : photo,
                     phone : phonenum,
                 })}
             >
-                <Text style={{ fontSize: 16, fontWeight: 'bold', marginBottom: 8, marginRight:20,marginTop:30}}>
+                {photo && (<Image source={{uri : photo.uri}} style={{ width: 50, height: 50,}}/>)}
+                {!photo && (<View style={{ width: 60, height: 60, backgroundColor : '#4682B4', }}/>)}
+                <Text style={{alignItems : 'center', marginTop : 10, marginLeft : 5, fontSize : 16, fontWeight: 'bold',}}>
                     {nick}
-                </Text >
+                </Text>
             </TouchableOpacity>
-
-            <View style = { styles.txt }>
-                <TouchableOpacity
-                    onPress = {()=>navigation.navigate('Point')}
-                >
-                    <Text style={{ fontSize: 16, fontWeight: 'bold', marginBottom: 8, marginRight:20,marginTop:30}}>
-                        디나포인트
-                    </Text >
-                </TouchableOpacity>
-
-                <TouchableOpacity
-                    onPress = {()=>navigation.navigate('Review')}
-                >
-                    <Text style={{ fontSize: 16, fontWeight: 'bold', marginBottom: 8, marginRight:20,marginTop:30}}>
-                        나의 리뷰
-                    </Text >
-                </TouchableOpacity>
             </View>
-
-           <TouchableOpacity
+            <View style = { styles.parent }>
+                <View style={styles.child}>
+                    <TouchableOpacity
+                        onPress = {()=>navigation.navigate('Point')}
+                    >
+                        <View>
+                            <Text style={{fontSize : 16, }}>
+                                디나포인트
+                            </Text>
+                        </View>
+                        <Text style={{fontSize : 24, justifyContent : 'center', alignItems : 'center'}}>
+                            {pt}
+                        </Text>
+                    </TouchableOpacity>
+                </View>
+                <View style={styles.child}>
+                    <TouchableOpacity
+                        onPress = {()=>navigation.navigate('Review')}
+                    >
+                        <View>
+                            <Text style={{fontSize : 16, }}>
+                                나의 리뷰
+                            </Text>
+                        </View>
+                        <Text style={{fontSize : 24, justifyContent : 'center', alignItems : 'center'}}>
+                            {rvcount}
+                        </Text>
+                    </TouchableOpacity>
+                </View>
+            </View>
+            <View style={styles.percent9}>
+            <TouchableOpacity
                 onPress = {()=>navigation.navigate('Notice')}
            >
                 <Text style={{ fontSize: 16, fontWeight: 'bold', marginBottom: 8, marginRight:20,marginTop:30}}>
                     공지사항
-                </Text >
+                </Text>
             </TouchableOpacity>
-
+            </View>
+            <View style={styles.percent9}>
             <TouchableOpacity
                 onPress = {()=>navigation.navigate('webView')}
             >
@@ -96,22 +122,24 @@ const TabMy = ({navigation, userid, nickname, image, phone, point, name}) => {
                     이용약관
                 </Text >
             </TouchableOpacity>
-
+            </View>
+            <View style={styles.percent9}>
             <TouchableOpacity
                 onPress = {()=>navigation.navigate('Client')}
             >
                 <Text style={{ fontSize: 16, fontWeight: 'bold', marginBottom: 8, marginRight:20,marginTop:30}}>
                     고객센터
-                </Text >
+                </Text>
             </TouchableOpacity>
-            
+            </View>
+            <View style={styles.percent9}>
             <TouchableOpacity>
                 <Text style={{ fontSize: 16, fontWeight: 'bold', marginBottom: 8, marginRight:20,marginTop:30}}>
                     푸쉬알림
-                </Text >
+                </Text>
             </TouchableOpacity>
-
-
+            </View>
+            <View>
             <TouchableOpacity
                 onPress = {()=>
                 Alert.alert(
@@ -134,10 +162,9 @@ const TabMy = ({navigation, userid, nickname, image, phone, point, name}) => {
              >
                 <Text style={{ fontSize: 16, fontWeight: 'bold', marginBottom: 8, marginRight:20,marginTop:30}}>
                     로그아웃
-                </Text >
-              
+                </Text>
             </TouchableOpacity>
-            
+            </View>
         </View> 
     )
 }
@@ -152,31 +179,37 @@ const mapStateToProps = (state) => {
         phone : state.User._root.entries[3][1],
         name : state.User._root.entries[6][1],
         point : state.User._root.entries[1][1],
+        reviewcount : state.User._root.entries[4][1],
     }
 }
 
 export default connect(mapStateToProps)(TabMy);
 
 const styles = StyleSheet.create({
-    container: {
+    container: {                    // 화면전체
         flex: 1,
         paddingLeft: 15,
         paddingRight: 15,
     },
-    textTitle: {
-        fontSize: 14,
-        marginBottom: 20,
-    },
-    textInput: {
-        fontSize: 16,
-        marginBottom: 29,
-        borderBottomWidth: 1,
-        borderBottomColor: 'gray',
-    },
-    txt : {
+    top : {                         // 맨위에 끄덕이는 미식가
+        alignItems : 'center',
         flexDirection : 'row',
-        height : 50,
-        width : 200,
+        width : '92%',
+        height : '15%',
+        backgroundColor : '#7CFC00',
     },
-
+    percent9 : {                    // 공지사항, 이용약관, 고객센터, 푸쉬알람, 로그아웃
+        flexDirection : 'row',
+        height : '9%',
+    },
+    parent : {                         // 디나포인트 + 나의리뷰 두개합친 뷰
+        flexDirection : 'row',
+        height : '17%',
+    },
+    child : {                          // 디나포인트, 나의리뷰 각각의 뷰 두개
+        width : '50%',
+        alignItems : 'center',
+        justifyContent : 'center',
+        backgroundColor : '#4682B4',
+    }, 
 })

@@ -1,5 +1,7 @@
 import React, { useState, memo, useEffect } from 'react';
-import { View,
+import { 
+    Text, 
+    View,
     StyleSheet,
     TextInput,
     Keyboard,
@@ -14,7 +16,6 @@ import * as API from '../../utill/API';
 import * as Utill from '../../utill';
 import ImagePicker from 'react-native-image-picker';
 import Dialog from "react-native-dialog";
-import { Text } from '../../component/common';
 import { useDispatch, connect } from 'react-redux';
 
 const defaultImageSource = ({uri: 'icon_add_photo'});
@@ -47,7 +48,7 @@ const Profile = ({navigation, userid, nickname, image, phone, point, name}) => {
         setPhoto({uri :imageString});
         console.log(imageString);
         console.log(photo);
-        }
+    }
 
     useEffect(()=>{
         _didMount();
@@ -71,29 +72,40 @@ const Profile = ({navigation, userid, nickname, image, phone, point, name}) => {
     const dispatch = useDispatch();
     
     return (      
-        <View style={{flex : 1, alignItems : 'center', justifyContent : 'center' }}>
+        <View style={{flex : 1, marginLeft : 15, marginRight : 15}}>
 
-            <TouchableOpacity onPress={()=>_handleChoosePhoto()}>
+            <TouchableOpacity onPress={()=>_handleChoosePhoto()}
+                style = {{alignItems : 'center', marginTop : 15}}
+            >
             {photo && (
                 <Image
                 source={{uri : photo.uri}}
-                style={{ width: 150, height: 150 }}
+                style={{ width: 90, height: 90 }}
                 />
             )}
             {!photo && (
                 <View
-                style={{ width: 150, height: 150, backgroundColor : '#4682B4', }}
+                style={{ width: 90, height: 90, backgroundColor : '#4682B4', }}
                 />
             )}
-                <View style={styles.pht}>
-                    <Text>"Choose Photo"</Text>
-                </View>
             </TouchableOpacity>
-            <View style={styles.garo}>
-                <Text> {nick} </Text>
-                <TouchableOpacity><View><Text>닉변</Text></View></TouchableOpacity>
+            <View style={{justifyContent : 'center', flexDirection : 'row'}}>
+                <Text style={{height : 21, fontSize : 16}}> {nick} </Text>
+                <TouchableOpacity
+                    onPress = {()=>navigation.push('Nick',
+                        {
+                            id,
+                            nickname : nick,
+                        },
+                    )
+                }
+                >
+                        <Text>
+                            닉변
+                        </Text>
+                </TouchableOpacity>
             </View>
-            <Text>계정정보</Text>
+            <Text style={{fontSize : 12}}>계정정보</Text>
             <View style={styles.garo}>
                 <Text>이름</Text>
                 <Text>{nm}</Text>
@@ -132,8 +144,6 @@ const styles = StyleSheet.create({
     },
     garo : {
         height : 20,
-        alignItems : 'center',
-        justifyContent : 'center',
         flexDirection : 'row',
     },
 })

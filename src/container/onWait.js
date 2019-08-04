@@ -1,16 +1,52 @@
-import React, { useState } from 'react';
-import { View,
+import React, { useState, useEffect } from 'react';
+import { 
+    View,
     StyleSheet,
+    ActivityIndicator,
 } from 'react-native';
+import { Text } from '../component/common';
+import * as Utill from '../utill';
+import OneSignal from 'react-native-onesignal';
 
 export default (props) =>{
+    const { navigation } = props;
+    const [oneSignallistener, setOneSignalListener] = useState([]);
+
+    const _oneSignalReceived = (notification) => {
+        console.log(notification);
+    };
+    const _oneSignalOpened = ({openResult}) => {
+            console.log('Message: ', openResult.notification.payload.body);
+        console.log('Data: ', openResult.notification.payload.additionalData);
+        console.log('isActive: ', openResult.notification.isAppInFocus);
+        console.log('openResult: ', openResult);
+
+    }
+
+    useEffect(()=>{
+        OneSignal.addEventListener('received',_oneSignalReceived);
+    },[]);
+
     return(
         <View style = {styles.container}>
-            <View
-                source ={{uri: 'icon_onwait_purple'}}
-                text = {'살려줘 제발'}
-            >
-
+            <View style = {styles.loading}>
+                <ActivityIndicator size = "large" color = {Utill.color.primary1}/>
+                <Text style = {{fontSize : 18}}>출발지 기준 200m 내 술집에 요청중</Text>
+                <Text>2:00</Text>
+            </View>
+            <View style = {styles.data}>
+                <Text>
+                    {`| ${navigation.getParam('tema')} |`}
+                </Text>
+                <Text>
+                    {navigation.getParam('people')}
+                </Text>
+                <Text>
+                    {navigation.getParam('time')}
+                </Text>
+                <Text>
+                    {navigation.getParam('address')}
+                </Text>
             </View>
         </View>
     )
@@ -19,16 +55,16 @@ export default (props) =>{
 const styles = StyleSheet.create({
     container : {
         flex : 1,
-        paddingLeft : 20,
-        paddingRight : 20,
+    },
+    loading : {
+        flex : 1,
         justifyContent : 'center',
         alignItems : 'center'
     },
-    onwait : {
-        width : 50,
-        height : 50,
-    },
-    text : {
-        fontSize: 20,
+    data : {
+        flex : 1,
+        paddingLeft : 24,
+        justifyContent : 'flex-start',
+        alignItems : 'flex-start',
     }
 })

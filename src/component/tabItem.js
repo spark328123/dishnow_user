@@ -1,13 +1,11 @@
 import React from 'react';
 import { View, Image, StyleSheet }from 'react-native';
 import { Text } from './common/'
-
-
 import * as Utill from '../utill'
 const TabItem = ({label, tintColor, source, navigation }) => {
     
     return (
-        <View style={styles.container}>
+        <View style={[styles.container]}>
             <View>
                 <Image
                     resizeMode = 'contain'
@@ -15,7 +13,6 @@ const TabItem = ({label, tintColor, source, navigation }) => {
                     source={source}
                 />    
             </View>
-
             <View>
                 <Text 
                     style={{color:tintColor}}>
@@ -33,7 +30,7 @@ const styles = StyleSheet.create({
     container : {
         paddingTop : 8,
         alignItems : 'center',
-        height : Utill.screen.bottomTabHeight,
+        height: Utill.screen.bottomTabHeight
     },
     icon : {
         width : 20,

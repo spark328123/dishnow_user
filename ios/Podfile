@@ -48,7 +48,6 @@ target 'react_dishnow_user' do
 
     pod 'react-native-image-picker', :path => '../node_modules/react-native-image-picker'
 
-    pod 'RNFastImage', :path => '../node_modules/react-native-fast-image'
 	
 	 pod 'react-native-onesignal',
     :path => "../node_modules/react-native-onesignal/react-native-onesignal.podspec",

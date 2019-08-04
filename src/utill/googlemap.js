@@ -6,12 +6,12 @@ import {
     StyleSheet,
     Image, 
     TouchableOpacity, 
-    Text,
     BackHandler,
 } from "react-native";
+import Text from '../component/common/Text'
 import * as Utill from '../utill';
 import { connect, useDispatch } from 'react-redux';
-import { updateLocation } from '../store/modules/maps';
+import { updateLocation, updateAddress } from '../store/modules/maps';
 
 
 const { height, width } = Dimensions.get("window");
@@ -34,7 +34,7 @@ const GoogleMaps =  ({isPressed, toggle, navigation, latitudeDelta, latitude, lo
         longitudeDelta : LONGITUDE_DELTA,
     });
 
-    const [address, setAddress] = useState('출발지 : 찾는 중...');
+    const [address, setAddress] = useState('찾는 중...');
     const [flex, setFlex] = useState(0.9997);
 
     const _goBack = ()=>{
@@ -50,6 +50,19 @@ const GoogleMaps =  ({isPressed, toggle, navigation, latitudeDelta, latitude, lo
         });
     })}
 
+    const _initAddress = async (lat,lon) =>{
+        const url = `${google_url}${lat},${lon}&key=${GOOGLE_API_KEY}&language=ko`
+        await fetch(url)
+            .then((res)=>{
+                return res.json()
+            })
+            .then((json)=>{
+                let address = JSON.stringify(json.results[0].formatted_address);
+                address = address.substring(5,address.length-1);    //"대한민국"
+                setAddress(address)
+                dispatch(updateAddress(address))
+            })
+    }
     const _getAddress = async (lat,lon) =>{
         const url = `${google_url}${lat},${lon}&key=${GOOGLE_API_KEY}&language=ko`
         fetch(url)
@@ -68,6 +81,7 @@ const GoogleMaps =  ({isPressed, toggle, navigation, latitudeDelta, latitude, lo
             latitude : region.region.latitude,      
             longitude : region.region.longitude,  
         }));
+        dispatch(updateAddress(address))
         _goBack(); 
     }
 
@@ -76,16 +90,16 @@ const GoogleMaps =  ({isPressed, toggle, navigation, latitudeDelta, latitude, lo
     }
 
     useEffect(()=>{
+        _getPosition();
+        _initAddress(region.latitude,region.longitude);
         setTimeout(()=>{
             _setFlex();
-        _getPosition();
-        }, 200);
+        }, 10);
     }, [])
     
 
     return (
-       
-        <View style = {{flex:1}}>
+        <View style = {{height:Utill.screen.Screen.customHeight(225)}}>
             <MapView
             provider={PROVIDER_GOOGLE}
             style={{ flex: flex }}
@@ -94,7 +108,7 @@ const GoogleMaps =  ({isPressed, toggle, navigation, latitudeDelta, latitude, lo
             onRegionChangeComplete = {
                 region=>{
                     setRegion({region})
-                    _getAddress(region.latitude,region.longitude)   
+                    //_getAddress(region.latitude,region.longitude)   
                 }}
             showsUserLocation = {isPressed}
             showsMyLocationButton = {isPressed}
@@ -111,7 +125,8 @@ const GoogleMaps =  ({isPressed, toggle, navigation, latitudeDelta, latitude, lo
                         onPressIn = {_goBack}>
                         <Image source = {
                             {uri: 'icon_back_button'}
-                        } />
+                        }
+                        style = {styles.backFixed} />
                     </TouchableOpacity>
                 </View>
 
@@ -124,7 +139,7 @@ const GoogleMaps =  ({isPressed, toggle, navigation, latitudeDelta, latitude, lo
                 }></Image>
             </View>
             <View style = {styles.address}>
-                <Text style ={{fontSize:15,padding:10}}>{address}</Text>
+                <Text style ={{fontSize:13,padding:10}}>출발지 : {address}</Text>
             </View>
             {isPressed? (
                 <TouchableOpacity
@@ -174,6 +189,12 @@ const styles = StyleSheet.create({
       },
       address : {
         justifyContent : 'center',
+        shadowColor: "#000",
+        shadowOffset: {width: 0,height: 1},
+        shadowOpacity: 0.16,
+        shadowRadius: 1.00,
+        elevation: 3,
+        backgroundColor: "white",
         },
       departure : {
         height : Utill.screen.bottomTabHeight,

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { View, StyleSheet } from 'react-native';
 import { useDispatch } from 'react-redux';
 import * as API from '../utill/API';
-import { updateLocation } from '../store/modules/maps';
+import { updateLocation, updateAddress } from '../store/modules/maps';
 import { Text } from '../component/common/'
 
 export default (props) => {
@@ -12,13 +12,14 @@ export default (props) => {
             await navigator.geolocation.getCurrentPosition((position) => {
             latitude = position.coords.latitude;
             longitude = position.coords.longitude;
+            
             dispatch(updateLocation({ latitude, longitude }));
         });
     }
     const _me = async () => {
         let token = await API.getLocal(API.LOCALKEY_TOKEN);
         console.log(token);
-        if (token !== 'null') {
+        if (token!==null) {
             navigation.navigate('Main');
         } else {
             navigation.navigate('Login');
@@ -27,8 +28,9 @@ export default (props) => {
     const { navigation } = props;
     const dispatch = useDispatch();
 
-    _getPosition();
+   
     useEffect(() => {
+        _getPosition();
         setTimeout(() => {
             _me();
         }, 1000)

@@ -99,9 +99,7 @@ export const putAuthServer = async (url, token, data = null) => {
             body : formBody
         });
         
-        console.log(res);
         if (res.ok) return res;
-        console.log(await res.json());
         return null;
 
     }
