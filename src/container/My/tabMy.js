@@ -45,7 +45,6 @@ const TabMy = ({navigation, userid, nickname, image, phone, point, name, reviewc
     },[])
 
     const _logOut = async () => {
-        
         await API.setLocal(API.LOCALKEY_TOKEN, 'null');
         navigation.navigate('Splash')
     }

@@ -139,7 +139,7 @@ android {
 }
 
 dependencies {
-    implementation project(':react-native-onesignal')
+    implementation project(':react-native-fast-image')
     implementation project(':react-native-image-picker')
     implementation project(':react-native-webview')
     implementation project(':react-native-naver-login')
@@ -152,6 +152,7 @@ dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
     implementation 'androidx.appcompat:appcompat:1.0.0'
     implementation "com.facebook.react:react-native:+"  // From node_modules
+    implementation 'androidx.annotation:annotation:1.0.0'
 }
 subprojects {
     repositories {
