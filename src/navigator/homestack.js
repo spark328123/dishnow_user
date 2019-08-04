@@ -4,14 +4,11 @@ import { Animated, Easing } from 'react-native';
 import TabHome from '../container/tabHome';
 import Departure from '../container/stackDeparture';
 import onWait from '../container/onWait';
-import List from './liststack';
-
 const HomeStack = createSwitchNavigator(
     {
         TabHome : { screen : TabHome },
-        Departure : { screen : Departure },
-        onWait : { screen : onWait },
-        List,
+        Departure : {screen : Departure },
+        onWait : {screen : onWait },
     },
     {
         initialRouteName : 'TabHome',

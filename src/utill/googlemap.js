@@ -90,7 +90,7 @@ const GoogleMaps =  ({isPressed, toggle, navigation, latitudeDelta, latitude, lo
     }
 
     useEffect(()=>{
-        //_getPosition();
+        _getPosition();
         _initAddress(region.latitude,region.longitude);
         setTimeout(()=>{
             _setFlex();
