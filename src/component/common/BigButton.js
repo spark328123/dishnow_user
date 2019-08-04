@@ -4,7 +4,7 @@ import Text from './Text';
 import * as Utill from '../../utill';
 
 //글씨만 보라색, 테두리 투명 타원 버튼
-// TouchableHighlight 로 버튼 색깔 변경 / TouchableOpacity 로 가리기
+// TouchableHighlight 로 변경 / TouchableOpacity 로 가리기
 
 const BigButton = (props) => {
 
@@ -48,6 +48,7 @@ const BigButton = (props) => {
 export default BigButton;
 
 const styles = StyleSheet.create({
+
     buttonNormal : {
         borderRadius : 25,
         width : 260.5,

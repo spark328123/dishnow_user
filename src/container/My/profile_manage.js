@@ -91,19 +91,7 @@ const Profile = ({navigation, userid, nickname, image, phone, point, name}) => {
             </TouchableOpacity>
             <View style={{justifyContent : 'center', flexDirection : 'row'}}>
                 <Text style={{height : 21, fontSize : 16}}> {nick} </Text>
-                <TouchableOpacity
-                    onPress = {()=>navigation.push('Nick',
-                        {
-                            id,
-                            nickname : nick,
-                        },
-                    )
-                }
-                >
-                        <Text>
-                            닉변
-                        </Text>
-                </TouchableOpacity>
+                <TouchableOpacity><View><Text>닉변</Text></View></TouchableOpacity>
             </View>
             <Text style={{fontSize : 12}}>계정정보</Text>
             <View style={styles.garo}>

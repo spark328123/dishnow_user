@@ -90,6 +90,13 @@ export const reservation = (token, data) => {
     .catch(error=>({error}));
 }
 
+export const reservation_confirm = (token, data) => {
+    const url = `${apiUrl}reservation/confirm`;
+    return fetch.putAuthServer(url,token,data)
+    .then(res => ({isSuccess : res?true : false}))
+    .catch(error=>{error});
+}
+
 export const showRes = (token) => {
     const url = `${apiUrl}review`;
     return fetch.getAuthServer(url, token)
