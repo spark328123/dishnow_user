@@ -31,6 +31,7 @@ const TabHome = (props)=>{
         dispatch(User.updatenickname(nickname));
         const pushToken = await API.getPush(API.PUSH_TOKEN);
         const ret = await API.setPushToken(token,{pushToken});
+        
     }
 
     const [people, setPeople] = useState('');
@@ -42,6 +43,8 @@ const TabHome = (props)=>{
     );
 
     const {navigation, latitude, longitude, address} = props;
+
+
 
     useEffect(()=>{
         OneSignal.addEventListener('ids',onIds);
