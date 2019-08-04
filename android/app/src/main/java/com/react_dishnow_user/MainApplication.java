@@ -6,7 +6,6 @@ import com.dooboolab.kakaologins.RNKakaoLoginsPackage;
 import com.dooboolab.naverlogin.RNNaverLoginPackage;
 import com.facebook.CallbackManager;
 import com.facebook.react.ReactApplication;
-import com.dylanvann.fastimage.FastImageViewPackage;
 
 
 import com.facebook.reactnative.androidsdk.FBSDKPackage;
@@ -39,7 +38,6 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
-            new FastImageViewPackage(),
             new ImagePickerPackage(),
             new RNCWebViewPackage(),
             new RNNaverLoginPackage(),
