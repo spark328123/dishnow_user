@@ -4,3 +4,5 @@ import * as fetch from "./fetch";
 export { fetch };
 import * as color from "./color";
 export { color };
+import * as info from "./info";
+export { info };

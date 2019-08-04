@@ -10,22 +10,28 @@ import OneSignal from 'react-native-onesignal';
 
 export default (props) =>{
     const { navigation } = props;
-    const [oneSignallistener, setOneSignalListener] = useState([]);
-
-    const _oneSignalReceived = (notification) => {
-        console.log(notification);
-    };
-    const _oneSignalOpened = ({openResult}) => {
-            console.log('Message: ', openResult.notification.payload.body);
-        console.log('Data: ', openResult.notification.payload.additionalData);
-        console.log('isActive: ', openResult.notification.isAppInFocus);
-        console.log('openResult: ', openResult);
-
-    }
 
     useEffect(()=>{
         OneSignal.addEventListener('received',_oneSignalReceived);
+        return()=>{
+            OneSignal.removeEventListener('received');
+        }
     },[]);
+
+    const _oneSignalReceived = (notification) => {
+        console.log(notification);
+        if(!notification)return;
+        const {latitude=null,longitude=null,mainImage=null,name=null,reservationId=null,storeId=null} = notification.payload.additionalData;
+        navigation.navigate('List',{
+            latitude,
+            longitude,
+            mainImage,
+            name,
+            reservationId,
+            storeId,
+            theme : navigation.getParam('tema'),
+        });
+    };
 
     return(
         <View style = {styles.container}>
