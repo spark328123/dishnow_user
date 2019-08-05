@@ -52,6 +52,8 @@ target 'react_dishnow_user' do
 	 pod 'react-native-onesignal',
     :path => "../node_modules/react-native-onesignal/react-native-onesignal.podspec",
     :inhibit_warnings => true
+    pod 'react-native-simple-toast', :path => '../node_modules/react-native-simple-toast'
+
   end
   
   post_install do |installer|

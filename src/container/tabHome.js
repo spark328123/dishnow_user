@@ -31,7 +31,7 @@ const TabHome = (props)=>{
         dispatch(User.updatenickname(nickname));
         const pushToken = await API.getPush(API.PUSH_TOKEN);
         const ret = await API.setPushToken(token,{pushToken});
-        
+        console.log(ret);
     }
 
     const [people, setPeople] = useState('');
@@ -49,9 +49,6 @@ const TabHome = (props)=>{
     useEffect(()=>{
         OneSignal.addEventListener('ids',onIds);
         _me();
-        return () => {
-            OneSignal.removeEventListener('ids',onIds);
-        }
     },[]);
     const _reservation = async()=>{
         const token = await API.getLocal(API.LOCALKEY_TOKEN);
@@ -68,7 +65,7 @@ const TabHome = (props)=>{
         navigation.navigate('onWait',{
             people : people.text,
             time,
-            tema : temaList[tema].id,
+            tema :'치킨',
             address,
         })
     }
@@ -76,6 +73,7 @@ const TabHome = (props)=>{
     const onIds = ((device) => {
         let token = device.userId;
         API.setPush(API.PUSH_TOKEN,token);
+        console.log(token);
       })
 
     const [temaList, settemaList] = useState([  // 테마배열
