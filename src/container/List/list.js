@@ -59,6 +59,11 @@ const List = (props) => {
         return Math.floor(distance*1000);
     }
 
+    const _goHome = () =>{
+        navigation.navigate('TabHome');
+        OneSiganl.removeEventListener('received');
+    }
+
     const [ isLoaded, setIsLoaded ] = useState(true);
 
     const [ listData, setListData ] = useState([
@@ -146,6 +151,12 @@ const List = (props) => {
                 <Text style = {{fontSize : 18}}>
                     예약 가능 식당
                 </Text>
+                <TouchableOpacity
+                    onPress = {()=>_goHome()}>
+                    <Text style = {{color : Utill.color.red, fontSize : 14}}>
+                        취소하기
+                    </Text>
+                </TouchableOpacity>
             </View>
                 <FlatList 
                     data = {listData}
@@ -177,8 +188,9 @@ const styles = StyleSheet.create({
         flex : 1,
     },
     header : {
+        flexDirection : 'row',
         alignItems : 'center',
-        justifyContent : 'center',
+        justifyContent : 'space-between',
         height : 50,
     },
     button : {

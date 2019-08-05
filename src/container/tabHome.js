@@ -214,7 +214,7 @@ const TabHome = (props)=>{
             <View style={{alignItems: 'center'}}>
             <BigButtonColor 
                     style={[styles.find, {marginBottom: Utill.screen.Screen.customHeight(52)}]}
-                    onPress ={_reservation}
+                    onPress ={()=>_reservation()}
                     title = {'술집 찾기'}
             />
             </View>
