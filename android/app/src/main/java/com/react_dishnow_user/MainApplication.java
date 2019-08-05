@@ -6,6 +6,7 @@ import com.dooboolab.kakaologins.RNKakaoLoginsPackage;
 import com.dooboolab.naverlogin.RNNaverLoginPackage;
 import com.facebook.CallbackManager;
 import com.facebook.react.ReactApplication;
+import com.geektime.rnonesignalandroid.ReactNativeOneSignalPackage;
 
 
 import com.facebook.reactnative.androidsdk.FBSDKPackage;
@@ -38,6 +39,7 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
+            new ReactNativeOneSignalPackage(),
             new ImagePickerPackage(),
             new RNCWebViewPackage(),
             new RNNaverLoginPackage(),
