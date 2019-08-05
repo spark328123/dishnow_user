@@ -153,9 +153,7 @@ const List = (props) => {
                 </Text>
                 <TouchableOpacity
                     onPress = {()=>_goHome()}>
-                    <Text style = {{color : Utill.color.red, fontSize : 14}}>
-                        취소하기
-                    </Text>
+                    <Text style = {{color : Utill.color.red, fontSize : 14}}>취소하기</Text>
                 </TouchableOpacity>
             </View>
                 <FlatList 
@@ -165,10 +163,10 @@ const List = (props) => {
                     paddingRight = {10}
                     marginBottom = {24}
                     />
-            <TouchableOpacity style = {styles.button} 
-                onPress = {()=>navigation.push('ListMap',{data:listData})}>              
-                <Image source = {{uri : 'icon_on_map_white'}} style = {{width: 20,height:16, paddingRight :7}} />
-                <Text style = {{fontSize : 16, color : '#FFFFFF'}}>지도에서 보기</Text>
+                <TouchableOpacity style = {styles.button} 
+                    onPress = {()=>navigation.push('ListMap',{data:listData})}>              
+                    <Image source = {{uri : 'icon_on_map_white'}} style = {{width: 20,height:16, paddingRight :7}} />
+                    <Text style = {{fontSize : 16, color : '#FFFFFF'}}>지도에서 보기</Text>
                 </TouchableOpacity>
         </View>
     )
