@@ -20,7 +20,7 @@ export default (props) => {
         let token = await API.getLocal(API.LOCALKEY_TOKEN);
         console.log(token);
         if (token!==null) {
-            navigation.navigate('Terms');
+            navigation.navigate('Main');
         } else {
             navigation.navigate('Login');
         }
