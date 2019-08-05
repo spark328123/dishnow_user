@@ -184,4 +184,4 @@ const styles = StyleSheet.create({
         backgroundColor : Utill.color.primary1,
         marginTop : 20,
     }
-})
+});

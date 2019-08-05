@@ -65,6 +65,8 @@ PODS:
   - react-native-onesignal (3.3.1):
     - OneSignal (= 2.10.0)
     - React (< 1.0.0, >= 0.13.0)
+  - react-native-simple-toast (0.1.1):
+    - React
   - react-native-webview (5.12.1):
     - React
   - React/Core (0.59.10):
@@ -137,6 +139,7 @@ DEPENDENCIES:
   - react-native-image-picker (from `../node_modules/react-native-image-picker`)
   - react-native-maps (from `../node_modules/react-native-maps`)
   - react-native-onesignal (from `../node_modules/react-native-onesignal/react-native-onesignal.podspec`)
+  - react-native-simple-toast (from `../node_modules/react-native-simple-toast`)
   - react-native-webview (from `../node_modules/react-native-webview`)
   - React/Core (from `../node_modules/react-native`)
   - React/CxxBridge (from `../node_modules/react-native`)
@@ -184,6 +187,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-maps"
   react-native-onesignal:
     :path: "../node_modules/react-native-onesignal/react-native-onesignal.podspec"
+  react-native-simple-toast:
+    :path: "../node_modules/react-native-simple-toast"
   react-native-webview:
     :path: "../node_modules/react-native-webview"
   RNCAsyncStorage:
@@ -210,11 +215,12 @@ SPEC CHECKSUMS:
   react-native-image-picker: fd93361c666f397bdf72f9c6c23f13d2685b9173
   react-native-maps: 0316ed017dbb64b33b227751fa810e2454fcfa39
   react-native-onesignal: d5497ae1e9b85e4c20836f7fb98df5945736f6b9
+  react-native-simple-toast: 3e821c055485f03c6f6fa9b9431c1081ba46d37a
   react-native-webview: 21c396687cb983fadc6ccc0751cc74f554131f3f
   RNCAsyncStorage: 2808c378f6a70f22f66eeb6c11a8d69f326dd795
   RNGestureHandler: 5329a942fce3d41c68b84c2c2276ce06a696d8b0
   yoga: 684513b14b03201579ba3cee20218c9d1298b0cc
 
-PODFILE CHECKSUM: 0d861de5a1bd6c98902090a73a302239d1990469
+PODFILE CHECKSUM: 3f8a4d19b5109df37dd571f189590c332afae50d
 
 COCOAPODS: 1.7.3
