@@ -1,5 +1,5 @@
 import React ,{ useState, useEffect, useStore }from "react";
-import MapView, { PROVIDER_GOOGLE, Marker, } from "react-native-maps";
+import MapView, { PROVIDER_GOOGLE, Marker, Circle } from "react-native-maps";
 import { 
     View,
     Dimensions,
@@ -99,11 +99,12 @@ const GoogleMaps =  ({isPressed, toggle, navigation, latitudeDelta, latitude, lo
     
 
     return (
-        <View style = {{height:Utill.screen.Screen.customHeight(225)}}>
+        <View style = {{flex : 1}}>
             <MapView
             provider={PROVIDER_GOOGLE}
             style={{ flex: flex }}
             initialRegion = {region}
+        
             onRegionChange = {region=>{setRegion({region})}}
             onRegionChangeComplete = {
                 region=>{
@@ -114,12 +115,20 @@ const GoogleMaps =  ({isPressed, toggle, navigation, latitudeDelta, latitude, lo
             showsMyLocationButton = {isPressed}
             onPress = {toggle}
             scrollEnabled = {isPressed}
+            loadingEnabled
             zoomEnabled = {isPressed}
             followsUserLocation = {isPressed}
             >
+                
+                <Circle
+                center = {{latitude,longitude}}
+                strokeColor = {'rgb(115,63,255,0.5)'}
+                fillColor = {'rgba(115,63,255,0.5)'} 
+                zIndex = {2}
+                radius = {300}
+                />
             </MapView>
             {isPressed? (
-
                 <View style = {styles.backFixed}>
                     <TouchableOpacity 
                         onPressIn = {_goBack}>
@@ -177,6 +186,8 @@ const styles = StyleSheet.create({
         width: 40
       },
       backFixed : {
+          width : 20,
+          height : 20,
         left : '12%',
         marginLeft: -24,
         marginTop: -24,

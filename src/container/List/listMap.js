@@ -1,5 +1,5 @@
 import React ,{ useState, useEffect, useStore }from "react";
-import MapView, { PROVIDER_GOOGLE, Marker, } from "react-native-maps";
+import MapView, { PROVIDER_GOOGLE, Marker, Circle } from "react-native-maps";
 import { connect } from 'react-redux';
 import { 
     View,
@@ -55,5 +55,3 @@ const mapStateToProps = (state) => {
 }
 
 export default connect(mapStateToProps)(ListMap);
-
-

@@ -31,7 +31,7 @@ const TabHome = (props)=>{
         dispatch(User.updatenickname(nickname));
         const pushToken = await API.getPush(API.PUSH_TOKEN);
         const ret = await API.setPushToken(token,{pushToken});
-        console.log(ret);
+        
     }
 
     const [people, setPeople] = useState('');
@@ -49,6 +49,9 @@ const TabHome = (props)=>{
     useEffect(()=>{
         OneSignal.addEventListener('ids',onIds);
         _me();
+        return () => {
+            OneSignal.removeEventListener('ids',onIds);
+        }
     },[]);
     const _reservation = async()=>{
         const token = await API.getLocal(API.LOCALKEY_TOKEN);
@@ -65,7 +68,7 @@ const TabHome = (props)=>{
         navigation.navigate('onWait',{
             people : people.text,
             time,
-            tema :'치킨',
+            tema : temaList[tema].id,
             address,
         })
     }
@@ -73,7 +76,6 @@ const TabHome = (props)=>{
     const onIds = ((device) => {
         let token = device.userId;
         API.setPush(API.PUSH_TOKEN,token);
-        console.log(token);
       })
 
     const [temaList, settemaList] = useState([  // 테마배열
@@ -119,12 +121,14 @@ const TabHome = (props)=>{
 
     return(
         <View style = {styles.container}>
+            <View style = {styles.map}>
             <GoogleMap
                isPressed = { false }
                navigation = { navigation }   
                latitudeDelta = {0.0125}
                toggle  = {()=>{navigation.navigate('Departure')}}>
             </GoogleMap>
+            </View>
             <View style = {styles.input}>
                 <ScrollView
                     style = {styles.scrollViewContainer}
@@ -188,7 +192,7 @@ const TabHome = (props)=>{
                             <View style={styles.dropdown}>
                                 {bol&&(<ModalDropdown
                                 defaultValue = {0} 
-                                textStyle = {{fontSize: 24, fontFamily: "NanumSquareOTFR", color: '#CCCCCC'}}
+                                textStyle = {{fontSize: 24, fontFamily: "NanumSquareOTFR", color: '#CCCCCC', marginTop : -2}}
                                 dropdownTextStyle = {{fontSize: 16, fontFamily: "NanumSquareOTFR", color: "#111111"}}
                                 style = {{width : 33, height : 31}} 
                                 options = {['3', '5', '8', '10', '15', '20']}
@@ -196,7 +200,7 @@ const TabHome = (props)=>{
                                 />)}
                                 {!bol&&(<ModalDropdown
                                 defaultValue = {arr[time]}
-                                textStyle = {{fontSize: 24, fontFamily: "NanumSquareOTFR", color: "#111111"}}
+                                textStyle = {{fontSize: 24, fontFamily: "NanumSquareOTFR", color: "#111111", marginTop : -2}}
                                 dropdownTextStyle = {{fontSize: 16, fontFamily: "NanumSquareOTFR", color: "#111111"}}
                                 style = {{width : 33, height : 31}} 
                                 options = {['3', '5', '8', '10', '15', '20']}
@@ -236,9 +240,13 @@ const styles = StyleSheet.create({
     container : {                       // 화면전체
         flex : 1
     },
+    map : {                             // 지도부분을 의미
+        width : "100%",
+        height : "40%",
+    },
     scrollViewContainer :{
         height: 46,
-        width: 471,
+        width: '100%',
         marginTop: Utill.screen.Screen.customHeight(30),
         backgroundColor: "#EEEEEE",
     },
@@ -255,6 +263,7 @@ const styles = StyleSheet.create({
         textAlign : 'center',
     },
     item : {                            // 테마 스크롤의 각각 아이템
+        width : 80,
         alignItems : 'center',
     },
     parent : {                          // 연두색 배경
@@ -277,7 +286,10 @@ const styles = StyleSheet.create({
         borderColor: "#733FFF",
         width: 43,
         height: 31,
-        fontFamily: "NanumSquareOTFR"
+        fontFamily: "NanumSquareOTFR",
+        padding: 0,
+        marginBottom: 2,
+        borderWidth: 0, 
     },
     childchild1 : {
         marginBottom: Utill.screen.Screen.customHeight(15)    // 인원, 출발 예정 시간 (제목임)
@@ -288,7 +300,8 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: "center",
         borderBottomWidth: 3,
-        borderColor: "#733FFF"
+        borderColor: "#733FFF",
+        marginBottom : 2,
     },
     childchild2 : {
         flexDirection : 'row',
