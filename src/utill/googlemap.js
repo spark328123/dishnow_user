@@ -99,7 +99,7 @@ const GoogleMaps =  ({isPressed, toggle, navigation, latitudeDelta, latitude, lo
     
 
     return (
-        <View style = {{height:Utill.screen.Screen.customHeight(225)}}>
+        <View style = {{flex : 1}}>
             <MapView
             provider={PROVIDER_GOOGLE}
             style={{ flex: flex }}
