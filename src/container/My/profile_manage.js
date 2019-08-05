@@ -11,13 +11,13 @@ import {
     ActivityIndicator,
     ScrollView,
     Image,
+    Alert,
 } from 'react-native';
 import * as API from '../../utill/API';
 import * as Utill from '../../utill';
 import ImagePicker from 'react-native-image-picker';
 import Dialog from "react-native-dialog";
 import { useDispatch, connect } from 'react-redux';
-
 const defaultImageSource = ({uri: 'icon_add_photo'});
 
 const Profile = ({navigation, userid, nickname, image, phone, point, name}) => {
@@ -28,7 +28,8 @@ const Profile = ({navigation, userid, nickname, image, phone, point, name}) => {
     const [phonenum, phoChange] = useState(phone);
     const [pt, ptChange] = useState(point);
     const [nm, nmChange] = useState(name);
-
+    // const [alertVisible , setAlertVisible] = useState(false);
+    // const [isLoadingVisible, setIsLoadingVisible] = useState(false);
     const _handleChoosePhoto = async() => {
         const res = await _uploadPhoto(photo);
         const options = {
@@ -50,6 +51,17 @@ const Profile = ({navigation, userid, nickname, image, phone, point, name}) => {
         console.log(photo);
     }
 
+    // const _onPressLogout = () => {
+    //     setAlertVisible(true);
+    // }
+    // const _onPressLogoutConfirm = () => {
+    //     setAlertVisible(false);
+    //     setIsLoadingVisible(true);
+    //     console.log('탈퇴');
+    //     // setTimeout(()=> {
+    //     //     _logout();
+    //     // }, 100);
+    // }
     useEffect(()=>{
         _didMount();
     },[]);
@@ -73,7 +85,8 @@ const Profile = ({navigation, userid, nickname, image, phone, point, name}) => {
     
     return (      
         <View style={{flex : 1, marginLeft : 15, marginRight : 15}}>
-
+            
+                     
             <TouchableOpacity onPress={()=>_handleChoosePhoto()}
                 style = {{alignItems : 'center', marginTop : 15}}
             >
@@ -136,6 +149,10 @@ const mapStateToProps = (state) => {
 export default connect(mapStateToProps)(Profile);
 
 const styles = StyleSheet.create({
+    container : {
+        paddingTop : Utill.screen.topSafe,
+        flex : 1,
+    },
     pht : {
         height : 20,
         alignItems : 'center',

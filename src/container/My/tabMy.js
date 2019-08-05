@@ -9,9 +9,6 @@ import {
     Image,
     Alert,
 } from 'react-native';
-import LogOut from './logout'
-import {Button, BigButtonColor} from '../../component/common'
-import * as Color from '../../utill/color'
 import * as API from '../../utill/API' 
 import  * as User from '../../store/modules/user'
 import { connect, useDispatch } from 'react-redux';
@@ -34,6 +31,7 @@ const TabMy = ({navigation, userid, nickname, image, phone, point, name, reviewc
             nickChange(name);
             dispatch(User.updatenickname(name));
         }
+        
         if(rvcount===undefined){
             rvcountChange('0');
             dispatch(User.updatereviewcount('0'));

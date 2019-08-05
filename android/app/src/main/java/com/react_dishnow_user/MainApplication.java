@@ -7,6 +7,7 @@ import com.dooboolab.naverlogin.RNNaverLoginPackage;
 import com.facebook.CallbackManager;
 import com.facebook.react.ReactApplication;
 import com.geektime.rnonesignalandroid.ReactNativeOneSignalPackage;
+import com.geektime.rnonesignalandroid.ReactNativeOneSignalPackage;
 
 
 import com.facebook.reactnative.androidsdk.FBSDKPackage;
