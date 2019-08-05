@@ -11,13 +11,14 @@ import {
     ActivityIndicator,
     ScrollView,
     Image,
+    Alert,
 } from 'react-native';
 import * as API from '../../utill/API';
 import * as Utill from '../../utill';
 import ImagePicker from 'react-native-image-picker';
 import Dialog from "react-native-dialog";
 import { useDispatch, connect } from 'react-redux';
-
+import {LogoutModal,LoadingModal,SucessionButton} from '../../component/common'
 const defaultImageSource = ({uri: 'icon_add_photo'});
 
 const Profile = ({navigation, userid, nickname, image, phone, point, name}) => {
@@ -28,7 +29,8 @@ const Profile = ({navigation, userid, nickname, image, phone, point, name}) => {
     const [phonenum, phoChange] = useState(phone);
     const [pt, ptChange] = useState(point);
     const [nm, nmChange] = useState(name);
-
+    const [alertVisible , setAlertVisible] = useState(false);
+    const [isLoadingVisible, setIsLoadingVisible] = useState(false);
     const _handleChoosePhoto = async() => {
         const res = await _uploadPhoto(photo);
         const options = {
@@ -50,6 +52,17 @@ const Profile = ({navigation, userid, nickname, image, phone, point, name}) => {
         console.log(photo);
     }
 
+    const _onPressLogout = () => {
+        setAlertVisible(true);
+    }
+    const _onPressLogoutConfirm = () => {
+        setAlertVisible(false);
+        setIsLoadingVisible(true);
+        console.log('탈퇴');
+        // setTimeout(()=> {
+        //     _logout();
+        // }, 100);
+    }
     useEffect(()=>{
         _didMount();
     },[]);
@@ -72,8 +85,9 @@ const Profile = ({navigation, userid, nickname, image, phone, point, name}) => {
     const dispatch = useDispatch();
     
     return (      
-        <View style={{flex : 1, marginLeft : 15, marginRight : 15}}>
-
+        <View style={styles.container}>
+            
+                     
             <TouchableOpacity onPress={()=>_handleChoosePhoto()}
                 style = {{alignItems : 'center', marginTop : 15}}
             >
@@ -115,7 +129,22 @@ const Profile = ({navigation, userid, nickname, image, phone, point, name}) => {
                 <Text>{phonenum}</Text>
             </View>
             <Text>계정보안</Text>
-            <TouchableOpacity><Text>디쉬나우 탈퇴</Text></TouchableOpacity>
+            <LoadingModal visible={false} />
+            <LogoutModal 
+                visible={alertVisible}
+                title={null}
+                subTitle={`디쉬나우를 탈퇴하시겠습니까?`}
+                buttonOkText={'탈퇴'}
+                buttonCancelText={'취소'}
+                buttonOkTextColor={Utill.color.primary1}
+                onPress={()=>_onPressLogoutConfirm()}
+                onPressCancel={()=>setAlertVisible(false)}
+            />  
+            <SucessionButton
+                onPress = {()=>_onPressLogout}
+                title = '디쉬나우 탈퇴'
+                source = {{uri : 'icon_x'}}
+            /> 
         </View>
     );
 }
@@ -136,6 +165,10 @@ const mapStateToProps = (state) => {
 export default connect(mapStateToProps)(Profile);
 
 const styles = StyleSheet.create({
+    container : {
+        paddingTop : Utill.screen.topSafe,
+        flex : 1,
+    },
     pht : {
         height : 20,
         alignItems : 'center',
