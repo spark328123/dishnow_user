@@ -37,53 +37,57 @@ export default Nick = ({navigation}) => {
     
     return (
         <View style = {styles.container}>
-            <Text>
+            <Text style={{marginTop : 17, fontFamily : 'NanumSquareOTF', fontSize : 14, color : '#555555'}}>
                 닉네임
             </Text>
-            
-            <TextInput
-                style={[styles.textInput, { marginBottom: 50 }]}
-                selectionColor='#733FFF'
-                placeholder={'닉네임을 입력해 주세요'}
-                onChangeText = {(text)=>_setNickName(text,_isLong(text))}
-                value = {nickName}
-            />
-
-            <View style = {styles.txt}>
-                <Text
-                    style = {{fontSize:12,marginBottom:20}}
+            <View style={{flexDirection : 'row', marginTop: 10,}}>
+                <TextInput
+                    style = {styles.txtinput}
+                    selectionColor='#733FFF'
+                    placeholder={'닉네임을 입력해 주세요'}
+                    onChangeText = {(text)=>_setNickName(text,_isLong(text))}
+                    value = {nickName}
+                />
+                <TouchableOpacity
+                    style ={{width : '5%'}}
+                    onPress = {()=>_setNickName('',console.log('CancleCliked and nameis : ',nickName.length))}
                 >
+                        <Image
+                            style = {{width:12,height:12,position : 'absolute', bottom : 5}}
+                            source = {{uri : 'icon_x'}}
+                        />
+                </TouchableOpacity>
+            </View>
+            <View style = {styles.txt}>
+                <Text style = {{fontSize:12,marginBottom:20}}>
                     {nickLength}
                 </Text>
-                <Text
-                    style = {{fontSize:12,marginBottom:20}}
-                >
+                <Text style = {{fontSize:12,marginBottom:20}}>
                     /20
                 </Text>
             </View>
-
-            <TouchableOpacity
-                onPress = {()=>_setNickName('',console.log('CancleCliked and nameis : ',nickName.length))}
-            >
-                <Image
-                    style = {{width:12,height:12}}
-                    source = {{uri : 'icon_x'}}
-                   
-                />
-            </TouchableOpacity>
-
-
         </View>
     )
 }
 
 const styles = StyleSheet.create({
     container : {
+        marginLeft : 15,
+        marginRight : 15,
         flex : 1,
-        alignItems : 'center'
     },
     txt : {
         flexDirection : 'row',
-        alignItems : 'center'
+        alignItems : 'center',
+        alignSelf: 'flex-end',
+    },
+    txtinput : {
+        fontSize : 16,
+        width : '95%',
+        borderBottomWidth: 3,
+        borderColor: "#733FFF", 
+        fontFamily: "NanumSquareOTFR",
+        padding: 0,
+        borderWidth: 0,
     }
 })

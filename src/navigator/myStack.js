@@ -10,7 +10,6 @@ import Client from '../container/My/client_center'
 import Notice from '../container/My/notice'
 import Nick from '../container/My/nickname_change'
 import * as Utill from '../utill/'
-
 const myStack = createStackNavigator(
     {
         navigationOptions: ({ navigation }) => ({
@@ -21,9 +20,9 @@ const myStack = createStackNavigator(
                 },
                 headerTintColor: '#fff',
                 headerTitleStyle: {
-                    fontWeight: 'bold',
+                    textAlign: 'center',
+                    textAlignVertical: 'center',
                 },
-                
             }),
         TabMy : { 
             screen : TabMy,
@@ -36,14 +35,15 @@ const myStack = createStackNavigator(
             navigationOptions: ({ navigation }) => ({
                 title : '계정 관리',
                 headerTitleStyle: {
-                    fontWeight: 'bold',
                     textAlign: 'center',
-                    alignSelf:'center',
+                    textAlignVertical: 'center',
                     flexGrow:1,
-                    justifyContent: 'center',
-                    textAlignVertical: 'center'
+                    marginRight : 70,
+                    
                 },
+                
             }),
+            
         },
         Nick : {
             screen : Nick,
@@ -71,30 +71,65 @@ const myStack = createStackNavigator(
             screen : webView,
             navigationOptions: ({ navigation }) => ({
                 title : '이용약관',
+                headerTitleStyle: {
+                    textAlign: 'center',
+                    textAlignVertical: 'center',
+                    flexGrow:1,
+                    marginRight : 70,
+                    
+                },
             }),
         },
         Client : { 
             screen : Client,  
             navigationOptions: ({ navigation }) => ({
                 title : '고객센터',
+                headerTitleStyle: {
+                    textAlign: 'center',
+                    textAlignVertical: 'center',
+                    flexGrow:1,
+                    marginRight : 70,
+                    
+                },
             }),
         },
         Notice : {
             screen : Notice,
             navigationOptions: ({ navigation }) => ({
                 title : '공지사항',
+                headerTitleStyle: {
+                    textAlign: 'center',
+                    textAlignVertical: 'center',
+                    flexGrow:1,
+                    marginRight : 70,
+                    
+                },
             }),
         },
         Review : {
             screen : Review,
             navigationOptions: ({ navigation }) => ({
                 title : '나의 리뷰',
+                headerTitleStyle: {
+                    textAlign: 'center',
+                    textAlignVertical: 'center',
+                    flexGrow:1,
+                    marginRight : 70,
+                    
+                },
             }),
         },
         Point : {
             screen : Point,
             navigationOptions: ({ navigation }) => ({
                 title : '디나 포인트',
+                headerTitleStyle: {
+                    textAlign: 'center',
+                    textAlignVertical: 'center',
+                    flexGrow:1,
+                    marginRight : 70,
+                    
+                },
             }),
         },
     },

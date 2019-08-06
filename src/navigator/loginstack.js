@@ -17,15 +17,21 @@ const LoginStack = createStackNavigator(
         Terms: { 
             screen: Terms ,
             navigationOptions: ({ navigation }) => ({
+                title : '계정 관리',
+                headerTitleStyle: {
+                    textAlign: 'center',
+                    textAlignVertical: 'center',
+                    flexGrow:1,
+                    marginRight : 70,
+                    
+                },
                 headerStyle: {
                     backgroundColor: '#f4511e',
                 },
                 headerTintColor: '#fff',
-                headerTitleStyle: {
-                    fontWeight: 'bold',
-                },
             }),
         },
+        
         Register: { screen: Register },
         Welcome: { screen: Welcome },
         webView : {

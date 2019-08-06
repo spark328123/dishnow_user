@@ -3,21 +3,21 @@ import { View,  Image, StyleSheet } from 'react-native';
 import { Button, CheckCircle, Text } from '../common';
 
 
-export default (props) => {
-    const { style, title, titleStyle, value, onChange, onPressBracket=null} = props;
-    console.log(onPressBracket);
+export default TermsCheck = ({ style, title, titleStyle, value, onChange, view}) => {
+    console.log('view',view);
     return(
         <View style={[style, styles.container]}>
             <CheckCircle style={styles.check} value = {value} onChange = {onChange}/>
-            <Text style={[titleStyle, styles.title]}>{title}</Text>
-            {onPressBracket!==null && 
+            <Text style={[titleStyle, styles.title]}>
+                {title}
+            </Text>
+            {/* {onPressBracket!==null && 
                 <Button
-                    style={styles.bracket} source={{uri: 'icon_back_button'}}
+                    onPress = {()=>navigation.push('webView',{view})}
                 >
-                  
+                    <Image style={styles.bracket} source={{uri: 'icon_rsquare_bracket'}}/>
                 </Button>
-            }
-            
+            } */}
         </View>
     )
 }

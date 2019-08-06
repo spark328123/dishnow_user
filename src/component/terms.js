@@ -3,17 +3,21 @@ import React, { useState } from 'react';
 import {
     View,
     StyleSheet,
-    Button,
     TouchableOpacity,
     ScrollView,
+    Image,
 } from 'react-native';
 import * as Utill from '../utill';
 import CheckView from './register/TermsCheck';
-import { BigButtonBorder, Text } from '../component/common';
+import { BigButtonBorder, Text,Button } from '../component/common';
 const Terms = (props) => {
     const {navigation} = props;
     const [type] = useState(navigation.getParam('type'));
     const [token] = useState(navigation.getParam('token'));
+    const [view,setView] = useState('');
+    _setView = (view) => {
+        setView(view);
+    }
     return (
         <ScrollView style={styles.pageContainer}>
             <View style = {styles.container}>
@@ -28,23 +32,50 @@ const Terms = (props) => {
                     <CheckView 
                         title='(필수) 서비스 이용 약관 동의'
                         titleStyle={styles.checkContentText}
-                        onPressBracket={true}
                     />
+
+                    <Button
+                        onPress = {()=> navigation.push('webView',
+                            {source : {uri :'http://dishnow.kr/terms/1.html'}},
+                        )}
+                    >
+                        <Image style={styles.bracket} source={{uri: 'icon_rsquare_bracket'}}/>
+                    </Button>
+
                     <CheckView 
                         title='(필수) 개인정보 처리방침 동의'
                         titleStyle={styles.checkContentText}
-                        onPressBracket={true}
                     />
+                    
+                    <Button
+                        onPress = {()=> navigation.push('webView',
+                            {source : {uri :'http://dishnow.kr/terms/1.html'}},
+                        )}
+                    >
+                        <Image style={styles.bracket} source={{uri: 'icon_rsquare_bracket'}}/>
+                    </Button>
                     <CheckView 
                         title='(필수) 위치 기반 서비스 동의'
                         titleStyle={styles.checkContentText}
-                        onPressBracket={true}
                     />
+                    <Button
+                        onPress = {()=> navigation.push('webView',
+                            {source : {uri :'http://dishnow.kr/terms/1.html'}},
+                        )}
+                    >
+                        <Image style={styles.bracket} source={{uri: 'icon_rsquare_bracket'}}/>
+                    </Button>
                     <CheckView 
                         title='(선택) 마케팅 수신 동의'
                         titleStyle={styles.checkContentText}
-                        onPressBracket={true}
                     />
+                    <Button
+                        onPress = {()=> navigation.push('webView',
+                            {source : {uri :'http://dishnow.kr/terms/1.html'}},
+                        )}
+                    >
+                        <Image style={styles.bracket} source={{uri: 'icon_rsquare_bracket'}}/>
+                    </Button>
                 </View>
 
                 <BigButtonBorder 
@@ -56,12 +87,6 @@ const Terms = (props) => {
                     title = {'다음'}
                 >
                 </BigButtonBorder>
-
-                <TouchableOpacity
-                    style = {styles.btnWebView} 
-                    onPress = { () => navigation.navigate('webView') }>
-                    <View><Text>웹뷰용 버튼</Text></View>
-                </TouchableOpacity>
         
             </View> 
         </ScrollView>
@@ -133,5 +158,9 @@ const styles = StyleSheet.create({
     nextButtonText : {
         fontSize : 18, 
         color : Utill.color.primary1,
-    }
+    },
+    bracket : {
+        width : 8.9,
+        height : 15,
+    },
 })
