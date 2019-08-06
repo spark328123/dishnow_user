@@ -27,9 +27,9 @@ export default Notice = () =>{
 
     useEffect(()=>{
         _getNotice();
-        setData(data.map(item=>{return {...item, isPressed : false}}));
         return()=>{
-        setIsLoading(false);
+             setData(data.map(item=>{return {...item, isPressed : false}}));
+            setIsLoading(false);
         }
     },[]);
 
