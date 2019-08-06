@@ -99,7 +99,7 @@ const Profile = ({navigation, userid, nickname, image, phone, point, name}) => {
                         },
                     )
                 }>
-                <Text style={{fontSize : 16, color : '#111111', fontFamily : 'NanumSquareOTFBold', marginTop : 8}}> {nick} </Text>
+                <Text style={{fontSize : 16, color : '#111111', marginTop : 8}}> {nick} </Text>
                 <Image source = {{uri : 'icon_profile_change'}} style = {{width : 10, height : 10}}
                 />
                 </TouchableOpacity>
