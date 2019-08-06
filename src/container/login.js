@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState, useEffect} from 'react';
 import LinearGradient from "react-native-linear-gradient";
 import {
   StyleSheet,
@@ -8,10 +8,16 @@ import {
 import KaKaoLogin from '../utill/kakaologin';
 import FaceBookLogin from '../utill/facebooklogin';
 import NaverLogin from '../utill/naverlogin'
-import { Text } from '../component/common'
+import * as Utill from '../utill';
+import { Text, Button, BigButton, TextInput, SungminButton } from '../component/common'
 
 const Login = (props) => {
   const { navigation } = props;
+
+  const [id, setId] = useState('');
+  const [password, setPassword] = useState('');
+  const [buttonLock, setButtonLock] = useState(false);
+
   return (
     <View style={styles.container}>
       <LinearGradient
@@ -26,6 +32,36 @@ const Login = (props) => {
             source={{uri: "dishnow_logo_white"}}
           />
         </View>
+
+        <View style={{alignItems : 'center'}}>
+          <View>
+            <TextInput
+            style = {styles.input}
+            value = {id}
+            onChangeText = {(text)=>setId(text)}
+            placeholder = {"이메일주소"}
+            placeholderTextColor = {Utill.color.onColorBackground}/>
+          </View>
+
+          <View>
+            <TextInput
+            secureTextEntry = {true}
+            style = {styles.input}
+            value = {password}
+            onChangeText = {(text)=>setPassword(text)}
+            placeholder = {"비밀번호"}
+            placeholderTextColor = {Utill.color.onColorBackground}/>
+          </View>
+
+          <SungminButton
+            disable = {buttonLock}
+            style = {styles.loginButton}
+            title = {"이메일 로그인"}>
+          </SungminButton>
+
+
+        </View>
+                
         <View style={styles.snsLoginContainer}>
           <Text style={styles.snsText}>SNS 로그인</Text>
           <View style={styles.snsButtonContainer}>
@@ -34,6 +70,12 @@ const Login = (props) => {
             <NaverLogin navigation={navigation} />
           </View>
         </View>
+
+        <Button 
+            style = {styles.create}
+            >
+            <Text style = {styles.createText}>{"새로운 계정 만들기"}</Text>
+          </Button>
       </LinearGradient>
     </View>
   );
@@ -69,7 +111,8 @@ const styles = StyleSheet.create({
   snsLoginContainer: {
     flex: 407 / 640,
     alignItems: "center",
-    justifyContent: "flex-start"
+    justifyContent: "flex-start",
+    marginTop : 40,
   },
   snsText: {
     fontSize: 15,
@@ -79,8 +122,26 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     justifyContent: "space-around",
     width: 260,
-    marginTop: 20
+    marginTop: 20,
+  },
+  create : {
+    alignItems : 'center',
+    borderBottomColor : Utill.color.onColorBackground,    
+  },
+  loginButton : {
+    marginTop:50,
+    alignItems: "center",
+    justifyContent: "center"
+  },
+  input : {
+    margin:0,
+    padding:0,
+    fontSize : 18,
+    width : 278.5,
+    paddingTop : 24,
+    paddingBottom : 10,
+    borderBottomWidth : 1.3,
+    borderBottomColor : Utill.color.onColorBackground,
+    color : Utill.color.onColorBackground,
   },
 });
-
-

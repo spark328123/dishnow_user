@@ -9,7 +9,11 @@ import {
     Image,
     Alert,
 } from 'react-native';
+import LogOut from './logout'
+import {Button, BigButtonColor,MenuButton,TopMenuButton} from '../../component/common'
+import * as Color from '../../utill/color'
 import * as API from '../../utill/API' 
+import * as Utill from '../../utill'
 import  * as User from '../../store/modules/user'
 import { connect, useDispatch } from 'react-redux';
 
@@ -31,7 +35,6 @@ const TabMy = ({navigation, userid, nickname, image, phone, point, name, reviewc
             nickChange(name);
             dispatch(User.updatenickname(name));
         }
-        
         if(rvcount===undefined){
             rvcountChange('0');
             dispatch(User.updatereviewcount('0'));
@@ -53,115 +56,121 @@ const TabMy = ({navigation, userid, nickname, image, phone, point, name, reviewc
         <View
             style={styles.container}
             contentContainerStyle={{ flexGrow: 1, justifyContent: 'center' }}>
+
             <View style={styles.top}>
-            <TouchableOpacity 
-                style = {{flexDirection : 'row'}}
-                onPress = {()=>navigation.push('Profile',
-                {
-                    name : nm,
-                    userid : id,
-                    nickname : nick,
-                    image : photo,
-                    phone : phonenum,
-                })}
-            >
-                {photo && (<Image source={{uri : photo.uri}} style={{ width: 50, height: 50,}}/>)}
-                {!photo && (<View style={{ width: 60, height: 60, backgroundColor : '#4682B4', }}/>)}
-                <Text style={{alignItems : 'center', marginTop : 10, marginLeft : 5, fontSize : 16, fontWeight: 'bold',}}>
-                    {nick}
-                </Text>
-            </TouchableOpacity>
+                <TouchableOpacity 
+                    style = {{flexDirection : 'row'}}
+                    onPress = {()=>navigation.push('Profile',
+                    {
+                        name : nm,
+                        userid : id,
+                        nickname : nick,
+                        image : photo,
+                        phone : phonenum,
+                    })}
+                >
+                    <View style = {{width : 45, height : 45}}>
+                        <Image source = {{uri : photo? photo.uri : 'icon_profile'}} style = {{width : 45, height : 45}}/>
+                    </View>
+                    <Text style={{alignItems : 'center', marginTop : 10, marginLeft : 5, fontSize : 16, fontWeight: 'bold', color : "#111111", fontFamily : "NanumSquareOTF"}}>
+                        {nick}
+                    </Text>
+                    
+                </TouchableOpacity>
+                <View style = {{ alignSelf : 'center'}}> 
+                        <Image source = {{uri : 'icon_rsquare_bracket'}} style = {{width : 9, height : 15,}}/>
+                </View>
             </View>
+
+            {/* 라인 */}
+            <View style={styles.line}/>
+            
             <View style = { styles.parent }>
                 <View style={styles.child}>
                     <TouchableOpacity
-                        onPress = {()=>navigation.navigate('Point')}
+                        onPress = {()=>navigation.push('Point',{pt})}
                     >
-                        <View>
-                            <Text style={{fontSize : 16, }}>
-                                디나포인트
-                            </Text>
-                        </View>
-                        <Text style={{fontSize : 24, justifyContent : 'center', alignItems : 'center'}}>
+                    <TopMenuButton 
+                        title={`디나포인트`} 
+                        source={{uri:'icon_logo_purple_main'}} 
+                    />
+                        <View style={{ justifyContent : 'center', alignItems : 'center', }}>
+                        <Text style={{fontSize : 24, color : "#111111" , fontFamily : "NanumSquareOTF"}}>
                             {pt}
                         </Text>
+                        </View>
                     </TouchableOpacity>
                 </View>
+
                 <View style={styles.child}>
                     <TouchableOpacity
-                        onPress = {()=>navigation.navigate('Review')}
+                        onPress = {()=>navigation.push('Review', {rvcount})}
                     >
-                        <View>
-                            <Text style={{fontSize : 16, }}>
-                                나의 리뷰
-                            </Text>
-                        </View>
-                        <Text style={{fontSize : 24, justifyContent : 'center', alignItems : 'center'}}>
+                    <TopMenuButton 
+                        title={`나의 리뷰`} 
+                        source={{uri:'icon_review'}} 
+                    />
+                        <View style ={{ justifyContent : 'center', alignItems : 'center', }}>
+                        <Text style={{fontSize : 24, color : "#111111" , fontFamily : "NanumSquareOTF"}}>
                             {rvcount}
                         </Text>
+                        </View>
+
                     </TouchableOpacity>
                 </View>
             </View>
-            <View style={styles.percent9}>
-            <TouchableOpacity
-                onPress = {()=>navigation.navigate('Notice')}
-           >
-                <Text style={{ fontSize: 16, fontWeight: 'bold', marginBottom: 8, marginRight:20,marginTop:30}}>
-                    공지사항
-                </Text>
-            </TouchableOpacity>
-            </View>
-            <View style={styles.percent9}>
-            <TouchableOpacity
-                onPress = {()=>navigation.navigate('webView')}
-            >
-                <Text style={{ fontSize: 16, fontWeight: 'bold', marginBottom: 8, marginRight:20,marginTop:30}}>
-                    이용약관
-                </Text >
-            </TouchableOpacity>
-            </View>
-            <View style={styles.percent9}>
-            <TouchableOpacity
-                onPress = {()=>navigation.navigate('Client')}
-            >
-                <Text style={{ fontSize: 16, fontWeight: 'bold', marginBottom: 8, marginRight:20,marginTop:30}}>
-                    고객센터
-                </Text>
-            </TouchableOpacity>
-            </View>
-            <View style={styles.percent9}>
-            <TouchableOpacity>
-                <Text style={{ fontSize: 16, fontWeight: 'bold', marginBottom: 8, marginRight:20,marginTop:30}}>
-                    푸쉬알림
-                </Text>
-            </TouchableOpacity>
-            </View>
-            <View>
-            <TouchableOpacity
-                onPress = {()=>
-                Alert.alert(
-                    '로그아웃',
-                    '로그아웃 하시겠습니까?',
-                    [
-                        {
-                            text: '취소',
-                            onPress: () => console.log('Cancel Pressed'),
-                            style: 'cancel',
-                        },
-                        {
-                            text: '확인', 
-                            onPress: _logOut
-                        },
-                    ],
-                        {cancelable: false},
-                    )
-               }
-             >
-                <Text style={{ fontSize: 16, fontWeight: 'bold', marginBottom: 8, marginRight:20,marginTop:30}}>
-                    로그아웃
-                </Text>
-            </TouchableOpacity>
-            </View>
+            <View style={styles.line}/>
+            {/* 라인 끝 */}
+
+            <MenuButton 
+                title={`공지사항`} 
+                source={{uri:'icon_notice'}} 
+                onPress={()=>navigation.navigate('Notice')} 
+                style = {styles.menusN} 
+            />
+            <MenuButton 
+                title={`이용약관`} 
+                source={{uri:'icon_terms'}} 
+                onPress = {()=>navigation.push('webView',
+                    {source : {uri : 'http://dishnow.kr/Terms.html'}}
+                )} 
+                style = {styles.menus} 
+            />
+            
+            <MenuButton 
+                title={'고객센터'} 
+                source={{uri:'icon_helpcenter'}} 
+                onPress={()=>navigation.navigate('Client')} style = {styles.menus} 
+            />
+
+            <MenuButton 
+                title={'푸쉬알람'} 
+                source={{uri:'icon_push'}} 
+                onPress={()=>Alert.alert('푸쉬!')} style = {styles.menus} 
+            />
+            <MenuButton 
+                title={'로그아웃'} 
+                source={{uri:'icon_signout'}} 
+                onPress={()=>
+                    Alert.alert(
+                        '로그아웃',
+                        '로그아웃 하시겠습니까?',
+                        [
+                            {
+                                text: '취소',
+                                onPress: () => console.log('Cancel Pressed'),
+                                style: 'cancel',
+                            },
+                            {
+                                text: '확인', 
+                                onPress: _logOut
+                            },
+                        ],
+                            {cancelable: false},
+                        )
+                } 
+                style = {styles.menus} 
+            />
         </View> 
     )
 }
@@ -191,22 +200,31 @@ const styles = StyleSheet.create({
     top : {                         // 맨위에 끄덕이는 미식가
         alignItems : 'center',
         flexDirection : 'row',
-        width : '92%',
-        height : '15%',
-        backgroundColor : '#7CFC00',
+        height : 95,
     },
-    percent9 : {                    // 공지사항, 이용약관, 고객센터, 푸쉬알람, 로그아웃
+    menus : {                    // 공지사항, 이용약관, 고객센터, 푸쉬알람, 로그아웃
+        height : 56,
+        flexDirection : 'row'
+    },
+    menusN : {                    // 공지사항, 이용약관, 고객센터, 푸쉬알람, 로그아웃
+        height : 56,
         flexDirection : 'row',
-        height : '9%',
+        marginTop : 9,
     },
     parent : {                         // 디나포인트 + 나의리뷰 두개합친 뷰
         flexDirection : 'row',
-        height : '17%',
+        height : 110,
     },
     child : {                          // 디나포인트, 나의리뷰 각각의 뷰 두개
         width : '50%',
         alignItems : 'center',
         justifyContent : 'center',
-        backgroundColor : '#4682B4',
     }, 
+    menu : {
+        flexDirection : 'row',
+    },
+    line : {
+        borderBottomWidth: 1,
+        borderBottomColor:Utill.color.border,
+    },
 })

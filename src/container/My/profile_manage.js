@@ -11,25 +11,24 @@ import {
     ActivityIndicator,
     ScrollView,
     Image,
-    Alert,
 } from 'react-native';
 import * as API from '../../utill/API';
 import * as Utill from '../../utill';
 import ImagePicker from 'react-native-image-picker';
 import Dialog from "react-native-dialog";
 import { useDispatch, connect } from 'react-redux';
+
 const defaultImageSource = ({uri: 'icon_add_photo'});
 
 const Profile = ({navigation, userid, nickname, image, phone, point, name}) => {
     
     const [id, idChange] = useState(userid);
     const [nick, nickChange] = useState(nickname);
-    const [photo, setPhoto] = useState();
+    const [photo, setPhoto] = useState(image);
     const [phonenum, phoChange] = useState(phone);
     const [pt, ptChange] = useState(point);
     const [nm, nmChange] = useState(name);
-    // const [alertVisible , setAlertVisible] = useState(false);
-    // const [isLoadingVisible, setIsLoadingVisible] = useState(false);
+
     const _handleChoosePhoto = async() => {
         const res = await _uploadPhoto(photo);
         const options = {
@@ -51,17 +50,6 @@ const Profile = ({navigation, userid, nickname, image, phone, point, name}) => {
         console.log(photo);
     }
 
-    // const _onPressLogout = () => {
-    //     setAlertVisible(true);
-    // }
-    // const _onPressLogoutConfirm = () => {
-    //     setAlertVisible(false);
-    //     setIsLoadingVisible(true);
-    //     console.log('탈퇴');
-    //     // setTimeout(()=> {
-    //     //     _logout();
-    //     // }, 100);
-    // }
     useEffect(()=>{
         _didMount();
     },[]);
@@ -85,8 +73,7 @@ const Profile = ({navigation, userid, nickname, image, phone, point, name}) => {
     
     return (      
         <View style={{flex : 1, marginLeft : 15, marginRight : 15}}>
-            
-                     
+
             <TouchableOpacity onPress={()=>_handleChoosePhoto()}
                 style = {{alignItems : 'center', marginTop : 15}}
             >
@@ -96,14 +83,14 @@ const Profile = ({navigation, userid, nickname, image, phone, point, name}) => {
                 style={{ width: 90, height: 90 }}
                 />
             )}
-            {!photo && (
+
+            {!photo && ( 
                 <View
                 style={{ width: 90, height: 90, backgroundColor : '#4682B4', }}
                 />
             )}
             </TouchableOpacity>
             <View style={{justifyContent : 'center', flexDirection : 'row'}}>
-                <Text style={{height : 21, fontSize : 16}}> {nick} </Text>
                 <TouchableOpacity
                     onPress = {()=>navigation.push('Nick',
                         {
@@ -111,24 +98,65 @@ const Profile = ({navigation, userid, nickname, image, phone, point, name}) => {
                             nickname : nick,
                         },
                     )
-                }
-                >
-                        <Text>
-                            닉변
-                        </Text>
+                }>
+                <Text style={{fontSize : 16, color : '#111111', fontFamily : 'NanumSquareOTFBold', marginTop : 8}}> {nick} </Text>
+                <Image source = {{uri : 'icon_profile_change'}} style = {{width : 10, height : 10}}
+                />
                 </TouchableOpacity>
             </View>
-            <Text style={{fontSize : 12}}>계정정보</Text>
-            <View style={styles.garo}>
-                <Text>이름</Text>
-                <Text>{nm}</Text>
+            <View style={styles.geajung}>
+            <Text>계정정보</Text>
             </View>
-            <View style={styles.garo}>
-                <Text>휴대폰 번호</Text>
-                <Text>{phonenum}</Text>
+            <TouchableOpacity style={styles.garo}>
+                <View style={{width : '50%'}}>
+                    <Text style={{fontSize : 14, color : '#555555', fontFamily : 'NanumSquareOTF' }}>이름</Text>
+                </View>
+                <View style={{width : '50%'}}>
+                    <Text style={{fontSize : 16, color : '#111111', fontFamily : 'NanumSquareOTF', alignSelf: 'flex-end'}}>{nm}</Text>
+                </View>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.garo}>
+                <View style={{width : '50%'}}>
+                    <Text style={{fontSize : 14, color : '#555555', fontFamily : 'NanumSquareOTF' }}>이메일</Text>
+                </View>
+                <View style={{width : '50%'}}>
+                    <Text style={{fontSize : 16, color : '#111111', fontFamily : 'NanumSquareOTF', alignSelf: 'flex-end'}}>이메일@입니다</Text>
+                </View>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.garo}>
+                <View style={{width : '50%'}}>
+                    <Text style={{fontSize : 14, color : '#555555', fontFamily : 'NanumSquareOTF' }}>휴대폰 번호</Text>
+                </View>
+                <View style={{width : '50%'}}>
+                    <Text style={{fontSize : 16, color : '#733FFF', fontFamily : 'NanumSquareOTF', alignSelf: 'flex-end'}}>{phonenum}</Text>
+                </View>
+            </TouchableOpacity>
+            <View style = {styles.line}/>
+            <View style={styles.geajung}>
+            <Text >계정보안</Text>
             </View>
-            <Text>계정보안</Text>
-            <TouchableOpacity><Text>디쉬나우 탈퇴</Text></TouchableOpacity>
+
+            <TouchableOpacity style={{height : 43, marginTop : 5, flexDirection : 'row'}}>
+                <View style={{width : '50%'}}>
+                    <Text style={{fontSize : 14, color : '#555555', fontFamily : 'NanumSquareOTF' }}>비밀번호 변경</Text>
+                </View>
+                <View style={{width : '50%', }}>
+                    <View style={{alignSelf: 'flex-end'}}>
+                      <Image source = {{uri : 'icon_rsquare_bracket'}} style = {{width : 9, height : 15}}/>
+                    </View>
+                </View>
+            </TouchableOpacity>
+            
+            <TouchableOpacity style={{height : 43, flexDirection : 'row' }}>
+                <View style={{width : '50%'}}>
+                    <Text style={{fontSize : 14, color : '#555555', fontFamily : 'NanumSquareOTF' }}>디쉬나우 탈퇴</Text>
+                </View>
+                <View style={{width : '50%', }}>
+                        <View style={{alignSelf: 'flex-end'}}>
+                            <Image source = {{uri : 'icon_rsquare_bracket'}} style = {{width : 9, height : 15}}/>
+                        </View>    
+                </View> 
+            </TouchableOpacity>
         </View>
     );
 }
@@ -149,10 +177,6 @@ const mapStateToProps = (state) => {
 export default connect(mapStateToProps)(Profile);
 
 const styles = StyleSheet.create({
-    container : {
-        paddingTop : Utill.screen.topSafe,
-        flex : 1,
-    },
     pht : {
         height : 20,
         alignItems : 'center',
@@ -160,7 +184,21 @@ const styles = StyleSheet.create({
         backgroundColor : '#4682B4',
     },
     garo : {
-        height : 20,
+        width : '100%',
+        height : 43,
         flexDirection : 'row',
+        alignItems : 'center',
     },
+    geajung : {
+        height : 42,
+        justifyContent : 'center',
+        fontSize : 12,
+        color : '#555555',
+        fontFamily : 'NanumSquareOTF'
+    },
+    line : {
+        borderBottomWidth: 1,
+        borderBottomColor:Utill.color.border,
+    },
+
 })

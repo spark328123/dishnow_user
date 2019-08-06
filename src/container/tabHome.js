@@ -183,7 +183,7 @@ const TabHome = (props)=>{
                             onChangeText={(text) => setPeople({text})}
                             value={people.text}
                             style={styles.personInput} />
-                            <Text style={{fontSize : 24, marginBottom: 5}}> 명</Text>
+                            <Text style={{fontSize : 24, marginBottom: 5, color: "#111111"}}> 명</Text>
                         </View>
                     </View>
                     <View style={styles.child}>
@@ -207,8 +207,8 @@ const TabHome = (props)=>{
                                 onSelect = {(idx) => _selectTime(idx)}
                                 />)}
                                 <Image style = {{width: 8, height:4.75}} source = {{uri: "icon_rsquare_bracket_under"}}></Image>
-                            </View>
-                            <Text style={{fontSize : 24, marginBottom: 5}}> 분 후</Text>
+                            </View> 
+                            <Text style={{fontSize : 24, marginBottom: 5, color: "#111111"}}> 분 후</Text>
                         </View>
                     </View>
                     </View>

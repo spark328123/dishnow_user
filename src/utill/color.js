@@ -11,3 +11,4 @@ export const itemTitle = '#555555';
 export const textBlack = '#111111';
 export const black = '#000000';
 export const modalBackCover = '#111111CC';
+export const onColorBackground = '#FFFFFF';
