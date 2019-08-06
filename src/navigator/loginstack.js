@@ -19,12 +19,11 @@ const LoginStack = createStackNavigator(
             navigationOptions: ({ navigation }) => ({
                 title : '계정 관리',
                 headerTitleStyle: {
-                    fontWeight: 'bold',
                     textAlign: 'center',
-                    alignSelf:'center',
+                    textAlignVertical: 'center',
                     flexGrow:1,
-                    justifyContent: 'center',
-                    textAlignVertical: 'center'
+                    marginRight : 70,
+                    
                 },
                 headerStyle: {
                     backgroundColor: '#f4511e',

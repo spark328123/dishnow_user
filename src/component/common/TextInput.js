@@ -1,26 +1,25 @@
 import React from 'react';
-import { Text, Platform } from 'react-native';
+import {TextInput, Platform} from 'react-native';
 
 const DefaultText = (props) => {
     const defaultStyle = Platform.select({
         ios : {
-            fontFamily : "NanumSquareOTFR",
+            fontFamily : 'AppleSDGothicNeo-Regular',
         },
         android : {
-            fontFamily : "NanumSquareOTFR",
-            includeFontPadding : false,
+            fontFamily : 'roboto',
+            includeFontPadding : false
         }
     });
 
     const {children, style} = props;
 
     return (
-        <Text {...props}
+        <TextInput {...props}
             allowFontScaling = {false}
             style = {[defaultStyle, style]}
-        >
-            {children}
-        </Text>
+        />
     )
 }
+
 export default DefaultText;

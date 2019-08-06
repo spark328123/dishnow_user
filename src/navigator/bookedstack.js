@@ -20,7 +20,11 @@ const BookStack = createStackNavigator(
                 title : navigation.getParam('storeName'),
                 headerTintColor: '#000000',
                 headerTitleStyle: {
-                    fontWeight: 'bold',
+                    textAlign: 'center',
+                    textAlignVertical: 'center',
+                    flexGrow:1,
+                    marginRight : 70,
+                    
                 },
             }),   
         }

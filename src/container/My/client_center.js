@@ -1,7 +1,7 @@
 import React,{useState,useEffect} from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native';
-
-export default Client = () =>{
+//import {NavHead} from '../../component/common'
+export default Client = ({navigation}) =>{
     //press 시 마다 setPressed로 isPressed 값 변경
     const [isPressed,setPressed] = useState(false);
     useEffect(()=>{
@@ -13,6 +13,7 @@ export default Client = () =>{
     }
     return(
         <View style ={styles.container}>
+            {/* <NavHead navigation = {navigation} title = {'고객센터'}/> */}
             <View style ={styles.qst}>
                 <TouchableOpacity
                    >
@@ -33,7 +34,6 @@ export default Client = () =>{
 
 
         <TouchableOpacity style = {styles.qst}
-        
          onPress = {  async() => { 
                     await _Pressed ?
                          <View style = {styles.cont}>
@@ -42,9 +42,7 @@ export default Client = () =>{
                             </Text>
                         </View>
                         : null
-
                     }}
-        
         >
             <Text style = {styles.qstTxt}>
             [회원정보] 개인이 여러 개의 아이디를 만들 수 있나요?
