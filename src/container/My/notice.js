@@ -26,20 +26,25 @@ export default Notice = () =>{
             item.noticeId===noticeId ? {...item,isPressed:!item.isPressed} : item));
     }
 
+    const _parseTime = ({createdAt}) => {
+        const str = JSON.stringify(createdAt);
+        return `${str.substring(1,5)}.${str.substring(6,8)}.${str.substring(9,11)}`;
+    }
+
     useEffect(()=>{
         _getNotice();
         return()=>{
-             setData(data.map(item=>{return {...item, isPressed : false}}));
+            setData(data.map(item=>{return {...item, isPressed : false}}));
             setIsLoading(false);
         }
     },[]);
 
     const _renderItem = ({item}) => {
         return (
-            <View style = {styles.item}>
+            <View style = {{flex :1}}>
                 <View style= {{padding : 15}}>
                     <Text style = {{marginBottom : 10, fontSize : 12}}>
-                        {item.createdAt}
+                        {_parseTime(item)}
                     </Text>
                     <View style ={{flexDirection : 'row',flex : 1, justifyContent : 'space-between', alignItems : 'center'}}>
                         <Text style = {{fontSize : 16}}>
@@ -67,7 +72,7 @@ export default Notice = () =>{
     }
 
     return(
-        <View style ={ styles.container}>
+        <View style ={ {flex :1 }}>
             {IsLoading ?(
                 <FlatList
                 data = {data}
@@ -81,10 +86,6 @@ export default Notice = () =>{
 }
 
 const styles = StyleSheet.create({
-    container : {
-        flex : 1,
-    } ,
-    item : {
-        flex : 1,
-    },
+
 })
+
