@@ -8,8 +8,7 @@ import * as Utill from '../../utill'
  
 
 
-const NavHead = (props) => {
-    const {navigation, title='디쉬나우', onSavePress, BackbuttonDisable=false, paddingHorizontal = 15} = props;
+const NavHead = ({navigation, title='디쉬나우', onSavePress, BackbuttonDisable=false, paddingHorizontal = 15}) => {
     return (    
         <View style={styles.container}>
                 <View style={[styles.logo, {width : Utill.screen.screenWidth, height: (60*Utill.screen.screenRatio) + Utill.screen.topSafe, paddingTop:Utill.screen.topSafe, position: 'absolute', alignItems : 'center', justifyContent : 'center'}]}>
@@ -18,9 +17,9 @@ const NavHead = (props) => {
                 <BackButton onPress={()=>{if(!BackbuttonDisable)navigation.pop()}} paddingHorizontal={paddingHorizontal}/>
                 
 
-                {onSavePress &&
+                {/* {onSavePress &&
                     <SaveButton onPress={onSavePress} paddingHorizontal={paddingHorizontal}/>
-                }
+                } */}
         </View>
     )
 }
@@ -41,7 +40,7 @@ const BackButton = ({onPress, paddingHorizontal}) => {
             }}
             onPress={onPress} 
         >
-            <Image style={styles.backBottonIcon} source={{uri : 'iconsquarebracket'}} />
+            <Image style={styles.backBottonIcon} source={{uri : 'icon_square_bracket'}} />
         </Button>
     )
 
@@ -71,6 +70,7 @@ const SaveButton = ({onPress, paddingHorizontal}) => {
 const styles = StyleSheet.create({
     container: {
         height: (60) + Utill.screen.topSafe,
+        //height 
         flexDirection : 'row',
         alignSelf:'stretch',
         alignItems:'center',

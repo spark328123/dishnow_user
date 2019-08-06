@@ -12,7 +12,7 @@ import * as API from './API'
 const type = 'kakao'
 
 const KakaoLogin = ({ navigation }) => {
-  const login = async (token) => {
+    const login = async (token) => {
     const loginRes = await API.login({ token, type });
     const tokens = loginRes.token;
     console.log(tokens);

@@ -38,7 +38,6 @@ const myStack = createStackNavigator(
                     textAlign: 'center',
                     textAlignVertical: 'center',
                     flexGrow:1,
-                    marginRight : 70,
                     
                 },
                 
@@ -75,7 +74,6 @@ const myStack = createStackNavigator(
                     textAlign: 'center',
                     textAlignVertical: 'center',
                     flexGrow:1,
-                    marginRight : 70,
                     
                 },
             }),
@@ -88,7 +86,6 @@ const myStack = createStackNavigator(
                     textAlign: 'center',
                     textAlignVertical: 'center',
                     flexGrow:1,
-                    marginRight : 70,
                     
                 },
             }),
@@ -101,7 +98,6 @@ const myStack = createStackNavigator(
                     textAlign: 'center',
                     textAlignVertical: 'center',
                     flexGrow:1,
-                    marginRight : 70,
                     
                 },
             }),
@@ -114,7 +110,6 @@ const myStack = createStackNavigator(
                     textAlign: 'center',
                     textAlignVertical: 'center',
                     flexGrow:1,
-                    marginRight : 70,
                     
                 },
             }),
@@ -127,7 +122,6 @@ const myStack = createStackNavigator(
                     textAlign: 'center',
                     textAlignVertical: 'center',
                     flexGrow:1,
-                    marginRight : 70,
                     
                 },
             }),
@@ -135,6 +129,7 @@ const myStack = createStackNavigator(
     },
     {
         initialRouteName : 'TabMy',
+        headerMode : 'none'
     }
 )
 

@@ -17,7 +17,7 @@ import * as Utill from '../../utill';
 import ImagePicker from 'react-native-image-picker';
 import Dialog from "react-native-dialog";
 import { useDispatch, connect } from 'react-redux';
-
+import {NavHead} from '../../component/common'
 const defaultImageSource = ({uri: 'icon_add_photo'});
 
 const Profile = ({navigation, userid, nickname, image, phone, point, name}) => {
@@ -71,16 +71,17 @@ const Profile = ({navigation, userid, nickname, image, phone, point, name}) => {
 
     const dispatch = useDispatch();
     
-    return (      
+    return ( 
+        
         <View style={{flex : 1, marginLeft : 15, marginRight : 15}}>
-
+            {/* <NavHead navigation={navigation} title={`매장 정보`}/> */}
             <TouchableOpacity onPress={()=>_handleChoosePhoto()}
                 style = {{alignItems : 'center', marginTop : 15}}
             >
             {photo && (
                 <Image
-                source={{uri : photo.uri}}
-                style={{ width: 90, height: 90 }}
+                    source={{uri : photo.uri}}
+                    style={{ width: 90, height: 90 }}
                 />
             )}
 
@@ -99,7 +100,7 @@ const Profile = ({navigation, userid, nickname, image, phone, point, name}) => {
                         },
                     )
                 }>
-                <Text style={{fontSize : 16, color : '#111111', fontFamily : 'NanumSquareOTFBold', marginTop : 8}}> {nick} </Text>
+                <Text style={{fontSize : 16, color : '#111111', marginTop : 8}}> {nick} </Text>
                 <Image source = {{uri : 'icon_profile_change'}} style = {{width : 10, height : 10}}
                 />
                 </TouchableOpacity>
