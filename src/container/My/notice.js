@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import { View, StyleSheet, FlatList, Image, TouchableOpacity } from 'react-native';
+import { View, StyleSheet, FlatList, Image, TouchableOpacity, ActivityIndicator} from 'react-native';
 import { Text } from '../../component/common';
 import * as API from '../../utill/API';
 import * as Utill from '../../utill';
 
 export default Notice = () =>{
     const [data,setData] = useState([]);
-    const [Content,setContent] = useState([]);
+    const [IsLoading,setIsLoading] = useState(true);
+    const contentArray = [];
 
     const _getNotice = async()=>{
         const token = await API.getLocal(API.LOCALKEY_TOKEN);
@@ -15,27 +16,27 @@ export default Notice = () =>{
         for (var i = 0;i<res.length;i++){
             const noticeId = res[i].noticeId;
             const resContent = await API.noticeContent(token,{noticeId : noticeId});
-            const content = resContent[0].content;
-            console.log(content);
-            setContent(Content.concat(content));
-            //setData(data.map(item => item.noticeId === noticeId ? {...item,content:content} : item));
+            contentArray.push(resContent[0]);
         }
-    }
-       
+        setData(contentArray);
+    }  
     
     const _setIsPressed = ({noticeId})=>{
-        setData(data.map(item => item.noticeId===noticeId ? {...item,isPressed:!item.isPressed} : item))
+        setData(data.map(item => item.noticeId===noticeId ? {...item,isPressed:!item.isPressed} : item));
     }
 
     useEffect(()=>{
         _getNotice();
         setData(data.map(item=>{return {...item, isPressed : false}}));
+        return()=>{
+        setIsLoading(false);
+        }
     },[]);
 
     const _renderItem = ({item}) => {
         return (
             <View style = {styles.item}>
-                <View style = {{padding : 15}}>
+                <View style= {{padding : 15}}>
                     <Text style = {{marginBottom : 10, fontSize : 12}}>
                         {item.createdAt}
                     </Text>
@@ -44,17 +45,19 @@ export default Notice = () =>{
                             {item.title}
                         </Text>
                         <TouchableOpacity 
+                            style = {{width : 20,height:20,alignItems :'center',justifyContent:'center'}}
                             onPress = {()=>_setIsPressed(item)}
                             >
-                            <Image style = {{width : 12, height : 7}} source = {{uri : 'icon_rsquare_bracket_under'}}>
+                            <Image style = {{width : 12, height : 7}} 
+                            source = {item.isPressed?{uri : 'icon_rsquare_bracket_under'}:{uri:'icon_rsquare_bracket_upper'}}>
                             </Image>
                         </TouchableOpacity>
                     </View>
                 </View>
                 {item.isPressed?(
-                  <View style= {styles.content}>
+                  <View style= {{padding : 15, backgroundColor : Utill.color.border}}>
                       <Text style = {{fontSize : 15}}>
-                          {Content[item.noticeId-1]}
+                          {item.content}
                       </Text>
                       </View>  
                 ):null}
@@ -64,9 +67,14 @@ export default Notice = () =>{
 
     return(
         <View style ={ styles.container}>
-           <FlatList
-            data = {data}
-            renderItem = {_renderItem} />
+            {IsLoading ?(
+                <FlatList
+                data = {data}
+                renderItem = {_renderItem} />
+                ):(
+                <ActivityIndicator/>
+                )}
+           
         </View>
     )
 }
@@ -74,16 +82,8 @@ export default Notice = () =>{
 const styles = StyleSheet.create({
     container : {
         flex : 1,
-        
     } ,
     item : {
         flex : 1,
-        justifyContent:'center',
-        alignItems : 'flex-start',
     },
-    content : {
-        padding : 15,
-        flex :1 ,
-        backgroundColor : Utill.color.border,
-    }
 })
