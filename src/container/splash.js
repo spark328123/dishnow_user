@@ -28,7 +28,6 @@ export default (props) => {
     const { navigation } = props;
     const dispatch = useDispatch();
 
-   
     useEffect(() => {
         _getPosition();
         setTimeout(() => {

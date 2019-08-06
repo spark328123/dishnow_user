@@ -117,3 +117,17 @@ export const reviewMe = (token) => {
     .then(res=>res.json())
     .catch(error=>({error}));
 }
+
+export const noticeTitle = (token,data) => {
+    const url = `${apiUrl}notice`;
+    return fetch.getAuthServer(url,token,data)
+    .then(res=>res.json())
+    .catch(error=>({error}));
+}
+
+export const noticeContent = (token,data) => {
+    const url = `${apiUrl}notice/detail`;
+    return fetch.getAuthServer(url,token,data)
+    .then(res=>res.json())
+    .catch(error=>({error}));
+}
