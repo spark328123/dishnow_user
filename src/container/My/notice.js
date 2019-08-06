@@ -88,3 +88,4 @@ export default Notice = () =>{
 const styles = StyleSheet.create({
 
 })
+
