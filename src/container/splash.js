@@ -19,7 +19,7 @@ export default (props) => {
     const _me = async () => {
         let token = await API.getLocal(API.LOCALKEY_TOKEN);
         console.log(token);
-        if (token!==null) {
+        if (token!==null&&token!=='null') {
             navigation.navigate('Main');
         } else {
             navigation.navigate('Login');
@@ -28,7 +28,6 @@ export default (props) => {
     const { navigation } = props;
     const dispatch = useDispatch();
 
-   
     useEffect(() => {
         _getPosition();
         setTimeout(() => {
