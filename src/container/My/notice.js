@@ -49,7 +49,7 @@ export default Notice = () =>{
                             onPress = {()=>_setIsPressed(item)}
                             >
                             <Image style = {{width : 12, height : 7}} 
-                            source = {item.isPressed?{uri : 'icon_rsquare_bracket_under'}:{uri:'icon_rsquare_bracket_upper'}}>
+                            source = {!item.isPressed?{uri : 'icon_rsquare_bracket_under'}:{uri:'icon_rsquare_bracket_upper'}}>
                             </Image>
                         </TouchableOpacity>
                     </View>
