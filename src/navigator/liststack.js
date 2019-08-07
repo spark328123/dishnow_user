@@ -2,15 +2,14 @@ import { createStackNavigator } from 'react-navigation';
 
 import List from '../container/List/list';
 import ListMap from '../container/List/listMap';
-
 const ListStack = createStackNavigator(
     {
         List,
         ListMap,
+        listMenu,
     },
     {
         initialRouteName : 'List',
-        //headerMode : 'none',
     }
 )
 

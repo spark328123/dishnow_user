@@ -7,7 +7,7 @@ export default (props) => {
                 <TouchableOpacity 
                         onPress={props.onPress} 
                         style = {props.style} 
-                        hitSlop = {props.hitSlop ? props.hitSlop : {top : 7, bottom : 7, right : 7, left : 7}}>
+                        hitSlop = {props.hitSlop ? props.hitSlop : {top : 20, bottom : 20, right : 20, left : 15}}>
                         {props.children}
                 </TouchableOpacity>
         )

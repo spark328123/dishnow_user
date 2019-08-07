@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { View, StyleSheet, FlatList, Image, TouchableOpacity, ActivityIndicator} from 'react-native';
-import { Text } from '../../component/common';
+import { Text,NavHead } from '../../component/common';
 import * as API from '../../utill/API';
 import * as Utill from '../../utill';
 
-export default Notice = () =>{
+export default Notice = ({navigation}) =>{
     const [data,setData] = useState([]);
     const [IsLoading,setIsLoading] = useState(true);
     const contentArray = [];
@@ -34,6 +34,7 @@ export default Notice = () =>{
     },[]);
 
     const _renderItem = ({item}) => {
+        
         return (
             <View style = {styles.item}>
                 <View style= {{padding : 15}}>
@@ -45,11 +46,11 @@ export default Notice = () =>{
                             {item.title}
                         </Text>
                         <TouchableOpacity 
-                            style = {{width : 20,height:20,alignItems :'center',justifyContent:'center'}}
+                            style = {{width : 50,height:50,alignItems :'center',justifyContent:'center'}}
                             onPress = {()=>_setIsPressed(item)}
                             >
                             <Image style = {{width : 12, height : 7}} 
-                            source = {item.isPressed?{uri : 'icon_rsquare_bracket_under'}:{uri:'icon_rsquare_bracket_upper'}}>
+                            source = {!item.isPressed?{uri : 'icon_rsquare_bracket_under'}:{uri:'icon_rsquare_bracket_upper'}}>
                             </Image>
                         </TouchableOpacity>
                     </View>
@@ -67,6 +68,7 @@ export default Notice = () =>{
 
     return(
         <View style ={ styles.container}>
+            <NavHead navigation={navigation} title={`공지사항`}/>
             {IsLoading ?(
                 <FlatList
                 data = {data}
