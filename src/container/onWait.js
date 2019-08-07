@@ -22,7 +22,6 @@ const OnWait =  (props) =>{
 
     useEffect(()=>{
         _timerStart();
-        navigation.navigate('List');
         OneSignal.addEventListener('received',_oneSignalReceived);
     },[]);
 

@@ -60,7 +60,7 @@ const data=[{
 }]
 
 const Help = (props) => {
-    const {initialScroll, onScroll, paddingTop, onPressManageReviewButton} = props;
+    const {initialScroll, onScroll, paddingTop, onPressManageReviewButton, data} = props;
     const [refFlatList, setRefFaletList] = useState(null);
 
     useEffect(()=> {        
@@ -78,14 +78,14 @@ const Help = (props) => {
                 scrollEventThrottle={16}
                 ref = {r=>setRefFaletList(r)}
                 onScroll = {(e)=>onScroll(e)}
-                data = {data}
+                data = {data.review}
                 keyExtractor = {(item, index)=>index.toString()}
                 ListHeaderComponent={
                     ()=>{
                         return (
                             <View style={{paddingTop:25, paddingBottom:15, borderBottomColor : '#CCCCCC', borderBottomWidth:1}}>
                                 <Text style={{fontSize:14, color:'#555555'}}>
-                                    {`리뷰${2}개 | 사장님답변 ${1}개`}
+                                    {`리뷰${data.totalCount}개`}
                                 </Text>
                             </View>
                         )
@@ -93,9 +93,11 @@ const Help = (props) => {
                 }
                 renderItem = {
                     ({item, index})=> {
-                        return (
-                            <ReviewItem data={{...item, daysAgo:index}} key={`p3-${index}`} onPressManageReviewButton={onPressManageReviewButton}/>
-                        )
+                        if(item.rating!==null){
+                            return (
+                                <ReviewItem data={{...item, daysAgo:index}} key={`p3-${index}`} onPressManageReviewButton={onPressManageReviewButton}/>
+                            )
+                        }
                     }
                 }
                 >
@@ -105,7 +107,6 @@ const Help = (props) => {
 }
 
 export default Help;
-
 
 
 const ReviewItem =({data, onPressManageReviewButton}) => {
@@ -139,11 +140,11 @@ const ReviewItem =({data, onPressManageReviewButton}) => {
                         <Text style={{marginLeft:5}}>{daysAgo==0?'오늘': (daysAgo<7 ? `${daysAgo}일 전`:(daysAgo<30?`${Math.floor(daysAgo/7)}주 전`:'오래전'))}</Text>
                     </View>
 
-                    {!!image && <View style={{marginTop:14,}}>
+                     <View style={{marginTop:14,}}>
                         <Image 
                             style={{width : 272 * ratio, height : 150 * ratio, backgroundColor : '#eeeeee'}} 
                             source={{uri:image}}/>
-                    </View>}
+                    </View>
                     <View style={{marginTop:15,}}>
                         <Text style={{width : 272 * ratio}} >
                             {content}

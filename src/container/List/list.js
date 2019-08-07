@@ -99,15 +99,15 @@ const List = (props) => {
         OneSiganl.addEventListener('received',_oneSignalReceived);
     },[listData]);
 
-    const _confirm = async(item)=>{
+    const _showStoreDetail = async({storeId})=>{
         const token = await API.getLocal(API.LOCALKEY_TOKEN);
-        const data = {
-            reservationId : item.reservationId,
-            storeId : item.storeId, 
-        }
-        console.log(data);
-        const res = await API.reservation_confirm(token,data);
-        console.log(res);
+        const resDetail = await API.showStoreDetail(token,{storeId : storeId});
+        const resReview = await API.showStoreReview(token,{storeId : storeId, page : 0});
+        navigation.push('ListMenu',{
+            resDetail,
+            resReview,
+        })
+        console.log(resDetail,resReview);
     }
 
     const _renderItem = ({item}) => {
@@ -120,7 +120,7 @@ const List = (props) => {
                             height : 180,
                         }
                     }
-                    onPress = {()=>_confirm(item)}
+                    onPress = {()=>_showStoreDetail(item)}
                 >
                 {isLoaded && <ActivityIndicator style = { styles.indicator } />} 
                 <Image
@@ -130,7 +130,6 @@ const List = (props) => {
                     >
                 </Image>
               
-                </TouchableOpacity>
                 <Text style = {{fontSize : 16, color : Utill.color.black, marginBottom : 3}}>{item.name}</Text>
                 <View
                     style = {{flexDirection : 'row', justifyContent : 'space-between'}}>
@@ -141,6 +140,7 @@ const List = (props) => {
                         {`${item.distance}m`}
                     </Text>
                 </View>
+                </TouchableOpacity>
             </View>
         )
     }

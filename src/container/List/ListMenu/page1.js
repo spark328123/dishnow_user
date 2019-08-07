@@ -15,7 +15,7 @@ const data = {
 };
 
 const Help = (props) => {
-    const {initialScroll, onScroll, paddingTop} = props;
+    const {initialScroll, onScroll, paddingTop,data} = props;
     const [refFlatList, setRefFaletList] = useState(null);
     const [isPageLoaded, setIsPageLoaded] = useState(false);
 
