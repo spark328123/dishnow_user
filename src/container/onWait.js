@@ -13,7 +13,7 @@ import OneSignal from 'react-native-onesignal';
 import * as API from '../utill/API';
 
 const OnWait =  (props) =>{
-    const WaitTime = 6;
+    const WaitTime = 120;
     const { navigation, latitude, longitude } = props;
 
     const [timer, setTimer] = useState(null);

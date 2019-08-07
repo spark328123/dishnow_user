@@ -24,7 +24,7 @@ const mainTab = createBottomTabNavigator(
                 switch (routeName) {
                     case 'tab1' : uri = focused ? 'icon_clock_purple_main' : 'icon_clock_grey_main' ; break; //예약 내역
                     case 'tab2' : uri = focused ? 'icon_logo_purple_main' : 'icon_logo_grey_main' ; break; //home
-                    case 'tab3' : uri = focused ? 'icon_user_purple_mian' : 'icon_user_grey_main' ;  break; //My
+                    case 'tab3' : uri = focused ? 'icon_user_purple_main' : 'icon_user_grey_main' ;  break; //My
                 }
                 let label = ' ';
                 switch (routeName) {

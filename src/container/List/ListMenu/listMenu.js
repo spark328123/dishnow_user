@@ -42,7 +42,6 @@ const HEADER_TITLE_MAX_HEIGHT = HEADER_MAX_HEIGHT - HEADER_TITLE_HEIGHT/2;
 
 const HEADER_TAB_HEIGHT = 88;
 
-
 const SCREEN_HEIGHT = height - HEADER_MAX_HEIGHT;
 
 const ListMenu = (props) =>  {
@@ -65,6 +64,7 @@ const ListMenu = (props) =>  {
       review : reviewData.review,
       totalCount : reviewData.totalCount,
   });
+
     
   const [scrollY] = useState(new Animated.Value(0));
   const [scrollYListener, setScrollYListener] = useState(null);
@@ -264,16 +264,16 @@ const ListMenu = (props) =>  {
           >
 
             <Animated.View style={[styles.cardContent, {opacity : _contentOpactity}]}>
-              <Image style={styles.contentStar} source={data.rate>0 ? (data.rate<1 ? icon_star_outline_half : icon_star_outline) : icon_star_outline_empty}/>
-              <Image style={styles.contentStar} source={data.rate>1 ? (data.rate<2 ? icon_star_outline_half : icon_star_outline) : icon_star_outline_empty}/>
-              <Image style={styles.contentStar} source={data.rate>2 ? (data.rate<3 ? icon_star_outline_half : icon_star_outline) : icon_star_outline_empty}/>
-              <Image style={styles.contentStar} source={data.rate>3 ? (data.rate<4 ? icon_star_outline_half : icon_star_outline) : icon_star_outline_empty}/>
-              <Image style={styles.contentStar} source={data.rate>4 ? (data.rate<5 ? icon_star_outline_half : icon_star_outline) : icon_star_outline_empty}/>
+              <Image style={styles.contentStar} source={data.rating>0 ? (data.rating<1 ? icon_star_outline_half : icon_star_outline) : icon_star_outline_empty}/>
+              <Image style={styles.contentStar} source={data.rating>1 ? (data.rating<2 ? icon_star_outline_half : icon_star_outline) : icon_star_outline_empty}/>
+              <Image style={styles.contentStar} source={data.rating>2 ? (data.rating<3 ? icon_star_outline_half : icon_star_outline) : icon_star_outline_empty}/>
+              <Image style={styles.contentStar} source={data.rating>3 ? (data.rating<4 ? icon_star_outline_half : icon_star_outline) : icon_star_outline_empty}/>
+              <Image style={styles.contentStar} source={data.rating>4 ? (data.rating<5 ? icon_star_outline_half : icon_star_outline) : icon_star_outline_empty}/>
 
               <Text 
                 style={[styles.contentStarText]}
               >
-                {data.rate}
+                {data.rating}
               </Text>
             </Animated.View>
 

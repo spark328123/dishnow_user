@@ -12,7 +12,7 @@ const ListStack = createStackNavigator(
     },
     {
         initialRouteName : 'List',
-        //headerMode : 'none',
+        headerMode : 'none',
     }
 )
 
