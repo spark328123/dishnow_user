@@ -5,6 +5,7 @@ import LinearGradient from 'react-native-linear-gradient';
 
 import {Text,Button} from './index'
 import * as Utill from '../../utill'
+import { TouchableOpacity } from 'react-native-gesture-handler';
  
 
 
@@ -21,6 +22,11 @@ const NavHead = (props) => {
                 {onSavePress &&
                     <SaveButton onPress={onSavePress} paddingHorizontal={paddingHorizontal}/>
                 }
+
+                
+                
+
+                
         </View>
     )
 }
@@ -29,20 +35,21 @@ const NavHead = (props) => {
 export default NavHead;
 
 
- 
+
 
 const BackButton = ({onPress, paddingHorizontal}) => {
     
     return (
-        <Button 
-            style={{
-                left : paddingHorizontal,
-                Top : Utill.screen.topSafe,
-            }}
-            onPress={onPress} 
-        >
-            <Image style={styles.backBottonIcon} source={{uri : 'iconsquarebracket'}} />
-        </Button>
+            <Button 
+                style={{
+                    left : paddingHorizontal,
+                    Top : Utill.screen.topSafe,
+                    alignSelf : 'center'
+                }}
+                onPress={onPress} 
+            >
+                <Image style={styles.backBottonIcon} source={{uri : 'icon_back_button'}} />
+            </Button>
     )
 
 }
@@ -59,9 +66,10 @@ const SaveButton = ({onPress, paddingHorizontal}) => {
             onPress = {onPress}
         >
             <Text style={styles.saveButtonText}>
-                저장
+                확인
             </Text>
         </Button>
+           
     )
 }
 
@@ -94,7 +102,7 @@ const styles = StyleSheet.create({
         height : 16, 
     },
     saveButtonText : {
-        fontSize : 16,
+        fontSize : 14,
         color : Utill.color.black,
     }
 });

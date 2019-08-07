@@ -65,7 +65,6 @@ const ListMenu = (props) =>  {
       review : reviewData.review,
       totalCount : reviewData.totalCount,
   });
-    
   const [scrollY] = useState(new Animated.Value(0));
   const [scrollYListener, setScrollYListener] = useState(null);
   const [yValue, setYValue] = useState(0);
@@ -186,7 +185,7 @@ const ListMenu = (props) =>  {
   // =========================================================================================================
 
   return (
-    <View style ={{flex : 1}}>
+    <View style ={{flex : 1,backgroundColor:'#EEEEEE'}}>
 
       {/* 각 페이지를 담는 부분입니다.*/}
       {page == 0 && <Page1 paddingTop={HEADER_MAX_HEIGHT + HEADER_TAB_HEIGHT} initialScroll={scrollY._value} onScroll={_onScroll} data={page1Data} />}

@@ -49,7 +49,7 @@ const Terms = (props) => {
                     
                     <Button
                         onPress = {()=> navigation.push('webView',
-                            {source : {uri :'http://dishnow.kr/terms/1.html'}},
+                            {source : {uri :'http://dishnow.kr/terms/2.html'}},
                         )}
                     >
                         <Image style={styles.bracket} source={{uri: 'icon_rsquare_bracket'}}/>
@@ -60,7 +60,7 @@ const Terms = (props) => {
                     />
                     <Button
                         onPress = {()=> navigation.push('webView',
-                            {source : {uri :'http://dishnow.kr/terms/1.html'}},
+                            {source : {uri :'http://dishnow.kr/terms/3.html'}},
                         )}
                     >
                         <Image style={styles.bracket} source={{uri: 'icon_rsquare_bracket'}}/>
@@ -71,7 +71,7 @@ const Terms = (props) => {
                     />
                     <Button
                         onPress = {()=> navigation.push('webView',
-                            {source : {uri :'http://dishnow.kr/terms/1.html'}},
+                            {source : {uri :'http://dishnow.kr/terms/4.html'}},
                         )}
                     >
                         <Image style={styles.bracket} source={{uri: 'icon_rsquare_bracket'}}/>
