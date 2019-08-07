@@ -31,6 +31,7 @@ const BookStack = createStackNavigator(
     },
     {
         initialRouteName : 'TabBooked',
+        headerMode : 'none',
     }
 )
 

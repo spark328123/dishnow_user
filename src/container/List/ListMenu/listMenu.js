@@ -74,7 +74,7 @@ const HEADER_TAB_HEIGHT = 88;
 
 const SCREEN_HEIGHT = height - HEADER_MAX_HEIGHT;
 
-const ListMenu = () =>  {
+const ListMenu = ({navigation}) =>  {
   const [scrollY] = useState(new Animated.Value(0));
   const [scrollYListener, setScrollYListener] = useState(null);
   const [yValue, setYValue] = useState(0);
@@ -164,6 +164,7 @@ const ListMenu = () =>  {
 
   // 화면 좌측 상단 뒤로가기 버튼
   const _onPressBackButton = () => {
+    navigation.pop();
     console.log('_onPressBackButton');
     return;
   }
@@ -195,7 +196,7 @@ const ListMenu = () =>  {
   // =========================================================================================================
 
   return (
-    <View style ={{flex : 1}}>
+    <View style ={{flex : 1,backgroundColor:'#EEEEEE'}}>
 
       {/* 각 페이지를 담는 부분입니다.*/}
       {page == 0 && <Page1 paddingTop={HEADER_MAX_HEIGHT + HEADER_TAB_HEIGHT} initialScroll={scrollY._value} onScroll={_onScroll} />}

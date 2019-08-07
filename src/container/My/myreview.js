@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, StyleSheet, FlatList, Image } from 'react-native';
-
+import {NavHead} from '../../component/common'
 import * as API from '../../utill/API';
 
-export default Review = () =>{
+export default Review = ({navigation}) =>{
 
     const _showReview = async() =>{
         const token = await API.getLocal(API.LOCALKEY_TOKEN);
@@ -43,7 +43,9 @@ export default Review = () =>{
             alignItems : 'center',
             justifyContent : 'center',
         }
+        
         }>
+        <NavHead navigation={navigation} title={`나의 리뷰`}/>
           <FlatList
             data = {data}
             renderItem = {_renderItem}
@@ -56,6 +58,5 @@ const styles = StyleSheet.create({
     container : {
         flex : 1,
         justifyContent:'center',
-        marginTop : 50,
     }
 })

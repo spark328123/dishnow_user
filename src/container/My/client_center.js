@@ -1,6 +1,6 @@
 import React,{useState,useEffect} from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native';
-//import {NavHead} from '../../component/common'
+import {NavHead} from '../../component/common'
 export default Client = ({navigation}) =>{
     //press 시 마다 setPressed로 isPressed 값 변경
     const [isPressed,setPressed] = useState(false);
@@ -13,7 +13,7 @@ export default Client = ({navigation}) =>{
     }
     return(
         <View style ={styles.container}>
-            {/* <NavHead navigation = {navigation} title = {'고객센터'}/> */}
+            <NavHead navigation = {navigation} title = {'고객센터'}/>
             <View style ={styles.qst}>
                 <TouchableOpacity
                    >
@@ -112,8 +112,8 @@ const styles = StyleSheet.create({
         marginBottom : 20,
     },
     img : {
-        height : 20,
-        width : 20,
+        height : 7,
+        width : 12,
     },
     cont : {
         height:50,
