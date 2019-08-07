@@ -2,8 +2,7 @@ import { createStackNavigator } from 'react-navigation';
 
 import List from '../container/List/list';
 import ListMap from '../container/List/listMap';
-import ListMenu from '../container/List/ListMenu/listMenu';
-
+import ListMenu from '../container/List/ListMenu/listMenu'
 const ListStack = createStackNavigator(
     {
         List,
@@ -12,7 +11,7 @@ const ListStack = createStackNavigator(
     },
     {
         initialRouteName : 'List',
-        headerMode : 'none',
+        headerMode : 'none'
     }
 )
 

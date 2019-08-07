@@ -50,7 +50,7 @@ const Help = (props) => {
         if (refScroll != null) refScroll.scrollTo({ y : offset  , animated});
     }
     const _timeToString = (openTime, CloseTime) => {
-        return ((openTime == "00:00:00") && (CloseTime == "00:00:00")) ?
+        return ((openTime == "00:00:00") && (CloseTime == "00:00:00"))? 
             `휴무` : `${openTime}   ~   ${CloseTime} `;
     } 
 

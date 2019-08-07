@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { View, StyleSheet, FlatList, Image, TouchableOpacity, ActivityIndicator} from 'react-native';
-import { Text } from '../../component/common';
+import { Text,NavHead } from '../../component/common';
 import * as API from '../../utill/API';
 import * as Utill from '../../utill';
 
-export default Notice = () =>{
+export default Notice = ({navigation}) =>{
     const [data,setData] = useState([]);
     const [IsLoading,setIsLoading] = useState(true);
     const contentArray = [];
@@ -40,26 +40,25 @@ export default Notice = () =>{
     },[]);
 
     const _renderItem = ({item}) => {
+        
         return (
             <View style = {{flex :1}}>
-                <View style= {{padding : 15}}>
-                    <Text style = {{marginBottom : 10, fontSize : 12}}>
-                        {_parseTime(item)}
-                    </Text>
-                    <View style ={{flexDirection : 'row',flex : 1, justifyContent : 'space-between', alignItems : 'center'}}>
-                        <Text style = {{fontSize : 16}}>
-                            {item.title}
+                <TouchableOpacity onPress = {()=>_setIsPressed(item)}>
+                    <View style= {{padding : 15}}>
+                        <Text style = {{marginBottom : 7, fontSize : 12}}>
+                            {_parseTime(item)}
                         </Text>
-                        <TouchableOpacity 
-                            style = {{width : 20,height:20,alignItems :'center',justifyContent:'center'}}
-                            onPress = {()=>_setIsPressed(item)}
-                            >
-                            <Image style = {{width : 12, height : 7}} 
-                            source = {!item.isPressed?{uri : 'icon_rsquare_bracket_under'}:{uri:'icon_rsquare_bracket_upper'}}>
-                            </Image>
-                        </TouchableOpacity>
+                        <View style ={{flexDirection : 'row',flex : 1, justifyContent : 'space-between', alignItems : 'center'}}>
+                            <Text style = {{fontSize : 16}}>
+                                {item.title}
+                            </Text>
+                            <Image 
+                                style = {{width : 12, height : 7}} 
+                                source = {!item.isPressed?{uri : 'icon_rsquare_bracket_under'}:{uri:'icon_rsquare_bracket_upper'}}
+                            />
+                        </View>
                     </View>
-                </View>
+                </TouchableOpacity>
                 {item.isPressed?(
                   <View style= {{padding : 15, backgroundColor : Utill.color.border}}>
                       <Text style = {{fontSize : 15}}>
@@ -72,7 +71,8 @@ export default Notice = () =>{
     }
 
     return(
-        <View style ={ {flex :1 }}>
+        <View style ={ styles.container}>
+            <NavHead navigation={navigation} title={`공지사항`}/>
             {IsLoading ?(
                 <FlatList
                 data = {data}

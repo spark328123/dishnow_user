@@ -22,7 +22,6 @@ const MenuButton = ({title, source, style,onPress}) => {
             </View>
         </Button>
     )
-
 }
 
 export default MenuButton; 

@@ -1,23 +1,32 @@
-import React, { Component } from 'react';
-import { View,  Image, StyleSheet } from 'react-native';
-import { Button, CheckCircle, Text } from '../common';
+import React, {useState, useEffect} from 'react';
+import {View,  Image, StyleSheet,Text} from 'react-native';
+
+import {Button, CheckCircle} from '../common';
 
 
-export default TermsCheck = ({ style, title, titleStyle, value, onChange, view}) => {
-    console.log('view',view);
+export default CheckView = (props) => {
+    const { style, title, titleStyle, setValue, onChange, onPressBracket=null} = props;
+    const [isChecked, setIsChecked] = useState(false);
+
+    useEffect(()=>{ 
+        setIsChecked(setValue);
+    }, [setValue])
+
+    const _onPress =()=> {
+        onChange(!isChecked);
+        setIsChecked(c=>!c);
+    }
+
+    
     return(
         <View style={[style, styles.container]}>
-            <CheckCircle style={styles.check} value = {value} onChange = {onChange}/>
-            <Text style={[titleStyle, styles.title]}>
-                {title}
-            </Text>
-            {/* {onPressBracket!==null && 
-                <Button
-                    onPress = {()=>navigation.push('webView',{view})}
-                >
-                    <Image style={styles.bracket} source={{uri: 'icon_rsquare_bracket'}}/>
+        <CheckCircle style={styles.check} value = {isChecked} onPress = {_onPress}/>
+            <Text style={[titleStyle, styles.title]}>{title}</Text>
+            {onPressBracket!==null && 
+                <Button onPress={onPressBracket}>
+                    <Image style={styles.bracket} source={{uri:"icon_rsquare_bracket"}}></Image>
                 </Button>
-            } */}
+            }
         </View>
     )
 }

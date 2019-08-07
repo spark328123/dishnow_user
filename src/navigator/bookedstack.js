@@ -7,30 +7,14 @@ const BookStack = createStackNavigator(
     {
         TabBooked : { 
             screen : TabBooked ,
-            navigationOptions : ({ navigation }) => ({
-            header: null,
-            }),
         },
         ReviewWrite : { 
             screen : ReviewWrite,
-            navigationOptions : ({ navigation }) => ({
-                headerStyle: {
-                    backgroundColor: '#FFFFFF',
-                },
-                title : navigation.getParam('storeName'),
-                headerTintColor: '#000000',
-                headerTitleStyle: {
-                    textAlign: 'center',
-                    textAlignVertical: 'center',
-                    flexGrow:1,
-                    marginRight : 70,
-                    
-                },
-            }),   
         }
     },
     {
         initialRouteName : 'TabBooked',
+        headerMode : 'none',
     }
 )
 

@@ -11,12 +11,12 @@ import {
   Platform,
 } from 'react-native';
 import { getInset } from 'react-native-safe-area-view';
-
 import BannerView from '../../../component/bannerView';
 import TabButton from '../../../component/TabButton';
 import Page1 from './page1';
 import Page2 from './page2';
 import Page3 from './page3';
+import * as API from '../../../utill/API';
 
 const icon_square_bracket_left = {uri : 'icon_square_bracket_left'};
 const icon_on_map = {uri : 'icon_on_map_black'};
@@ -25,10 +25,6 @@ const icon_star_outline = {uri : 'icon_star_full_list'};
 const icon_star_outline_half = {uri : 'icon_star_half_list'};
 const icon_star_outline_empty = {uri : 'icon_star_empty_list'};
 
-const photos =['http://www.the-pr.co.kr/news/photo/201809/40978_61156_1748.jpg',
-               'http://www.the-pr.co.kr/news/photo/201809/40978_61156_1748.jpg',
-               'http://www.the-pr.co.kr/news/photo/201809/40978_61156_1748.jpg'];
-  
 
 const {width, height} = Dimensions.get('screen');
 const HEADER_TOP_SAFE = getInset('top', false);
@@ -44,9 +40,13 @@ const HEADER_TAB_HEIGHT = 88;
 
 const SCREEN_HEIGHT = height - HEADER_MAX_HEIGHT;
 
+const photos = [];
+
 const ListMenu = (props) =>  {
   const [data] = useState(props.navigation.getParam('resDetail'));
   const [reviewData] = useState(props.navigation.getParam('resReview'));
+  const [photos] = useState(props.navigation.getParam('photos'));
+  console.log(photos);
 
   const [page1Data] = useState({
       "mainMenu" : JSON.parse(data.mainMenu),
@@ -65,7 +65,6 @@ const ListMenu = (props) =>  {
       totalCount : reviewData.totalCount,
   });
 
-    
   const [scrollY] = useState(new Animated.Value(0));
   const [scrollYListener, setScrollYListener] = useState(null);
   const [yValue, setYValue] = useState(0);
@@ -155,6 +154,7 @@ const ListMenu = (props) =>  {
 
   // 화면 좌측 상단 뒤로가기 버튼
   const _onPressBackButton = () => {
+    props.navigation.pop();
     console.log('_onPressBackButton');
     return;
   }
@@ -169,15 +169,25 @@ const ListMenu = (props) =>  {
     return;
   }
   // 화면 하단 예약하기 버튼
-  const _onPressReservationButton = () => {
+  const _onPressReservationButton = async() => {
     console.log('_onPressReservationButton');
+    const token = await API.getLocal(API.LOCALKEY_TOKEN);
+    const res = await API.reservation_confirm(token,{
+        storeId : props.navigation.getParam('storeId'), 
+        reservationId : props.navigation.getParam('reservationId')})
+    console.log(res);
     return;
   }
 
 
   // 화면 하단 예약하기 버튼
-  const _onPressManageReviewButton = (reviewId) => {
+  const _onPressManageReviewButton = async(reviewId) => {
     console.log(`_onPressManageReviewButton -> ${reviewId}`);
+    const token = await API.getLocal(API.LOCALKEY_TOKEN);
+    const res = await API.reservation_confirm(token,{
+        storeId : props.navigation.getParam('storeId'), 
+        reservationId : props.navigation.getParam('reservationId')})
+    console.log(res);
     return;
   }
 
@@ -186,7 +196,7 @@ const ListMenu = (props) =>  {
   // =========================================================================================================
 
   return (
-    <View style ={{flex : 1}}>
+    <View style ={{flex : 1,backgroundColor:'#EEEEEE'}}>
 
       {/* 각 페이지를 담는 부분입니다.*/}
       {page == 0 && <Page1 paddingTop={HEADER_MAX_HEIGHT + HEADER_TAB_HEIGHT} initialScroll={scrollY._value} onScroll={_onScroll} data={page1Data} />}

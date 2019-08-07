@@ -5,6 +5,7 @@ import LinearGradient from 'react-native-linear-gradient';
 
 import {Text,Button} from './index'
 import * as Utill from '../../utill'
+import { TouchableOpacity } from 'react-native-gesture-handler';
  
 
 
@@ -12,7 +13,7 @@ const NavHead = (props) => {
     const {navigation, title='디쉬나우', onSavePress, BackbuttonDisable=false, paddingHorizontal = 15} = props;
     return (    
         <View style={styles.container}>
-                <View style={[styles.logo, {width : Utill.screen.screenWidth, height: (60*Utill.screen.screenRatio) + Utill.screen.topSafe, paddingTop:Utill.screen.topSafe, position: 'absolute', alignItems : 'center', justifyContent : 'center'}]}>
+                <View style={[styles.logo, {width : Utill.screen.screenWidth, height: (50*Utill.screen.screenRatio) + Utill.screen.topSafe, paddingTop:Utill.screen.topSafe, position: 'absolute', alignItems : 'center', justifyContent : 'center'}]}>
                     <Text style ={styles.titleText}>{title}</Text>
                 </View>
                 <BackButton onPress={()=>{if(!BackbuttonDisable)navigation.pop()}} paddingHorizontal={paddingHorizontal}/>
@@ -21,6 +22,11 @@ const NavHead = (props) => {
                 {onSavePress &&
                     <SaveButton onPress={onSavePress} paddingHorizontal={paddingHorizontal}/>
                 }
+
+                
+                
+
+                
         </View>
     )
 }
@@ -29,20 +35,21 @@ const NavHead = (props) => {
 export default NavHead;
 
 
- 
+
 
 const BackButton = ({onPress, paddingHorizontal}) => {
     
     return (
-        <Button 
-            style={{
-                left : paddingHorizontal,
-                Top : Utill.screen.topSafe,
-            }}
-            onPress={onPress} 
-        >
-            <Image style={styles.backBottonIcon} source={{uri : 'iconsquarebracket'}} />
-        </Button>
+            <Button 
+                style={{
+                    left : paddingHorizontal,
+                    Top : Utill.screen.topSafe,
+                    alignSelf : 'center'
+                }}
+                onPress={onPress} 
+            >
+                <Image style={styles.backBottonIcon} source={{uri : 'icon_back_button'}} />
+            </Button>
     )
 
 }
@@ -59,9 +66,10 @@ const SaveButton = ({onPress, paddingHorizontal}) => {
             onPress = {onPress}
         >
             <Text style={styles.saveButtonText}>
-                저장
+                확인
             </Text>
         </Button>
+           
     )
 }
 
@@ -94,7 +102,7 @@ const styles = StyleSheet.create({
         height : 16, 
     },
     saveButtonText : {
-        fontSize : 16,
+        fontSize : 14,
         color : Utill.color.black,
     }
 });

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { View, StyleSheet, TextInput, ScrollView} from 'react-native';
-import {Button, BigButtonColor, BigButton, BigButtonBorder, Text} from '../component/common/'
+import {Button, BigButtonColor, BigButton, BigButtonBorder, Text, NavHead} from '../component/common/'
 import * as API from '../utill/API';
 
 const Register = (props) => {
@@ -45,13 +45,15 @@ const Register = (props) => {
 
 
     return (
+        
         <ScrollView
-            pagingEnabled
             keyboardDismissMode="interactive"
             keyboardDismissMode="on-drag"
             keyboardShouldPersistTaps="handled"
             style={styles.container}
             contentContainerStyle={{ flexGrow: 1, justifyContent: 'center' }}>
+            <NavHead title = {'회원가입'}/>
+            <View style = {{paddingLeft : 15,paddingRight : 15}}>
             <Text style={{ fontSize: 16, fontWeight: 'bold', marginBottom: 8 }}>본인 인증</Text>
             <Text style={{ fontSize: 12, marginBottom: 18 }}>허위/중복 가입을 막기 위한 절차입니다.</Text>
             <Text style={styles.textTitle}>이름</Text>
@@ -96,6 +98,7 @@ const Register = (props) => {
                 onPress={_register}
                 title='회원가입' 
                 disabled = {false}/>
+            </View>
         </ScrollView>
     )
 }
@@ -105,8 +108,6 @@ export default Register;
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        paddingLeft: 15,
-        paddingRight: 15,
     },
     textTitle: {
         fontSize: 14,

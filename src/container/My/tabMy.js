@@ -8,6 +8,7 @@ import {
     TouchableOpacity,
     Image,
     Alert,
+    Switch,
 } from 'react-native';
 import LogOut from './logout'
 import {Button, BigButtonColor,MenuButton,TopMenuButton} from '../../component/common'
@@ -69,17 +70,27 @@ const TabMy = ({navigation, userid, nickname, image, phone, point, name, reviewc
                         phone : phonenum,
                     })}
                 >
-                    <View style = {{width : 45, height : 45}}>
-                        <Image source = {{uri : photo? photo.uri : 'icon_profile'}} style = {{width : 45, height : 45}}/>
-                    </View>
+                    {photo &&  (
+                    <Image
+                        source={{uri : photo.uri}}
+                        style={{ width: 45, height: 45, borderRadius : 40}}
+                    />
+                    )}
+
+                    {!photo && ( 
+                        <Image
+                        source={{uri : 'icon_profile'}}
+                        style={{ width: 45, height: 45 }}
+                        />
+                    )}
                     <Text style={{alignItems : 'center', marginTop : 10, marginLeft : 5, fontSize : 16, fontWeight: 'bold', color : "#111111", fontFamily : "NanumSquareOTF"}}>
                         {nick}
                     </Text>
-                    
+                    <View style={{width : '78%', alignSelf : 'center'}}>
+                            <Image source = {{uri : 'icon_rsquare_bracket'}} style = {{width : 9, height : 15, alignSelf : 'flex-end'}}/>
+                    </View> 
                 </TouchableOpacity>
-                <View style = {{ alignSelf : 'center'}}> 
-                        <Image source = {{uri : 'icon_rsquare_bracket'}} style = {{width : 9, height : 15,}}/>
-                </View>
+                
             </View>
 
             {/* 라인 */}
@@ -93,6 +104,7 @@ const TabMy = ({navigation, userid, nickname, image, phone, point, name, reviewc
                     <TopMenuButton 
                         title={`디나포인트`} 
                         source={{uri:'icon_logo_purple_main'}} 
+                        onPress = {()=>navigation.push('Point', {pt})}
                     />
                         <View style={{ justifyContent : 'center', alignItems : 'center', }}>
                         <Text style={{fontSize : 24, color : "#111111" , fontFamily : "NanumSquareOTF"}}>
@@ -109,6 +121,7 @@ const TabMy = ({navigation, userid, nickname, image, phone, point, name, reviewc
                     <TopMenuButton 
                         title={`나의 리뷰`} 
                         source={{uri:'icon_review'}} 
+                        onPress = {()=>navigation.push('Review', {rvcount})}
                     />
                         <View style ={{ justifyContent : 'center', alignItems : 'center', }}>
                         <Text style={{fontSize : 24, color : "#111111" , fontFamily : "NanumSquareOTF"}}>
@@ -131,9 +144,10 @@ const TabMy = ({navigation, userid, nickname, image, phone, point, name, reviewc
             <MenuButton 
                 title={`이용약관`} 
                 source={{uri:'icon_terms'}} 
-                onPress = {()=>navigation.push('webView',
-                    {source : {uri : 'http://dishnow.kr/Terms.html'}}
-                )} 
+                // onPress = {()=>navigation.push('webView',
+                //     {source : {uri : 'http://dishnow.kr/Terms.html'}}
+                // )} 
+                onPress = {()=>navigation.navigate('myTerms')}
                 style = {styles.menus} 
             />
             
@@ -142,12 +156,14 @@ const TabMy = ({navigation, userid, nickname, image, phone, point, name, reviewc
                 source={{uri:'icon_helpcenter'}} 
                 onPress={()=>navigation.navigate('Client')} style = {styles.menus} 
             />
-
+            
             <MenuButton 
                 title={'푸쉬알람'} 
                 source={{uri:'icon_push'}} 
-                onPress={()=>Alert.alert('푸쉬!')} style = {styles.menus} 
+                style = {styles.menus} 
+                
             />
+            
             <MenuButton 
                 title={'로그아웃'} 
                 source={{uri:'icon_signout'}} 
@@ -198,9 +214,9 @@ const styles = StyleSheet.create({
         paddingRight: 15,
     },
     top : {                         // 맨위에 끄덕이는 미식가
-        alignItems : 'center',
         flexDirection : 'row',
         height : 95,
+        alignItems : 'center',
     },
     menus : {                    // 공지사항, 이용약관, 고객센터, 푸쉬알람, 로그아웃
         height : 56,
