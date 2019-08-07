@@ -13,14 +13,16 @@ import OneSignal from 'react-native-onesignal';
 import * as API from '../utill/API';
 
 const OnWait =  (props) =>{
+    const WaitTime = 6;
     const { navigation, latitude, longitude } = props;
 
     const [timer, setTimer] = useState(null);
-    const [timerCount, setTimerCount] = useState(120);
+    const [timerCount, setTimerCount] = useState(WaitTime);
     const [toggle, setToggle] = useState(true);
 
     useEffect(()=>{
         _timerStart();
+        navigation.navigate('List');
         OneSignal.addEventListener('received',_oneSignalReceived);
     },[]);
 
@@ -30,7 +32,7 @@ const OnWait =  (props) =>{
 
     const _reFind = ()=>{
         _toggle();
-        setTimerCount(120);
+        setTimerCount(WaitTime);
         _timerStart();
         OneSignal.addEventListener('received',_oneSignalReceived);
         _reservation();
