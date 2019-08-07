@@ -1,5 +1,5 @@
 import React, {useState, memo} from 'react';
-import {Dimensions, View, Text, Image, FlatList, StyleSheet} from 'react-native';
+import {Dimensions, View, Text, Image, FlatList, StyleSheet, ActivityIndicator} from 'react-native';
 import { getInset } from 'react-native-safe-area-view';
 
 const ratio = width/360;
