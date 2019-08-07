@@ -13,7 +13,7 @@ const NavHead = (props) => {
     const {navigation, title='디쉬나우', onSavePress, BackbuttonDisable=false, paddingHorizontal = 15} = props;
     return (    
         <View style={styles.container}>
-                <View style={[styles.logo, {width : Utill.screen.screenWidth, height: (60*Utill.screen.screenRatio) + Utill.screen.topSafe, paddingTop:Utill.screen.topSafe, position: 'absolute', alignItems : 'center', justifyContent : 'center'}]}>
+                <View style={[styles.logo, {width : Utill.screen.screenWidth, height: (50*Utill.screen.screenRatio) + Utill.screen.topSafe, paddingTop:Utill.screen.topSafe, position: 'absolute', alignItems : 'center', justifyContent : 'center'}]}>
                     <Text style ={styles.titleText}>{title}</Text>
                 </View>
                 <BackButton onPress={()=>{if(!BackbuttonDisable)navigation.pop()}} paddingHorizontal={paddingHorizontal}/>

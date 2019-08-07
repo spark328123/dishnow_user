@@ -70,9 +70,19 @@ const TabMy = ({navigation, userid, nickname, image, phone, point, name, reviewc
                         phone : phonenum,
                     })}
                 >
-                    <View style = {{width : 45, height : 45,borderRadius : 40,}}>
-                        <Image source = {{uri : photo? photo.uri : 'icon_profile'}} style = {{width : 45, height : 45,borderRadius : 40}}/>
-                    </View>
+                    {photo &&  (
+                    <Image
+                        source={{uri : photo.uri}}
+                        style={{ width: 45, height: 45, borderRadius : 40}}
+                    />
+                    )}
+
+                    {!photo && ( 
+                        <Image
+                        source={{uri : 'icon_profile'}}
+                        style={{ width: 45, height: 45 }}
+                        />
+                    )}
                     <Text style={{alignItems : 'center', marginTop : 10, marginLeft : 5, fontSize : 16, fontWeight: 'bold', color : "#111111", fontFamily : "NanumSquareOTF"}}>
                         {nick}
                     </Text>

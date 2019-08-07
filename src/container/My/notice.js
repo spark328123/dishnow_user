@@ -43,24 +43,22 @@ export default Notice = ({navigation}) =>{
         
         return (
             <View style = {{flex :1}}>
-                <View style= {{padding : 15}}>
-                    <Text style = {{marginBottom : 10, fontSize : 12}}>
-                        {_parseTime(item)}
-                    </Text>
-                    <View style ={{flexDirection : 'row',flex : 1, justifyContent : 'space-between', alignItems : 'center'}}>
-                        <Text style = {{fontSize : 16}}>
-                            {item.title}
+                <TouchableOpacity onPress = {()=>_setIsPressed(item)}>
+                    <View style= {{padding : 15}}>
+                        <Text style = {{marginBottom : 7, fontSize : 12}}>
+                            {_parseTime(item)}
                         </Text>
-                        <TouchableOpacity 
-                            style = {{width : 50,height:50,alignItems :'center',justifyContent:'center'}}
-                            onPress = {()=>_setIsPressed(item)}
-                            >
-                            <Image style = {{width : 12, height : 7}} 
-                            source = {!item.isPressed?{uri : 'icon_rsquare_bracket_under'}:{uri:'icon_rsquare_bracket_upper'}}>
-                            </Image>
-                        </TouchableOpacity>
+                        <View style ={{flexDirection : 'row',flex : 1, justifyContent : 'space-between', alignItems : 'center'}}>
+                            <Text style = {{fontSize : 16}}>
+                                {item.title}
+                            </Text>
+                            <Image 
+                                style = {{width : 12, height : 7}} 
+                                source = {!item.isPressed?{uri : 'icon_rsquare_bracket_under'}:{uri:'icon_rsquare_bracket_upper'}}
+                            />
+                        </View>
                     </View>
-                </View>
+                </TouchableOpacity>
                 {item.isPressed?(
                   <View style= {{padding : 15, backgroundColor : Utill.color.border}}>
                       <Text style = {{fontSize : 15}}>

@@ -8,7 +8,10 @@ import webView from '../container/webView';
 import Profile from '../container/My/profile_manage';
 import Client from '../container/My/client_center';
 import Notice from '../container/My/notice';
-import Nick from '../container/My/nickname_change';
+import Nick from '../container/My/Account/nickname_change';
+import Password from '../container/My/Account/password_change';
+import PasswordCheck from '../container/My/Account/password_check';
+import Phone from '../container/My/Account/phone_change';
 import myTerms from '../container/My/myTerms';
 import * as Utill from '../utill/';
 const myStack = createStackNavigator(
@@ -39,6 +42,15 @@ const myStack = createStackNavigator(
         },
         Point : {
             screen : Point,
+        },
+        Password : {
+            screen : Password,
+        },
+        PasswordCheck : {
+            screen : PasswordCheck,
+        },
+        Phone : {
+            screen : Phone,
         },
     },
     {
