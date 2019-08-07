@@ -27,37 +27,8 @@ const icon_star_outline_empty = {uri : 'icon_star_empty_list'};
 
 const photos =['http://www.the-pr.co.kr/news/photo/201809/40978_61156_1748.jpg',
                'http://www.the-pr.co.kr/news/photo/201809/40978_61156_1748.jpg',
-               'http://www.the-pr.co.kr/news/photo/201809/40978_61156_1748.jpg']
-
-
-const data = {
-"name": "ㅁㄴㅇㅁㄴㅇ",
-rate : 2.2,
-"mainPhone": "123123",
-"mainMenu": "[{\"name\":\"넘나 힘들어요\",\"price\":\"720005000\",\"image\":[\"https://dishnow.s3.ap-northeast-2.amazonaws.com/5ab67526bbaedd8835aa416e6769b3274d6423506b7a6d127af85634fc4f60b9ef0aacd310b278b79fb1d76666ac23dc\"]},{\"name\":\"살려주세요\",\"price\":\"4646461\",\"image\":[\"https://dishnow.s3.ap-northeast-2.amazonaws.com/852288a26d0f52c3bdb1e8b2808b426777814d120e5ffec1bbe5f7b8f9ff149f1c7660b42984dbe5979ab187d221113b\"]},{\"name\":\"ㅗ촐ㄹ\",\"price\":\"494959595\",\"image\":[\"https://dishnow.s3.ap-northeast-2.amazonaws.com/0b4b1e0adb9672239bc147720cd71e1c39976c928f04ec40ccebcab61c5a0c0fde9147c6c2400f7a252c196c6d03c114\"]}]",
-"subMenu": "[{\"name\":\"카테고리\",\"menu\":[{\"name\":\"양념치킨 \",\"price\":\"12000\"},{\"name\":\"2번 메뉴 gg\",\"price\":\"30000\"}]},{\"name\":\"치킨메뉴\",\"menu\":[{\"name\":\"짜장면\",\"price\":\"6000\"},{\"name\":\"ㄴㅇㄱ ㄴㅇㄱ\",\"price\":\"250800\"}]},{\"name\":\"반찬류\",\"menu\":[{\"name\":\"양념 게장\",\"price\":\"5600\"},{\"name\":\"간장 게장\",\"price\":\"5200\"}]}]",
-"content": "싱싱한 닭이나옵니다ㅇㅇ",
-"address": "주소가 여기에 ",
-"facilities": JSON.parse("{\"wifi\":true,\"battery\":true,\"parking\":true,\"somke\":false,\"pet\":false,\"kids\":true}"),
-"businessHour": {
-    "mondayOpen": "00:00:00",
-    "mondayClose": "00:00:00",
-    "tuesdayOpen": "08:30:00",
-    "tuesdayClose": "02:50:00",
-    "wednesdayOpen": "09:50:00",
-    "wednesdayClose": "20:55:00",
-    "thursdayOpen": "09:05:00",
-    "thursdayClose": "00:00:00",
-    "fridayOpen": "05:30:00",
-    "fridayClose": "02:00:00",
-    "saturdayOpen": "07:40:00",
-    "saturdayClose": "06:30:00",
-    "sundayOpen": "00:00:00",
-    "sundayClose": "00:00:00",
-    "breakTime": "오후 2시 ~ 3시는 휴식시간 입니다."
-}
-};
-            
+               'http://www.the-pr.co.kr/news/photo/201809/40978_61156_1748.jpg'];
+  
 
 const {width, height} = Dimensions.get('screen');
 const HEADER_TOP_SAFE = getInset('top', false);
@@ -74,7 +45,27 @@ const HEADER_TAB_HEIGHT = 88;
 
 const SCREEN_HEIGHT = height - HEADER_MAX_HEIGHT;
 
-const ListMenu = () =>  {
+const ListMenu = (props) =>  {
+  const [data] = useState(props.navigation.getParam('resDetail'));
+  const [reviewData] = useState(props.navigation.getParam('resReview'));
+
+  const [page1Data] = useState({
+      "mainMenu" : JSON.parse(data.mainMenu),
+      "subMenu" : JSON.parse(data.subMenu),
+  });
+  const [page2Data] = useState({
+    "name": data.name,
+    "mainPhone": data.mainPhone,
+    "content": data.content,
+    "address": data.address,
+    "facilities": JSON.parse(data.facilities),
+    "businessHour": data.businessHour,
+  });
+  const [page3Data] = useState({
+      review : reviewData.review,
+      totalCount : reviewData.totalCount,
+  });
+    
   const [scrollY] = useState(new Animated.Value(0));
   const [scrollYListener, setScrollYListener] = useState(null);
   const [yValue, setYValue] = useState(0);
@@ -198,9 +189,9 @@ const ListMenu = () =>  {
     <View style ={{flex : 1}}>
 
       {/* 각 페이지를 담는 부분입니다.*/}
-      {page == 0 && <Page1 paddingTop={HEADER_MAX_HEIGHT + HEADER_TAB_HEIGHT} initialScroll={scrollY._value} onScroll={_onScroll} />}
-      {page == 1 && <Page2 paddingTop={HEADER_MAX_HEIGHT + HEADER_TAB_HEIGHT} initialScroll={scrollY._value} onScroll={_onScroll} />}
-      {page == 2 && <Page3 paddingTop={HEADER_MAX_HEIGHT + HEADER_TAB_HEIGHT} initialScroll={scrollY._value} onScroll={_onScroll} onPressManageReviewButton={_onPressManageReviewButton}/>}
+      {page == 0 && <Page1 paddingTop={HEADER_MAX_HEIGHT + HEADER_TAB_HEIGHT} initialScroll={scrollY._value} onScroll={_onScroll} data={page1Data} />}
+      {page == 1 && <Page2 paddingTop={HEADER_MAX_HEIGHT + HEADER_TAB_HEIGHT} initialScroll={scrollY._value} onScroll={_onScroll} data={page2Data}/>}
+      {page == 2 && <Page3 paddingTop={HEADER_MAX_HEIGHT + HEADER_TAB_HEIGHT} initialScroll={scrollY._value} onScroll={_onScroll} onPressManageReviewButton={_onPressManageReviewButton} data={page3Data}/>}
 
 
       {/* 매장 사진 */}

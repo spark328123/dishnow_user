@@ -11,7 +11,7 @@ const ListStack = createStackNavigator(
         ListMenu,
     },
     {
-        initialRouteName : 'ListMenu',
+        initialRouteName : 'List',
         //headerMode : 'none',
     }
 )

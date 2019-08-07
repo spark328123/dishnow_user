@@ -131,3 +131,17 @@ export const noticeContent = (token,data) => {
     .then(res=>res.json())
     .catch(error=>({error}));
 }
+
+export const showStoreDetail = (token,data) => {
+    const url = `${apiUrl}store/detail`;
+    return fetch.getAuthServer(url,token,data)
+    .then(res=>res.json())
+    .catch(error=>({error}));
+}
+
+export const showStoreReview = (token,data) => {
+    const url = `${apiUrl}store/review`;
+    return fetch.getAuthServer(url,token,data)
+    .then(res=>res.json())
+    .catch(error=>({error}));
+}

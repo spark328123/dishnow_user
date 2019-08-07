@@ -39,7 +39,7 @@ const data = {
 
 
 const Help = (props) => {
-    const {initialScroll, onScroll, paddingTop} = props;
+    const {initialScroll, onScroll, paddingTop,data} = props;
     const [refScroll, setRefScroll] = useState(null);
     const [isPageLoaded, setIsPageLoaded] = useState(false);
 
