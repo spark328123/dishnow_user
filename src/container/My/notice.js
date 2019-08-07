@@ -22,24 +22,30 @@ export default Notice = ({navigation}) =>{
     }  
     
     const _setIsPressed = ({noticeId})=>{
-        setData(data.map(item => item.noticeId===noticeId ? {...item,isPressed:!item.isPressed} : item));
+        setData(data.map(item => 
+            item.noticeId===noticeId ? {...item,isPressed:!item.isPressed} : item));
+    }
+
+    const _parseTime = ({createdAt}) => {
+        const str = JSON.stringify(createdAt);
+        return `${str.substring(1,5)}.${str.substring(6,8)}.${str.substring(9,11)}`;
     }
 
     useEffect(()=>{
         _getNotice();
-        setData(data.map(item=>{return {...item, isPressed : false}}));
         return()=>{
-        setIsLoading(false);
+            setData(data.map(item=>{return {...item, isPressed : false}}));
+            setIsLoading(false);
         }
     },[]);
 
     const _renderItem = ({item}) => {
         
         return (
-            <View style = {styles.item}>
+            <View style = {{flex :1}}>
                 <View style= {{padding : 15}}>
                     <Text style = {{marginBottom : 10, fontSize : 12}}>
-                        {item.createdAt}
+                        {_parseTime(item)}
                     </Text>
                     <View style ={{flexDirection : 'row',flex : 1, justifyContent : 'space-between', alignItems : 'center'}}>
                         <Text style = {{fontSize : 16}}>
@@ -82,10 +88,6 @@ export default Notice = ({navigation}) =>{
 }
 
 const styles = StyleSheet.create({
-    container : {
-        flex : 1,
-    } ,
-    item : {
-        flex : 1,
-    },
+
 })
+

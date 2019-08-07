@@ -112,8 +112,8 @@ const styles = StyleSheet.create({
         marginBottom : 20,
     },
     img : {
-        height : 20,
-        width : 20,
+        height : 7,
+        width : 12,
     },
     cont : {
         height:50,
