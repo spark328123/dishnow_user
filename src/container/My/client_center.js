@@ -1,5 +1,5 @@
 import React,{useState,useEffect} from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, Image, FlatList } from 'react-native';
 import {NavHead} from '../../component/common'
 export default Client = ({navigation}) =>{
     //press 시 마다 setPressed로 isPressed 값 변경
@@ -39,7 +39,7 @@ export default Client = ({navigation}) =>{
                          <View style = {styles.cont}>
                             <Text style = {styles.qstTxt}>
                                 awef
-                            </Text>
+                            </Text>  
                         </View>
                         : null
                     }}

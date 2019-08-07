@@ -79,7 +79,7 @@ const Profile = ({navigation, userid, nickname, image, phone, point, name}) => {
                 <TouchableOpacity onPress={()=>_handleChoosePhoto()}
                     style = {{alignItems : 'center', marginTop : 15}}
                 >
-                {photo && (
+                {photo &&  (
                     <Image
                         source={{uri : photo.uri}}
                         style={{ width: 90, height: 90, borderRadius : 40}}
@@ -87,10 +87,12 @@ const Profile = ({navigation, userid, nickname, image, phone, point, name}) => {
                 )}
 
                 {!photo && ( 
-                    <View
-                    style={{ width: 90, height: 90, backgroundColor : '#4682B4', borderRadius : 40}}
+                    <Image
+                    source={{uri : 'icon_profile_account'}}
+                    style={{ width: 90, height: 90 }}
                     />
                 )}
+                
                 </TouchableOpacity>
                 <View style={{justifyContent : 'center', flexDirection : 'row'}}>
                     <TouchableOpacity
@@ -103,8 +105,7 @@ const Profile = ({navigation, userid, nickname, image, phone, point, name}) => {
                     }>
                     <View style = {{flexDirection : 'row'}}>
                         <Text style={{fontSize : 16, color : '#111111', marginTop : 8}}> {nick} </Text>
-                        <Image source = {{uri : 'icon_profile_change'}} style = {{width : 10, height : 10,alignSelf:'center'}}
-                        />
+                        <Image source = {{uri : 'icon_profile_change'}} style = {{width : 10, height : 10,alignSelf:'center'}}/>
                     </View>
                     </TouchableOpacity>
                 </View>
@@ -127,7 +128,7 @@ const Profile = ({navigation, userid, nickname, image, phone, point, name}) => {
                         <Text style={{fontSize : 16, color : '#111111', fontFamily : 'NanumSquareOTF', alignSelf: 'flex-end'}}>이메일@입니다</Text>
                     </View>
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.garo}>
+                <TouchableOpacity style={styles.garo} onPress = {()=>navigation.push('PasswordCheck',{title : '휴대폰 번호 변경'})}>
                     <View style={{width : '50%'}}>
                         <Text style={{fontSize : 14, color : '#555555', fontFamily : 'NanumSquareOTF' }}>휴대폰 번호</Text>
                     </View>
@@ -140,7 +141,7 @@ const Profile = ({navigation, userid, nickname, image, phone, point, name}) => {
                 <Text >계정보안</Text>
                 </View>
 
-                <TouchableOpacity style={{height : 43, marginTop : 5, flexDirection : 'row'}}>
+                <TouchableOpacity style={{height : 43, marginTop : 5, flexDirection : 'row'}} onPress = {()=>navigation.push('PasswordCheck',{title : '비밀번호 변경'})}>
                     <View style={{width : '50%'}}>
                         <Text style={{fontSize : 14, color : '#555555', fontFamily : 'NanumSquareOTF' }}>비밀번호 변경</Text>
                     </View>
@@ -202,6 +203,8 @@ const styles = StyleSheet.create({
         fontFamily : 'NanumSquareOTF'
     },
     line : {
+        marginBottom : 5,
+        marginTop : 8,
         borderBottomWidth: 1,
         borderBottomColor:Utill.color.border,
     },

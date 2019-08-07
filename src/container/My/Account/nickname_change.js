@@ -8,7 +8,7 @@ import {
     TouchableOpacity,
     Alert,
 } from 'react-native'
-import {BigButton,SmallButton,NavHead} from '../../component/common/'
+import {BigButton,SmallButton,NavHead} from '../../../component/common'
 export default Nick = ({navigation}) => {
     const [nickName,setNickName] = useState(navigation.getParam('nickname')); //닉네임
     const [nickLength,setNickLength] = useState(0);

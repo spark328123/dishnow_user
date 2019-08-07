@@ -15,8 +15,7 @@ import * as API from '../utill/API';
 import * as Utill from '../utill';
 import ImagePicker from 'react-native-image-picker';
 import Dialog from "react-native-dialog";
-import { Text } from '../component/common/';
-
+import { Text,NavHead } from '../component/common/';
 
 const defaultImageSource = {uri: 'icon_add_photo'};
 const addImageSource = {uri: 'icon_add_photo_add'};
@@ -25,6 +24,7 @@ const checkStar = {uri : 'icon_star_full_review'};
  
 export default (props) => {
     const { navigation } = props;
+    const storeName = navigation.getParam('storeName');
     const [ reviewId ] = useState(navigation.getParam('reviewId'));
     const [ isLoaded, setIsLoaded ] = useState(false);
     const [ content, setContent ] = useState('');
@@ -165,6 +165,7 @@ export default (props) => {
     return (      
         <TouchableWithoutFeedback onPress  = {()=>{Keyboard.dismiss();}}>
             <View style = {styles.container}>
+                <NavHead navigation = {navigation} title = {storeName}/>
                 <View style ={styles.contentContainer}>
                     <View style = {[styles.header, {marginTop: Utill.screen.Screen.customHeight(20)}]}>
                         <Text style = {{color: "#CCCCCC"}}>별점을 선택해주세요</Text>
