@@ -103,8 +103,8 @@ const OnWait =  (props) =>{
                     <TouchableOpacity
                         onPress = {_goBack}>
                             {toggle?
-                        (<Text style= {{color : Utill.color.red, fontSize : 14}}>취소하기</Text>):
-                        (<Text style = {{color : Utill.color.textBlack, fontSize : 14}}>홈으로</Text>)
+                        (<Text style= {[styles.headerText,{color : Utill.color.red}]}>취소하기</Text>):
+                        (<Text style = {[styles.headerText,{color : Utill.color.textBlack}]}>홈으로</Text>)
                             }
                     </TouchableOpacity>
                  </View>
@@ -121,18 +121,41 @@ const OnWait =  (props) =>{
                 </View>    
             )}
             <View style = {styles.data}>
-                <Text>
-                    {`| ${navigation.getParam('tema')} |`}
-                </Text>
-                <Text>
-                    {navigation.getParam('people')}
-                </Text>
-                <Text>
-                    {navigation.getParam('time')}
-                </Text>
-                <Text>
-                    {navigation.getParam('address')}
-                </Text>
+                <View style={styles.informationContainer}>
+                    <Text style={styles.theme}>
+                        {`| ${navigation.getParam('tema')} |`}
+                    </Text>
+                    <View style={styles.dataContainer}>
+                        <Text style={styles.dataText}>
+                            인원
+                        </Text>
+                        <Text style={styles.paraText}>
+                            {navigation.getParam('people')}
+                        </Text>
+                        <Text style={styles.paraText}>
+                             명
+                        </Text>
+                    </View>
+                    <View style={styles.dataContainer}>
+                        <Text style={styles.dataText}>
+                            출발 예정 시간
+                        </Text>
+                        <Text style={styles.paraText}>
+                            {navigation.getParam('time')}
+                        </Text>
+                        <Text style={styles.paraText}>
+                             분 후
+                        </Text>
+                    </View>
+                    <View style={{flexDirection: 'row', alignItems: "flex-end"}}>
+                        <Text style={styles.dataText}>
+                            출발지
+                        </Text>
+                        <Text style={styles.paraText}>
+                            {navigation.getParam('address')}
+                        </Text>
+                    </View>
+                </View>
             </View>
             {!toggle ? (
                 <TouchableOpacity
@@ -162,10 +185,14 @@ const styles = StyleSheet.create({
         flex : 1,
     },
     header : {
-        height : 50,
         justifyContent : 'center',
         alignItems : 'flex-end',
         paddingRight : 16,
+        marginBottom: 10
+    },
+    headerText:{
+        fontSize : 14,
+        marginTop: Utill.screen.topSafe
     },
     loading : {
         flex : 1,
@@ -173,16 +200,39 @@ const styles = StyleSheet.create({
         alignItems : 'center',
     },
     data : {
-        flex : 1,
-        paddingLeft : 24,
-        justifyContent : 'flex-end',
-        alignItems : 'flex-start',
+        marginLeft: Utill.screen.Screen.customWidth(15),
+        width: Utill.screen.Screen.customWidth(330),
+        height: 171,
+        borderColor: "#EEEEEE",
+        borderWidth: 1,
+        borderRadius: 20,
+        backgroundColor: "#FFFFFF"
+    },
+    informationContainer:{
+        marginLeft: Utill.screen.Screen.customWidth(24),
+        marginTop: 19
+    },
+    theme: {
+        fontSize: 14,
+        marginBottom: 13
+    },
+    dataContainer: {
+        flexDirection: 'row',
+        alignItems: "flex-end",
+        marginBottom: 13
+    },
+    dataText:{
+        fontSize: 14,
+        marginRight: Utill.screen.Screen.customWidth(16)
+    },
+    paraText:{
+        fontSize: 16
     },
     button : {
         justifyContent : 'center',
         alignItems : 'center',
-        height : 50, 
+        height : Utill.screen.Screen.customHeight(50), 
         backgroundColor : Utill.color.primary1,
-        marginTop : 20,
+        marginTop : Utill.screen.Screen.customHeight(20),
     }
 });
