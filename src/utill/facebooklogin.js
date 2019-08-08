@@ -44,7 +44,7 @@ const FaceBookLogin = () => {
         >
             <Image
                 style={styles.btnFaceBookLogin}
-                source={{uri: 'facebook_login_button'}}
+                source={{uri: 'icon_facebook'}}
             >
             </Image>
         </TouchableOpacity>
@@ -55,11 +55,10 @@ export default FaceBookLogin;
 
 const styles = StyleSheet.create({
     btnFaceBookLogin: {
-        height: 45,
-        width: 282,
+        height: 50,
+        width: 50,
         alignSelf: "center",
         borderRadius: 0,
         borderWidth: 0,
-        marginBottom: 50
     },
 });

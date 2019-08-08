@@ -71,7 +71,7 @@ const KakaoLogin = ({ navigation }) => {
       <Image
         activeOpacity={0.5}
         style={styles.btnKakaoLogin}
-        source={{uri: 'kakao_login_button'}}
+        source={{uri: 'icon_kakao'}}
       />
     </TouchableOpacity>
   );
@@ -79,12 +79,11 @@ const KakaoLogin = ({ navigation }) => {
 
 const styles = StyleSheet.create({
   btnKakaoLogin: {
-    height: 45,
-    width: 282,
+    height: 50,
+    width: 50,
     alignSelf: "center",
     borderRadius: 0,
     borderWidth: 0,
-    marginBottom: 50
   },
 });
 
