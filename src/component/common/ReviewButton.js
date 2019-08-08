@@ -71,8 +71,8 @@ const styles = StyleSheet.create({
     },
     reviewText: {
         marginTop: 36,
-        width: 330,
-        height: 40,
+        width: Utill.screen.Screen.customWidth(330),
+        height:  Utill.screen.Screen.customHeight(40),
         justifyContent: 'center',
         alignItems: 'center'
     }

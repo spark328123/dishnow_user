@@ -17,6 +17,7 @@ import Page1 from './page1';
 import Page2 from './page2';
 import Page3 from './page3';
 import * as API from '../../../utill/API';
+import call from 'react-native-phone-call';
 
 const icon_square_bracket_left = {uri : 'icon_square_bracket_left'};
 const icon_on_map = {uri : 'icon_on_map_black'};
@@ -40,13 +41,12 @@ const HEADER_TAB_HEIGHT = 88;
 
 const SCREEN_HEIGHT = height - HEADER_MAX_HEIGHT;
 
-const photos = [];
-
 const ListMenu = (props) =>  {
+  
   const [data] = useState(props.navigation.getParam('resDetail'));
   const [reviewData] = useState(props.navigation.getParam('resReview'));
   const [photos] = useState(props.navigation.getParam('photos'));
-  console.log(photos);
+  const isReservation = props.navigation.getParam('isReservation');
 
   const [page1Data] = useState({
       "mainMenu" : JSON.parse(data.mainMenu),
@@ -160,6 +160,11 @@ const ListMenu = (props) =>  {
   }
   // 화면 하단 전화기 버튼
   const _onPressPhoneButton = () => {
+    const args = {
+        number: '01083278936', // String value with the number to call
+        prompt: false // Optional boolean property. Determines if the user should be prompt prior to the call 
+      }
+    call(args).catch(console.error)
     console.log('_onPressPhoneButton');
     return;
   }
@@ -170,6 +175,10 @@ const ListMenu = (props) =>  {
   }
   // 화면 하단 예약하기 버튼
   const _onPressReservationButton = async() => {
+    if(!isReservation){
+        alert('예약이 불가능한 상태입니다.');
+        return;
+    }
     console.log('_onPressReservationButton');
     const token = await API.getLocal(API.LOCALKEY_TOKEN);
     const res = await API.reservation_confirm(token,{
@@ -183,11 +192,6 @@ const ListMenu = (props) =>  {
   // 화면 하단 예약하기 버튼
   const _onPressManageReviewButton = async(reviewId) => {
     console.log(`_onPressManageReviewButton -> ${reviewId}`);
-    const token = await API.getLocal(API.LOCALKEY_TOKEN);
-    const res = await API.reservation_confirm(token,{
-        storeId : props.navigation.getParam('storeId'), 
-        reservationId : props.navigation.getParam('reservationId')})
-    console.log(res);
     return;
   }
 
@@ -335,7 +339,7 @@ const ListMenu = (props) =>  {
           flex:1, 
           flexDirection:'row'
         }}>
-          <View style={{flex : 1, borderRightWidth:1, borderColor:'#cccccc'}}>
+          <View style={{flex : 1, borderRightWidth:1, borderColor:'#EEEEEE'}}>
             <TouchableOpacity 
               onPress={_onPressMapButton}
               style ={{
@@ -359,7 +363,7 @@ const ListMenu = (props) =>  {
         </View>
         <View style={{
           flex:1,
-          backgroundColor : true?'#733fff':'#CCCCCC'
+          backgroundColor : isReservation?'#733fff':'#CCCCCC'
           }}>
           <TouchableOpacity 
             onPress={_onPressReservationButton}

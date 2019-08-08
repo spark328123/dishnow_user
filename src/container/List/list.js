@@ -125,6 +125,7 @@ const List = (props) => {
             storeId,
             reservationId,
             photos,
+            isReservation : true,
         })
         console.log(resDetail,resReview);
     }
