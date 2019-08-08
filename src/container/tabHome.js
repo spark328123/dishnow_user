@@ -20,7 +20,7 @@ const TabHome = (props)=>{
         const name = meRes.name;
         const phone = meRes.phone;
         const image = meRes.image;
-        const reviewcount = meRes.reviewcount;
+        const reviewcount = meRes.reviewCount;
         const nickname = meRes.nickname;
         dispatch(User.updateuserid(userid));
         dispatch(User.updatepoint(point));
@@ -29,6 +29,7 @@ const TabHome = (props)=>{
         dispatch(User.updateimage(image));
         dispatch(User.updatereviewcount(reviewcount));
         dispatch(User.updatenickname(nickname));
+        console.log(reviewcount);
         const pushToken = await API.getPush(API.PUSH_TOKEN);
         const ret = await API.setPushToken(token,{pushToken});
         
