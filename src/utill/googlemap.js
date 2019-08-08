@@ -18,7 +18,7 @@ const { height, width } = Dimensions.get("window");
 const ASPECT_RATIO = width / height;
 
 const google_url = 'https://maps.googleapis.com/maps/api/geocode/json?latlng=';
-const GOOGLE_API_KEY = 'AIzaSyAFU82_JAporZ8W7FhWdBatmP9Qr-JdOUc';
+const GOOGLE_API_KEY = 'cd ';
 
 const GoogleMaps =  ({isPressed, toggle, navigation, latitudeDelta, latitude, longitude}) => {
 

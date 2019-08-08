@@ -4,20 +4,21 @@ import { Text } from '../common/'
 import * as Utill from '../../utill';
 
 export default  (props) => {
-    console.log(props)
-    var date = new Date().getTime();
-    var day = JSON.stringify(props.date);
-    var dayArray = day.split("-");
-    var dayObj = new Date(dayArray[0], Number(dayArray[1])-1, dayArray[2]);
-    var betweenDay = (date - dayObj.getTime())/1000/60/60/24;
-    const { navigation, reviewId, storeName } = props;
+    var newdate = new Date();
+    var olddate = new Date(props.date);
+    var between = newdate.getTime() - olddate.getTime();
+    var betday = between/1000/60/60/24;
 
-    if(true){
+    const { navigation, reviewId, storeName, isUpdate } = props;
+
+    if(betday<7){
+        if(isUpdate !== 'false'){
         return (
             <TouchableOpacity style={[styles.ReviewButton, {width: Utill.screen.Screen.customWidth(330)}]}
                 onPressIn = {()=>navigation.push('ReviewWrite',{
                     reviewId,
-                    storeName 
+                    storeName,
+                    isUpdate : 'false',
                 })}>
                 <View style={styles.ReviewButtonTextContainer}>
                 <Text style={styles.CanWrite}>리뷰 작성하기</Text>
@@ -25,6 +26,13 @@ export default  (props) => {
                 </View>
             </TouchableOpacity>
         )
+        }else{
+            return(
+                <View style={styles.reviewText}>
+                    <Text style={styles.CanNotWrite}> 리뷰를 작성하셨습니다 </Text>
+                </View>
+            )
+        }
     }
     else{
         return(

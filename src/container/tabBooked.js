@@ -18,6 +18,7 @@ const TabBooked = (props) =>{
     const _showRes = async() => {
         const token = await API.getLocal(API.LOCALKEY_TOKEN);
         const resList = await API.showRes(token);
+        console.log(resList);
         setdata(resList);
     }
 
@@ -37,6 +38,7 @@ const TabBooked = (props) =>{
                     <Text style={styles.date}>{item.createdAt}</Text>
                 </View>
                 <ReviewButton
+                    isUpdate = {item.isUpdate}
                     date = {item.createdAt}
                     reviewId = {item.reviewId}
                     rate = {item.rating}

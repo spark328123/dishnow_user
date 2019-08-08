@@ -25,6 +25,7 @@ const checkStar = {uri : 'icon_star_full_review'};
 export default (props) => {
     const { navigation } = props;
     const storeName = navigation.getParam('storeName');
+    const isUpdate = navigation.getParam('isUpdate');
     const [ reviewId ] = useState(navigation.getParam('reviewId'));
     const [ isLoaded, setIsLoaded ] = useState(false);
     const [ content, setContent ] = useState('');
@@ -143,7 +144,7 @@ export default (props) => {
             rating,
             reviewId,
             image,
-            isUpdate : true,
+            isUpdate,
         }
         console.log(data);
         const res = await API.reviewWirte(token,data);
