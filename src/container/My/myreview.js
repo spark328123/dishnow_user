@@ -1,6 +1,7 @@
-import React, { useEffect, useState, memo } from 'react';
-import { View, StyleSheet, FlatList, Image } from 'react-native';
-import { NavHead, Text, Button } from '../../component/common'
+import React, { useEffect, useState,memo } from 'react';
+import { View, Text, StyleSheet, FlatList, Image } from 'react-native';
+import {NavSwitchHead} from '../../component/common'
+
 import * as API from '../../utill/API';
 import * as Utill from '../../utill';
 import { TouchableOpacity } from 'react-native-gesture-handler';
@@ -54,16 +55,16 @@ export default Review = ({navigation}) =>{
                 </View>
                 <View style={styles.button}>
                     <TouchableOpacity
-                        onPress = {()=>navigation.navigate('ReviewWrite',{
+                        onPressIn = {()=>{navigation.navigate('ReviewWrite',{
                             storeName : item.name,
                             reviewId : item.reviewId,
                             isUpdate : true,
-                        })}
+                        }),alert('asd')}}
                         >
                         <Text style={styles.buttonText}>수정</Text>
                     </TouchableOpacity>
                     <TouchableOpacity
-                     onPress ={()=>{setVisible(true);setDeleteReviewId(item.reviewId)}}
+                     onPressIn ={()=>{setVisible(true);setDeleteReviewId(item.reviewId)}}
                      style={{marginLeft: Utill.screen.Screen.customWidth(21)}}>
                         <Text style={styles.buttonText}>삭제</Text>
                     </TouchableOpacity>
@@ -90,7 +91,7 @@ export default Review = ({navigation}) =>{
         }
         
         }>
-        <NavHead navigation={navigation} title={`나의 리뷰`}/>
+        <NavSwitchHead navigation={navigation} navtitle = {'TabMy'} title={`나의 리뷰`}/>
           <FlatList
             data = {data}
             renderItem = {_renderItem}

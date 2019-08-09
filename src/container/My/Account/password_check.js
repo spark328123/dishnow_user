@@ -1,10 +1,10 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
-import {NavHead} from '../../../component/common';
+import {NavSwitchHead} from '../../../component/common';
 export default PasswordCheck = ({navigation}) =>{
     return(
         <View style ={styles.container}>
-            <NavHead navigation={navigation} title={navigation.getParam('title')}/>
+            <NavSwitchHead navigation={navigation} navtitle = {'Profile'} title={navigation.getParam('title')}/>
             <Text style ={{
                 fontSize : 20,
                 justifyContent : 'center',

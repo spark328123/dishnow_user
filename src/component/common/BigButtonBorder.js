@@ -45,8 +45,8 @@ const styles = StyleSheet.create({
 
     button : {
         borderRadius : 25,
-        width : 260.5,
-        height : 50,
+        width : 330,
+        height : 40,
         justifyContent : 'center',
         alignItems : 'center',
         backgroundColor : Utill.color.onColorBackground,
@@ -55,11 +55,13 @@ const styles = StyleSheet.create({
 
     },
     title : {
-        fontSize : 18,
+        fontSize : 16,
         color : Utill.color.primary1,
+        fontFamily : 'NanumSquareOTFR',
     },
     titleDisable : {
-        fontSize : 18,
+        fontSize : 16,
         color : Utill.color.defaultColor,
+        fontFamily : 'NanumSquareOTFR',
     }
 })

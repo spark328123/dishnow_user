@@ -186,8 +186,8 @@ const styles = StyleSheet.create({
         width: 40
       },
       backFixed : {
-          width : 20,
-          height : 20,
+        width : 20,
+        height : 20,
         left : '12%',
         marginLeft: -24,
         marginTop: -24,

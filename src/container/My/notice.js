@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { View, StyleSheet, FlatList, Image, TouchableOpacity, ActivityIndicator} from 'react-native';
-import { Text,NavHead } from '../../component/common';
+import { Text,NavSwitchHead } from '../../component/common';
 import * as API from '../../utill/API';
 import * as Utill from '../../utill';
 
@@ -72,7 +72,7 @@ export default Notice = ({navigation}) =>{
 
     return(
         <View style ={ styles.container}>
-            <NavHead navigation={navigation} title={`공지사항`}/>
+            <NavSwitchHead navigation={navigation} navtitle = {'TabMy'} title={`공지사항`}/>
             {IsLoading ?(
                 <FlatList
                 data = {data}
@@ -88,4 +88,3 @@ export default Notice = ({navigation}) =>{
 const styles = StyleSheet.create({
 
 })
-

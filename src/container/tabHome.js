@@ -4,7 +4,7 @@ import GoogleMap from '../utill/googlemap.js';
 import { useDispatch, connect } from 'react-redux';
 import * as API from '../utill/API';
 import * as Utill from '../utill';
-import user, * as User from '../store/modules/user'
+import  * as User from '../store/modules/user'
 import ModalDropdown from 'react-native-modal-dropdown';
 import { BigButtonColor, Text } from '../component/common'
 import OneSignal from 'react-native-onesignal';

@@ -150,7 +150,7 @@ export default (props) => {
         const res = await API.reviewWirte(token,data);
         console.log(res);
         if(res){
-            if(!isUpdate){
+            if(isUpdate==='false'){
                 Toast.show('리뷰가 등록되었습니다!');
                 navigation.pop();
             }else {

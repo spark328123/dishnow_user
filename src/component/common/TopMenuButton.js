@@ -5,7 +5,7 @@ import * as Utill from '../../utill'
 import {Button, Text} from '../common';
 
 
-const TopMenuButton = ({title, source, style,onPress}) => {
+const TopMenuButton = ({title, source, style,onPress,color}) => {
 
     return (
         <Button style={[style, styles.container]} onPress={onPress}>
@@ -16,7 +16,7 @@ const TopMenuButton = ({title, source, style,onPress}) => {
             /> 
                                
             <View>
-                <Text style = {styles.text}>
+                <Text style = {!color ? styles.text : styles.ptext}>
                     {title}
                 </Text>
             </View>
@@ -46,5 +46,10 @@ const styles = StyleSheet.create({
         fontSize : 16,
         fontFamily : "NanumSquareOTFR",
         color : Utill.color.textBlack,
+    },
+    ptext : {
+        fontSize : 16,
+        fontFamily : "NanumSquareOTFR",
+        color : Utill.color.primary1,
     }
 })

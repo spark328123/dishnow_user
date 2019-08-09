@@ -11,6 +11,7 @@ import {
   Platform,
 } from 'react-native';
 import { getInset } from 'react-native-safe-area-view';
+import {NavHead} from '../../../component/common'
 import BannerView from '../../../component/bannerView';
 import TabButton from '../../../component/TabButton';
 import Page1 from './page1';
@@ -26,6 +27,10 @@ const icon_star_outline = {uri : 'icon_star_full_list'};
 const icon_star_outline_half = {uri : 'icon_star_half_list'};
 const icon_star_outline_empty = {uri : 'icon_star_empty_list'};
 
+const photos =['http://www.the-pr.co.kr/news/photo/201809/40978_61156_1748.jpg',
+               'http://www.the-pr.co.kr/news/photo/201809/40978_61156_1748.jpg',
+               'http://www.the-pr.co.kr/news/photo/201809/40978_61156_1748.jpg'];
+  
 
 const {width, height} = Dimensions.get('screen');
 const HEADER_TOP_SAFE = getInset('top', false);
@@ -39,15 +44,15 @@ const HEADER_TITLE_MAX_HEIGHT = HEADER_MAX_HEIGHT - HEADER_TITLE_HEIGHT/2;
 
 const HEADER_TAB_HEIGHT = 88;
 
+
 const SCREEN_HEIGHT = height - HEADER_MAX_HEIGHT;
 
 const ListMenu = (props) =>  {
-  
   const [data] = useState(props.navigation.getParam('resDetail'));
   const [reviewData] = useState(props.navigation.getParam('resReview'));
   const [photos] = useState(props.navigation.getParam('photos'));
   const isReservation = props.navigation.getParam('isReservation');
-
+  const {navigation,navtitle,title} = props;
   const [page1Data] = useState({
       "mainMenu" : JSON.parse(data.mainMenu),
       "subMenu" : JSON.parse(data.subMenu),
@@ -64,7 +69,6 @@ const ListMenu = (props) =>  {
       review : reviewData.review,
       totalCount : reviewData.totalCount,
   });
-
   const [scrollY] = useState(new Animated.Value(0));
   const [scrollYListener, setScrollYListener] = useState(null);
   const [yValue, setYValue] = useState(0);
@@ -161,29 +165,28 @@ const ListMenu = (props) =>  {
   }
   // 화면 하단 전화기 버튼
   const _onPressPhoneButton = () => {
-
     console.log('_onPressPhoneButton');
     return;
   }
   // 화면 하단 지도 버튼
   const _onPressMapButton = () => {
     const args = {
-        number: '01083278936', // String value with the number to call
-        prompt: false // Optional boolean property. Determines if the user should be prompt prior to the call 
-      }
-    call(args).catch(console.error)
+      number: '01083278936', // String value with the number to call
+      prompt: false // Optional boolean property. Determines if the user should be prompt prior to the call 
+    }
+  call(args).catch(console.error)
     console.log('_onPressMapButton');
     return;
   }
   // 화면 하단 예약하기 버튼
-  const _onPressReservationButton = async() => {
+  const _onPressReservationButton = () => {
     if(!isReservation){
-        alert('예약이 불가능한 상태입니다.');
-        return;
+      alert('예약이 불가능한 상태입니다.');
+      return;
     }
     console.log('_onPressReservationButton');
-    const token = await API.getLocal(API.LOCALKEY_TOKEN);
-    const res = await API.reservation_confirm(token,{
+    const token =  API.getLocal(API.LOCALKEY_TOKEN);
+    const res = API.reservation_confirm(token,{
         storeId : props.navigation.getParam('storeId'), 
         reservationId : props.navigation.getParam('reservationId')})
     console.log(res);
@@ -192,7 +195,7 @@ const ListMenu = (props) =>  {
 
 
   // 화면 하단 예약하기 버튼
-  const _onPressManageReviewButton = async(reviewId) => {
+  const _onPressManageReviewButton = (reviewId) => {
     console.log(`_onPressManageReviewButton -> ${reviewId}`);
     return;
   }
@@ -203,7 +206,7 @@ const ListMenu = (props) =>  {
 
   return (
     <View style ={{flex : 1,backgroundColor:'#EEEEEE'}}>
-
+      <NavHead title = {navigation.getParam('title')}/>
       {/* 각 페이지를 담는 부분입니다.*/}
       {page == 0 && <Page1 paddingTop={HEADER_MAX_HEIGHT + HEADER_TAB_HEIGHT} initialScroll={scrollY._value} onScroll={_onScroll} data={page1Data} />}
       {page == 1 && <Page2 paddingTop={HEADER_MAX_HEIGHT + HEADER_TAB_HEIGHT} initialScroll={scrollY._value} onScroll={_onScroll} data={page2Data}/>}
@@ -280,16 +283,16 @@ const ListMenu = (props) =>  {
           >
 
             <Animated.View style={[styles.cardContent, {opacity : _contentOpactity}]}>
-              <Image style={styles.contentStar} source={data.rating>0 ? (data.rating<1 ? icon_star_outline_half : icon_star_outline) : icon_star_outline_empty}/>
-              <Image style={styles.contentStar} source={data.rating>1 ? (data.rating<2 ? icon_star_outline_half : icon_star_outline) : icon_star_outline_empty}/>
-              <Image style={styles.contentStar} source={data.rating>2 ? (data.rating<3 ? icon_star_outline_half : icon_star_outline) : icon_star_outline_empty}/>
-              <Image style={styles.contentStar} source={data.rating>3 ? (data.rating<4 ? icon_star_outline_half : icon_star_outline) : icon_star_outline_empty}/>
-              <Image style={styles.contentStar} source={data.rating>4 ? (data.rating<5 ? icon_star_outline_half : icon_star_outline) : icon_star_outline_empty}/>
+              <Image style={styles.contentStar} source={data.rate>0 ? (data.rate<1 ? icon_star_outline_half : icon_star_outline) : icon_star_outline_empty}/>
+              <Image style={styles.contentStar} source={data.rate>1 ? (data.rate<2 ? icon_star_outline_half : icon_star_outline) : icon_star_outline_empty}/>
+              <Image style={styles.contentStar} source={data.rate>2 ? (data.rate<3 ? icon_star_outline_half : icon_star_outline) : icon_star_outline_empty}/>
+              <Image style={styles.contentStar} source={data.rate>3 ? (data.rate<4 ? icon_star_outline_half : icon_star_outline) : icon_star_outline_empty}/>
+              <Image style={styles.contentStar} source={data.rate>4 ? (data.rate<5 ? icon_star_outline_half : icon_star_outline) : icon_star_outline_empty}/>
 
               <Text 
                 style={[styles.contentStarText]}
               >
-                {data.rating}
+                {data.rate}
               </Text>
             </Animated.View>
 

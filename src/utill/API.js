@@ -152,3 +152,17 @@ export const showStoreReview = (token,data) => {
     .then(res=>res.json())
     .catch(error=>({error}));
 }
+
+export const changenick = (token,data) => {
+    const url = `${apiUrl}user/nickname`;
+    return fetch.putAuthServer(url,token,data)
+    .then(res => ({isSuccess : res? true : false}))
+    .catch(error => ({error})); 
+}
+
+export const changeprofile = (token,data) => {
+    const url = `${apiUrl}user/profile`;
+    return fetch.putAuthServer(url,token,data)
+    .then(res => ({isSuccess : res? true : false}))
+    .catch(error => ({error})); 
+}
