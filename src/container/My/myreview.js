@@ -1,9 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, memo } from 'react';
 import { View, StyleSheet, FlatList, Image } from 'react-native';
 import { NavHead, Text, Button } from '../../component/common'
 import * as API from '../../utill/API';
 import * as Utill from '../../utill';
 import { TouchableOpacity } from 'react-native-gesture-handler';
+import Dialog from "react-native-dialog";
+import Toast from 'react-native-simple-toast';
 
 export default Review = ({navigation}) =>{
 
@@ -11,6 +13,7 @@ export default Review = ({navigation}) =>{
         const token = await API.getLocal(API.LOCALKEY_TOKEN);
         const res = await API.reviewMe(token);
         setData(res);
+        console.log(res);
     }
 
     useEffect(()=>{
@@ -18,13 +21,26 @@ export default Review = ({navigation}) =>{
     },[])
 
     const [ data, setData ] = useState([]);
+    const [ visible, setVisible ] = useState(false);
     const [ imageList, setImageList ] = useState([]);
     const [ isLoaded, setIsLoaded ] = useState(false);
+    const [ deleteReviewId, setDeleteReviewId] = useState();
+
+    const _deleteReview = async (reviewId)=>{
+        const token = await API.getLocal(API.LOCALKEY_TOKEN);
+        const res = await API.reviewDelete(token,{reviewId : reviewId});
+        setData(data.filter(info=>info.reviewId !== reviewId));
+        console.log(res);
+        Toast.show('삭제되었습니다.');
+    }
 
     const _renderItem = ({item}) => {
         let imageUrl = JSON.stringify(item.image);
         imageUrl = ((imageUrl.substring(4,imageUrl.length-4)).split(','));
-
+        const ImageWidth = imageUrl[0].length !==4? Utill.screen.Screen.customWidth(330) : 0;
+        const ImageHeigt = imageUrl[0].length !==4? Utill.screen.Screen.customWidth(182) : 0;
+        
+        if(item.rating!==null){
         return (
             <View style = {styles.container}>
                 <Text style={styles.name}>{item.name}</Text>
@@ -32,29 +48,37 @@ export default Review = ({navigation}) =>{
                     <Text>{item.rating}</Text>
                     <Text style={styles.date}>{item.createdAt}</Text>
                 </View>
-                <Image onLoad = {setIsLoaded(false)} style = {{width : Utill.screen.Screen.customWidth(330), height : Utill.screen.Screen.customWidth(182)}}source = {{uri : imageUrl[0]}}></Image>
+                <Image onLoad = {setIsLoaded(false)} style = {{width : ImageWidth, height :ImageHeigt}}source = {{uri : imageUrl[0]}}></Image>
                 <View style={styles.contentContainer}>
                     <Text style={styles.contentText}>{item.content}</Text>
                 </View>
                 <View style={styles.button}>
-                    <TouchableOpacity>
+                    <TouchableOpacity
+                        onPress = {()=>navigation.navigate('ReviewWrite',{
+                            storeName : item.name,
+                            reviewId : item.reviewId,
+                            isUpdate : true,
+                        })}
+                        >
                         <Text style={styles.buttonText}>수정</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style={{marginLeft: Utill.screen.Screen.customWidth(21)}}>
+                    <TouchableOpacity
+                     onPress ={()=>{setVisible(true);setDeleteReviewId(item.reviewId)}}
+                     style={{marginLeft: Utill.screen.Screen.customWidth(21)}}>
                         <Text style={styles.buttonText}>삭제</Text>
                     </TouchableOpacity>
                 </View>
                 <View style={styles.answerContainer}>
-                    <View style={styles.answerContent}>
+                    {item.answer!==null ? ( <View style={styles.answerContent}>
                         <View style={styles.ownerContent}>
                         <Text style={styles.ownerText}>사장님</Text>
                         <Text style={styles.ownerDate}>그제</Text>
                         </View>
                         <Text style={styles.answerText}>{item.answer}</Text>
-                    </View>
+                    </View>) : null}
                 </View>
             </View>
-        )
+        )};
     }
 
     return(
@@ -71,6 +95,13 @@ export default Review = ({navigation}) =>{
             data = {data}
             renderItem = {_renderItem}
           />
+           <Dialog.Container visible = {visible}>
+                <Dialog.Description>리뷰를 삭제하시겠습니까?</Dialog.Description>
+                <Dialog.Title>리뷰 삭제</Dialog.Title>
+                <Dialog.Button label="취소" onPress = {()=>setVisible(false)} />
+                <Dialog.Button label="삭제"
+                    onPress = {()=>{setVisible(false);_deleteReview(deleteReviewId)}}/>
+                </Dialog.Container>
         </View>
     )
 }

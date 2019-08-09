@@ -6,12 +6,8 @@ import ListMenu from '../container/List/ListMenu/listMenu';
 
 const BookStack = createStackNavigator(
     {
-        TabBooked : { 
-            screen : TabBooked ,
-        },
-        ReviewWrite : { 
-            screen : ReviewWrite,
-        },
+        TabBooked,
+        ReviewWrite,
         ListMenu,
     },
     {

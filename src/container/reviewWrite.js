@@ -16,6 +16,7 @@ import * as Utill from '../utill';
 import ImagePicker from 'react-native-image-picker';
 import Dialog from "react-native-dialog";
 import { Text,NavHead } from '../component/common/';
+import Toast from 'react-native-simple-toast';;
 
 const defaultImageSource = {uri: 'icon_add_photo'};
 const addImageSource = {uri: 'icon_add_photo_add'};
@@ -109,7 +110,6 @@ export default (props) => {
 
     const _deleteSource = (item) => {   //view && req remove
         setImageArray(
-
             imageArray.filter(info => info.source !== item.source)
         );
         setImageReq(
@@ -149,7 +149,15 @@ export default (props) => {
         console.log(data);
         const res = await API.reviewWirte(token,data);
         console.log(res);
-        if(res)alert('리뷰가 등록되었습니다!');
+        if(res){
+            if(!isUpdate){
+                Toast.show('리뷰가 등록되었습니다!');
+                navigation.pop();
+            }else {
+                Toast.show('리뷰가 수정되었습니다!');
+                navigation.navigate('MyReview');
+            }
+        }
         else alert('통신 상태를 확인해 주세요');
     }
 
