@@ -18,17 +18,24 @@ import ImagePicker from 'react-native-image-picker';
 import Dialog from "react-native-dialog";
 import { useDispatch, connect } from 'react-redux';
 import {NavHead, NavSwitchHead} from '../../component/common'
+import {handleAndroidBackButton} from '../../component/common/hardwareBackButton'
 import  * as User from '../../store/modules/user'
 const defaultImageSource = ({uri: 'icon_add_photo'});
 
 const Profile = ({navigation, userid, nickname, image, phone, point, name}) => {
-    
+    _goBack = () => {
+        navigation.navigate('TabMy')
+    }
+
+    handleAndroidBackButton(_goBack);
     const [id, idChange] = useState(userid);
     const [nick, nickChange] = useState(nickname);
-    const [photo, setPhoto] = useState(image);
     const [phonenum, phoChange] = useState(phone);
     const [pt, ptChange] = useState(point);
     const [nm, nmChange] = useState(name);
+    const [profile, setProfile] = useState({uri:image.substring(2,image.length-2)}); 
+
+    const photo = [];
 
     const _handleChoosePhoto = async() => {
         console.log('눌렀음');
@@ -38,51 +45,40 @@ const Profile = ({navigation, userid, nickname, image, phone, point, name}) => {
         };
        ImagePicker.launchImageLibrary(options, response => {
             console.log("response", response);
-            if(response.uri){
-                setPhoto(response);
-                
+            if (response.didCancel) {
+                console.log('User cancelled image picker');
+            } else if (response.error) {
+                console.log('ImagePicker Error: ', response.error);
+            } else if (response.customButton) {
+                console.log('User tapped custom button: ', response.customButton);
+            } else {
+                photo.push(response.uri);
+                setProfile({uri : response.uri});
+                _savePhoto(photo);
             }
        });
     }
-
-    const _didMount = async ()=>{
-        
-        console.log('image',image);
-        let imageString = JSON.stringify(image);
-        if(imageString.length<5){
-            setPhoto(false);
-        }
-        else{
-            imageString = imageString.substring(4,imageString.length-4);
-            setPhoto({uri :imageString});
-            _uploadPhoto(image);
-
-        }
-    }
-
-    useEffect(()=>{
-        _didMount();
-    },[photo]);
-
-
-    const _deleteSource = (item) => {   //view && req remove
-        setImageArray(
-            imageArray.filter(info => info.id !== item.id)
-        );
-        setImageReq(
-            imageReq.filter(info => info !== item.source.uri)
-        );
-    }
-
-    const _uploadPhoto = async(data) => {       //upload(s3) 
-        
-        const res = await API.uploadPhoto(data);
+    const _savePhoto = async (photo)=>{
+        const token = await API.getLocal(API.LOCALKEY_TOKEN);
+        var data = await _uploadPhoto(photo);
+        console.log('token'+ token,data);
         console.log(data);
-        await(dispatch(User.updateimage(data)));
-        return JSON.stringify(res.data);
+        //토큰을 끌어옴
+        //토큰에 해당하는 db에 image 바꿈
+        await API.changeprofile(token,{image:data});
+        //바뀐 image 예쁘게 끌고와서 업데이트함
+        dispatch(User.updateimage(data));
     }
 
-
+    const _uploadPhoto = async(data) => {  
+        const res = await API.uploadPhoto(data);
+        console.log("awregawegeawweg" ,JSON.stringify(res));
+        var profile = JSON.stringify(res.data);
+        console.log(profile);
+        return profile;
+        
+    }
+    
     const dispatch = useDispatch();
     
     return ( 
@@ -95,7 +91,7 @@ const Profile = ({navigation, userid, nickname, image, phone, point, name}) => {
                 >
                 {photo &&  (
                     <Image
-                        source={{uri : photo.uri}}
+                        source={profile}
                         style={{ width: 90, height: 90, borderRadius : 40}}
                     />
                 )}

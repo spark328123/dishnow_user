@@ -1,10 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import { View, StyleSheet, FlatList, Image, TouchableOpacity, ActivityIndicator} from 'react-native';
 import { Text,NavSwitchHead } from '../../component/common';
+import { handleAndroidBackButton } from '../../component/common/hardwareBackButton';
 import * as API from '../../utill/API';
 import * as Utill from '../../utill';
 
 export default Notice = ({navigation}) =>{
+    _goBack = () => {
+        navigation.navigate('TabMy')
+    }
+
+    handleAndroidBackButton(_goBack);
+
     const [data,setData] = useState([]);
     const [IsLoading,setIsLoading] = useState(true);
     const contentArray = [];

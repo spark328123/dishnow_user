@@ -28,7 +28,7 @@ const TabMy = ({navigation, userid, nickname, image, phone, point, name, reviewc
      }
     const [id, idChange] = useState(userid);
     const [nick, nickChange] = useState(nickname);
-    const [photo, setPhoto] = useState(image);
+    const [photo, setPhoto] = useState(image.substring(2,image.length-2));
     const [phonenum, phoChange] = useState(phone);
     const [pt, ptChange] = useState(point);
     const [nm, nmChange] = useState(name);

@@ -16,6 +16,7 @@ export const updatephone = createAction(UPDATE_PHONE);
 export const updatereviewcount = createAction(UPDATE_REVIEWCOUNT);
 export const updateimage = createAction(UPDATE_IMAGE);
 export const upadtename = createAction(UPDATE_NAME);
+
 const initialState = Map({
    userid : '',
    point : '',

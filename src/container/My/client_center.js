@@ -1,8 +1,15 @@
 import React,{useState,useEffect} from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Image, FlatList } from 'react-native';
 import {NavSwitchHead,TopMenuButton} from '../../component/common'
+import {handleAndroidBackButton} from '../../component/common/hardwareBackButton'
 import * as Utill from '../../utill'
 export default Client = ({navigation}) =>{
+    _goBack = () => {
+        navigation.navigate('TabMy')
+    }
+
+    handleAndroidBackButton(_goBack);
+
     //press 시 마다 setPressed로 isPressed 값 변경
     const [isPressed,setPressed] = useState(false);
     useEffect(()=>{

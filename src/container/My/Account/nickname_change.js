@@ -31,13 +31,13 @@ export default Nick = ({navigation}) => {
                     [
                         {
                             text: '확인', onPress: () =>  _setNickName(''), 
-                            
                         },
                     ],
                     {cancelable: false},
                 );
             }
     }
+  
     _saveNickName = async (nickName)=>{
         //토큰을 끌어옴
         const token = await API.getLocal(API.LOCALKEY_TOKEN);
@@ -58,7 +58,6 @@ export default Nick = ({navigation}) => {
                         [
                             {
                                 text: '확인', onPress: () =>  _saveNickName(nickName), 
-                                
                             },
                         ],
                         {cancelable: false},

@@ -1,8 +1,15 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import {NavSwitchHead} from '../../../component/common';
+import {handleAndroidBackButton} from '../../../component/common/hardwareBackButton';
 export default PasswordCheck = ({navigation}) =>{
+    _goBack = () => {
+        navigation.navigate('Profile')
+    }
+
+    handleAndroidBackButton(_goBack);
     return(
+
         <View style ={styles.container}>
             <NavSwitchHead navigation={navigation} navtitle = {'Profile'} title={navigation.getParam('title')}/>
             <Text style ={{

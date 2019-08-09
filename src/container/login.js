@@ -3,6 +3,7 @@ import {
   StyleSheet,
   View,
   Image,
+  ImageBackground
 } from "react-native";
 import KaKaoLogin from '../utill/kakaologin';
 import FaceBookLogin from '../utill/facebooklogin';
@@ -18,7 +19,9 @@ const Login = (props) => {
   const [buttonLock, setButtonLock] = useState(false);
 
   return (
-    <View style={styles.container}>
+    <View style = {styles.container}>
+    <ImageBackground source={{uri : 'login_image'}} style={{flex:1,}}>
+    
         <View style={styles.logo}>
           <Image
             style={styles.dishnowLogo}
@@ -69,7 +72,9 @@ const Login = (props) => {
             >
             <Text style = {styles.createText}>{"새로운 계정 만들기"}</Text>
           </Button>
-    </View>
+          </ImageBackground>
+          </View>
+   
   );
 }
 
@@ -81,7 +86,6 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     //marginTop: Platform.OS === 'ios' ? 0 : 24,
     //paddingTop: Platform.OS === 'ios' ? 24 : 0,
-    backgroundColor: "red"
   },
   linearGradient: {
     flex: 1
