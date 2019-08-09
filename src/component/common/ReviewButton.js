@@ -10,8 +10,9 @@ export default  (props) => {
     var betday = between/1000/60/60/24;
 
     const { navigation, reviewId, storeName, isUpdate } = props;
+    console.log(newdate,olddate,between,betday);
 
-    if(betday<7){
+    if(betday < 7){
         if(isUpdate !== 'false'){
         return (
             <TouchableOpacity style={[styles.ReviewButton, {width: Utill.screen.Screen.customWidth(330)}]}
@@ -37,7 +38,7 @@ export default  (props) => {
     else{
         return(
             <View style={styles.reviewText}>
-                <Text style={styles.CanNotWrite}> 리뷰작성기간이 지났습니다 </Text>
+                <Text style={styles.CanNotWrite}> 리뷰 작성기간이 지났습니다 </Text>
             </View>
         )
     }

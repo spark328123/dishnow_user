@@ -111,6 +111,13 @@ export const reviewWirte = (token, data) => {
     .catch(error=>({error}));
 }
 
+export const reviewDelete = (token, data) => {
+    const url = `${apiUrl}review/`
+    return fetch.deleteAuthServer(url,token,data)
+    .then(res => ({isSuccess : res ? true : false}))
+    .catch(error=>({error}));
+}
+
 export const reviewMe = (token) => {
     const url = `${apiUrl}review/me`;
     return fetch.getAuthServer(url,token)

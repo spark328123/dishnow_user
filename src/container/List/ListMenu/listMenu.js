@@ -154,22 +154,24 @@ const ListMenu = (props) =>  {
 
   // 화면 좌측 상단 뒤로가기 버튼
   const _onPressBackButton = () => {
-    props.navigation.pop();
+    if(!isReservation)props.navigation.navigate('TabBooked');
+    else props.navigation.pop();
     console.log('_onPressBackButton');
     return;
   }
   // 화면 하단 전화기 버튼
   const _onPressPhoneButton = () => {
-    const args = {
-        number: '01083278936', // String value with the number to call
-        prompt: false // Optional boolean property. Determines if the user should be prompt prior to the call 
-      }
-    call(args).catch(console.error)
+
     console.log('_onPressPhoneButton');
     return;
   }
   // 화면 하단 지도 버튼
   const _onPressMapButton = () => {
+    const args = {
+        number: '01083278936', // String value with the number to call
+        prompt: false // Optional boolean property. Determines if the user should be prompt prior to the call 
+      }
+    call(args).catch(console.error)
     console.log('_onPressMapButton');
     return;
   }

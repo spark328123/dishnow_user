@@ -9,7 +9,6 @@ import * as Utill from '../utill';
 const TabBooked = (props) =>{
 
     const {navigation} = props;
-    const dispatch = useDispatch();
     const [ data, setdata ] = useState([ 
         
     ]);
@@ -42,7 +41,7 @@ const TabBooked = (props) =>{
                 else photos.push(subImage[i].substring(1,subImage[i].length-1));
             }
         }
-        navigation.push('ListMenu',{
+        navigation.navigate('ListMenu',{
             resDetail,
             resReview,
             storeId,
