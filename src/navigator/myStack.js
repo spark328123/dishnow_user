@@ -13,6 +13,8 @@ import Password from '../container/My/Account/password_change';
 import PasswordCheck from '../container/My/Account/password_check';
 import Phone from '../container/My/Account/phone_change';
 import myTerms from '../container/My/myTerms';
+import myReview from '../navigator/reviewstack';
+
 import * as Utill from '../utill/';
 const mySwitch = createSwitchNavigator(
     {
@@ -52,6 +54,7 @@ const mySwitch = createSwitchNavigator(
         Phone : {
             screen : Phone,
         },
+        myReview,
     },
     {
         initialRouteName : 'TabMy',

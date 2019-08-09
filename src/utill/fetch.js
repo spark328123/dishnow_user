@@ -63,6 +63,25 @@ export const getAuthServer = async (url, token, data = null) => {
 
 }
 
+export const deleteAuthServer = async (url, token, data=null) => {
+    try{
+        url = url + '?' +bodyEncoder(data);
+        let res = await fetch(url, {
+            method : 'DELETE',
+            headers : {
+                Accept : HEADER_APPJSON,
+                'Content-Type' : HEADER_WWWENCODED,
+                Authorization : `Bearer ${token}`
+            },
+        });
+        if(res.ok) return res;
+        console.log(await res.json());
+        return null;
+    }catch(e){
+        console.log('deleteAuth' + e);
+    }
+}
+
 
 export const putServer = async (url, data = null) => {
     try{

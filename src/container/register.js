@@ -26,9 +26,9 @@ const Register = (props) => {
             token,
             type,
             sex,
-            birthDate: birthDate.text,
-            phone: phone.text,
-            name: name.text,
+            birthDate : birthDate.text,
+            phone : phone.text,
+            name : name.text,
         })
         if (!regRes) {
             alert('정보를 확인해주세요');

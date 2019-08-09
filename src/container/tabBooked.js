@@ -9,7 +9,6 @@ import * as Utill from '../utill';
 const TabBooked = (props) =>{
 
     const {navigation} = props;
-    const dispatch = useDispatch();
     const [ data, setdata ] = useState([ 
         
     ]);
@@ -18,7 +17,39 @@ const TabBooked = (props) =>{
     const _showRes = async() => {
         const token = await API.getLocal(API.LOCALKEY_TOKEN);
         const resList = await API.showRes(token);
+        console.log(resList);
         setdata(resList);
+    }
+
+    const _showStoreDetail = async({storeId,reservationId})=>{
+        const token = await API.getLocal(API.LOCALKEY_TOKEN);
+        const resDetail = await API.showStoreDetail(token,{storeId : storeId});
+        const resReview = await API.showStoreReview(token,{storeId : storeId, page : 0});
+        var mainImage = resDetail.mainImage;
+        var subImage = resDetail.subImage;
+        const photos = [];
+        photos.push(mainImage.substring(2,mainImage.length-2));
+        subImage = subImage.substring(2,subImage.length-2);
+        subImage = subImage.split(',');
+        if(subImage.length==1){
+            photos.push(subImage[0]);
+        }else{
+            const len = subImage.length;
+            for(var i = 0;i<len;i++){
+                if(i==0)photos.push(subImage[i].substring(0,subImage[i].length-1));
+                else if(i==len-1)photos.push(subImage[i].substring(1,subImage[i].length));
+                else photos.push(subImage[i].substring(1,subImage[i].length-1));
+            }
+        }
+        navigation.navigate('ListMenu',{
+            resDetail,
+            resReview,
+            storeId,
+            reservationId,
+            photos,
+            isReservation : false,
+        })
+        console.log(resDetail,resReview);
     }
 
     useEffect(() => {
@@ -28,7 +59,10 @@ const TabBooked = (props) =>{
     const _renderItem = ({item}) => {
         return (
             <View style={styles.list}>
-                <TouchableOpacity style={styles.nameContainer}>
+                <TouchableOpacity style={styles.nameContainer}
+                    onPressIn = {()=>{
+                        _showStoreDetail(item);
+                    }}>
                     <Text style={styles.name}>{item.name}</Text>
                     <Image source={{uri: "icon_rsquare_bracket"}} style={styles.nameButton} />
                 </TouchableOpacity>
@@ -37,6 +71,7 @@ const TabBooked = (props) =>{
                     <Text style={styles.date}>{item.createdAt}</Text>
                 </View>
                 <ReviewButton
+                    isUpdate = {item.isUpdate}
                     date = {item.createdAt}
                     reviewId = {item.reviewId}
                     rate = {item.rating}

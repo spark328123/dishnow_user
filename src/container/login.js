@@ -1,5 +1,4 @@
 import React, {useState, useEffect} from 'react';
-import LinearGradient from "react-native-linear-gradient";
 import {
   StyleSheet,
   View,
@@ -20,12 +19,6 @@ const Login = (props) => {
 
   return (
     <View style={styles.container}>
-      <LinearGradient
-        style={styles.linearGradient}
-        colors={["#733FFF", "#8C31CB"]}
-        start={{ x: 0, y: 0 }}
-        end={{ x: 0, y: 1 }}
-      >
         <View style={styles.logo}>
           <Image
             style={styles.dishnowLogo}
@@ -33,10 +26,10 @@ const Login = (props) => {
           />
         </View>
 
-        <View style={{alignItems : 'center'}}>
+        <View style={styles.loginContainer}>
           <View>
             <TextInput
-            style = {styles.input}
+            style = {[styles.input, {marginTop: Utill.screen.Screen.customHeight(56)}]}
             value = {id}
             onChangeText = {(text)=>setId(text)}
             placeholder = {"이메일주소"}
@@ -46,7 +39,7 @@ const Login = (props) => {
           <View>
             <TextInput
             secureTextEntry = {true}
-            style = {styles.input}
+            style = {[styles.input, {marginTop: Utill.screen.Screen.customHeight(39)}]}
             value = {password}
             onChangeText = {(text)=>setPassword(text)}
             placeholder = {"비밀번호"}
@@ -63,7 +56,7 @@ const Login = (props) => {
         </View>
                 
         <View style={styles.snsLoginContainer}>
-          <Text style={styles.snsText}>SNS 로그인</Text>
+          <Text style={[styles.snsText, {marginBottom: Utill.screen.Screen.customHeight(15)}]}>SNS 로그인</Text>
           <View style={styles.snsButtonContainer}>
             <KaKaoLogin navigation={navigation} />
             <FaceBookLogin navigation={navigation} />
@@ -76,7 +69,6 @@ const Login = (props) => {
             >
             <Text style = {styles.createText}>{"새로운 계정 만들기"}</Text>
           </Button>
-      </LinearGradient>
     </View>
   );
 }
@@ -89,59 +81,62 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     //marginTop: Platform.OS === 'ios' ? 0 : 24,
     //paddingTop: Platform.OS === 'ios' ? 24 : 0,
-    backgroundColor: "white"
+    backgroundColor: "red"
   },
   linearGradient: {
     flex: 1
   },
   logo: {
-    flex: 0.275,
     alignItems: "center",
     justifyContent: "center"
   },
   dishnowLogo: {
+    marginTop: Utill.screen.Screen.customHeight(132),
     width: 262,
     height: 55.24
   },
   loginContainer: {
-    flex: 166 / 640,
     alignItems: "center",
-    justifyContent: "center"
   },
   snsLoginContainer: {
-    flex: 407 / 640,
+    marginTop: Utill.screen.Screen.customHeight(40),
+    marginBottom: Utill.screen.Screen.customHeight(51),
     alignItems: "center",
     justifyContent: "flex-start",
-    marginTop : 40,
   },
   snsText: {
     fontSize: 15,
     color: "#FFFFFF"
   },
   snsButtonContainer: {
-    flexDirection: "column",
+    flexDirection: "row",
     justifyContent: "space-around",
-    width: 260,
-    marginTop: 20,
+    width: Utill.screen.Screen.customWidth(226),
   },
   create : {
     alignItems : 'center',
-    borderBottomColor : Utill.color.onColorBackground,    
+    borderBottomColor : "white",
+    height: 23,
+    width: 124,
+    borderBottomColor: "white",
+    borderBottomWidth: 1,
+    alignSelf: 'center'
   },
   loginButton : {
-    marginTop:50,
     alignItems: "center",
-    justifyContent: "center"
+    justifyContent: "center",
+    marginTop: Utill.screen.Screen.customHeight(39)
   },
   input : {
-    margin:0,
-    padding:0,
     fontSize : 18,
-    width : 278.5,
-    paddingTop : 24,
-    paddingBottom : 10,
+    width : Utill.screen.Screen.customWidth(278.5),
+    height: Utill.screen.Screen.customHeight(29),
     borderBottomWidth : 1.3,
     borderBottomColor : Utill.color.onColorBackground,
     color : Utill.color.onColorBackground,
   },
+  createText: {
+    fontSize: 16,
+    color: "white",
+  }
 });

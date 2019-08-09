@@ -7,10 +7,10 @@ const HEADER_BOTTOM_SAFE = getInset('bottom', false);
 
 const icon_wifi = {uri : 'icon_wifi'}
 const icon_charger = {uri : 'icon_charge'}
-const icon_park = {uri : 'icon_wifi'}
-const icon_smoke = {uri : 'icon_wifi'}
-const icon_kids = {uri : 'icon_wifi'}
-const icon_pet = {uri : 'icon_wifi'}
+const icon_park = {uri : 'icon_park'}
+const icon_smoke = {uri : 'icon_smoke'}
+const icon_kids = {uri : 'icon_kids'}
+const icon_pet = {uri : 'icon_pet'} 
 
 const data = {
     "name": "ㅁㄴㅇㅁㄴㅇ",
@@ -50,7 +50,7 @@ const Help = (props) => {
         if (refScroll != null) refScroll.scrollTo({ y : offset  , animated});
     }
     const _timeToString = (openTime, CloseTime) => {
-        return ((openTime == "00:00:00") && (CloseTime == "00:00:00")) ?
+        return ((openTime == "00:00:00") && (CloseTime == "00:00:00"))? 
             `휴무` : `${openTime}   ~   ${CloseTime} `;
     } 
 

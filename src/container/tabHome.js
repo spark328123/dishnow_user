@@ -29,6 +29,7 @@ const TabHome = (props)=>{
         dispatch(User.updateimage(image));
         dispatch(User.updatereviewcount(reviewcount));
         dispatch(User.updatenickname(nickname));
+        console.log(reviewcount);
         const pushToken = await API.getPush(API.PUSH_TOKEN);
         const ret = await API.setPushToken(token,{pushToken});
         

@@ -44,15 +44,15 @@ export default({navigation}) =>{
             onPressIn = {()=>{naverLogin(navigation)}} >
             <Image
                 style={styles.btnNaverLogin}
-                source={{uri: 'naver_login_button'}} />
+                source={{uri: 'icon_naver'}} />
       </TouchableOpacity>
     )
 }
 
 const styles = StyleSheet.create({
     btnNaverLogin: {
-        height: 45,
-        width: 282,
+        height: 50,
+        width: 50,
         alignSelf: "center",
       },
   });

@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { View, StyleSheet } from 'react-native';
+import { View, StyleSheet, Image } from 'react-native';
 import { useDispatch } from 'react-redux';
 import * as API from '../utill/API';
+import * as Utill from '../utill';
 import { updateLocation, updateAddress } from '../store/modules/maps';
 import { Text } from '../component/common/'
 
@@ -19,7 +20,7 @@ export default (props) => {
     const _me = async () => {
         let token = await API.getLocal(API.LOCALKEY_TOKEN);
         console.log(token);
-        if (token!==null && token !=='null') {
+        if (token !== null && token !=='null') {
             navigation.navigate('Main');
         } else {
             navigation.navigate('Login');
@@ -37,7 +38,7 @@ export default (props) => {
 
     return (
         <View style={styles.container}>
-            <Text style={{ fontSize: 30 }}> 디쉬나우 스플래시 </Text>
+            <Image source={{uri: "dishnow_logo_purple"}} style={{width:262, height:53}} />
         </View>
     );
 }

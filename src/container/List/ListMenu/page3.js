@@ -73,7 +73,7 @@ const Help = (props) => {
     return (
         <View style = {{flex : 1, paddingBottom : 50+HEADER_BOTTOM_SAFE,}}>
             <FlatList
-                contentContainerStyle ={{paddingTop, zIndex : 0, paddingHorizontal : 15}}
+                contentContainerStyle = {{paddingTop, zIndex : 0, paddingHorizontal : 15}}
                 nestedScrollEnabled={true}
                 scrollEventThrottle={16}
                 ref = {r=>setRefFaletList(r)}
@@ -108,19 +108,20 @@ const Help = (props) => {
 
 export default Help;
 
-
 const ReviewItem =({data, onPressManageReviewButton}) => {
     const {
         reviewId=0,
         name = '손님', 
         hostName = '사장님',
-        content='내용이 없습니다.', 
-        rate = 0, 
+        content = '내용이 없습니다.', 
+        rating = 0, 
         daysAgo = 0, 
         answer = null,
-        image=null, 
-        profile =null
+        image = data.image.substring(1,data.image.length-1), 
+        createdAt = null,
+        profile = null
     } = data;
+    console.log(image.substring(1,image.length-1));
 
     return (
         <View style={{flexDirection:'row',  marginTop : 20, marginBottom : 12,}}>
@@ -130,20 +131,19 @@ const ReviewItem =({data, onPressManageReviewButton}) => {
             <View style={{marginLeft:13 * ratio}}>
                 <View style={{paddingTop:7}}>
                     <Text style={{fontSize:14, fontWeight:'bold'}}>{name}</Text>
-
                     <View style={{flexDirection:'row', alignItems:'center'}}>
-                        <Image style={styles.contentStar} source={rate>0 ? icon_star : icon_star_blur} />
-                        <Image style={styles.contentStar} source={rate>1 ? icon_star : icon_star_blur} />
-                        <Image style={styles.contentStar} source={rate>2 ? icon_star : icon_star_blur} />
-                        <Image style={styles.contentStar} source={rate>3 ? icon_star : icon_star_blur} />
-                        <Image style={styles.contentStar} source={rate>4 ? icon_star : icon_star_blur} />
+                        <Image style={styles.contentStar} source={rating>0 ? icon_star : icon_star_blur} />
+                        <Image style={styles.contentStar} source={rating>1 ? icon_star : icon_star_blur} />
+                        <Image style={styles.contentStar} source={rating>2 ? icon_star : icon_star_blur} />
+                        <Image style={styles.contentStar} source={rating>3 ? icon_star : icon_star_blur} />
+                        <Image style={styles.contentStar} source={rating>4 ? icon_star : icon_star_blur} />
                         <Text style={{marginLeft:5}}>{daysAgo==0?'오늘': (daysAgo<7 ? `${daysAgo}일 전`:(daysAgo<30?`${Math.floor(daysAgo/7)}주 전`:'오래전'))}</Text>
                     </View>
 
                      <View style={{marginTop:14,}}>
                         <Image 
                             style={{width : 272 * ratio, height : 150 * ratio, backgroundColor : '#eeeeee'}} 
-                            source={{uri:image}}/>
+                            source={{uri:image.substring(1,image.length-1)}}/>
                     </View>
                     <View style={{marginTop:15,}}>
                         <Text style={{width : 272 * ratio}} >
@@ -173,7 +173,7 @@ const ReviewItem =({data, onPressManageReviewButton}) => {
                                     {hostName}
                                 </Text>
                                 <Text style={{color:"#555555", fontSize:10, marginLeft:5}}>
-                                    {`2019.06.15`}
+                                    {createdAt}
                                 </Text>
                                 
                             </View>
