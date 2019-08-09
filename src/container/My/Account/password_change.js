@@ -1,10 +1,10 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
-import {NavHead} from '../../../component/common';
+import {NavSwitchHead} from '../../../component/common';
 export default Password = ({navigation}) =>{
     return(
         <View style ={styles.container}>
-            <NavHead navigation={navigation} title={`비밀번호 변경`}/>
+            <NavSwitchHead navigation={navigation} navtitle = {'Profile'} title={`비밀번호 변경`}/>
             <Text style ={{
                 fontSize : 20,
                 justifyContent : 'center',

@@ -37,6 +37,9 @@ export default ({navigation}) => {
             <NavHead title = {'회원가입'}/>
             <View style = {styles.container}>
                 <View>
+                    <Text>이미지 점자리야 민식아</Text>
+                </View>
+                <View>
                     <Text style={styles.title}>{"디쉬나우 서비스 이용약관"}</Text>
                 </View>
                 <CheckView 
@@ -91,8 +94,11 @@ export default ({navigation}) => {
                         })}
                     />
                 </View>
+                <View style={{alignItems : 'center', marginTop : 17}}>
+                    <Text style={{fontSize : 14, color : '#CCCCCC', fontFamily : 'NanumSquareOTFL'}}>필수 약관 동의 후 서비스 이용이 가능합니다</Text>
+                </View>
                 <View style={styles.nextButtonArea}>
-                        <BigButtonBorder title={'다음'} disabled={!_validation()} style={styles.nextButton} onPress={_onNextPress}>
+                        <BigButtonBorder title={'다음'} disabled={!_validation()} onPress={_onNextPress}>
                         </BigButtonBorder>
                 </View>
             </View>
@@ -119,23 +125,29 @@ const styles = StyleSheet.create({
         justifyContent : 'space-evenly',
         paddingHorizontal : 11.5,
         marginTop : 15,
+        fontFamily : 'NanumSquareOTFR',
     },
 
     title : {
+        marginTop : 9,
+        fontFamily : 'NanumSquareOTFR',
         margin : 0,
         padding : 0,
         marginBottom: 46,
         fontSize : 16,
-        color : Utill.color.textBlack,
+        color : '#111111',
+        fontWeight : 'bold',
     },
 
     checkTitleText : {
         fontSize : 15,
         color : Utill.color.textBlack,
+        fontFamily : 'NanumSquareOTFR',
     },
     checkContentText : {
         fontSize : 14,
         color : Utill.color.textBlack,
+        fontFamily : 'NanumSquareOTFR',
     },
 
     nextButtonArea : {
@@ -143,7 +155,6 @@ const styles = StyleSheet.create({
         justifyContent : 'center',
         marginTop : 39,
         marginBottom : 50,
-
     },
     nextButton : {
         width : 263,

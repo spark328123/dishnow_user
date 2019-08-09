@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, StyleSheet, FlatList, Image } from 'react-native';
-import {NavHead} from '../../component/common'
+import {NavSwitchHead} from '../../component/common'
 import * as API from '../../utill/API';
 
 export default Review = ({navigation}) =>{
@@ -45,7 +45,7 @@ export default Review = ({navigation}) =>{
         }
         
         }>
-        <NavHead navigation={navigation} title={`나의 리뷰`}/>
+        <NavSwitchHead navigation={navigation} navtitle = {'TabMy'} title={`나의 리뷰`}/>
           <FlatList
             data = {data}
             renderItem = {_renderItem}

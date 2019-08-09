@@ -17,7 +17,8 @@ import * as Utill from '../../utill';
 import ImagePicker from 'react-native-image-picker';
 import Dialog from "react-native-dialog";
 import { useDispatch, connect } from 'react-redux';
-import {NavHead} from '../../component/common'
+import {NavHead, NavSwitchHead} from '../../component/common'
+import  * as User from '../../store/modules/user'
 const defaultImageSource = ({uri: 'icon_add_photo'});
 
 const Profile = ({navigation, userid, nickname, image, phone, point, name}) => {
@@ -30,7 +31,8 @@ const Profile = ({navigation, userid, nickname, image, phone, point, name}) => {
     const [nm, nmChange] = useState(name);
 
     const _handleChoosePhoto = async() => {
-        const res = await _uploadPhoto(photo);
+        console.log('눌렀음');
+        console.log('포토:' + photo);
         const options = {
             noData : true,
         };
@@ -38,21 +40,29 @@ const Profile = ({navigation, userid, nickname, image, phone, point, name}) => {
             console.log("response", response);
             if(response.uri){
                 setPhoto(response);
+                
             }
        });
     }
 
-    const _didMount = ()=>{
+    const _didMount = async ()=>{
+        
+        console.log('image',image);
         let imageString = JSON.stringify(image);
-        imageString = imageString.substring(4,imageString.length-4);
-        setPhoto({uri :imageString});
-        console.log(imageString);
-        console.log(photo);
+        if(imageString.length<5){
+            setPhoto(false);
+        }
+        else{
+            imageString = imageString.substring(4,imageString.length-4);
+            setPhoto({uri :imageString});
+            _uploadPhoto(image);
+
+        }
     }
 
     useEffect(()=>{
         _didMount();
-    },[]);
+    },[photo]);
 
 
     const _deleteSource = (item) => {   //view && req remove
@@ -65,17 +75,21 @@ const Profile = ({navigation, userid, nickname, image, phone, point, name}) => {
     }
 
     const _uploadPhoto = async(data) => {       //upload(s3) 
+        
         const res = await API.uploadPhoto(data);
+        console.log(data);
+        await(dispatch(User.updateimage(data)));
         return JSON.stringify(res.data);
     }
+
 
     const dispatch = useDispatch();
     
     return ( 
         
         <View style={{flex : 1}}>
-            <NavHead navigation={navigation} title={`계정관리`}/>
-            <View style = {{marginLeft:15,marginRight : 15}}>
+            <NavSwitchHead navigation={navigation} title={`계정관리`} navtitle ={'TabMy'}/>
+            <View style = {{marginLeft:15, marginRight : 15}}>
                 <TouchableOpacity onPress={()=>_handleChoosePhoto()}
                     style = {{alignItems : 'center', marginTop : 15}}
                 >
@@ -85,18 +99,16 @@ const Profile = ({navigation, userid, nickname, image, phone, point, name}) => {
                         style={{ width: 90, height: 90, borderRadius : 40}}
                     />
                 )}
-
                 {!photo && ( 
                     <Image
                     source={{uri : 'icon_profile_account'}}
                     style={{ width: 90, height: 90 }}
                     />
                 )}
-                
                 </TouchableOpacity>
                 <View style={{justifyContent : 'center', flexDirection : 'row'}}>
                     <TouchableOpacity
-                        onPress = {()=>navigation.push('Nick',
+                        onPress = {()=>navigation.navigate('Nick',
                             {
                                 id,
                                 nickname : nick,
@@ -128,7 +140,7 @@ const Profile = ({navigation, userid, nickname, image, phone, point, name}) => {
                         <Text style={{fontSize : 16, color : '#111111', fontFamily : 'NanumSquareOTF', alignSelf: 'flex-end'}}>이메일@입니다</Text>
                     </View>
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.garo} onPress = {()=>navigation.push('PasswordCheck',{title : '휴대폰 번호 변경'})}>
+                <TouchableOpacity style={styles.garo} onPress = {()=>navigation.navigate('PasswordCheck',{title : '휴대폰 번호 변경'})}>
                     <View style={{width : '50%'}}>
                         <Text style={{fontSize : 14, color : '#555555', fontFamily : 'NanumSquareOTF' }}>휴대폰 번호</Text>
                     </View>
@@ -141,7 +153,7 @@ const Profile = ({navigation, userid, nickname, image, phone, point, name}) => {
                 <Text >계정보안</Text>
                 </View>
 
-                <TouchableOpacity style={{height : 43, marginTop : 5, flexDirection : 'row'}} onPress = {()=>navigation.push('PasswordCheck',{title : '비밀번호 변경'})}>
+                <TouchableOpacity style={{height : 43, marginTop : 5, flexDirection : 'row'}} onPress = {()=>navigation.navigate('PasswordCheck',{title : '비밀번호 변경'})}>
                     <View style={{width : '50%'}}>
                         <Text style={{fontSize : 14, color : '#555555', fontFamily : 'NanumSquareOTF' }}>비밀번호 변경</Text>
                     </View>

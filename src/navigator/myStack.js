@@ -1,4 +1,4 @@
-import { createStackNavigator } from 'react-navigation';
+import { createStackNavigator, createSwitchNavigator } from 'react-navigation';
 import React from 'react';
 import {Button} from 'react-native';
 import TabMy from '../container/My/tabMy';
@@ -14,7 +14,7 @@ import PasswordCheck from '../container/My/Account/password_check';
 import Phone from '../container/My/Account/phone_change';
 import myTerms from '../container/My/myTerms';
 import * as Utill from '../utill/';
-const myStack = createStackNavigator(
+const mySwitch = createSwitchNavigator(
     {
         TabMy : { 
             screen : TabMy,
@@ -59,7 +59,7 @@ const myStack = createStackNavigator(
     }
 )
 
-export default myStack; 
+export default mySwitch; 
 //프로필관리
 //디나포인트 나의리뷰
 //공지사항

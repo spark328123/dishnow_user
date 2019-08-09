@@ -4,7 +4,7 @@ import GoogleMap from '../utill/googlemap.js';
 import { useDispatch, connect } from 'react-redux';
 import * as API from '../utill/API';
 import * as Utill from '../utill';
-import user, * as User from '../store/modules/user'
+import  * as User from '../store/modules/user'
 import ModalDropdown from 'react-native-modal-dropdown';
 import { BigButtonColor, Text } from '../component/common'
 import OneSignal from 'react-native-onesignal';
@@ -20,7 +20,7 @@ const TabHome = (props)=>{
         const name = meRes.name;
         const phone = meRes.phone;
         const image = meRes.image;
-        const reviewcount = meRes.reviewcount;
+        const reviewcount = meRes.reviewCount;
         const nickname = meRes.nickname;
         dispatch(User.updateuserid(userid));
         dispatch(User.updatepoint(point));
