@@ -72,7 +72,7 @@ export default Review = ({navigation}) =>{
                             reviewId : item.reviewId,
                             isUpdate : true,
                             my : true,
-                        }),Alert.alert('asd')}}
+                        })}}
                         >
                         <Text style={styles.buttonText}>수정</Text>
                     </TouchableOpacity>
