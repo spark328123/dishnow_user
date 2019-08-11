@@ -17,16 +17,17 @@ export default Point2 = (props)=> {
     const _usePoint = async({name})=>{
         const token = await API.getLocal(API.LOCALKEY_TOKEN);
         if(point<parseInt(diff)){
-            alert('보유 포인트가 부족하여 교환이 어려워요!\n디쉬나우를 이용해 포인트를 모아보세요!');
+            alert('포인트가 부족해요!\n보유 포인트가 부족하여 교환이 어려워요!\n디쉬나우를 이용해 포인트를 모아보세요!');
             return;
         }
-        const res= await API.postDNpoint(token,{
+        const res = await API.postDNpoint(token,{
             phone,
             name,
             diff,
             type,
         });
         dispatch(User.updatepoint(res.point));
+        alert('교환 완료!\n2~3 일 안에 카카오톡 선물하기로\n개별 발송해드립니다.');
     }
 
     const data = [

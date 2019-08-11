@@ -28,6 +28,7 @@ export default Point1 = (props)=> {
             type,
         });
         dispatch(User.updatepoint(res.point));
+        alert('교환 완료!\n2~3 일 안에 카카오톡 선물하기로\n개별 발송해드립니다.');
     }
 
     const data = [
@@ -43,7 +44,6 @@ export default Point1 = (props)=> {
             image : {uri : 'icon_x'},
             name : '컬쳐랜드'
         }
-        
     ]
 
     const _renderItem = ({item})=>{
