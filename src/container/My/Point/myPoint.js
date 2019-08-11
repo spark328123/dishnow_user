@@ -65,7 +65,7 @@ const MyPoint = (props)=>{
                 >
                     {`이번 달 소멸 예정 포인트는 0원 입니다.`}
                 </Text>
-                <BigButtonBorder 
+                <BigButtonBorder  
                     style = {styles.button}
                     title = '사용하기' 
                     onPress = {()=>navigation.navigate('Point')}
@@ -142,7 +142,7 @@ const styles = StyleSheet.create({
     button : {
         borderRadius : 25,
         width : '100%',
-        height : 40,
+        height : Utill.screen.Screen.customHeight(40),
         justifyContent : 'center',
         alignItems : 'center',
         backgroundColor : Utill.color.onColorBackground,

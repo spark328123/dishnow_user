@@ -2,7 +2,7 @@ import React from 'react';
 import {View,StyleSheet} from 'react-native';
 import {ItemButton} from '../../../component/common'
 
-export default Point1 = (props)=> {
+export default Point2 = (props)=> {
     const { point ,phone } = props;
     const data = [
         {
