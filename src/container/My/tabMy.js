@@ -113,12 +113,12 @@ const TabMy = ({navigation, userid, nickname, image, phone, point, name, reviewc
 
                 <View style={styles.child}>
                     <TouchableOpacity
-                        onPress = {()=>navigation.navigate('Review', {rvcount})}
+                        onPress = {()=>navigation.navigate('Review', {rvcount,my:true})}
                     >
                     <TopMenuButton 
                         title={`나의 리뷰`} 
                         source={{uri:'icon_review'}} 
-                        onPress = {()=>navigation.navigate('Review', {rvcount})}
+                        onPress = {()=>navigation.navigate('Review', {rvcount,my:true})}
                     />
                         <View style ={{ justifyContent : 'center', alignItems : 'center', }}>
                         <Text style={{fontSize : 24, color : "#111111" , fontFamily : "NanumSquareOTF"}}>

@@ -15,9 +15,11 @@ import * as API from '../utill/API';
 import * as Utill from '../utill';
 import ImagePicker from 'react-native-image-picker';
 import Dialog from "react-native-dialog";
-import { Text,NavHead } from '../component/common/';
+import { Text,NavHead,NavSwitchHead } from '../component/common/';
+import {handleAndroidBackButton} from '../component/common/hardwareBackButton';
 import Toast from 'react-native-simple-toast';
 import { connect } from 'react-redux';
+
 
 const defaultImageSource = {uri: 'icon_add_photo'};
 const addImageSource = {uri: 'icon_add_photo_add'};
@@ -66,7 +68,13 @@ const ReviewWrite = (props) => {
         },
     ])
     const [ rating, setRating ] = useState(0);
- 
+
+    _goBack = () => {
+        {navigation.getParam('my')==true?navigation.navigate('MyReview') : navigation.navigate('TabBooked')}
+    }
+
+    handleAndroidBackButton(_goBack);
+
     const _picker = async (item) => {
        await ImagePicker.showImagePicker(options,(response)=>{
             if (response.didCancel) {
@@ -182,7 +190,8 @@ const ReviewWrite = (props) => {
     return (      
         <TouchableWithoutFeedback onPress  = {()=>{Keyboard.dismiss();}}>
             <View style = {styles.container}>
-                <NavHead navigation = {navigation} title = {storeName}/>
+                {navigation.getParam('my')==true? <NavSwitchHead navigation = {navigation} title = {storeName} navtitle={'MyReview'}/>
+                : <NavHead navigation = {navigation} title = {storeName} />}
                 <View style ={styles.contentContainer}>
                     <View style = {[styles.header, {marginTop: Utill.screen.Screen.customHeight(20)}]}>
                         <Text style = {{color: "#CCCCCC"}}>별점을 선택해주세요</Text>
