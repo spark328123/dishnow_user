@@ -14,7 +14,6 @@ import PasswordCheck from '../container/My/Account/password_check';
 import Phone from '../container/My/Account/phone_change';
 import myTerms from '../container/My/myTerms';
 import myReview from '../navigator/reviewstack';
-import point from '../container/My/Point/point';
 import myPoint from '../container/My/Point/myPoint';
 
 import * as Utill from '../utill/';
@@ -47,6 +46,7 @@ const mySwitch = createSwitchNavigator(
         Point : {
             screen : Point,
         },
+
         Password : {
             screen : Password,
         },
@@ -57,7 +57,6 @@ const mySwitch = createSwitchNavigator(
             screen : Phone,
         },
         myReview,
-        point,
         myPoint,
     },
     {
