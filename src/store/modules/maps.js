@@ -10,7 +10,7 @@ export const updateAddress = createAction(UPDATE_ADDRESS);
 
 const initialState = Map({
     region : {
-     
+        
     },
     address : '찾는 중...',
 });
