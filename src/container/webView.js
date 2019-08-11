@@ -1,15 +1,15 @@
 import React, {useState} from 'react';
 import {View,StyleSheet,TouchableOpacity,Image} from 'react-native';
 import {WebView} from 'react-native-webview';
-import {NavSwitchHead,NavHead,handleAndroidBackButton} from '../component/common'
+import {NavSwitchHead,NavHead} from '../component/common'
+import {handleAndroidBackButton, removeAndroidBackButtonHandler} from '../component/common/hardwareBackButton'
 export default webView = ({navigation,navtitle,title}) => {
     console.log(navtitle,title);
     const [source] = useState(navigation.getParam('source'));
     const _goBack = ()=>{
-        navigation.navigate(navtitle);
-        console.log(navtitle);
+        navigation.navigate(navigation.getParam('navtitle'));
     }
-    //handleAndroidBackButton(_goBack)
+    handleAndroidBackButton(_goBack);
     
     return(
         <View style = {{flex : 1}}>

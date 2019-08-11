@@ -28,33 +28,12 @@ const TabMy = ({navigation, userid, nickname, image, phone, point, name, reviewc
      }
     const [id, idChange] = useState(userid);
     const [nick, nickChange] = useState(nickname);
-    const [photo, setPhoto] = useState(image);
+    const [photo, setPhoto] = useState(image.substring(2,image.length-2));
     const [phonenum, phoChange] = useState(phone);
     const [pt, ptChange] = useState(point);
     const [nm, nmChange] = useState(name);
     const [rvcount, rvcountChange] = useState(reviewcount);
-    const _me = () => {
-        let imageString = JSON.stringify(image);
-        if(imageString.length<5){
-            setPhoto(false);
-        }
-        else{
-            imageString = imageString.substring(4,imageString.length-4);
-            setPhoto({uri :imageString});
-        }
-        if(nick===null){
-            nickChange(name);
-            dispatch(User.updatenickname(name));
-        }
-        if(rvcount===undefined){
-            rvcountChange('0');
-            dispatch(User.updatereviewcount('0'));
-            console.log(rvcount);
-        }
-    }
-    useEffect(()=>{ 
-        _me();
-    },[])
+   
     const _logOut = async () => {
         await API.setLocal(API.LOCALKEY_TOKEN, 'null');
         navigation.navigate('Splash')
@@ -67,9 +46,8 @@ const TabMy = ({navigation, userid, nickname, image, phone, point, name, reviewc
             style={styles.container}
             contentContainerStyle={{ flexGrow: 1, justifyContent: 'center' }}>
 
-            <View style={styles.top}>
-                <TouchableOpacity 
-                    style = {{flexDirection : 'row'}}
+            <TouchableOpacity 
+                    style = {styles.top}
                     onPress = {()=>navigation.navigate('Profile',
                     {
                         name : nm,
@@ -78,29 +56,27 @@ const TabMy = ({navigation, userid, nickname, image, phone, point, name, reviewc
                         image : photo,
                         phone : phonenum,
                     })}
-                >
-                {photo &&  (
-                    <Image
-                        source={{uri : photo.uri}}
-                        style={{ width: 45, height: 45, borderRadius : 40}}
-                    />
-                )}
-                {!photo && ( 
-                    <Image
-                    source={{uri : 'icon_profile'}}
-                    style={{ width: 45, height: 45 }}
-                    />
-                )}
-                    
+            >
+                <View style = {{flexDirection : 'row', alignContent : 'center'}}>
+                    {photo &&  (
+                        <Image
+                            source={{uri : photo}}
+                            style={{ width: 45, height: 45, borderRadius : 40}}
+                        />
+                    )}
+                    {!photo && ( 
+                        <Image
+                        source={{uri : 'icon_profile'}}
+                        style={{ width: 45, height: 45 }}
+                        />
+                    )}
+
                     <Text style={{alignItems : 'center', marginTop : 10, marginLeft : 5, fontSize : 16, fontWeight: 'bold', color : "#111111", fontFamily : "NanumSquareOTF"}}>
                         {nick}
-                    </Text>
-                    <View style={{width : '78%', alignSelf : 'center'}}>
-                            <Image source = {{uri : 'icon_rsquare_bracket'}} style = {{width : 9, height : 15, alignSelf : 'flex-end'}}/>
-                    </View> 
-                </TouchableOpacity>
-                
-            </View>
+                    </Text>    
+                </View>
+                <Image source = {{uri : 'icon_rsquare_bracket'}} style = {{width : 9, height : 15, alignSelf : 'center'}}/>
+            </TouchableOpacity>
 
             {/* 라인 */}
             <View style={styles.line}/>
@@ -203,7 +179,6 @@ const TabMy = ({navigation, userid, nickname, image, phone, point, name, reviewc
 
 const mapStateToProps = (state) => {
     console.log(state);
-    console.log(state.User._root.entries[6][1]);
     return {
         userid : state.User._root.entries[0][1],
         nickname : state.User._root.entries[2][1],
@@ -227,10 +202,11 @@ const styles = StyleSheet.create({
         flexDirection : 'row',
         height : 95,
         alignItems : 'center',
+        justifyContent : 'space-between',
     },
     menus : {                    // 공지사항, 이용약관, 고객센터, 푸쉬알람, 로그아웃
         height : 56,
-        flexDirection : 'row'
+        flexDirection : 'row',
     },
     menusN : {                    // 공지사항, 이용약관, 고객센터, 푸쉬알람, 로그아웃
         height : 56,

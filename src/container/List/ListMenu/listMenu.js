@@ -11,7 +11,7 @@ import {
   Platform,
 } from 'react-native';
 import { getInset } from 'react-native-safe-area-view';
-import {NavHead} from '../../../component/common'
+import {NavHead, NavSwitchHead} from '../../../component/common'
 import BannerView from '../../../component/bannerView';
 import TabButton from '../../../component/TabButton';
 import Page1 from './page1';
@@ -206,7 +206,8 @@ const ListMenu = (props) =>  {
 
   return (
     <View style ={{flex : 1,backgroundColor:'#EEEEEE'}}>
-      <NavHead title = {navigation.getParam('title')}/>
+      {navtitle? <NavSwitchHead navigation={navigation} navtitle = {navigation.getParam('navtitle')} title={navigation.getParam('title')}/>
+      : <NavHead title = {navigation.getParam('title')}/>}
       {/* 각 페이지를 담는 부분입니다.*/}
       {page == 0 && <Page1 paddingTop={HEADER_MAX_HEIGHT + HEADER_TAB_HEIGHT} initialScroll={scrollY._value} onScroll={_onScroll} data={page1Data} />}
       {page == 1 && <Page2 paddingTop={HEADER_MAX_HEIGHT + HEADER_TAB_HEIGHT} initialScroll={scrollY._value} onScroll={_onScroll} data={page2Data}/>}

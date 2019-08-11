@@ -3,12 +3,16 @@ import {
   StyleSheet,
   View,
   Image,
+  ImageBackground
 } from "react-native";
 import KaKaoLogin from '../utill/kakaologin';
 import FaceBookLogin from '../utill/facebooklogin';
 import NaverLogin from '../utill/naverlogin'
 import * as Utill from '../utill';
 import { Text, Button, BigButton, TextInput, SungminButton } from '../component/common'
+
+const type = 'email'
+const token = ''
 
 const Login = (props) => {
   const { navigation } = props;
@@ -17,8 +21,17 @@ const Login = (props) => {
   const [password, setPassword] = useState('');
   const [buttonLock, setButtonLock] = useState(false);
 
+  _emailaccount = () => {
+    navigation.push('Terms', {
+      type,
+      token,
+    });
+  }
+
   return (
-    <View style={styles.container}>
+    <View style = {styles.container}>
+    <ImageBackground source={{uri : 'login_image'}} style={{flex:1,}}>
+    
         <View style={styles.logo}>
           <Image
             style={styles.dishnowLogo}
@@ -64,12 +77,16 @@ const Login = (props) => {
           </View>
         </View>
 
-        <Button 
-            style = {styles.create}
-            >
-            <Text style = {styles.createText}>{"새로운 계정 만들기"}</Text>
+          <Button 
+              style = {styles.create}
+              onPress={()=>_emailaccount()}
+              >
+              <Text style = {styles.createText}>{"이메일로 계정 만들기"}</Text>
           </Button>
-    </View>
+
+          </ImageBackground>
+          </View>
+   
   );
 }
 
@@ -81,7 +98,6 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     //marginTop: Platform.OS === 'ios' ? 0 : 24,
     //paddingTop: Platform.OS === 'ios' ? 24 : 0,
-    backgroundColor: "red"
   },
   linearGradient: {
     flex: 1
@@ -117,7 +133,7 @@ const styles = StyleSheet.create({
     alignItems : 'center',
     borderBottomColor : "white",
     height: 23,
-    width: 124,
+    width: 137,
     borderBottomColor: "white",
     borderBottomWidth: 1,
     alignSelf: 'center'
@@ -138,5 +154,6 @@ const styles = StyleSheet.create({
   createText: {
     fontSize: 16,
     color: "white",
+    width : 137,
   }
 });

@@ -29,10 +29,9 @@ const TabHome = (props)=>{
         dispatch(User.updateimage(image));
         dispatch(User.updatereviewcount(reviewcount));
         dispatch(User.updatenickname(nickname));
-        console.log(reviewcount);
         const pushToken = await API.getPush(API.PUSH_TOKEN);
         const ret = await API.setPushToken(token,{pushToken});
-        
+        console.log(meRes);
     }
 
     const [people, setPeople] = useState('');
@@ -44,7 +43,7 @@ const TabHome = (props)=>{
     );
 
     const {navigation, latitude, longitude, address} = props;
-
+    
 
 
     useEffect(()=>{
@@ -228,7 +227,9 @@ const TabHome = (props)=>{
 
 
 const mapStateToProps = (state) => {
+    
     return {
+        
         latitude : state.Maps._root.entries[0][1].latitude,
         longitude : state.Maps._root.entries[0][1].longitude,
         address : state.Maps._root.entries[1][1],

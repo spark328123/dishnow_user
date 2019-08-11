@@ -1,7 +1,7 @@
 import React, { useEffect, useState,memo } from 'react';
 import { View, Text, StyleSheet, FlatList, Image } from 'react-native';
 import {NavSwitchHead} from '../../component/common'
-
+import {handleAndroidBackButton} from '../../component/common/hardwareBackButton'
 import * as API from '../../utill/API';
 import * as Utill from '../../utill';
 import { TouchableOpacity } from 'react-native-gesture-handler';
@@ -9,6 +9,11 @@ import Dialog from "react-native-dialog";
 import Toast from 'react-native-simple-toast';
 
 export default Review = ({navigation}) =>{
+    _goBack = () => {
+        navigation.navigate('TabMy')
+    }
+
+    handleAndroidBackButton(_goBack);
 
     const _showReview = async() =>{
         const token = await API.getLocal(API.LOCALKEY_TOKEN);
@@ -59,7 +64,7 @@ export default Review = ({navigation}) =>{
                             storeName : item.name,
                             reviewId : item.reviewId,
                             isUpdate : true,
-                        }),alert('asd')}}
+                        }),Alert.alert('asd')}}
                         >
                         <Text style={styles.buttonText}>수정</Text>
                     </TouchableOpacity>
@@ -111,6 +116,7 @@ const styles = StyleSheet.create({
     container : {
         flex : 1,
         justifyContent:'center',
+        backgroundColor : Utill.color.white,
     },
     name: {
         fontSize: 16,
