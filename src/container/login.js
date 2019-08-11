@@ -11,12 +11,22 @@ import NaverLogin from '../utill/naverlogin'
 import * as Utill from '../utill';
 import { Text, Button, BigButton, TextInput, SungminButton } from '../component/common'
 
+const type = 'email'
+const token = ''
+
 const Login = (props) => {
   const { navigation } = props;
 
   const [id, setId] = useState('');
   const [password, setPassword] = useState('');
   const [buttonLock, setButtonLock] = useState(false);
+
+  _emailaccount = () => {
+    navigation.push('Terms', {
+      type,
+      token,
+    });
+  }
 
   return (
     <View style = {styles.container}>
@@ -67,11 +77,13 @@ const Login = (props) => {
           </View>
         </View>
 
-        <Button 
-            style = {styles.create}
-            >
-            <Text style = {styles.createText}>{"새로운 계정 만들기"}</Text>
+          <Button 
+              style = {styles.create}
+              onPress={()=>_emailaccount()}
+              >
+              <Text style = {styles.createText}>{"이메일로 계정 만들기"}</Text>
           </Button>
+
           </ImageBackground>
           </View>
    
@@ -121,7 +133,7 @@ const styles = StyleSheet.create({
     alignItems : 'center',
     borderBottomColor : "white",
     height: 23,
-    width: 124,
+    width: 137,
     borderBottomColor: "white",
     borderBottomWidth: 1,
     alignSelf: 'center'
@@ -142,5 +154,6 @@ const styles = StyleSheet.create({
   createText: {
     fontSize: 16,
     color: "white",
+    width : 137,
   }
 });

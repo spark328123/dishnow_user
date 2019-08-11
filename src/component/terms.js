@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import {View, StyleSheet, ScrollView} from 'react-native';
+import {View, StyleSheet, ScrollView,Image} from 'react-native';
 
 import {BigButtonBorder, NavHead,Text} from './common';
 import * as Utill from '../utill';
@@ -36,8 +36,15 @@ export default ({navigation}) => {
         <ScrollView style={styles.pageContainer}>
             <NavHead title = {'회원가입'}/>
             <View style = {styles.container}>
-                <View>
-                    <Text>이미지 점자리야 민식아</Text>
+                <View style = {{flexDirection:'row'}}>
+                    <Image 
+                        style ={{width : 4, height : 4,marginRight:3}}
+                        source = {{uri:'dot_purple'}}
+                    />
+                    <Image 
+                        style ={{width : 4, height : 4}}
+                        source = {{uri:'dot_grey'}}
+                    />
                 </View>
                 <View>
                     <Text style={styles.title}>{"디쉬나우 서비스 이용약관"}</Text>

@@ -49,7 +49,7 @@ export default Notice = ({navigation}) =>{
     const _renderItem = ({item}) => {
         
         return (
-            <View style = {{flex :1}}>
+            <View style = {styles.container}>
                 <TouchableOpacity onPress = {()=>_setIsPressed(item)}>
                     <View style= {{padding : 15}}>
                         <Text style = {{marginBottom : 7, fontSize : 12}}>
@@ -93,5 +93,8 @@ export default Notice = ({navigation}) =>{
 }
 
 const styles = StyleSheet.create({
-
+    container : {
+        flex : 1,
+        backgroundColor : Utill.color.white,
+    }
 })

@@ -70,6 +70,7 @@ export default myTerms = ({navigation}) => {
 const styles = StyleSheet.create({
     container : {
         flex : 1,
+        backgroundColor : Utill.color.white,
     },
     line : {
         borderBottomWidth: 1,
@@ -80,6 +81,7 @@ const styles = StyleSheet.create({
         // marginTop : 17.5,
         // marginBottom : 17.5,
         fontSize : 16,
-        fontFamily : 'NanumSquareOTF'
+        fontFamily : 'NanumSquareOTF', 
+        color : Utill.color.textBlack,
     },
 })

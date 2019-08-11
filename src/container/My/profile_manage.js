@@ -17,7 +17,7 @@ import * as Utill from '../../utill';
 import ImagePicker from 'react-native-image-picker';
 import Dialog from "react-native-dialog";
 import { useDispatch, connect } from 'react-redux';
-import {NavHead, NavSwitchHead} from '../../component/common'
+import {NavHead, NavSwitchHead,CustomAlert} from '../../component/common'
 import {handleAndroidBackButton} from '../../component/common/hardwareBackButton'
 import  * as User from '../../store/modules/user'
 const defaultImageSource = ({uri: 'icon_add_photo'});
@@ -34,8 +34,12 @@ const Profile = ({navigation, userid, nickname, image, phone, point, name}) => {
     const [pt, ptChange] = useState(point);
     const [nm, nmChange] = useState(name);
     const [profile, setProfile] = useState({uri:image.substring(2,image.length-2)}); 
-
+    const [isAlertVisible, setIsAlertVisible] = useState(false);
     const photo = [];
+
+    const _onPressAlertOk = () => {
+        setIsAlertVisible(false);
+    }
 
     const _handleChoosePhoto = async() => {
         console.log('눌렀음');
@@ -73,18 +77,26 @@ const Profile = ({navigation, userid, nickname, image, phone, point, name}) => {
     const _uploadPhoto = async(data) => {  
         const res = await API.uploadPhoto(data);
         console.log("awregawegeawweg" ,JSON.stringify(res));
-        var profile = JSON.stringify(res.data);
+        var profile = JSON.stringify(res.data); 
         console.log(profile);
         return profile;
-        
     }
     
     const dispatch = useDispatch();
     
     return ( 
-        
-        <View style={{flex : 1}}>
+        <View style={styles.container}>
             <NavSwitchHead navigation={navigation} title={`계정관리`} navtitle ={'TabMy'}/>
+            <CustomAlert 
+                visible={isAlertVisible} 
+                mainTitle={'디쉬나우 탈퇴'}
+                mainTextStyle = {styles.txtStyle}
+                subTitle = {'탈퇴하시겠습니까?'}
+                subTextStyle = {styles.subtxtStyle}
+                buttonText1={'아니오'} 
+                buttonText2={'네'} 
+                onPress={_onPressAlertOk} 
+            />
             <View style = {{marginLeft:15, marginRight : 15}}>
                 <TouchableOpacity onPress={()=>_handleChoosePhoto()}
                     style = {{alignItems : 'center', marginTop : 15}}
@@ -160,7 +172,10 @@ const Profile = ({navigation, userid, nickname, image, phone, point, name}) => {
                     </View>
                 </TouchableOpacity>
                 
-                <TouchableOpacity style={{height : 43, flexDirection : 'row' }}>
+                <TouchableOpacity 
+                    style={{height : 43, flexDirection : 'row'}}
+                    onPress = {()=> setIsAlertVisible(true)}
+                >
                     <View style={{width : '50%'}}>
                         <Text style={{fontSize : 14, color : '#555555', fontFamily : 'NanumSquareOTF' }}>디쉬나우 탈퇴</Text>
                     </View>
@@ -191,6 +206,10 @@ const mapStateToProps = (state) => {
 export default connect(mapStateToProps)(Profile);
 
 const styles = StyleSheet.create({
+    container : {
+        flex : 1,
+        backgroundColor : Utill.color.white,
+    },
     pht : {
         height : 20,
         alignItems : 'center',
@@ -216,5 +235,17 @@ const styles = StyleSheet.create({
         borderBottomWidth: 1,
         borderBottomColor:Utill.color.border,
     },
-
+    txtStyle : {
+        marginBottom : 9,
+        fontSize : 18,
+        fontWeight : 'bold',
+        color : Utill.color.red,
+        alignSelf : 'center',
+    },
+    subtxtStyle : {
+        marginBottom : 35,
+        fontSize : 16,
+        color : Utill.color.textBlack,
+        alignSelf : 'center',
+    },
 })

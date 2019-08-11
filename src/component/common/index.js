@@ -13,3 +13,5 @@ export {default as TextInput} from './TextInput';
 export {default as SungminButton} from './SungminButton';  
 export {default as PushButton} from './PushButton';  
 export {default as NavSwitchHead} from './NavSwitchHead';  
+export {default as CustomAlert} from './CustomAlert';  
+export {default as SmallButton} from './SmallButton';

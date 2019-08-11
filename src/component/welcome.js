@@ -13,7 +13,7 @@ export default (props) =>{
                 <Text style = {[styles.text,{color:'#733FFF'}]}>{name}</Text>
                 <Text style = {styles.text}>님, 회원가입을 축하합니다.</Text>
             </View>
-            <Text style = {styles.text}>로그인 후 매장을 등록하실 수 있습니다.</Text>
+            <Text style = {styles.text}>바로 서비스를 이용해 보세요.</Text>
             <Image style = {{width: 145, height:145}}source = {{uri: "icon_eat"}}></Image>
             <BigButton title = '확인' onPress ={()=>{navigation.navigate('Main')}}></BigButton>
         </View>

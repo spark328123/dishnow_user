@@ -1,8 +1,9 @@
 import React,{useState,useEffect} from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, Image, FlatList } from 'react-native';
+import { View, StyleSheet, TouchableOpacity, Image, FlatList } from 'react-native';
 import {NavSwitchHead,TopMenuButton} from '../../component/common'
 import {handleAndroidBackButton} from '../../component/common/hardwareBackButton'
 import * as Utill from '../../utill'
+import Text from '../../component/common/Text'
 export default Client = ({navigation}) =>{
     _goBack = () => {
         navigation.navigate('TabMy')
@@ -16,11 +17,11 @@ export default Client = ({navigation}) =>{
         setPressed(isPressed);
     },[])
     console.log('Pressed?',isPressed)
-    const _Pressed = () => {
-        isPressed = true;
-    } 
+   
     _setIsPressed = (isPressed) => {
         setPressed(isPressed);
+        if(isPressed)
+            <View style = {styles.txt}></View>
     }
     return(
         <View style ={styles.container}>
@@ -34,13 +35,14 @@ export default Client = ({navigation}) =>{
                             title={`전화문의`} 
                             source={{uri:'icon_call_purple_helpcenter'}}
                             color = {Utill.color.primary1}
+                            onPress={()=>Utill.dishnow.callQnA()} 
                         />
                             <View style={{ justifyContent : 'center', alignItems : 'center', }}>
                             
                             </View>
                         </TouchableOpacity>
                     </View>
-
+                    <View style = {styles.lline}/>
                     <View style={styles.child}>
                         <TouchableOpacity
                         >
@@ -48,6 +50,7 @@ export default Client = ({navigation}) =>{
                             title={`카카오톡 문의`} 
                             source={{uri:'icon_message_purple_helpcenter'}} 
                             color = {Utill.color.primary1}
+                            onPress = {()=>Utill.dishnow.openKakaoPlusFreind()}
                         />
                             <View style ={{ justifyContent : 'center', alignItems : 'center', }}>
                             
@@ -60,24 +63,13 @@ export default Client = ({navigation}) =>{
             <View style={styles.line}/>
             
         <View style = {{paddingRight : 15, paddingLeft : 15}}>
-        
-            <View style = {styles.qstTxt}>
-                <Text style = {{marginTop:12,fontWeight :'bold'}}>FAQ</Text>
-            </View>
 
+            <Text style = {{marginTop:12,fontWeight :'bold'}}>FAQ</Text>
 
             <TouchableOpacity style = {styles.qst}
-            onPress = {  async() => { 
-                        await _Pressed ?
-                            <View style = {styles.cont}>
-                                <Text style = {styles.qstTxt}>
-                                    awef
-                                </Text>  
-                            </View>
-                            : null
-                        }}
+                onPress = { () => _setIsPressed(true)}
             >
-                <Text style = {styles.qstTxt}>
+                <Text style = {{color : Utill.color.textBlack, fontSize : 14}}>
                 [회원정보] 개인이 여러 개의 아이디를 만들 수 있나요?
                 </Text>
                 <Image
@@ -85,10 +77,12 @@ export default Client = ({navigation}) =>{
                     source = {{uri : "icon_rsquare_bracket_under"}}
                 />
             </TouchableOpacity>
-            
+
+            <View style={styles.line}/>
+
             <TouchableOpacity style = {styles.qst}>
-                <Text style = {styles.qstTxt}>
-                    [서비스] 예약을 취소 시 패널티가 있나요?'}
+                <Text style = {{color : Utill.color.textBlack, fontSize : 14}}>
+                    [서비스] 예약을 취소 시 패널티가 있나요?'
                 </Text>
                 <Image
                     style = {styles.img}
@@ -96,8 +90,10 @@ export default Client = ({navigation}) =>{
                 />
             </TouchableOpacity> 
 
+            <View style={styles.line}/>
+
             <TouchableOpacity style = {styles.qst}>
-                <Text style = {styles.qstTxt}>
+            <Text style = {{color : Utill.color.textBlack, fontSize : 14}}>
                     [서비스] 리뷰를 수정 또는 삭제할 수 있나요?
                 </Text>
                 <Image
@@ -106,8 +102,10 @@ export default Client = ({navigation}) =>{
                 />
             </TouchableOpacity>
 
+            <View style={styles.line}/>
+
             <TouchableOpacity style = {styles.qst}>
-                <Text style = {styles.qstTxt}>
+            <Text style = {{color : Utill.color.textBlack, fontSize : 14}}>
                     [서비스] 리뷰등록 포인트는 얼마인가요?
                 </Text>
                 <Image
@@ -115,16 +113,20 @@ export default Client = ({navigation}) =>{
                     source = {{uri : "icon_rsquare_bracket_under"}}
                 />
             </TouchableOpacity>
-            
+
+            <View style={styles.line}/>
+
             <TouchableOpacity style = {styles.qst}>
-            <Text style = {styles.qstTxt}>
+            <Text style = {{color : Utill.color.textBlack, fontSize : 14}}>
                 [서비스] 최종 예약 시 적립 포인트는 얼마인가요?
             </Text>
             <Image
                 style = {styles.img}
                 source = {{uri : "icon_rsquare_bracket_under"}}
             />
-        </TouchableOpacity>
+            </TouchableOpacity>
+
+            <View style={styles.line}/>
         </View>
         </View>
     )
@@ -133,44 +135,43 @@ export default Client = ({navigation}) =>{
 const styles = StyleSheet.create({
     container : {
         flex : 1,
+        backgroundColor : Utill.color.white,
     },
     qst : {
         flexDirection : 'row',
         fontSize : 14,
         color : Utill.color.textBlack,
+        alignItems : 'center',
+        height : 56,
+        justifyContent : 'space-between',
     },
-    qstTxt : {
-        fontSize : 14,
-        marginRight : 20,
-        marginBottom : 20,
+   
+    txt : {
+        height : 84,
+        fontSize : 12,
     },
     img : {
         height : 7,
         width : 12,
     },
-    cont : {
-        height:50,
-        fontSize : 16,
-    },
     parent : {                         // 디나포인트 + 나의리뷰 두개합친 뷰
         flexDirection : 'row',
-        height : 90,
+        height : 80,
     },
     child : {                          // 디나포인트, 나의리뷰 각각의 뷰 두개
         width : '50%',
         alignItems : 'center',
         justifyContent : 'center',
     }, 
-    menu : {
-        flexDirection : 'row',
-    },
     line : {
         borderBottomWidth: 1,
         borderBottomColor:Utill.color.border,
     },
     lline : {
-        borderTopWidth : 1,
-        borderBottomColor:Utill.color.border,
+        borderLeftWidth: 1,
+        borderLeftColor: Utill.color.border,
+        height : 60,
+        alignSelf : 'center',
     },
    
 })

@@ -64,7 +64,7 @@ export default Review = ({navigation}) =>{
                             storeName : item.name,
                             reviewId : item.reviewId,
                             isUpdate : true,
-                        }),alert('asd')}}
+                        }),Alert.alert('asd')}}
                         >
                         <Text style={styles.buttonText}>수정</Text>
                     </TouchableOpacity>
@@ -116,6 +116,7 @@ const styles = StyleSheet.create({
     container : {
         flex : 1,
         justifyContent:'center',
+        backgroundColor : Utill.color.white,
     },
     name: {
         fontSize: 16,
