@@ -17,7 +17,7 @@ const MyPoint = (props)=>{
     const _renderItem = ({item}) =>{
         return (
             <View style = {{height : 60}}>
-                <View style = {{flexDirection : 'row', justifyContent :'space-between',marginBottom:7,}}>
+                <View style = {{flexDirection : 'row', justifyContent :'space-between',marginBottom:7,marginTop:12,}}>
                     <Text style = {{fontSize : 14,color : Utill.color.textBlack}}>
                         {item.name}
                     </Text>
@@ -28,8 +28,7 @@ const MyPoint = (props)=>{
                 <Text style = {{color : Utill.color.textBlack,marginBottom:15}}>
                     {
                         item.createdAt.substring(0,10)+
-                        `(${parseint(item.createdAt.substring(0,4)) + 1}.${item.createdAt.substring(5,7)}
-                        ${item.createdAt.substring(8,10)}소멸)`
+                        `(${parseInt(item.createdAt.substring(0,4)) + 1}.${item.createdAt.substring(5,7)}.${item.createdAt.substring(8,10)}소멸)`
                     }
                 </Text>
                 <View style = {styles.line}></View>
@@ -53,14 +52,7 @@ const MyPoint = (props)=>{
             <NavSwitchHead navigation = {navigation} navtitle = {'TabMy'} title ={'디나포인트'}/>
             <View style = {styles.upper}>  
                 <Text 
-                    style = {{
-                        alignSelf:'center',
-                        fontSize : 24, 
-                        fontWeight : 'bold', 
-                        color:Utill.color.textBlack,
-                        marginTop : 14,
-                        marginBottom : 31,
-                }}>
+                    style = {styles.mainTxt}>
                     {`보유포인트 ${point}원`}
                 </Text>
                 <Text
@@ -71,7 +63,7 @@ const MyPoint = (props)=>{
                 <Text
                     style = {[styles.subTxt,{marginBottom:22}]}
                 >
-                    {`이번 달 소멸 예정 포인트는 ${point}원 입니다.`}
+                    {`이번 달 소멸 예정 포인트는 0원 입니다.`}
                 </Text>
                 <BigButtonBorder 
                     style = {styles.button}
@@ -119,16 +111,27 @@ const styles = StyleSheet.create({
         alignContent : 'center',
         marginLeft:15,
         marginRight : 15,
+        backgroundColor : Utill.color.white,
     },
     lower : {
         height : '61%',
         alignContent : 'center',
         marginLeft:15,
         marginRight : 15,
+        backgroundColor : Utill.color.white,
     },
     line : {
         borderBottomWidth: 1,
         borderBottomColor:Utill.color.border,
+    },
+    mainTxt : {
+        alignSelf:'center',
+        fontSize : 24, 
+        fontWeight : 'bold', 
+        color:Utill.color.textBlack,
+        marginTop : 14,
+        marginBottom : 31,
+        backgroundColor : Utill.color.white,
     },
     subTxt : {
         alignSelf:'center',
