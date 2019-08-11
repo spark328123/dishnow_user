@@ -166,3 +166,17 @@ export const changeprofile = (token,data) => {
     .then(res => ({isSuccess : res? true : false}))
     .catch(error => ({error})); 
 }
+
+export const getDNpoint = (token) => {
+    const url = `${apiUrl}user/dishnowPoint`;
+    return fetch.getAuthServer(url,token)
+    .then(res=>res.json())
+    .catch(error => ({error})); 
+}
+
+export const postDNpoint = (token,data) =>{
+    const url = `${apiUrl}user/dishnowPoint`;
+    return fetch.postAuthServer(url,token,data)
+    .then(res => ({isSuccess : res? true : false}))
+    .catch(error => ({error})); 
+}

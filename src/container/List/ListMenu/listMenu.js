@@ -4,7 +4,6 @@ import {
   Image,
   ScrollView,
   StyleSheet,
-  Text,
   View,
   TouchableOpacity,
   Dimensions,
@@ -19,6 +18,8 @@ import Page2 from './page2';
 import Page3 from './page3';
 import * as API from '../../../utill/API';
 import call from 'react-native-phone-call';
+import { Text } from '../../../component/common';
+import { connect } from 'react-redux';
 
 const icon_square_bracket_left = {uri : 'icon_square_bracket_left'};
 const icon_on_map = {uri : 'icon_on_map_black'};
@@ -27,10 +28,7 @@ const icon_star_outline = {uri : 'icon_star_full_list'};
 const icon_star_outline_half = {uri : 'icon_star_half_list'};
 const icon_star_outline_empty = {uri : 'icon_star_empty_list'};
 
-const photos =['http://www.the-pr.co.kr/news/photo/201809/40978_61156_1748.jpg',
-               'http://www.the-pr.co.kr/news/photo/201809/40978_61156_1748.jpg',
-               'http://www.the-pr.co.kr/news/photo/201809/40978_61156_1748.jpg'];
-  
+const ReviewAward = 500;
 
 const {width, height} = Dimensions.get('screen');
 const HEADER_TOP_SAFE = getInset('top', false);
@@ -48,6 +46,7 @@ const HEADER_TAB_HEIGHT = 88;
 const SCREEN_HEIGHT = height - HEADER_MAX_HEIGHT;
 
 const ListMenu = (props) =>  {
+  const phone = props.phone;
   const [data] = useState(props.navigation.getParam('resDetail'));
   const [reviewData] = useState(props.navigation.getParam('resReview'));
   const [photos] = useState(props.navigation.getParam('photos'));
@@ -171,7 +170,7 @@ const ListMenu = (props) =>  {
   // 화면 하단 지도 버튼
   const _onPressMapButton = () => {
     const args = {
-      number: '01083278936', // String value with the number to call
+      number: data.mainPhone, // String value with the number to call
       prompt: false // Optional boolean property. Determines if the user should be prompt prior to the call 
     }
   call(args).catch(console.error)
@@ -179,20 +178,25 @@ const ListMenu = (props) =>  {
     return;
   }
   // 화면 하단 예약하기 버튼
-  const _onPressReservationButton = () => {
+  const _onPressReservationButton = async() => {
     if(!isReservation){
       alert('예약이 불가능한 상태입니다.');
       return;
     }
     console.log('_onPressReservationButton');
-    const token =  API.getLocal(API.LOCALKEY_TOKEN);
-    const res = API.reservation_confirm(token,{
+    const token =  await API.getLocal(API.LOCALKEY_TOKEN);
+    await API.reservation_confirm(token,{
         storeId : props.navigation.getParam('storeId'), 
         reservationId : props.navigation.getParam('reservationId')})
-    console.log(res);
+    await API.postDNpoint(token,{
+        phone,
+        type : 'save',
+        diff : ReviewAward,
+        name : data.name,
+    });
+    navigation.navigate('TabHome');
     return;
   }
-
 
   // 화면 하단 예약하기 버튼
   const _onPressManageReviewButton = (reviewId) => {
@@ -284,16 +288,16 @@ const ListMenu = (props) =>  {
           >
 
             <Animated.View style={[styles.cardContent, {opacity : _contentOpactity}]}>
-              <Image style={styles.contentStar} source={data.rate>0 ? (data.rate<1 ? icon_star_outline_half : icon_star_outline) : icon_star_outline_empty}/>
-              <Image style={styles.contentStar} source={data.rate>1 ? (data.rate<2 ? icon_star_outline_half : icon_star_outline) : icon_star_outline_empty}/>
-              <Image style={styles.contentStar} source={data.rate>2 ? (data.rate<3 ? icon_star_outline_half : icon_star_outline) : icon_star_outline_empty}/>
-              <Image style={styles.contentStar} source={data.rate>3 ? (data.rate<4 ? icon_star_outline_half : icon_star_outline) : icon_star_outline_empty}/>
-              <Image style={styles.contentStar} source={data.rate>4 ? (data.rate<5 ? icon_star_outline_half : icon_star_outline) : icon_star_outline_empty}/>
+              <Image style={styles.contentStar} source={data.rating>0 ? (data.rating<1 ? icon_star_outline_half : icon_star_outline) : icon_star_outline_empty}/>
+              <Image style={styles.contentStar} source={data.rating>1 ? (data.rating<2 ? icon_star_outline_half : icon_star_outline) : icon_star_outline_empty}/>
+              <Image style={styles.contentStar} source={data.rating>2 ? (data.rating<3 ? icon_star_outline_half : icon_star_outline) : icon_star_outline_empty}/>
+              <Image style={styles.contentStar} source={data.rating>3 ? (data.rating<4 ? icon_star_outline_half : icon_star_outline) : icon_star_outline_empty}/>
+              <Image style={styles.contentStar} source={data.rating>4 ? (data.rating<5 ? icon_star_outline_half : icon_star_outline) : icon_star_outline_empty}/>
 
               <Text 
                 style={[styles.contentStarText]}
               >
-                {data.rate}
+                {data.rating}
               </Text>
             </Animated.View>
 
@@ -389,6 +393,15 @@ const ListMenu = (props) =>  {
 }
 
 
+const mapStateToProps = (state) => {
+    console.log(state);
+    return {
+        phone : state.User._root.entries[3][1],
+    }
+}
+
+export default connect(mapStateToProps)(ListMenu);
+
 
 const styles = StyleSheet.create({
   fill: {
@@ -459,4 +472,3 @@ const styles = StyleSheet.create({
 });
 
 // export default ScrollableHeader;
-export default ListMenu;
