@@ -11,15 +11,33 @@ import {
     Switch,
 } from 'react-native';
 import LogOut from './logout'
-import {Button, BigButtonColor,MenuButton,TopMenuButton} from '../../component/common'
+import {Button, BigButtonColor,MenuButton,TopMenuButton,PushButton} from '../../component/common'
 import * as Color from '../../utill/color'
 import * as API from '../../utill/API' 
 import * as Utill from '../../utill'
 import  * as User from '../../store/modules/user'
 import { connect, useDispatch } from 'react-redux';
+import OneSignal from 'react-native-onesignal';
+import Toast from 'react-native-simple-toast';
 
 const TabMy = ({navigation, userid, nickname, image, phone, point, name, reviewcount}) => { 
-    
+    const [Pressed,setPressed] = useState(false);
+
+    _setPressed = (Pressed) => {
+        if(Pressed) Pressed = false;
+        else Pressed = true;
+        setPressed(Pressed);
+     }
+
+    const _pushStop = ()=>{
+        OneSignal.removeEventListener();
+        Toast.show('푸시가 중단되었습니다.');
+    } 
+
+    const _pushStart = ()=>{
+        OneSignal.addEventListener()
+        Toast.show('푸시가 시작되었습니다.');
+    }
     const [id, idChange] = useState(userid);
     const [nick, nickChange] = useState(nickname);
     const [photo, setPhoto] = useState(image);
@@ -27,11 +45,15 @@ const TabMy = ({navigation, userid, nickname, image, phone, point, name, reviewc
     const [pt, ptChange] = useState(point);
     const [nm, nmChange] = useState(name);
     const [rvcount, rvcountChange] = useState(reviewcount);
-
     const _me = () => {
         let imageString = JSON.stringify(image);
-        imageString = imageString.substring(4,imageString.length-4);
-        setPhoto({uri :imageString});
+        if(imageString.length<5){
+            setPhoto(false);
+        }
+        else{
+            imageString = imageString.substring(4,imageString.length-4);
+            setPhoto({uri :imageString});
+        }
         if(nick===null){
             nickChange(name);
             dispatch(User.updatenickname(name));
@@ -45,7 +67,6 @@ const TabMy = ({navigation, userid, nickname, image, phone, point, name, reviewc
     useEffect(()=>{ 
         _me();
     },[])
-
     const _logOut = async () => {
         await API.setLocal(API.LOCALKEY_TOKEN, 'null');
         navigation.navigate('Splash')
@@ -61,7 +82,7 @@ const TabMy = ({navigation, userid, nickname, image, phone, point, name, reviewc
             <View style={styles.top}>
                 <TouchableOpacity 
                     style = {{flexDirection : 'row'}}
-                    onPress = {()=>navigation.push('Profile',
+                    onPress = {()=>navigation.navigate('Profile',
                     {
                         name : nm,
                         userid : id,
@@ -70,19 +91,19 @@ const TabMy = ({navigation, userid, nickname, image, phone, point, name, reviewc
                         phone : phonenum,
                     })}
                 >
-                    {photo &&  (
+                {photo &&  (
                     <Image
                         source={{uri : photo.uri}}
                         style={{ width: 45, height: 45, borderRadius : 40}}
                     />
-                    )}
-
-                    {!photo && ( 
-                        <Image
-                        source={{uri : 'icon_profile'}}
-                        style={{ width: 45, height: 45 }}
-                        />
-                    )}
+                )}
+                {!photo && ( 
+                    <Image
+                    source={{uri : 'icon_profile'}}
+                    style={{ width: 45, height: 45 }}
+                    />
+                )}
+                    
                     <Text style={{alignItems : 'center', marginTop : 10, marginLeft : 5, fontSize : 16, fontWeight: 'bold', color : "#111111", fontFamily : "NanumSquareOTF"}}>
                         {nick}
                     </Text>
@@ -99,12 +120,12 @@ const TabMy = ({navigation, userid, nickname, image, phone, point, name, reviewc
             <View style = { styles.parent }>
                 <View style={styles.child}>
                     <TouchableOpacity
-                        onPress = {()=>navigation.push('Point',{pt})}
+                        onPress = {()=>navigation.navigate('Point',{pt})}
                     >
                     <TopMenuButton 
                         title={`디나포인트`} 
                         source={{uri:'icon_logo_purple_main'}} 
-                        onPress = {()=>navigation.push('Point', {pt})}
+                        onPress = {()=>navigation.navigate('Point', {pt})}
                     />
                         <View style={{ justifyContent : 'center', alignItems : 'center', }}>
                         <Text style={{fontSize : 24, color : "#111111" , fontFamily : "NanumSquareOTF"}}>
@@ -116,12 +137,12 @@ const TabMy = ({navigation, userid, nickname, image, phone, point, name, reviewc
 
                 <View style={styles.child}>
                     <TouchableOpacity
-                        onPress = {()=>navigation.push('Review', {rvcount})}
+                        onPress = {()=>navigation.navigate('Review', {rvcount})}
                     >
                     <TopMenuButton 
                         title={`나의 리뷰`} 
                         source={{uri:'icon_review'}} 
-                        onPress = {()=>navigation.push('Review', {rvcount})}
+                        onPress = {()=>navigation.navigate('Review', {rvcount})}
                     />
                         <View style ={{ justifyContent : 'center', alignItems : 'center', }}>
                         <Text style={{fontSize : 24, color : "#111111" , fontFamily : "NanumSquareOTF"}}>
@@ -144,9 +165,6 @@ const TabMy = ({navigation, userid, nickname, image, phone, point, name, reviewc
             <MenuButton 
                 title={`이용약관`} 
                 source={{uri:'icon_terms'}} 
-                // onPress = {()=>navigation.push('webView',
-                //     {source : {uri : 'http://dishnow.kr/Terms.html'}}
-                // )} 
                 onPress = {()=>navigation.navigate('myTerms')}
                 style = {styles.menus} 
             />
@@ -154,15 +172,19 @@ const TabMy = ({navigation, userid, nickname, image, phone, point, name, reviewc
             <MenuButton 
                 title={'고객센터'} 
                 source={{uri:'icon_helpcenter'}} 
-                onPress={()=>navigation.navigate('Client')} style = {styles.menus} 
+                onPress={()=>navigation.navigate('Client')}
+                style = {styles.menus} 
             />
-            
-            <MenuButton 
+
+            <PushButton 
                 title={'푸쉬알람'} 
                 source={{uri:'icon_push'}} 
-                style = {styles.menus} 
-                
+                style = {styles.menus}
+                onValueChange = {()=>{_setPressed(Pressed);}}
+                value = {!Pressed}
             />
+                
+
             
             <MenuButton 
                 title={'로그아웃'} 
@@ -193,7 +215,6 @@ const TabMy = ({navigation, userid, nickname, image, phone, point, name, reviewc
 
 const mapStateToProps = (state) => {
     console.log(state);
-    console.log(state.User._root.entries[6][1]);
     return {
         userid : state.User._root.entries[0][1],
         nickname : state.User._root.entries[2][1],

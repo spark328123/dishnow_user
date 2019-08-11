@@ -1,10 +1,19 @@
 import React, {useState,useEffect} from 'react';
-import { View, StyleSheet, AppRegistry, ScrollView, TouchableOpacity, TextInput, Image } from 'react-native';
+import { View, 
+    StyleSheet, 
+    AppRegistry, 
+    ScrollView, 
+    TouchableOpacity, 
+    TextInput, 
+    Image, 
+    KeyboardAvoidingView, 
+    Keyboard, 
+    TouchableWithoutFeedback } from 'react-native';
 import GoogleMap from '../utill/googlemap.js';
 import { useDispatch, connect } from 'react-redux';
 import * as API from '../utill/API';
 import * as Utill from '../utill';
-import user, * as User from '../store/modules/user'
+import  * as User from '../store/modules/user'
 import ModalDropdown from 'react-native-modal-dropdown';
 import { BigButtonColor, Text } from '../component/common'
 import OneSignal from 'react-native-onesignal';
@@ -32,7 +41,6 @@ const TabHome = (props)=>{
         console.log(reviewcount);
         const pushToken = await API.getPush(API.PUSH_TOKEN);
         const ret = await API.setPushToken(token,{pushToken});
-        
     }
 
     const [people, setPeople] = useState('');
@@ -121,7 +129,7 @@ const TabHome = (props)=>{
     }
 
     return(
-        <View style = {styles.container}>
+        <KeyboardAvoidingView style={styles.container} behavior="padding" enabled>
             <View style = {styles.map}>
             <GoogleMap
                isPressed = { false }
@@ -173,12 +181,17 @@ const TabHome = (props)=>{
                         </TouchableOpacity>
                         </View>
                     </ScrollView>
+            <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
+
                 <View style={[styles.parent, {height: Utill.screen.Screen.customHomeHeight(172)}]} horizontal = {true}>
+
+               
                 <View style={styles.content}>
                     <View style={styles.child}>
                         <View style={styles.childchild1}><Text style = {styles.tst}>인원</Text></View>
                         <View style = {styles.childchild2}>
                             <TextInput 
+                            keyboardType = 'numeric'
                             selectionColor = '#733FFF'
                             placeholder ={'00'}
                             onChangeText={(text) => setPeople({text})}
@@ -213,7 +226,10 @@ const TabHome = (props)=>{
                         </View>
                     </View>
                     </View>
+               
                 </View>
+            </TouchableWithoutFeedback>
+
             <View style={{alignItems: 'center'}}>
             <BigButtonColor 
                     style={[styles.find, {marginBottom: Utill.screen.Screen.customHeight(52)}]}
@@ -222,7 +238,7 @@ const TabHome = (props)=>{
             />
             </View>
             </View>
-        </View>
+        </KeyboardAvoidingView>
     )
 }
 

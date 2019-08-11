@@ -1,15 +1,17 @@
-import {NavHead} from '../../component/common';
+import {NavSwitchHead,handleAndroidBackButton} from '../../component/common';
 import React from 'react';
 import {View,StyleSheet,Text,TouchableOpacity} from 'react-native';
 import * as Utill from '../../utill'
 export default myTerms = ({navigation}) => {
     return (
     <View style = {styles.container}>
-        <NavHead navigation={navigation} title={`이용약관`}/>
+        <NavSwitchHead navigation={navigation} navtitle = {'TabMy'} title={`이용약관`}/>
         <View style = {{marginRight : 15,marginLeft : 15}}>
             <TouchableOpacity 
                 style = {{height : 51,justifyContent : 'center',}}
-                onPress = {()=>navigation.push('webView',{
+                onPress = {()=>navigation.navigate('webView',{
+                    title : '이용약관',
+                    navtitle : 'myTerms',
                     source : {uri : 'http://dishnow.kr/terms/1.html'}
                 })}    
             >
@@ -20,7 +22,9 @@ export default myTerms = ({navigation}) => {
 
             <TouchableOpacity 
                 style = {{height : 51,justifyContent : 'center',}}
-                onPress = {()=>navigation.push('webView',{
+                onPress = {()=>navigation.navigate('webView',{
+                    title : '이용약관',
+                    navtitle : 'myTerms',
                     source : {uri : 'http://dishnow.kr/terms/2.html'}
                 })}  
             >
@@ -30,7 +34,9 @@ export default myTerms = ({navigation}) => {
             <View style = {styles.line}/>
 
             <TouchableOpacity style = {{height : 51,justifyContent : 'center',}}
-                onPress = {()=>navigation.push('webView',{
+                onPress = {()=>navigation.navigate('webView',{
+                    title : '이용약관',
+                    navtitle : 'myTerms',
                     source : {uri : 'http://dishnow.kr/terms/3.html'}
                 })}  
             >
@@ -40,7 +46,9 @@ export default myTerms = ({navigation}) => {
             <View style = {styles.line}/>
             
             <TouchableOpacity style = {{height : 51,justifyContent : 'center',}}
-                onPress = {()=>navigation.push('webView',{
+                onPress = {()=>navigation.navigate('webView',{
+                    title : '이용약관',
+                    navtitle : 'myTerms',
                     source : {uri : 'http://dishnow.kr/terms/4.html'}
                 })}  
             >

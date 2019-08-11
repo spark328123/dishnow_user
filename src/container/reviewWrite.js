@@ -96,9 +96,9 @@ export default (props) => {
         setImageArray(imageArray.map(
             (item, i) => {
                 if(i===length){
-                    return {...item,source}
+                    return {...item,source};
                 }else{
-                    return item
+                    return item;
                 }
             }
         ).concat({
@@ -116,7 +116,6 @@ export default (props) => {
             imageReq.filter(info => info !== item.source.uri)
         );
     }
-
 
     const _updateRating = async(id) => {
         setStarArray(starArray.map(
@@ -150,10 +149,9 @@ export default (props) => {
         const res = await API.reviewWirte(token,data);
         console.log(res);
         if(res){
-            console.log(isUpdate);
             if(isUpdate==='false'){
                 Toast.show('리뷰가 등록되었습니다!');
-                navigation.pop();
+                navigation.navigate('TabBooked');
             }else {
                 Toast.show('리뷰가 수정되었습니다!');
                 navigation.navigate('MyReview');

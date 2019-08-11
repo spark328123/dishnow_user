@@ -1,14 +1,17 @@
-import React, { useEffect, useState, memo } from 'react';
-import { View, StyleSheet, FlatList, Image } from 'react-native';
-import { NavHead, Text, Button } from '../../component/common'
+import React, { useEffect, useState,memo } from 'react';
+import { View, Text, StyleSheet, FlatList, Image } from 'react-native';
+import {NavSwitchHead} from '../../component/common'
+
 import * as API from '../../utill/API';
 import * as Utill from '../../utill';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import Dialog from "react-native-dialog";
 import Toast from 'react-native-simple-toast';
 
-export default Review = ({navigation}) =>{
+const full_field_star = { uri : 'icon_star_full_review'};
+const empty_field_star = { uri : 'icon_star_empty_review'};
 
+export default Review = ({navigation}) =>{
     const _showReview = async() =>{
         const token = await API.getLocal(API.LOCALKEY_TOKEN);
         const res = await API.reviewMe(token);
@@ -35,35 +38,45 @@ export default Review = ({navigation}) =>{
     }
 
     const _renderItem = ({item}) => {
-        let imageUrl = JSON.stringify(item.image);
-        imageUrl = ((imageUrl.substring(4,imageUrl.length-4)).split(','));
-        const ImageWidth = imageUrl[0].length !==4? Utill.screen.Screen.customWidth(330) : 0;
-        const ImageHeigt = imageUrl[0].length !==4? Utill.screen.Screen.customWidth(182) : 0;
+        let imageUrl = item.image;
+        console.log(item);
+        imageUrl = ((imageUrl.substring(1,imageUrl.length-1)).split(','));
+        const ImageWidth =Utill.screen.Screen.customWidth(330);
+        const ImageHeigt =  Utill.screen.Screen.customWidth(182);
+        const len = imageUrl.length;
         
         if(item.rating!==null){
         return (
             <View style = {styles.container}>
                 <Text style={styles.name}>{item.name}</Text>
                 <View style={styles.informationContainer}>
-                    <Text>{item.rating}</Text>
-                    <Text style={styles.date}>{item.createdAt}</Text>
+                    <View style = {{flexDirection : 'row'}}>
+                        <Image style = { {width :12,height :12}} source = {item.rating>=1? full_field_star : empty_field_star}/>
+                        <Image style = { {width :12,height :12}} source = {item.rating>=2? full_field_star : empty_field_star}/>
+                        <Image style = { {width :12,height :12}} source = {item.rating>=3? full_field_star : empty_field_star}/>
+                        <Image style = { {width :12,height :12}} source = {item.rating>=4? full_field_star : empty_field_star}/>
+                        <Image style = { {width :12,height :12}} source = {item.rating>=5? full_field_star : empty_field_star}/>
+                    </View>
+                    <Text style={styles.date}>{item.createdAt.substring(0,10)}</Text>
                 </View>
-                <Image onLoad = {setIsLoaded(false)} style = {{width : ImageWidth, height :ImageHeigt}}source = {{uri : imageUrl[0]}}></Image>
+                {len >=1 && imageUrl[0].length>=3 && <Image style = {{width : ImageWidth, height :ImageHeigt}}source = {{uri : imageUrl[0].substring(1,imageUrl[0].length-1)}}/>}
+                {len >=2 && <Image style = {{width : ImageWidth, height :ImageHeigt}}source = {{uri : imageUrl[1].substring(1,imageUrl[1].length-1)}}/>}
+                {len >=3 && <Image style = {{width : ImageWidth, height :ImageHeigt}}source = {{uri : imageUrl[2].substring(1,imageUrl[2].length-1)}}/>}
                 <View style={styles.contentContainer}>
                     <Text style={styles.contentText}>{item.content}</Text>
                 </View>
                 <View style={styles.button}>
                     <TouchableOpacity
-                        onPress = {()=>navigation.navigate('ReviewWrite',{
+                        onPressIn = {()=>{navigation.navigate('ReviewWrite',{
                             storeName : item.name,
                             reviewId : item.reviewId,
                             isUpdate : true,
-                        })}
+                        })}}
                         >
                         <Text style={styles.buttonText}>수정</Text>
                     </TouchableOpacity>
                     <TouchableOpacity
-                     onPress ={()=>{setVisible(true);setDeleteReviewId(item.reviewId)}}
+                     onPressIn ={()=>{setVisible(true);setDeleteReviewId(item.reviewId)}}
                      style={{marginLeft: Utill.screen.Screen.customWidth(21)}}>
                         <Text style={styles.buttonText}>삭제</Text>
                     </TouchableOpacity>
@@ -90,7 +103,7 @@ export default Review = ({navigation}) =>{
         }
         
         }>
-        <NavHead navigation={navigation} title={`나의 리뷰`}/>
+        <NavSwitchHead navigation={navigation} navtitle = {'TabMy'} title={`나의 리뷰`}/>
           <FlatList
             data = {data}
             renderItem = {_renderItem}

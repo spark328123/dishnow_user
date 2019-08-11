@@ -1,14 +1,40 @@
 import React, {useState} from 'react';
+import {View,StyleSheet,TouchableOpacity,Image} from 'react-native';
 import {WebView} from 'react-native-webview';
-import {NavHead} from '../component/common'
-export default webView = ({navigation}) => {
+import {NavSwitchHead,NavHead,handleAndroidBackButton} from '../component/common'
+export default webView = ({navigation,navtitle,title}) => {
+    console.log(navtitle,title);
     const [source] = useState(navigation.getParam('source'));
-    const [title] = useState(navigation.getParam('title'));
+    const _goBack = ()=>{
+        navigation.navigate(navtitle);
+        console.log(navtitle);
+    }
+    //handleAndroidBackButton(_goBack)
+    
     return(
+        <View style = {{flex : 1}}>
+        {navtitle? 
+            <NavHead navigation={navigation} title={navigation.getParam('title')}/> : 
+            <NavSwitchHead navigation={navigation} navtitle = {navigation.getParam('navtitle')} title={navigation.getParam('title')}/>
+        }
         <WebView
             source={source}
-            style={{ flex: 1,marginTop : 15, }}
-            //onNavigationStateChange={(navEvent) => console.log(navEvent.jsEvaluationValue)}
+            //navigation = {navigation}
+            onNavigationStateChange={(navEvent) => console.log(navEvent.jsEvaluationValue)}
+        
         />
+        </View>
     )
 }
+
+const styles = StyleSheet.create ({
+    backFixed : {
+        width : 20,
+        height : 20,
+        left : '12%',
+        marginLeft: -24,
+        marginTop: -24,
+        position: 'absolute',
+        top : '12%'
+      },
+})
