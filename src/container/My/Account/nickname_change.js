@@ -15,7 +15,7 @@ import  * as User from '../../../store/modules/user'
 import * as Utill from '../../../utill'
 export default Nick = ({navigation}) => {
     const [nickName,setNickName] = useState(navigation.getParam('nickname')); //닉네임
-    const [nickLength,setNickLength] = useState(0);
+    const [nickLength,setNickLength] = useState(navigation.getParam('nickname').length);
     const [pressed,isPressed] = useState(false);
     const id = navigation.getParam('id'); //사용자 id
     const dispatch = useDispatch();
@@ -31,13 +31,13 @@ export default Nick = ({navigation}) => {
                     [
                         {
                             text: '확인', onPress: () =>  _setNickName(''), 
-                            
                         },
                     ],
                     {cancelable: false},
                 );
             }
     }
+  
     _saveNickName = async (nickName)=>{
         //토큰을 끌어옴
         const token = await API.getLocal(API.LOCALKEY_TOKEN);
@@ -58,7 +58,6 @@ export default Nick = ({navigation}) => {
                         [
                             {
                                 text: '확인', onPress: () =>  _saveNickName(nickName), 
-                                
                             },
                         ],
                         {cancelable: false},
@@ -82,7 +81,7 @@ export default Nick = ({navigation}) => {
                         onPress = {()=>_setNickName('',console.log('CancleCliked and nameis : ',nickName.length))}
                     >
                             <Image
-                                style = {{width:12,height:12,position : 'absolute',bottom : 8}}
+                                style = {{width:12,height:12,position : 'absolute',bottom : 13}}
                                 source = {{uri : 'icon_x'}}
                             />
                     </TouchableOpacity>
@@ -105,6 +104,7 @@ export default Nick = ({navigation}) => {
 const styles = StyleSheet.create({
     container : {
         flex : 1,
+        backgroundColor : Utill.color.white,
     },
     txt : {
         flexDirection : 'row',

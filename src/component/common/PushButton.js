@@ -8,21 +8,22 @@ import {Button, Text} from '../common';
 const PushButton = ({title, source, style,onValueChange,value}) => {
     return (
         <View style={[style, styles.container]}>
-            <Image
-                resizeMode={'contain'}
-                style = {styles.icon}
-                source={source}
-            /> 
-                               
-            <View>
-                <Text style = {styles.text}>
-                    {title}
-                </Text>
+            <View style = {{flexDirection : 'row'}}>
+                <Image
+                    resizeMode={'contain'}
+                    style = {styles.icon}
+                    source={source}
+                /> 
+                                
+                <View>
+                    <Text style = {styles.text}>
+                        {title}
+                    </Text>
+                </View>
             </View>
             <Switch
                 value = {value}
                 onValueChange = {onValueChange}
-                style = {{width : '78%'}}
                 thumbColor={Utill.color.white}
                 trackColor={{false: Utill.color.defaultColor, true: Utill.color.primary1}}
                 ios_backgroundColor={{false: Utill.color.defaultColor, true: Utill.color.primary1}}
@@ -37,7 +38,7 @@ const styles = StyleSheet.create({
     container : {
         flexDirection : 'row',
         alignItems : 'center',
-        
+        justifyContent : 'space-between',
     },
     iconArea : {
         width : 15,

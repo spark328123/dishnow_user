@@ -17,18 +17,29 @@ import * as Utill from '../../utill';
 import ImagePicker from 'react-native-image-picker';
 import Dialog from "react-native-dialog";
 import { useDispatch, connect } from 'react-redux';
-import {NavHead, NavSwitchHead} from '../../component/common'
+import {NavHead, NavSwitchHead,CustomAlert} from '../../component/common'
+import {handleAndroidBackButton} from '../../component/common/hardwareBackButton'
 import  * as User from '../../store/modules/user'
 const defaultImageSource = ({uri: 'icon_add_photo'});
 
 const Profile = ({navigation, userid, nickname, image, phone, point, name}) => {
-    
+    _goBack = () => {
+        navigation.navigate('TabMy')
+    }
+
+    handleAndroidBackButton(_goBack);
     const [id, idChange] = useState(userid);
     const [nick, nickChange] = useState(nickname);
-    const [photo, setPhoto] = useState(image);
     const [phonenum, phoChange] = useState(phone);
     const [pt, ptChange] = useState(point);
     const [nm, nmChange] = useState(name);
+    const [profile, setProfile] = useState({uri:image.substring(2,image.length-2)}); 
+    const [isAlertVisible, setIsAlertVisible] = useState(false);
+    const photo = [];
+
+    const _onPressAlertOk = () => {
+        setIsAlertVisible(false);
+    }
 
     const _handleChoosePhoto = async() => {
         console.log('눌렀음');
@@ -38,64 +49,61 @@ const Profile = ({navigation, userid, nickname, image, phone, point, name}) => {
         };
        ImagePicker.launchImageLibrary(options, response => {
             console.log("response", response);
-            if(response.uri){
-                setPhoto(response);
-                
+            if (response.didCancel) {
+                console.log('User cancelled image picker');
+            } else if (response.error) {
+                console.log('ImagePicker Error: ', response.error);
+            } else if (response.customButton) {
+                console.log('User tapped custom button: ', response.customButton);
+            } else {
+                photo.push(response.uri);
+                setProfile({uri : response.uri});
+                _savePhoto(photo);
             }
        });
     }
-
-    const _didMount = async ()=>{
-        
-        console.log('image',image);
-        let imageString = JSON.stringify(image);
-        if(imageString.length<5){
-            setPhoto(false);
-        }
-        else{
-            imageString = imageString.substring(4,imageString.length-4);
-            setPhoto({uri :imageString});
-            _uploadPhoto(image);
-
-        }
-    }
-
-    useEffect(()=>{
-        _didMount();
-    },[photo]);
-
-
-    const _deleteSource = (item) => {   //view && req remove
-        setImageArray(
-            imageArray.filter(info => info.id !== item.id)
-        );
-        setImageReq(
-            imageReq.filter(info => info !== item.source.uri)
-        );
-    }
-
-    const _uploadPhoto = async(data) => {       //upload(s3) 
-        
-        const res = await API.uploadPhoto(data);
+    const _savePhoto = async (photo)=>{
+        const token = await API.getLocal(API.LOCALKEY_TOKEN);
+        var data = await _uploadPhoto(photo);
+        console.log('token'+ token,data);
         console.log(data);
-        await(dispatch(User.updateimage(data)));
-        return JSON.stringify(res.data);
+        //토큰을 끌어옴
+        //토큰에 해당하는 db에 image 바꿈
+        await API.changeprofile(token,{image:data});
+        //바뀐 image 예쁘게 끌고와서 업데이트함
+        dispatch(User.updateimage(data));
     }
 
-
+    const _uploadPhoto = async(data) => {  
+        const res = await API.uploadPhoto(data);
+        console.log("awregawegeawweg" ,JSON.stringify(res));
+        var profile = JSON.stringify(res.data); 
+        console.log(profile);
+        return profile;
+    }
+    
     const dispatch = useDispatch();
     
     return ( 
-        
-        <View style={{flex : 1}}>
+        <View style={styles.container}>
             <NavSwitchHead navigation={navigation} title={`계정관리`} navtitle ={'TabMy'}/>
+            <CustomAlert 
+                visible={isAlertVisible} 
+                mainTitle={'디쉬나우 탈퇴'}
+                mainTextStyle = {styles.txtStyle}
+                subTitle = {'탈퇴하시겠습니까?'}
+                subTextStyle = {styles.subtxtStyle}
+                buttonText1={'아니오'} 
+                buttonText2={'네'} 
+                onPress={_onPressAlertOk} 
+            />
             <View style = {{marginLeft:15, marginRight : 15}}>
                 <TouchableOpacity onPress={()=>_handleChoosePhoto()}
                     style = {{alignItems : 'center', marginTop : 15}}
                 >
                 {photo &&  (
                     <Image
-                        source={{uri : photo.uri}}
+                        source={profile}
                         style={{ width: 90, height: 90, borderRadius : 40}}
                     />
                 )}
@@ -164,7 +172,10 @@ const Profile = ({navigation, userid, nickname, image, phone, point, name}) => {
                     </View>
                 </TouchableOpacity>
                 
-                <TouchableOpacity style={{height : 43, flexDirection : 'row' }}>
+                <TouchableOpacity 
+                    style={{height : 43, flexDirection : 'row'}}
+                    onPress = {()=> setIsAlertVisible(true)}
+                >
                     <View style={{width : '50%'}}>
                         <Text style={{fontSize : 14, color : '#555555', fontFamily : 'NanumSquareOTF' }}>디쉬나우 탈퇴</Text>
                     </View>
@@ -195,6 +206,10 @@ const mapStateToProps = (state) => {
 export default connect(mapStateToProps)(Profile);
 
 const styles = StyleSheet.create({
+    container : {
+        flex : 1,
+        backgroundColor : Utill.color.white,
+    },
     pht : {
         height : 20,
         alignItems : 'center',
@@ -220,5 +235,17 @@ const styles = StyleSheet.create({
         borderBottomWidth: 1,
         borderBottomColor:Utill.color.border,
     },
-
+    txtStyle : {
+        marginBottom : 9,
+        fontSize : 18,
+        fontWeight : 'bold',
+        color : Utill.color.red,
+        alignSelf : 'center',
+    },
+    subtxtStyle : {
+        marginBottom : 35,
+        fontSize : 16,
+        color : Utill.color.textBlack,
+        alignSelf : 'center',
+    },
 })

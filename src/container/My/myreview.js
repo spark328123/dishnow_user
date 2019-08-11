@@ -59,7 +59,7 @@ export default Review = ({navigation}) =>{
                     </View>
                     <Text style={styles.date}>{item.createdAt.substring(0,10)}</Text>
                 </View>
-                {len >=1 && imageUrl[0].length>=3 && <Image style = {{width : ImageWidth, height :ImageHeigt}}source = {{uri : imageUrl[0].substring(1,imageUrl[0].length-1)}}/>}
+                {len >=1 && imageUrl[0].length>=4 && <Image style = {{width : ImageWidth, height :ImageHeigt}}source = {{uri : imageUrl[0].substring(1,imageUrl[0].length-1)}}/>}
                 {len >=2 && <Image style = {{width : ImageWidth, height :ImageHeigt}}source = {{uri : imageUrl[1].substring(1,imageUrl[1].length-1)}}/>}
                 {len >=3 && <Image style = {{width : ImageWidth, height :ImageHeigt}}source = {{uri : imageUrl[2].substring(1,imageUrl[2].length-1)}}/>}
                 <View style={styles.contentContainer}>

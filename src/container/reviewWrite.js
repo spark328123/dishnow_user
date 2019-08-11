@@ -16,15 +16,18 @@ import * as Utill from '../utill';
 import ImagePicker from 'react-native-image-picker';
 import Dialog from "react-native-dialog";
 import { Text,NavHead } from '../component/common/';
-import Toast from 'react-native-simple-toast';;
+import Toast from 'react-native-simple-toast';
+import { connect } from 'react-redux';
 
 const defaultImageSource = {uri: 'icon_add_photo'};
 const addImageSource = {uri: 'icon_add_photo_add'};
 const defaultStar = {uri : 'icon_star_empty_review'};
 const checkStar = {uri : 'icon_star_full_review'};
+
+const ReviewAward = 500;
  
-export default (props) => {
-    const { navigation } = props;
+const ReviewWrite = (props) => {
+    const { navigation, phone } = props;
     const storeName = navigation.getParam('storeName');
     const isUpdate = navigation.getParam('isUpdate');
     const [ reviewId ] = useState(navigation.getParam('reviewId'));
@@ -152,6 +155,12 @@ export default (props) => {
             if(isUpdate==='false'){
                 Toast.show('리뷰가 등록되었습니다!');
                 navigation.navigate('TabBooked');
+                await API.postDNpoint(token,{
+                    phone,
+                    type : 'save',
+                    diff : ReviewAward,
+                    name : storeName,
+                });
             }else {
                 Toast.show('리뷰가 수정되었습니다!');
                 navigation.navigate('MyReview');
@@ -243,6 +252,15 @@ export default (props) => {
         </TouchableWithoutFeedback>
     );
 }
+
+const mapStateToProps = (state) => {
+    console.log(state);
+    return {
+        phone : state.User._root.entries[3][1],
+    }
+}
+
+export default connect(mapStateToProps)(ReviewWrite);
 
 const styles = StyleSheet.create({
     container : {

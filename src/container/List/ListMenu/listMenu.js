@@ -10,7 +10,7 @@ import {
   Platform,
 } from 'react-native';
 import { getInset } from 'react-native-safe-area-view';
-import {NavHead} from '../../../component/common'
+import {NavHead, NavSwitchHead} from '../../../component/common'
 import BannerView from '../../../component/bannerView';
 import TabButton from '../../../component/TabButton';
 import Page1 from './page1';
@@ -19,6 +19,7 @@ import Page3 from './page3';
 import * as API from '../../../utill/API';
 import call from 'react-native-phone-call';
 import { Text } from '../../../component/common';
+import { connect } from 'react-redux';
 
 const icon_square_bracket_left = {uri : 'icon_square_bracket_left'};
 const icon_on_map = {uri : 'icon_on_map_black'};
@@ -26,6 +27,8 @@ const icon_call = {uri : 'icon_call'};
 const icon_star_outline = {uri : 'icon_star_full_list'};
 const icon_star_outline_half = {uri : 'icon_star_half_list'};
 const icon_star_outline_empty = {uri : 'icon_star_empty_list'};
+
+const ReviewAward = 500;
 
 const {width, height} = Dimensions.get('screen');
 const HEADER_TOP_SAFE = getInset('top', false);
@@ -43,6 +46,7 @@ const HEADER_TAB_HEIGHT = 88;
 const SCREEN_HEIGHT = height - HEADER_MAX_HEIGHT;
 
 const ListMenu = (props) =>  {
+  const phone = props.phone;
   const [data] = useState(props.navigation.getParam('resDetail'));
   const [reviewData] = useState(props.navigation.getParam('resReview'));
   const [photos] = useState(props.navigation.getParam('photos'));
@@ -174,20 +178,25 @@ const ListMenu = (props) =>  {
     return;
   }
   // 화면 하단 예약하기 버튼
-  const _onPressReservationButton = () => {
+  const _onPressReservationButton = async() => {
     if(!isReservation){
       alert('예약이 불가능한 상태입니다.');
       return;
     }
     console.log('_onPressReservationButton');
-    const token =  API.getLocal(API.LOCALKEY_TOKEN);
-    const res = API.reservation_confirm(token,{
+    const token =  await API.getLocal(API.LOCALKEY_TOKEN);
+    await API.reservation_confirm(token,{
         storeId : props.navigation.getParam('storeId'), 
         reservationId : props.navigation.getParam('reservationId')})
-    console.log(res);
+    await API.postDNpoint(token,{
+        phone,
+        type : 'save',
+        diff : ReviewAward,
+        name : data.name,
+    });
+    navigation.navigate('TabHome');
     return;
   }
-
 
   // 화면 하단 예약하기 버튼
   const _onPressManageReviewButton = (reviewId) => {
@@ -201,7 +210,8 @@ const ListMenu = (props) =>  {
 
   return (
     <View style ={{flex : 1,backgroundColor:'#EEEEEE'}}>
-      <NavHead title = {navigation.getParam('title')}/>
+      {navtitle? <NavSwitchHead navigation={navigation} navtitle = {navigation.getParam('navtitle')} title={navigation.getParam('title')}/>
+      : <NavHead title = {navigation.getParam('title')}/>}
       {/* 각 페이지를 담는 부분입니다.*/}
       {page == 0 && <Page1 paddingTop={HEADER_MAX_HEIGHT + HEADER_TAB_HEIGHT} initialScroll={scrollY._value} onScroll={_onScroll} data={page1Data} />}
       {page == 1 && <Page2 paddingTop={HEADER_MAX_HEIGHT + HEADER_TAB_HEIGHT} initialScroll={scrollY._value} onScroll={_onScroll} data={page2Data}/>}
@@ -383,6 +393,15 @@ const ListMenu = (props) =>  {
 }
 
 
+const mapStateToProps = (state) => {
+    console.log(state);
+    return {
+        phone : state.User._root.entries[3][1],
+    }
+}
+
+export default connect(mapStateToProps)(ListMenu);
+
 
 const styles = StyleSheet.create({
   fill: {
@@ -453,4 +472,3 @@ const styles = StyleSheet.create({
 });
 
 // export default ScrollableHeader;
-export default ListMenu;

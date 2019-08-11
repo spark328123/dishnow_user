@@ -3,13 +3,16 @@ import {
  StyleSheet,
  View,
  Image,
- ImageBackground
+ ImageBackground,
 } from "react-native";
 import KaKaoLogin from '../utill/kakaologin';
 import FaceBookLogin from '../utill/facebooklogin';
 import NaverLogin from '../utill/naverlogin'
 import * as Utill from '../utill';
 import { Text, Button, BigButton, TextInput, SungminButton } from '../component/common'
+
+const type = 'email'
+const token = ''
 
 const Login = (props) => {
  const { navigation } = props;
@@ -18,9 +21,24 @@ const Login = (props) => {
  const [password, setPassword] = useState('');
  const [buttonLock, setButtonLock] = useState(false);
 
- return (
-   <View style = {styles.container}>
-   <ImageBackground source={{uri : 'login_image'}} style={{flex:1,}}>
+
+  _emailaccount = () => {
+    navigation.push('Terms', {
+      type,
+      token,
+    });
+  }
+
+  return (
+    <View style = {styles.container}>
+    <ImageBackground source={{uri : 'login_image'}} style={{flex:1,}}>
+    
+        <View style={styles.logo}>
+          <Image
+            style={styles.dishnowLogo}
+            source={{uri: "dishnow_logo_white"}}
+          />
+        </View>
 
        <View style={styles.logo}>
          <Image

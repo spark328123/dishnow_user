@@ -1,8 +1,16 @@
-import {NavSwitchHead,handleAndroidBackButton} from '../../component/common';
+import {NavSwitchHead} from '../../component/common';
+import {handleAndroidBackButton, removeAndroidBackButtonHandler} from '../../component/common/hardwareBackButton'
 import React from 'react';
 import {View,StyleSheet,Text,TouchableOpacity} from 'react-native';
 import * as Utill from '../../utill'
 export default myTerms = ({navigation}) => {
+
+    _goBack = () => {
+        navigation.navigate('TabMy')
+    }
+
+    handleAndroidBackButton(_goBack);
+    
     return (
     <View style = {styles.container}>
         <NavSwitchHead navigation={navigation} navtitle = {'TabMy'} title={`이용약관`}/>
@@ -62,6 +70,7 @@ export default myTerms = ({navigation}) => {
 const styles = StyleSheet.create({
     container : {
         flex : 1,
+        backgroundColor : Utill.color.white,
     },
     line : {
         borderBottomWidth: 1,
@@ -72,6 +81,7 @@ const styles = StyleSheet.create({
         // marginTop : 17.5,
         // marginBottom : 17.5,
         fontSize : 16,
-        fontFamily : 'NanumSquareOTF'
+        fontFamily : 'NanumSquareOTF', 
+        color : Utill.color.textBlack,
     },
 })

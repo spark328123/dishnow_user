@@ -38,7 +38,6 @@ const TabHome = (props)=>{
         dispatch(User.updateimage(image));
         dispatch(User.updatereviewcount(reviewcount));
         dispatch(User.updatenickname(nickname));
-        console.log(reviewcount);
         const pushToken = await API.getPush(API.PUSH_TOKEN);
         const ret = await API.setPushToken(token,{pushToken});
     }
@@ -52,7 +51,7 @@ const TabHome = (props)=>{
     );
 
     const {navigation, latitude, longitude, address} = props;
-
+    
 
 
     useEffect(()=>{
@@ -124,6 +123,7 @@ const TabHome = (props)=>{
     }
 
     const _selectTime = (rowData) =>{
+        Keyboard.dismiss();
         setTime(rowData);
         setBol(false);
     }
@@ -138,6 +138,7 @@ const TabHome = (props)=>{
                toggle  = {()=>{navigation.navigate('Departure')}}>
             </GoogleMap>
             </View>
+            <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={true}>
             <View style = {styles.input}>
                 <ScrollView
                     style = {styles.scrollViewContainer}
@@ -181,7 +182,6 @@ const TabHome = (props)=>{
                         </TouchableOpacity>
                         </View>
                     </ScrollView>
-            <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
 
                 <View style={[styles.parent, {height: Utill.screen.Screen.customHomeHeight(172)}]} horizontal = {true}>
 
@@ -191,7 +191,7 @@ const TabHome = (props)=>{
                         <View style={styles.childchild1}><Text style = {styles.tst}>인원</Text></View>
                         <View style = {styles.childchild2}>
                             <TextInput 
-                            keyboardType = 'numeric'
+                            keyboardType = 'number-pad'
                             selectionColor = '#733FFF'
                             placeholder ={'00'}
                             onChangeText={(text) => setPeople({text})}
@@ -206,6 +206,7 @@ const TabHome = (props)=>{
                             <View style={styles.dropdown}>
                                 {bol&&(<ModalDropdown
                                 defaultValue = {0} 
+                                onPress = {()=>Keyboard.dismiss()}
                                 textStyle = {{fontSize: 24, fontFamily: "NanumSquareOTFR", color: '#CCCCCC', marginTop : -2}}
                                 dropdownTextStyle = {{fontSize: 16, fontFamily: "NanumSquareOTFR", color: "#111111"}}
                                 style = {{width : 33, height : 31}} 
@@ -214,6 +215,7 @@ const TabHome = (props)=>{
                                 />)}
                                 {!bol&&(<ModalDropdown
                                 defaultValue = {arr[time]}
+                                onPress = {()=>Keyboard.dismiss()}
                                 textStyle = {{fontSize: 24, fontFamily: "NanumSquareOTFR", color: "#111111", marginTop : -2}}
                                 dropdownTextStyle = {{fontSize: 16, fontFamily: "NanumSquareOTFR", color: "#111111"}}
                                 style = {{width : 33, height : 31}} 
@@ -228,7 +230,7 @@ const TabHome = (props)=>{
                     </View>
                
                 </View>
-            </TouchableWithoutFeedback>
+        
 
             <View style={{alignItems: 'center'}}>
             <BigButtonColor 
@@ -238,13 +240,16 @@ const TabHome = (props)=>{
             />
             </View>
             </View>
+            </TouchableWithoutFeedback>
         </KeyboardAvoidingView>
     )
 }
 
 
 const mapStateToProps = (state) => {
+    
     return {
+        
         latitude : state.Maps._root.entries[0][1].latitude,
         longitude : state.Maps._root.entries[0][1].longitude,
         address : state.Maps._root.entries[1][1],
