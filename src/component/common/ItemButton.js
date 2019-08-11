@@ -31,27 +31,28 @@ export default ItemButton = (props)=> {
     const _renderItem = ({item})=>{
         return(
             <View style ={styles.container}>
-                <View 
+                <View    
                     style = {styles.block}>
                 <Image 
-                    style = {{width:50,height:50,marginLeft:9,}}
+                    style = {styles.image}
                     source = {{uri : 'icon_x'}}
                     />
 
-
-                <Text style ={{color : Utill.color.textBlack,fontSize : 14,}}>
-                    {`${item.name}`}
-                </Text>
-                <BigButtonBorder
-                    onPress = {()=>_usePoint(item)}
-                    style = {styles.button}
-                    title = {'교환하기'}
-                    disabled = {false}
-                >
-                </BigButtonBorder>
-
+                <View style = {{flexDirection : 'column',justifyContent : 'center',marginRight : Utill.screen.Screen.customWidth(9),}}>
+                    <Text style ={{color : Utill.color.textBlack,fontSize : 14,marginBottom:12,}}>
+                        {`${item.name}`}
+                    </Text>
+                    <BigButtonBorder
+                        onPress = {()=>_usePoint(item)}
+                        style = {styles.button}
+                        title = {'교환하기'}
+                        disabled = {false}
+                    >
+                    </BigButtonBorder>
+                </View> 
 
                 </View>
+                
                 <View style = {styles.line}/>
             </View>
             
@@ -70,21 +71,32 @@ export default ItemButton = (props)=> {
 const styles = StyleSheet.create({
     container : {
         flex : 1,
-        height: Utill.screen.Screen.customHeight(133),
     },
     button : { 
-        width : "30%",
+        width :Utill.screen.Screen.customHeight(110),
         height:Utill.screen.Screen.customHeight(31),
-
+        borderRadius : 25,
+        justifyContent : 'center',
+        alignItems : 'center',
+        backgroundColor : Utill.color.onColorBackground,
+        borderWidth : 1,
+        borderColor : Utill.color.primary1,
+    },
+    image : {
+        height :Utill.screen.Screen.customHeight(90),
+        width : Utill.screen.Screen.customWidth(90),
+        marginLeft : Utill.screen.Screen.customWidth(9),
+        alignSelf : 'center',
     },
     line : {
         borderBottomColor: Utill.color.border,
         borderBottomWidth : 1,
     },
     block : {
+        height: Utill.screen.Screen.customHeight(133),
         flexDirection : 'row', 
         marginRight : 15,
         marginLeft : 15,
-        alignContent : 'center',
+        justifyContent : 'space-between',
     },
 })
