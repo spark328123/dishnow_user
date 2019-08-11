@@ -1,75 +1,32 @@
 import React from 'react';
-import {View,StyleSheet,Alert,Image, FlatList, TouchableOpacity} from 'react-native';
-import MyPoint from '../../../store/modules/myPoint'
-import {Text,Button,ItemButton5000} from '../../../component/common'
-import * as User from '../../../store/modules/user';
-import CustomAlert from '../../../component/common/CustomAlert';
-import * as API from '../../../utill/API';
-import { useDispatch } from 'react-redux';
-
-const diff = '5000';
-const type = 'use';
+import {View,StyleSheet} from 'react-native';
+import {ItemButton} from '../../../component/common'
 
 export default Point1 = (props)=> {
     const { point ,phone } = props;
-    const dispatch = useDispatch();
-
-    const _usePoint = async({name})=>{
-        console.log(parseInt(point));
-        const token = await API.getLocal(API.LOCALKEY_TOKEN);
-        if(point<parseInt(diff)){
-            alert('보유 포인트가 부족하여 교환이 어려워요!\n디쉬나우를 이용해 포인트를 모아보세요!');
-            return;
-        }
-        const res= await API.postDNpoint(token,{
-            phone,
-            name,
-            diff,
-            type,
-        });
-        dispatch(User.updatepoint(res.point));
-    }
-
     const data = [
         {
             image : {uri : 'icon_x'},
-            name : '스타벅스'
+            name : '[스타벅스] \n 아이스 아메리카노 Tall',
         },
         {
             image : {uri : 'icon_x'},
-            name : '베스킨라빈스'
+            name : '[베스킨라빈스]\n더블주니어 아이스크림',
         },
         {
             image : {uri : 'icon_x'},
-            name : '컬쳐랜드'
-        }
-        
+            name : '[컬쳐랜드]\n문화상품권 5,000원권',
+        },
     ]
-
-    const _renderItem = ({item})=>{
-        return(
-            <View>
-                <View style ={{flexDirection:'row'}}>
-                    <Image 
-                        style = {{width:50,height:50}}
-                        source = {{uri : 'icon_x'}}
-                        />
-                    <Text>{item.name}</Text>
-                </View>
-                <TouchableOpacity
-                    onPress = {()=>_usePoint(item)}>
-                    <Text>교환하기~</Text>
-            </TouchableOpacity>
-         
-        </View>
-        )
-    }
-
     return (
         <View style = {styles.container}>
-            <View style = {{flexDirection:'row'}}>
-               <FlatList renderItem={_renderItem} data={data}/>
-            </View>
+            <ItemButton 
+                data = {data}
+                point = {point}
+                diff = {'5000'}
+                type = {'use'}
+                phone = {phone}
+            />
         </View>
     )
 }
@@ -77,11 +34,5 @@ export default Point1 = (props)=> {
 const styles = StyleSheet.create({
     container : {
         flex : 1,
-        marginRight : 15,
-        marginLeft : 15,
     },
-    btnStyle : {
-        width :110,
-        height : 31,
-    }
 })
