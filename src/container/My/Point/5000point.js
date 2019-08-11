@@ -29,7 +29,7 @@ export default Point1 = (props)=> {
         {
             image : {uri : 'icon_x'},
             name : '컬쳐랜드'
-        }
+        },
         
     ]
 

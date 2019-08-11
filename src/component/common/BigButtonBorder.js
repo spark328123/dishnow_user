@@ -6,7 +6,7 @@ import * as Utill from '../../utill';
 //테두리, 텍스트만 보라색
 const BigButton = (props) => {
 
-    const {onPress, disabled=false} = props;
+    const {onPress, disabled=false,style} = props;
     const [pressed, setPressed] = useState(false);
 
     const _onHide = () => {
@@ -27,7 +27,7 @@ const BigButton = (props) => {
     return (
         <TouchableHighlight
             activeOpacity={1}
-            style = {styles.button}
+            style = {style? style : styles.button }
             underlayColor = {Utill.color.secondary2}
             onPress = {onPress}
             onHideUnderlay = {_onHide}
