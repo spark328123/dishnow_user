@@ -8,12 +8,14 @@ import Toast from 'react-native-simple-toast';
 import Point1 from './5000point';
 import Point2 from './10000point';
 
-const Point = ({navigation}) =>{
+const Point = (props) =>{
+    const {navigation, point, phone} = props;
+    console.log(props);
     const [isLoadingVisible, setIsLoadingVisible] = useState(true);
     const [page, setPage] = useState(1);
     const Screen =(props)=> {
-        if(props.page == 1) return <Point1 data={props.data} phone = {props.phone}/>
-        return <Point2 data={props.data} phone = {props.phone}/>
+        if(props.page == 1) return <Point1 data={props.data} phone = {phone} point = {point}/>
+        return <Point2 data={props.data} phone = {phone} point = {point}/>
     }
 
     _goBack = () => {
@@ -53,9 +55,9 @@ const Point = ({navigation}) =>{
     )
 }
 const mapStateToProps = (state) => {
-    console.log(state);
     return {
         phone : state.User._root.entries[3][1],
+        point : state.User._root.entries[1][1],
     }
 }
 
