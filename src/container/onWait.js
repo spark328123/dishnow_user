@@ -23,6 +23,7 @@ const OnWait =  (props) =>{
     useEffect(()=>{
         _timerStart();
         OneSignal.addEventListener('received',_oneSignalReceived);
+        OneSignal.addEventListener('opened',_oneSignalReceived)
     },[]);
 
     const _toggle = ()=>{
@@ -34,6 +35,7 @@ const OnWait =  (props) =>{
         setTimerCount(WaitTime);
         _timerStart();
         OneSignal.addEventListener('received',_oneSignalReceived);
+        OneSignal.addEventListener('opened',_oneSignalReceived)
         _reservation();
     }
 
@@ -54,7 +56,8 @@ const OnWait =  (props) =>{
         if (timer && (timerCount <= 0)) {
             _timerStop();
             _toggle();
-            OneSignal.removeEventListener('received');
+            OneSignal.removeEventListener('received',_oneSignalReceived);
+            OneSignal.removeEventListener('opened',_oneSignalReceived);
         }
     },[timerCount]);
 
@@ -79,13 +82,16 @@ const OnWait =  (props) =>{
     }
 
     const _goBack = () =>{
-        OneSignal.removeEventListener('received');
+        OneSignal.removeEventListener('received',_oneSignalReceived);
+        OneSignal.removeEventListener('opened',_oneSignalReceived);
         navigation.navigate('TabHome');
     }
 
     const _oneSignalReceived = (notification) => {
         console.log(notification);
-        const {latitude=null,longitude=null,mainImage=null,name=null,reservationId=null,storeId=null} = notification.payload.additionalData;
+        if (!notification) return;
+        let notiData = notification.notification? {...notification.notification} : notification;
+        const {latitude=null,longitude=null,mainImage=null,name=null,reservationId=null,storeId=null} = notiData.payload.additionalData;
         navigation.navigate('List',{
             latitude,
             longitude,

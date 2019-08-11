@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import { View, FlatList, StyleSheet, TouchableOpacity, Button, Image } from 'react-native';
+import { View, FlatList, StyleSheet, TouchableOpacity, Button, Image, ActivityIndicator } from 'react-native';
 import { useDispatch } from 'react-redux';
 import { Text } from '../component/common/'
 import ReviewButton from '../component/common/ReviewButton';
@@ -9,6 +9,7 @@ import * as Utill from '../utill';
 const TabBooked = (props) =>{
 
     const {navigation} = props;
+    const [ isLoaded, setIsLoaded ] = useState(true);
     const [ data, setdata ] = useState([ 
         
     ]);
@@ -18,6 +19,7 @@ const TabBooked = (props) =>{
         const token = await API.getLocal(API.LOCALKEY_TOKEN);
         const resList = await API.showRes(token);
         console.log(resList);
+        setIsLoaded(false);
         setdata(resList);
     }
 
@@ -93,11 +95,14 @@ const TabBooked = (props) =>{
                 {marginTop : topSafe}
             ]
         }>
-            
-          <FlatList
+        {!isLoaded?(  <FlatList
             data = {data}
             renderItem = {_renderItem}
-          />
+          />):(
+                <ActivityIndicator/>
+          )}
+            
+        
         </View>
     )
 }

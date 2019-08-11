@@ -1,10 +1,9 @@
 import React, { useEffect, useState,memo } from 'react';
-import { View, Text, StyleSheet, FlatList, Image } from 'react-native';
+import { View, Text, StyleSheet, FlatList, Image, TouchableOpacity } from 'react-native';
 import {NavSwitchHead} from '../../component/common'
 
 import * as API from '../../utill/API';
 import * as Utill from '../../utill';
-import { TouchableOpacity } from 'react-native-gesture-handler';
 import Dialog from "react-native-dialog";
 import Toast from 'react-native-simple-toast';
 

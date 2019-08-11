@@ -13,7 +13,6 @@ export default (props) => {
             await navigator.geolocation.getCurrentPosition((position) => {
             latitude = position.coords.latitude;
             longitude = position.coords.longitude;
-            
             dispatch(updateLocation({ latitude, longitude }));
         });
     }
@@ -33,7 +32,7 @@ export default (props) => {
         _getPosition();
         setTimeout(() => {
             _me();
-        }, 1000)
+        }, 1500);
     }, []);
 
     return (

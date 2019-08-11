@@ -123,13 +123,12 @@ const TabHome = (props)=>{
     }
 
     const _selectTime = (rowData) =>{
-        Keyboard.dismiss();
         setTime(rowData);
         setBol(false);
     }
 
     return(
-        <KeyboardAvoidingView style={styles.container} behavior="padding" enabled>
+        <KeyboardAvoidingView style={styles.container} behavior= "height" enabled>
             <View style = {styles.map}>
             <GoogleMap
                isPressed = { false }
@@ -191,6 +190,7 @@ const TabHome = (props)=>{
                         <View style={styles.childchild1}><Text style = {styles.tst}>인원</Text></View>
                         <View style = {styles.childchild2}>
                             <TextInput 
+                            blurOnSubmit = {true}
                             keyboardType = 'number-pad'
                             selectionColor = '#733FFF'
                             placeholder ={'00'}
@@ -206,21 +206,21 @@ const TabHome = (props)=>{
                             <View style={styles.dropdown}>
                                 {bol&&(<ModalDropdown
                                 defaultValue = {0} 
-                                onPress = {()=>Keyboard.dismiss()}
                                 textStyle = {{fontSize: 24, fontFamily: "NanumSquareOTFR", color: '#CCCCCC', marginTop : -2}}
                                 dropdownTextStyle = {{fontSize: 16, fontFamily: "NanumSquareOTFR", color: "#111111"}}
                                 style = {{width : 33, height : 31}} 
                                 options = {['3', '5', '8', '10', '15', '20']}
+                                onDropdownWillShow = {()=>Keyboard.dismiss()}
                                 onSelect = {(idx) => _selectTime(idx)}
                                 />)}
                                 {!bol&&(<ModalDropdown
                                 defaultValue = {arr[time]}
-                                onPress = {()=>Keyboard.dismiss()}
                                 textStyle = {{fontSize: 24, fontFamily: "NanumSquareOTFR", color: "#111111", marginTop : -2}}
                                 dropdownTextStyle = {{fontSize: 16, fontFamily: "NanumSquareOTFR", color: "#111111"}}
                                 style = {{width : 33, height : 31}} 
                                 options = {['3', '5', '8', '10', '15', '20']}
                                 onSelect = {(idx) => _selectTime(idx)}
+                                onDropdownWillShow = {()=>Keyboard.dismiss()}
                                 />)}
                                 <Image style = {{width: 8, height:4.75}} source = {{uri: "icon_rsquare_bracket_under"}}></Image>
                             </View> 

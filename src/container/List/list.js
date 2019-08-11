@@ -60,8 +60,8 @@ const List = (props) => {
     }
 
     const _goHome = () =>{
+        OneSiganl.removeEventListener('received',_oneSignalReceived);
         navigation.navigate('TabHome');
-        OneSiganl.removeEventListener('received');
     }
 
     const [ isLoaded, setIsLoaded ] = useState(true);
@@ -95,7 +95,7 @@ const List = (props) => {
     }
 
     useEffect(()=>{
-        OneSiganl.removeEventListener('received');
+        OneSiganl.removeEventListener('received',_oneSignalReceived);
         OneSiganl.addEventListener('received',_oneSignalReceived);
     },[listData]);
 
