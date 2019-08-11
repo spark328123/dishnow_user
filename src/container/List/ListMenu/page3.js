@@ -1,5 +1,7 @@
 import React, {useState, useEffect, memo, useRef} from 'react';
-import {View, FlatList, Text, StyleSheet, Dimensions, Image, TouchableOpacity} from 'react-native';
+import {View, FlatList, StyleSheet, Dimensions, Image, TouchableOpacity} from 'react-native';
+
+import { Text } from '../../../component/common';
 
 import { getInset } from 'react-native-safe-area-view';
 
@@ -62,6 +64,7 @@ const data=[{
 const Help = (props) => {
     const {initialScroll, onScroll, paddingTop, onPressManageReviewButton, data} = props;
     const [refFlatList, setRefFaletList] = useState(null);
+    const [force,setForce] = useState(0);
 
     useEffect(()=> {        
         if (refFlatList != null) setTimeout (()=>scrollToTop(0, false), 1);
@@ -117,11 +120,13 @@ const ReviewItem =({data, onPressManageReviewButton}) => {
         rating = 0, 
         daysAgo = 0, 
         answer = null,
-        image = data.image.substring(1,data.image.length-1), 
+        image = null, 
         createdAt = null,
         profile = null
     } = data;
-    console.log(image.substring(1,image.length-1));
+    var imageArray =  image.substring(1,image.length-1).split(',');
+    console.log(imageArray[0]);
+    console.log(imageArray[1]);
 
     return (
         <View style={{flexDirection:'row',  marginTop : 20, marginBottom : 12,}}>
@@ -137,27 +142,31 @@ const ReviewItem =({data, onPressManageReviewButton}) => {
                         <Image style={styles.contentStar} source={rating>2 ? icon_star : icon_star_blur} />
                         <Image style={styles.contentStar} source={rating>3 ? icon_star : icon_star_blur} />
                         <Image style={styles.contentStar} source={rating>4 ? icon_star : icon_star_blur} />
-                        <Text style={{marginLeft:5}}>{daysAgo==0?'오늘': (daysAgo<7 ? `${daysAgo}일 전`:(daysAgo<30?`${Math.floor(daysAgo/7)}주 전`:'오래전'))}</Text>
+                       {/* <Text style={{marginLeft:5}}>{daysAgo==0?'오늘': (daysAgo<7 ? `${daysAgo}일 전`:(daysAgo<30?`${Math.floor(daysAgo/7)}주 전`:'오래전'))}</Text> */}
+                       <Text style = {{marginLeft :5, fontSize :12 }}> {createdAt.substring(0,10)} </Text>
                     </View>
 
                      <View style={{marginTop:14,}}>
-                        <Image 
+                         {imageArray.length>=1 && imageArray[0].length>=3 &&  <Image 
+                            resizeMethod = 'resize'
                             style={{width : 272 * ratio, height : 150 * ratio, backgroundColor : '#eeeeee'}} 
-                            source={{uri:image.substring(1,image.length-1)}}/>
+                            source={{uri:imageArray[0].substring(1,imageArray[0].length-1)}}/>}
+                        
+                        {imageArray.length>=2 &&   <Image 
+                        resizeMethod = 'resize'
+                            style={{width : 272 * ratio, height : 150 * ratio, backgroundColor : '#eeeeee'}} 
+                            source={{uri:imageArray[1].substring(1,imageArray[1].length-1)}}/>}
+                        {imageArray.length>=3 &&   <Image 
+                        resizeMethod = 'resize'
+                            style={{width : 272 * ratio, height : 150 * ratio, backgroundColor : '#eeeeee'}} 
+                            source={{uri:imageArray[2].substring(1,imageArray[2].length-1)}}/>}
                     </View>
                     <View style={{marginTop:15,}}>
                         <Text style={{width : 272 * ratio}} >
                             {content}
                         </Text>
                     </View>
-
-                    {!answer && 
-                    <TouchableOpacity onPress={()=>onPressManageReviewButton(reviewId)}>
-                        <Text style={{color:"#733FFF", fontSize:14, marginTop:10}}>
-                            {`리뷰관리`}
-                        </Text>
-                    </TouchableOpacity>}
-
+                 
                     {!!answer && 
                         <View
                             style={{

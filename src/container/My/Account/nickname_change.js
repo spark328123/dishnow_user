@@ -15,7 +15,7 @@ import  * as User from '../../../store/modules/user'
 import * as Utill from '../../../utill'
 export default Nick = ({navigation}) => {
     const [nickName,setNickName] = useState(navigation.getParam('nickname')); //닉네임
-    const [nickLength,setNickLength] = useState(nickName.length);
+    const [nickLength,setNickLength] = useState(navigation.getParam('nickname').length);
     const [pressed,isPressed] = useState(false);
     const id = navigation.getParam('id'); //사용자 id
     const dispatch = useDispatch();

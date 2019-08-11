@@ -102,7 +102,7 @@ const TabBooked = (props) =>{
     )
 }
 
-export default TabBooked
+export default TabBooked;
 
 const styles = StyleSheet.create({
     list: {

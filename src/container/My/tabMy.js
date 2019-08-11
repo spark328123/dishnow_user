@@ -17,6 +17,8 @@ import * as API from '../../utill/API'
 import * as Utill from '../../utill'
 import  * as User from '../../store/modules/user'
 import { connect, useDispatch } from 'react-redux';
+import OneSignal from 'react-native-onesignal';
+import Toast from 'react-native-simple-toast';
 
 const TabMy = ({navigation, userid, nickname, image, phone, point, name, reviewcount}) => { 
     const [Pressed,setPressed] = useState(false);
@@ -26,6 +28,16 @@ const TabMy = ({navigation, userid, nickname, image, phone, point, name, reviewc
         else Pressed = true;
         setPressed(Pressed);
      }
+
+    const _pushStop = ()=>{
+        OneSignal.removeEventListener();
+        Toast.show('푸시가 중단되었습니다.');
+    } 
+
+    const _pushStart = ()=>{
+        OneSignal.addEventListener()
+        Toast.show('푸시가 시작되었습니다.');
+    }
     const [id, idChange] = useState(userid);
     const [nick, nickChange] = useState(nickname);
     const [photo, setPhoto] = useState(image.substring(2,image.length-2));
@@ -61,7 +73,7 @@ const TabMy = ({navigation, userid, nickname, image, phone, point, name, reviewc
                     {photo &&  (
                         <Image
                             source={{uri : photo}}
-                            style={{ width: 45, height: 45, borderRadius : 40}}
+                            style={{ width: 45, height: 45, borderRadius : 19}}
                         />
                     )}
                     {!photo && ( 
@@ -144,8 +156,8 @@ const TabMy = ({navigation, userid, nickname, image, phone, point, name, reviewc
                 title={'푸쉬알람'} 
                 source={{uri:'icon_push'}} 
                 style = {styles.menus}
-                onValueChange = {()=>_setPressed(Pressed,console.log(Pressed))}
-                value = {Pressed}
+                onValueChange = {()=>{_setPressed(Pressed);}}
+                value = {!Pressed}
             />
                 
 

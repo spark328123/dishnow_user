@@ -1,5 +1,14 @@
 import React, {useState,useEffect} from 'react';
-import { View, StyleSheet, AppRegistry, ScrollView, TouchableOpacity, TextInput, Image } from 'react-native';
+import { View, 
+    StyleSheet, 
+    AppRegistry, 
+    ScrollView, 
+    TouchableOpacity, 
+    TextInput, 
+    Image, 
+    KeyboardAvoidingView, 
+    Keyboard, 
+    TouchableWithoutFeedback } from 'react-native';
 import GoogleMap from '../utill/googlemap.js';
 import { useDispatch, connect } from 'react-redux';
 import * as API from '../utill/API';
@@ -31,7 +40,6 @@ const TabHome = (props)=>{
         dispatch(User.updatenickname(nickname));
         const pushToken = await API.getPush(API.PUSH_TOKEN);
         const ret = await API.setPushToken(token,{pushToken});
-        console.log(meRes);
     }
 
     const [people, setPeople] = useState('');
@@ -115,12 +123,13 @@ const TabHome = (props)=>{
     }
 
     const _selectTime = (rowData) =>{
+        Keyboard.dismiss();
         setTime(rowData);
         setBol(false);
     }
 
     return(
-        <View style = {styles.container}>
+        <KeyboardAvoidingView style={styles.container} behavior="padding" enabled>
             <View style = {styles.map}>
             <GoogleMap
                isPressed = { false }
@@ -129,6 +138,7 @@ const TabHome = (props)=>{
                toggle  = {()=>{navigation.navigate('Departure')}}>
             </GoogleMap>
             </View>
+            <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={true}>
             <View style = {styles.input}>
                 <ScrollView
                     style = {styles.scrollViewContainer}
@@ -172,12 +182,16 @@ const TabHome = (props)=>{
                         </TouchableOpacity>
                         </View>
                     </ScrollView>
+
                 <View style={[styles.parent, {height: Utill.screen.Screen.customHomeHeight(172)}]} horizontal = {true}>
+
+               
                 <View style={styles.content}>
                     <View style={styles.child}>
                         <View style={styles.childchild1}><Text style = {styles.tst}>인원</Text></View>
                         <View style = {styles.childchild2}>
                             <TextInput 
+                            keyboardType = 'number-pad'
                             selectionColor = '#733FFF'
                             placeholder ={'00'}
                             onChangeText={(text) => setPeople({text})}
@@ -192,6 +206,7 @@ const TabHome = (props)=>{
                             <View style={styles.dropdown}>
                                 {bol&&(<ModalDropdown
                                 defaultValue = {0} 
+                                onPress = {()=>Keyboard.dismiss()}
                                 textStyle = {{fontSize: 24, fontFamily: "NanumSquareOTFR", color: '#CCCCCC', marginTop : -2}}
                                 dropdownTextStyle = {{fontSize: 16, fontFamily: "NanumSquareOTFR", color: "#111111"}}
                                 style = {{width : 33, height : 31}} 
@@ -200,6 +215,7 @@ const TabHome = (props)=>{
                                 />)}
                                 {!bol&&(<ModalDropdown
                                 defaultValue = {arr[time]}
+                                onPress = {()=>Keyboard.dismiss()}
                                 textStyle = {{fontSize: 24, fontFamily: "NanumSquareOTFR", color: "#111111", marginTop : -2}}
                                 dropdownTextStyle = {{fontSize: 16, fontFamily: "NanumSquareOTFR", color: "#111111"}}
                                 style = {{width : 33, height : 31}} 
@@ -212,7 +228,10 @@ const TabHome = (props)=>{
                         </View>
                     </View>
                     </View>
+               
                 </View>
+        
+
             <View style={{alignItems: 'center'}}>
             <BigButtonColor 
                     style={[styles.find, {marginBottom: Utill.screen.Screen.customHeight(52)}]}
@@ -221,7 +240,8 @@ const TabHome = (props)=>{
             />
             </View>
             </View>
-        </View>
+            </TouchableWithoutFeedback>
+        </KeyboardAvoidingView>
     )
 }
 
