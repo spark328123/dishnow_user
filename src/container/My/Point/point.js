@@ -2,21 +2,22 @@ import React , { useState} from 'react';
 import { View, StyleSheet } from 'react-native';
 import {NavSwitchHead,Button,Text,LoadingModal,Screen} from '../../../component/common';
 import {handleAndroidBackButton} from '../../../component/common/hardwareBackButton';
-import {useSelector, useDispatch} from 'react-redux'
+import {useSelector, useDispatch, connect} from 'react-redux'
 import * as Utill from '../../../utill'
 import Toast from 'react-native-simple-toast';
 import Point1 from './5000point';
 import Point2 from './10000point';
-export default Point = ({navigation}) =>{
+
+const Point = ({navigation}) =>{
     const [isLoadingVisible, setIsLoadingVisible] = useState(true);
     const [page, setPage] = useState(1);
     const Screen =(props)=> {
-        if(props.page == 1) return <Point1 data={props.data} />
-        return <Point2 data={props.data} />
+        if(props.page == 1) return <Point1 data={props.data} phone = {props.phone}/>
+        return <Point2 data={props.data} phone = {props.phone}/>
     }
 
     _goBack = () => {
-        navigation.navigate('TabMy')
+        navigation.navigate('myPoint')
     }
 
     handleAndroidBackButton(_goBack);
@@ -51,6 +52,14 @@ export default Point = ({navigation}) =>{
         </View>
     )
 }
+const mapStateToProps = (state) => {
+    console.log(state);
+    return {
+        phone : state.User._root.entries[3][1],
+    }
+}
+
+export default connect(mapStateToProps)(Point);
 
 const styles = StyleSheet.create({
     container : {
