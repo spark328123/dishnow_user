@@ -190,7 +190,6 @@ const TabMy = ({navigation, userid, nickname, image, phone, point, name, reviewc
 }
 
 const mapStateToProps = (state) => {
-    console.log(state);
     return {
         userid : state.User._root.entries[0][1],
         nickname : state.User._root.entries[2][1],

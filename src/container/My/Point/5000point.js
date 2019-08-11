@@ -2,19 +2,32 @@ import React from 'react';
 import {View,StyleSheet,Alert,Image, FlatList, TouchableOpacity} from 'react-native';
 import MyPoint from '../../../store/modules/myPoint'
 import {Text,Button,ItemButton5000} from '../../../component/common'
-import * as User from '../../../store/modules/user'
+import * as User from '../../../store/modules/user';
+import CustomAlert from '../../../component/common/CustomAlert';
 import * as API from '../../../utill/API';
+import { useDispatch } from 'react-redux';
+
+const diff = '5000';
+const type = 'use';
 
 export default Point1 = (props)=> {
+    const { point ,phone } = props;
+    const dispatch = useDispatch();
 
     const _usePoint = async({name})=>{
+        console.log(parseInt(point));
         const token = await API.getLocal(API.LOCALKEY_TOKEN);
-        await API.postDNpoint(token,{
-            phone : props.phone,
-            name : name,
-            diff : '5000',
-            type : 'use',
+        if(point<parseInt(diff)){
+            alert('보유 포인트가 부족하여 교환이 어려워요!\n디쉬나우를 이용해 포인트를 모아보세요!');
+            return;
+        }
+        const res= await API.postDNpoint(token,{
+            phone,
+            name,
+            diff,
+            type,
         });
+        dispatch(User.updatepoint(res.point));
     }
 
     const data = [

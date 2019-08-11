@@ -177,6 +177,6 @@ export const getDNpoint = (token) => {
 export const postDNpoint = (token,data) =>{
     const url = `${apiUrl}user/dishnowPoint`;
     return fetch.postAuthServer(url,token,data)
-    .then(res => ({isSuccess : res? true : false}))
+    .then(res =>res.json())
     .catch(error => ({error})); 
 }
