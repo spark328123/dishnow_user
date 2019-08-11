@@ -60,16 +60,17 @@ export default Review = ({navigation}) =>{
                 </View>
                 <View style={styles.button}>
                     <TouchableOpacity
-                        onPressIn = {()=>{navigation.navigate('ReviewWrite',{
+                        onPress = {()=>{navigation.navigate('ReviewWrite',{
                             storeName : item.name,
                             reviewId : item.reviewId,
                             isUpdate : true,
+                            my : true,
                         }),Alert.alert('asd')}}
                         >
                         <Text style={styles.buttonText}>수정</Text>
                     </TouchableOpacity>
                     <TouchableOpacity
-                     onPressIn ={()=>{setVisible(true);setDeleteReviewId(item.reviewId)}}
+                     onPress ={()=>{setVisible(true);setDeleteReviewId(item.reviewId)}}
                      style={{marginLeft: Utill.screen.Screen.customWidth(21)}}>
                         <Text style={styles.buttonText}>삭제</Text>
                     </TouchableOpacity>

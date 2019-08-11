@@ -51,7 +51,6 @@ export default handleActions({
     [UPDATE_IMAGE]: (state, {payload : image}) => {return state.set('image',image)},
     [UPDATE_NAME] : (state, {payload : name}) => { return state.set('name',name)},
     //[UPDATE_EMAIL] : (state, {payload : email}) => {return state.set('email',email)},
-
     [REGISTER] : (state, action) =>  state.set('status', 'register')
     .set('error', null),
     [REGISTER_VERIFY_CODE_REQUEST] : (state, action) =>  state.set('status', 'registerVerifyCodeRequest')

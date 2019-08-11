@@ -3,7 +3,7 @@ import React from 'react';
 import {Button} from 'react-native';
 import TabMy from '../container/My/tabMy';
 import Review from '../container/My/myreview';
-import Point from '../container/My/point';
+import Point from '../container/My/Point/point';
 import webView from '../container/webView';
 import Profile from '../container/My/profile_manage';
 import Client from '../container/My/client_center';
