@@ -23,6 +23,7 @@ import Toast from 'react-native-simple-toast';
 const TabMy = ({navigation, userid, nickname, image, phone, point, name, reviewcount}) => { 
     const [Pressed,setPressed] = useState(false);
 
+
     _setPressed = (Pressed) => {
         if(Pressed) Pressed = false;
         else Pressed = true;
@@ -46,6 +47,9 @@ const TabMy = ({navigation, userid, nickname, image, phone, point, name, reviewc
     const [nm, nmChange] = useState(name);
     const [rvcount, rvcountChange] = useState(reviewcount);
    
+    console.log('im :' + image);
+    console.log('ph : ' + photo);
+
     const _logOut = async () => {
         await API.setLocal(API.LOCALKEY_TOKEN, 'null');
         navigation.navigate('Splash')
