@@ -1,6 +1,6 @@
 import React, { useEffect, useState,memo } from 'react';
 import { View, Text, StyleSheet, FlatList, Image, TouchableOpacity } from 'react-native';
-import {NavSwitchHead} from '../../component/common'
+import {NavSwitchHead} from '../../component/common';
 
 import * as API from '../../utill/API';
 import * as Utill from '../../utill';
@@ -31,6 +31,7 @@ export default Review = ({navigation}) =>{
     const _deleteReview = async (reviewId)=>{
         const token = await API.getLocal(API.LOCALKEY_TOKEN);
         const res = await API.reviewDelete(token,{reviewId : reviewId});
+        
         setData(data.filter(info=>info.reviewId !== reviewId));
         console.log(res);
         Toast.show('삭제되었습니다.');
@@ -104,17 +105,18 @@ export default Review = ({navigation}) =>{
         
         }>
         <NavSwitchHead navigation={navigation} navtitle = {'TabMy'} title={`나의 리뷰`}/>
+        {data.length ?  
           <FlatList
             data = {data}
             renderItem = {_renderItem}
-          />
-           <Dialog.Container visible = {visible}>
+        />:<Text>첫 리뷰를 작성해 주세요</Text>}
+            <Dialog.Container visible = {visible}>
                 <Dialog.Description>리뷰를 삭제하시겠습니까?</Dialog.Description>
                 <Dialog.Title>리뷰 삭제</Dialog.Title>
                 <Dialog.Button label="취소" onPress = {()=>setVisible(false)} />
                 <Dialog.Button label="삭제"
                     onPress = {()=>{setVisible(false);_deleteReview(deleteReviewId)}}/>
-                </Dialog.Container>
+            </Dialog.Container>
         </View>
     )
 }

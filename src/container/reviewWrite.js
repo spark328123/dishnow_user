@@ -18,8 +18,8 @@ import Dialog from "react-native-dialog";
 import { Text,NavHead,NavSwitchHead } from '../component/common/';
 import {handleAndroidBackButton} from '../component/common/hardwareBackButton';
 import Toast from 'react-native-simple-toast';
-import { connect } from 'react-redux';
-
+import { connect, useDispatch } from 'react-redux';
+import User from '../store/modules/user';
 
 const defaultImageSource = {uri: 'icon_add_photo'};
 const addImageSource = {uri: 'icon_add_photo_add'};
@@ -30,6 +30,7 @@ const ReviewAward = 500;
  
 const ReviewWrite = (props) => {
     const { navigation, phone } = props;
+    const dispatch = useDispatch();
     const storeName = navigation.getParam('storeName');
     const isUpdate = navigation.getParam('isUpdate');
     const [ reviewId ] = useState(navigation.getParam('reviewId'));
@@ -169,6 +170,9 @@ const ReviewWrite = (props) => {
                     diff : ReviewAward,
                     name : storeName,
                 });
+                const res = await API.me(token);
+                console.log(res.point);
+                dispatch(User.updatepoint(res.point));
             }else {
                 Toast.show('리뷰가 수정되었습니다!');
                 navigation.navigate('MyReview');

@@ -35,7 +35,7 @@ const initialState = Map({
    nickname : '',
    phone : '',
    reviewcount : '',
-   image : '',
+   image : false,
 //    verfifyCode : '',
 //    error : '',
 //    status : '',

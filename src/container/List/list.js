@@ -95,8 +95,8 @@ const List = (props) => {
     }
 
     useEffect(()=>{
-        OneSiganl.removeEventListener('received',_oneSignalReceived);
         OneSiganl.addEventListener('received',_oneSignalReceived);
+        OneSiganl.inFocusDisplaying(0);
     },[listData]);
 
     const _showStoreDetail = async({storeId})=>{

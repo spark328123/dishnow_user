@@ -77,7 +77,7 @@ const TabMy = ({navigation, userid, nickname, image, phone, point, name, reviewc
                     {photo &&  (
                         <Image
                             source={{uri : photo}}
-                            style={{ width: 45, height: 45, borderRadius : 19}}
+                            style={{ width: 45, height: 45, borderRadius : 45/2}}
                         />
                     )}
                     {!photo && ( 
