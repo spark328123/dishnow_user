@@ -11,16 +11,19 @@ import * as API from '../utill/API';
 const type = 'facebook';
 
 const login = async (token) => {
+    console.log(token);
     const loginRes = await API.login({ token, type });
+    console.log(loginRes);
+    if (loginRes.token==='') { return false; }
     await API.setLocal(API.LOCALKEY_TOKEN, loginRes.token);
-    if (loginRes.error) { return false; }
     return true;
 }
 
-const facebooklogin = () => {
-    LoginManager.logInWithPermissions(['public_profile', 'email'])
+const facebooklogin = (navigation) => {
+    LoginManager.logInWithPermissions(['public_profile'])
         .then(result => {
             AccessToken.getCurrentAccessToken().then(data => {
+
                 login(data.accessToken.toString())
                     .then(res => {
                         if (!res) {
@@ -36,11 +39,11 @@ const facebooklogin = () => {
         })
 }
 
-const FaceBookLogin = () => {
+const FaceBookLogin = ({navigation}) => {
     return (
         <TouchableOpacity
             style={styles.btnFaceBookLogin}
-            onPressIn={facebooklogin}
+            onPressIn={()=>facebooklogin(navigation)}
         >
             <Image
                 style={styles.btnFaceBookLogin}

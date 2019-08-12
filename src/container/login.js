@@ -9,10 +9,11 @@ import KaKaoLogin from '../utill/kakaologin';
 import FaceBookLogin from '../utill/facebooklogin';
 import NaverLogin from '../utill/naverlogin'
 import * as Utill from '../utill';
+import * as API from '../utill/API';
 import { Text, Button, BigButton, TextInput, SungminButton } from '../component/common'
 
 const type = 'email';
-const token = '';
+var token = '';
 
 const Login = (props) => {
  const { navigation } = props;
@@ -27,6 +28,18 @@ const Login = (props) => {
       type,
       token,
     });
+  }
+
+  const _login = async()=>{
+       token = `${id}/${password}`;
+        const loginRes = await API.login({
+            token,
+            type
+        });
+        if(loginRes.token!==''){
+            await API.setLocal(API.LOCALKEY_TOKEN,loginRes.token);
+            navigation.navigate('TabHome');
+        }
   }
 
   return (
@@ -62,6 +75,7 @@ const Login = (props) => {
          </View>
 
          <SungminButton
+            onPress = {_login}
            disable = {buttonLock}
            style = {styles.loginButton}
            title = {"이메일 로그인"}>

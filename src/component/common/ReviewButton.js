@@ -16,7 +16,7 @@ export default  (props) => {
         if(isUpdate !== 'false'){
         return (
             <TouchableOpacity style={[styles.ReviewButton, {width: Utill.screen.Screen.customWidth(330)}]}
-                onPressIn = {()=>navigation.push('ReviewWrite',{
+                onPressIn = {()=>navigation.navigate('ReviewWrite',{
                     reviewId,
                     storeName,
                     isUpdate : 'false',

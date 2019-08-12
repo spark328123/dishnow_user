@@ -53,7 +53,7 @@ target 'react_dishnow_user' do
     :path => "../node_modules/react-native-onesignal/react-native-onesignal.podspec",
     :inhibit_warnings => true
     pod 'react-native-simple-toast', :path => '../node_modules/react-native-simple-toast'
-
+	 pod 'FBSDKLoginKit'
   end
   
   post_install do |installer|

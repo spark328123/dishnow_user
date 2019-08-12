@@ -13,14 +13,15 @@ export default ({navigation}) => {
     const [token] = useState(navigation.getParam('token'));
     const [valid, setValid] = useState({c1 : false, c2 : false, c3 : false, c4 : false});
     const [validAll, setValidAll] = useState(false);
- 
+    const [kakaoProfile] = useState(navigation.getParam('kakaoProfile'));
+    console.log(navigation.getParam('kakaoProfile'));
+
     const _onNextPress = () => {
-        console.log('type : ' + type + 'token : ' + token);
         navigation.push('Register',{
             type,
             token,
+            kakaoProfile,
         },
-        
         )
     }
     const _validation =()=> {

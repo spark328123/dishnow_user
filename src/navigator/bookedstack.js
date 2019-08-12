@@ -1,10 +1,10 @@
-import { createStackNavigator} from 'react-navigation';
+import { createStackNavigator, createSwitchNavigator } from 'react-navigation';
 
 import TabBooked from '../container/tabBooked';
 import ReviewWrite from '../container/reviewWrite';
 import ListMenu from '../container/List/ListMenu/listMenu';
 
-const BookStack = createStackNavigator(
+const BookStack = createSwitchNavigator(
     {
         TabBooked,
         ReviewWrite,

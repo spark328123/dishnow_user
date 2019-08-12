@@ -1,13 +1,12 @@
 import React, {useState, useEffect} from 'react';
 import { View, FlatList, StyleSheet, TouchableOpacity, Button, Image, ActivityIndicator } from 'react-native';
-import { useDispatch } from 'react-redux';
+import { useDispatch, connect } from 'react-redux';
 import { Text } from '../component/common/'
 import ReviewButton from '../component/common/ReviewButton';
 import * as API from '../utill/API';
 import * as Utill from '../utill';
 
 const TabBooked = (props) =>{
-
     const {navigation} = props;
     const [ isLoaded, setIsLoaded ] = useState(true);
     const [ data, setdata ] = useState([ 
@@ -107,7 +106,19 @@ const TabBooked = (props) =>{
     )
 }
 
-export default TabBooked;
+const mapStateToProps = (state) => {
+    return {
+        userid : state.User._root.entries[0][1],
+        nickname : state.User._root.entries[2][1],
+        image : state.User._root.entries[5][1],
+        phone : state.User._root.entries[3][1],
+        name : state.User._root.entries[6][1],
+        point : state.User._root.entries[1][1],
+        reviewcount : state.User._root.entries[4][1],
+    }
+}
+
+export default connect(mapStateToProps)(TabBooked);
 
 const styles = StyleSheet.create({
     list: {

@@ -7,10 +7,12 @@ import user, * as User from '../store/modules/user';
 import regs, * as Regs from '../store/modules/regs';
 import {useSelector, useDispatch} from 'react-redux'
 import * as Utill from '../utill';
+import  RNKakaoLogins from 'react-native-kakao-logins';
 
 const Register = (props) => {
 
     const dispatch = useDispatch();
+    
 
     const [valid, setValid] = useState(
         {vname :false, vphone : false, vcode: null, vpassword: false, 
@@ -33,6 +35,8 @@ const Register = (props) => {
     const [man, setMan] = useState(false);
     const [woman, setWoman] = useState(false);
     const [nosex, setNosex] = useState(false);
+    
+
 
     const _renderSex = ({check}) => {
         console.log(check);
@@ -96,7 +100,7 @@ const Register = (props) => {
         if(!isitemail){
             let token = navigation.getParam('token');
             const type = navigation.getParam('type');
-
+         
             const res1 = /^[가-힣]{2,25}|[a-zA-Z]{2,25}\s[a-zA-Z]{2,25}$/.test(name.text);
             const res2 = /^\d{11}$/.test(phone.text);
             const res5 = /^[가-힣A-Za-z0-9]{2,20}$/.test(nickname.text)&&nickname.text!==undefined;
@@ -162,12 +166,25 @@ const Register = (props) => {
                     phone: phone.text,
                     name: name.text,
                 });
+                
                 console.log(regRes);
                 const loginRes = await API.login({ token, type });
-                API.setLocal(API.LOCALKEY_TOKEN, loginRes.token);
+                if(type === 'kakao'){       //각 이미지
+                    await API.changeprofile(loginRes.token,{
+                        image : navigation.getParam('kakaoProfile')
+                    })
+                }else{
+                    await API.changeprofile(loginRes.token,{
+                        image : `["https://ssl.pstatic.net/static/pwe/address/img_profile.png"]`
+                    })
+                }
+                await API.changenick(loginRes.token,{
+                    nickname : nickname.text
+                });
+                await API.setLocal(API.LOCALKEY_TOKEN, loginRes.token);
                 alert('회원가입이 완료되었습니다.');
                 dispatch(Regs.updateemail(email));
-                dispatch(User.updatenickname(nickname));
+                dispatch(User.updatenickname(nickname.text));
                 dispatch(User.upadtename(name));
                 dispatch(User.updatephone(phone));
                 navigation.navigate('Welcome', {
@@ -182,7 +199,7 @@ const Register = (props) => {
         else{
             let token = email.text + '/' + password.text;
             const type = navigation.getParam('type');
-    
+           
             const res1 = /^[가-힣]{2,25}|[a-zA-Z]{2,25}\s[a-zA-Z]{2,25}$/.test(name.text);
             const res2 = /^\d{11}$/.test(phone.text);
             const res3 = /^[A-Za-z0-9]{6,15}$/.test(password.text)&&password.text!==undefined;
@@ -258,7 +275,7 @@ const Register = (props) => {
             else if(isitokay&&res1&&res2&&res3&&res4&&res5&&res6) {
                 const regRes = await API.register({
                     token,
-                    type,
+                    type : navigation.getParam('type'),
                     sex,
                     birthDate: birthDate.text,
                     phone: phone.text,
@@ -266,7 +283,14 @@ const Register = (props) => {
                 })
                 console.log(regRes);
                 const loginRes = await API.login({ token, type });
-                API.setLocal(API.LOCALKEY_TOKEN, loginRes.token);
+                console.log(loginRes);
+                await API.changenick(loginRes.token,{
+                    nickname : nickname.text
+                });
+                await API.changeprofile(loginRes.token,{
+                    image : `["https://ssl.pstatic.net/static/pwe/address/img_profile.png"]`
+                })
+                await API.setLocal(API.LOCALKEY_TOKEN, loginRes.token);
                 alert('회원가입이 완료되었습니다.');
                 dispatch(Regs.updateemail(email));
                 dispatch(User.updatenickname(nickname));

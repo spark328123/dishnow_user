@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key> NSLocationWhenInUseUsageDescription</key>
-	<string/>
+	<string></string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleDisplayName</key>
@@ -29,8 +29,8 @@
 			<string>Editor</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>fb440547963402116</string>
-				<string>kakao5fd512ec1b08bf6a6e785b1813c1f49d</string>
+				<string>fb341578776721580</string>
+				<string>kakao7de09f46628e492617c2151ee2933872</string>
 			</array>
 		</dict>
 		<dict>
@@ -47,11 +47,11 @@
 	<key>CFBundleVersion</key>
 	<string>1</string>
 	<key>FacebookAppID</key>
-	<string>440547963402116</string>
+	<string>341578776721580</string>
 	<key>FacebookDisplayName</key>
 	<string>dishnow</string>
 	<key>KAKAO_APP_KEY</key>
-	<string>5fd512ec1b08bf6a6e785b1813c1f49d</string>
+	<string>7de09f46628e492617c2151ee2933872</string>
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
 		<string>fbapi</string>
@@ -79,13 +79,13 @@
 		</dict>
 	</dict>
 	<key>NSCameraUsageDescription</key>
-	<string/>
+	<string></string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string/>
+	<string></string>
 	<key>NSPhotoLibraryAddUsageDescription</key>
-	<string/>
+	<string></string>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string/>
+	<string></string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>NanumSquareOTFBold.otf</string>
