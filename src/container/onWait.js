@@ -7,7 +7,7 @@ import {
 } from 'react-native';
 import { connect } from 'react-redux';
 
-import { Text } from '../component/common';
+import { Text,CustomAlert } from '../component/common';
 import * as Utill from '../utill';
 import OneSignal from 'react-native-onesignal';
 import * as API from '../utill/API';
@@ -20,11 +20,18 @@ const OnWait =  (props) =>{
     const [timerCount, setTimerCount] = useState(WaitTime);
     const [toggle, setToggle] = useState(true);
 
+    const [isAlertVisible, setIsAlertVisible] = useState(false);
+
+    const _onPressAlertOk = async() => {
+        setIsAlertVisible(false);
+       _goBack();
+    }
     useEffect(()=>{
         _timerStart();
         OneSignal.addEventListener('received',_oneSignalReceived);
+        OneSignal.addEventListener('opened',_oneSignalReceived)
     },[]);
-
+    
     const _toggle = ()=>{
         setToggle(!toggle);
     }
@@ -34,6 +41,7 @@ const OnWait =  (props) =>{
         setTimerCount(WaitTime);
         _timerStart();
         OneSignal.addEventListener('received',_oneSignalReceived);
+        OneSignal.addEventListener('opened',_oneSignalReceived)
         _reservation();
     }
 
@@ -54,7 +62,8 @@ const OnWait =  (props) =>{
         if (timer && (timerCount <= 0)) {
             _timerStop();
             _toggle();
-            OneSignal.removeEventListener('received');
+            OneSignal.removeEventListener('received',_oneSignalReceived);
+            OneSignal.removeEventListener('opened',_oneSignalReceived);
         }
     },[timerCount]);
 
@@ -79,13 +88,16 @@ const OnWait =  (props) =>{
     }
 
     const _goBack = () =>{
-        OneSignal.removeEventListener('received');
+        OneSignal.removeEventListener('received',_oneSignalReceived);
+        OneSignal.removeEventListener('opened',_oneSignalReceived);
         navigation.navigate('TabHome');
     }
 
     const _oneSignalReceived = (notification) => {
         console.log(notification);
-        const {latitude=null,longitude=null,mainImage=null,name=null,reservationId=null,storeId=null} = notification.payload.additionalData;
+        if (!notification) return;
+        let notiData = notification.notification? {...notification.notification} : notification;
+        const {latitude=null,longitude=null,mainImage=null,name=null,reservationId=null,storeId=null} = notiData.payload.additionalData;
         navigation.navigate('List',{
             latitude,
             longitude,
@@ -99,9 +111,19 @@ const OnWait =  (props) =>{
 
     return(
         <View style = {styles.container}>
+            <CustomAlert 
+                visible={isAlertVisible} 
+                mainTitle={'취소'}
+                mainTextStyle = {styles.txtStyle}
+                subTitle = {'요청을 취소할까요?'}
+                subTextStyle = {styles.subtxtStyle}
+                buttonText1={'아니오'} 
+                buttonText2={'네'} 
+                onPress={_onPressAlertOk} 
+            />
                 <View style = {styles.header}>
                     <TouchableOpacity
-                        onPress = {_goBack}>
+                        onPress = {()=>setIsAlertVisible(true)}>
                             {toggle?
                         (<Text style= {[styles.headerText,{color : Utill.color.red}]}>취소하기</Text>):
                         (<Text style = {[styles.headerText,{color : Utill.color.textBlack}]}>홈으로</Text>)
@@ -234,5 +256,18 @@ const styles = StyleSheet.create({
         height : Utill.screen.Screen.customHeight(50), 
         backgroundColor : Utill.color.primary1,
         marginTop : Utill.screen.Screen.customHeight(20),
-    }
+    },
+    txtStyle : {
+        marginBottom : 9,
+        fontSize : 18,
+        fontWeight : 'bold',
+        color : Utill.color.red,
+        alignSelf : 'center',
+    },
+    subtxtStyle : {
+        marginBottom : 35,
+        fontSize : 16,
+        color : Utill.color.textBlack,
+        alignSelf : 'center',
+    },
 });

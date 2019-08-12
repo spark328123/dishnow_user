@@ -1,12 +1,13 @@
-import { createStackNavigator } from 'react-navigation';
+import { createSwitchNavigator } from 'react-navigation';
 import React from 'react';
-
 import Login from '../container/login';
 import Register from '../container/register';
 import Terms from '../component/terms';
 import Welcome from '../component/welcome';
 import webView from '../container/webView';
-const LoginStack = createStackNavigator(
+import {NavigationEvents} from 'react-navigation';
+import {removeAndroidBackButtonHandler,handleAndroidBackButton} from '../component/common/hardwareBackButton'
+const LoginSwitch = createSwitchNavigator(
     {
         Login: { screen: Login },
         Terms: { screen: Terms },
@@ -20,4 +21,4 @@ const LoginStack = createStackNavigator(
     }
 )
 
-export default LoginStack;
+export default LoginSwitch;

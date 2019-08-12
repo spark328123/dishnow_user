@@ -18,7 +18,7 @@ const { height, width } = Dimensions.get("window");
 const ASPECT_RATIO = width / height;
 
 const google_url = 'https://maps.googleapis.com/maps/api/geocode/json?latlng=';
-const GOOGLE_API_KEY = 'cd ';
+const GOOGLE_API_KEY = 'AIzaSyAFU82_JAporZ8W7FhWdBatmP9Qr-JdOUc';
 
 const GoogleMaps =  ({isPressed, toggle, navigation, latitudeDelta, latitude, longitude}) => {
 
@@ -90,7 +90,7 @@ const GoogleMaps =  ({isPressed, toggle, navigation, latitudeDelta, latitude, lo
     }
 
     useEffect(()=>{
-        //_getPosition();
+        _getPosition();
         _initAddress(region.latitude,region.longitude);
         setTimeout(()=>{
             _setFlex();
@@ -148,7 +148,7 @@ const GoogleMaps =  ({isPressed, toggle, navigation, latitudeDelta, latitude, lo
                 }></Image>
             </View>
             <View style = {styles.address}>
-                <Text style ={{fontSize:13,padding:10}}>출발지 : {address}</Text>
+                <Text style ={{fontSize:13,padding:10, color:'#555555'}}>출발지 : {address}</Text>
             </View>
             {isPressed? (
                 <TouchableOpacity

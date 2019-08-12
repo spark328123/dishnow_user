@@ -9,24 +9,24 @@ import { useDispatch } from 'react-redux';
 
 
 export default ItemButton = (props)=> {
-    const { point ,phone,data,name,diff,type } = props;
-    const dispatch = useDispatch();
+   const { point ,phone,data,name,diff,type } = props;
+   const dispatch = useDispatch();
 
-    const _usePoint = async({name})=>{
-        console.log(parseInt(point));
-        const token = await API.getLocal(API.LOCALKEY_TOKEN);
-        if(point<parseInt(diff)){
-            alert('보유 포인트가 부족하여 교환이 어려워요!\n디쉬나우를 이용해 포인트를 모아보세요!');
-            return;
-        }
-        const res= await API.postDNpoint(token,{
-            phone,
-            name,
-            diff,
-            type,
-        });
-        dispatch(User.updatepoint(res.point));
-    }
+   const _usePoint = async({name})=>{
+       console.log(parseInt(point));
+       const token = await API.getLocal(API.LOCALKEY_TOKEN);
+       if(point<parseInt(diff)){
+           alert('보유 포인트가 부족하여 교환이 어려워요!\n디쉬나우를 이용해 포인트를 모아보세요!');
+           return;
+       }
+       const res= await API.postDNpoint(token,{
+           phone,
+           name,
+           diff,
+           type,
+       });
+       dispatch(User.updatepoint(res.point));
+   }
 
     const _renderItem = ({item})=>{
         return(

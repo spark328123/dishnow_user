@@ -1,11 +1,13 @@
 import React, { useState, useEffect} from 'react';
-import { View, StyleSheet, TextInput, ScrollView,Image} from 'react-native';
-import {Button, BigButtonColor, BigButton, BigButtonBorder, CustomAlert, Text, NavHead} from '../component/common/'
+import { View, StyleSheet, TextInput, ScrollView,Image, TouchableOpacity, Alert} from 'react-native';
+import {Button, BigButtonColor, BigButton, BigButtonBorder, CustomAlert1, Text, NavSwitchHead} from '../component/common/'
 import {RegistInput, RegisterInputPhone, RegisterInputCode, } from '../component/register';
+import {removeAndroidBackButtonHandler,handleAndroidBackButton} from '../component/common/hardwareBackButton'
 import * as API from '../utill/API';
-import user, * as User from '../store/modules/user'
-import { TouchableOpacity } from 'react-native-gesture-handler';
-import {useSelector, useDispatch} from 'react-redux'
+import user, * as User from '../store/modules/user';
+import regs, * as Regs from '../store/modules/regs';
+import {useSelector, useDispatch} from 'react-redux';
+import {StackActions, NavigationActions} from 'react-navigation';
 import * as Utill from '../utill';
 
 const Register = (props) => {
@@ -19,7 +21,7 @@ const Register = (props) => {
     const { navigation } = props;
     const [name, setName] = useState('');
     const [phone, setPhone] = useState('');
-    const [sex, setSex] = useState('male');
+    const [sex, setSex] = useState('nop');
     const [birthDate, setBirth] = useState('');
     const [code, setCode] = useState('');
     const [phoneRes, setPhoneRes] = useState('');
@@ -33,20 +35,80 @@ const Register = (props) => {
     const [man, setMan] = useState(false);
     const [woman, setWoman] = useState(false);
     const [nosex, setNosex] = useState(false);
-   
+    const [alertTxt,setAlertTxt] = useState('전송되었습니다.');
+    const [alertMainTxt,setAlertMainTxt] = useState('인증');
+    const [isAlertVisible, setIsAlertVisible] = useState(false);
+
+    _goBack = () =>{
+        navigation.navigate('Terms')
+    }
+    handleAndroidBackButton(_goBack);
+    
+    const _onPressAlertOk = async() => {
+        setIsAlertVisible(false);
+    }
+
+    const _renderSex = ({check}) => {
+        console.log(check);
+
+        if(check){
+            return(
+                <Image style = {{width : 22,height : 22,marginRight:10}} source = {{uri : 'icon_check_box_purple'}}/>
+            )
+        }
+
+        else{
+            return(
+                <Image style = {{width : 22,height : 22,marginRight:10}} source = {{uri : 'icon_check_box_grey'}}/>
+            )
+        }
+    }
+
+    const _onPressMan = (man) => {
+        if(man===false){
+            setMan(true);
+            setWoman(false);
+            setNosex(false);
+            setSex('Man');
+        }else{
+            setMan(false);
+        }
+    }
+    const _onPressWoman = (man) => {
+        if(man===false){
+            setMan(false);
+            setWoman(true);
+            setNosex(false);
+            setSex('Woman');
+        }else{
+            setWoman(false);
+        }
+    }
+    const _onPressNosex = (man) => {
+        if(man===false){
+            setMan(false);
+            setWoman(false);
+            setNosex(true);
+            setSex('Nosex');
+        }else{
+            setNosex(false);
+        }
+    }
+
     const _phoneAuth = async() =>{
         const phoneRes = await API.phoneAuth({ phone: phone.text });
-        alert('인증번호가 전송되었습니다.');
+        setPhoneRes(phoneRes);
+        setIsAlertVisible(true);
+        
         console.log('phoneRes:' + phoneRes);
         console.log('ps:' + phone.text );
-        setPhoneRes(phoneRes);
     }
 
     const _register = async () => {
-        console.log(isitemail);
+        console.log('isisemail : ' + isitemail);
 
-        if(isitemail){
-            let token = email.text + '/' + password.text;
+        if(!isitemail){
+            let token = navigation.getParam('token');
             const type = navigation.getParam('type');
 
             const res1 = /^[가-힣]{2,25}|[a-zA-Z]{2,25}\s[a-zA-Z]{2,25}$/.test(name.text);
@@ -54,24 +116,56 @@ const Register = (props) => {
             const res5 = /^[가-힣A-Za-z0-9]{2,20}$/.test(nickname.text)&&nickname.text!==undefined;
             const res6 = /^[a-z0-9_+.-]+@([a-z0-9-]+\.)+[a-z0-9]{2,4}$/.test(email.text)&&email.text!==undefined;
             const res7 = /^\d{8}$/.test(birthDate.text);
+            const res8 = man||woman||nosex;
 
             if(!res1){
-                alert('이름을 확인해주세요.');
+                Alert.alert(
+                    '정보 알림',
+                    '이름을 확인해주세요',
+                    [{text: '확인'},],
+                    {cancelable: false},)
             }
             else if(!res2){
-                alert('휴대폰 번호를 확인해주세요.');
+                Alert.alert(
+                    '정보 알림',
+                    '휴대폰 번호를 확인해주세요.',
+                    [{text: '확인'},],
+                    {cancelable: false},)
             }
             else if(!isitokay){
-                alert('휴대폰 인증을 완료해주세요.');
+                Alert.alert(
+                    '정보 알림',
+                    '휴대폰 인증을 완료해주세요.',
+                    [{text: '확인'},],
+                    {cancelable: false},)
             }
             else if(!res7){
-                alert('생년월일을 확인해주세요.')
+                Alert.alert(
+                    '정보 알림',
+                    '생년월일을 확인해주세요.',
+                    [{text: '확인'},],
+                    {cancelable: false},)
             }
             else if(!res6){
-                alert('이메일을 확인해주세요.')
+                Alert.alert(
+                    '정보 알림',
+                    '이메일을 확인해주세요.',
+                    [{text: '확인'},],
+                    {cancelable: false},)
             }
             else if(!res5){
-                alert('닉네임을 확인해주세요.');
+                Alert.alert(
+                    '정보 알림',
+                    '닉네임을 확인해주세요.',
+                    [{text: '확인'},],
+                    {cancelable: false},)
+            }
+            else if(!res8){
+                Alert.alert(
+                    '정보 알림',
+                    '성별을 선택해주세요.',
+                    [{text: '확인'},],
+                    {cancelable: false},)
             }
             else if(isitokay&&res1&&res2&&res5&&res6) {
                 const regRes = await API.register({
@@ -86,7 +180,7 @@ const Register = (props) => {
                 const loginRes = await API.login({ token, type });
                 API.setLocal(API.LOCALKEY_TOKEN, loginRes.token);
                 alert('회원가입이 완료되었습니다.');
-                dispatch(User.updateemail(email));
+                dispatch(Regs.updateemail(email));
                 dispatch(User.updatenickname(nickname));
                 dispatch(User.upadtename(name));
                 dispatch(User.updatephone(phone));
@@ -98,89 +192,148 @@ const Register = (props) => {
                 alert('정보를 확인해주세요');
                 return;
             }
-        }/////////////////////////////////////////////////////////
+        }//////////////////////////////////////////////////////////
         else{
-            let token = navigation.getParam('token');
-            const type = navigation.getParam('type');
+            // let token = email.text + '/' + password.text;
+            // const type = navigation.getParam('type');
     
-            const res1 = /^[가-힣]{2,25}|[a-zA-Z]{2,25}\s[a-zA-Z]{2,25}$/.test(name.text);
-            const res2 = /^\d{11}$/.test(phone.text);
-            const res3 = /^[A-Za-z0-9]{6,15}$/.test(password.text)&&password.text!==undefined;
-            const res4 = (password.text===password1.text);
-            const res5 = /^[가-힣A-Za-z0-9]{2,20}$/.test(nickname.text)&&nickname.text!==undefined;
-            const res6 = /^[a-z0-9_+.-]+@([a-z0-9-]+\.)+[a-z0-9]{2,4}$/.test(email.text)&&email.text!==undefined;
-            const res7 = /^\d{8}$/.test(birthDate.text);
+            // const res1 = /^[가-힣]{2,25}|[a-zA-Z]{2,25}\s[a-zA-Z]{2,25}$/.test(name.text);
+            // const res2 = /^\d{11}$/.test(phone.text);
+            // const res3 = /^[A-Za-z0-9]{6,15}$/.test(password.text)&&password.text!==undefined;
+            // const res4 = (password.text===password1.text);
+            // const res5 = /^[가-힣A-Za-z0-9]{2,20}$/.test(nickname.text)&&nickname.text!==undefined;
+            // const res6 = /^[a-z0-9_+.-]+@([a-z0-9-]+\.)+[a-z0-9]{2,4}$/.test(email.text)&&email.text!==undefined;
+            // const res7 = /^\d{8}$/.test(birthDate.text);
+            // const res8 = man||woman||nosex;
     
-            if(!res1){
-                alert('이름을 확인해주세요.');
-            }
-            else if(!res2){
-                alert('휴대폰 번호를 확인해주세요.');
-            }
-            else if(!isitokay){
-                alert('휴대폰 인증을 완료해주세요.');
-            }
-            else if(!res7){
-                alert('생년월일을 확인해주세요.')
-            }
-            else if(!res6){
-                alert('이메일을 확인해주세요.')
-            }
-            else if(!res3){
-                alert('비밀번호 형식을 맞춰주세요.');
-            }
-            else if(!res4){
-                alert('비밀번호가 일치하지 않습니다.');
-            }
-            else if(!res5){
-                alert('닉네임을 확인해주세요.');
-            }
-            else if(isitokay&&res1&&res2&&res3&&res4&&res5&&res6) {
-                const regRes = await API.register({
-                    token,
-                    type,
-                    sex,
-                    birthDate: birthDate.text,
-                    phone: phone.text,
-                    name: name.text,
-                })
-                console.log(regRes);
-                const loginRes = await API.login({ token, type });
-                API.setLocal(API.LOCALKEY_TOKEN, loginRes.token);
-
-                alert('회원가입이 완료되었습니다.');
-                navigation.navigate('Welcome', {
-                    name: name.text
-                });
-            }
-            else{
-                alert('정보를 확인해주세요');
-                return;
-            }
+            // if(!res1){
+            //     Alert.alert(
+            //         '정보 알림',
+            //         '이름을 확인해주세요',
+            //         [{text: '확인'},],
+            //         {cancelable: false},)
+            // }
+            // else if(!res2){
+            //     Alert.alert(
+            //         '정보 알림',
+            //         '휴대폰 번호를 확인해주세요.',
+            //         [{text: '확인'},],
+            //         {cancelable: false},)
+            // }
+            // else if(!isitokay){
+            //     Alert.alert(
+            //         '정보 알림',
+            //         '휴대폰 인증을 완료해주세요.',
+            //         [{text: '확인'},],
+            //         {cancelable: false},)
+            // }
+            // else if(!res7){
+            //     Alert.alert(
+            //         '정보 알림',
+            //         '생년월일을 확인해주세요.',
+            //         [{text: '확인'},],
+            //         {cancelable: false},)
+            // }
+            // else if(!res6){
+            //     Alert.alert(
+            //         '정보 알림',
+            //         '이메일을 확인해주세요.',
+            //         [{text: '확인'},],
+            //         {cancelable: false},)
+            // }
+            // else if(!res3){
+            //     Alert.alert(
+            //         '정보 알림',
+            //         '비밀번호 형식을 맞춰주세요.',
+            //         [{text: '확인'},],
+            //         {cancelable: false},)
+            // }
+            // else if(!res4){
+            //     Alert.alert(
+            //         '정보 알림',
+            //         '비밀번호가 일치하지 않습니다.',
+            //         [{text: '확인'},],
+            //         {cancelable: false},)
+            // }
+            // else if(!res5){
+            //     Alert.alert(
+            //         '정보 알림',
+            //         '닉네임을 확인해주세요.',
+            //         [{text: '확인'},],
+            //         {cancelable: false},)
+            // }
+            // else if(!res8){
+            //     Alert.alert(
+            //         '정보 알림',
+            //         '성별을 선택해주세요.',
+            //         [{text: '확인'},],
+            //         {cancelable: false},)
+            // }
+            // else if(isitokay&&res1&&res2&&res3&&res4&&res5&&res6) {
+            //     const regRes = await API.register({
+            //         token,
+            //         type,
+            //         sex,
+            //         birthDate: birthDate.text,
+            //         phone: phone.text,
+            //         name: name.text,
+            //     })
+            //     console.log(regRes);
+            //     const loginRes = await API.login({ token, type });
+            //     API.setLocal(API.LOCALKEY_TOKEN, loginRes.token);
+            //     alert('회원가입이 완료되었습니다.');
+            //     dispatch(Regs.updateemail(email));
+            //     dispatch(User.updatenickname(nickname));
+            //     dispatch(User.upadtename(name));
+            //     dispatch(User.updatephone(phone));
+            
+            navigation.navigate('Welcome',
+            {
+                removeAndroidBackButtonHandler,
+                name: name.text
+            });
+            
+            // }
+            // else{
+            //     alert('정보를 확인해주세요');
+            //     return;
+            // }
         }
     }
 
     const _onPressVerifyCode = (injung) => {
         const st_injung = JSON.stringify(injung);
         if(st_injung===code.text&&code.text!==undefined){
-            alert('인증 되었습니다.');
+            setAlertTxt('인증되었습니다.');
+            setIsAlertVisible(true);
             setIsitokay(true);
         }
         else{
-            alert('인증 번호가 틀렸습니다.');
+            setAlertTxt('인증 번호가 틀렸습니다.');
+            setIsAlertVisible(true);
         }
     }
 
     return (
         <View style={{flex : 1}}>
         
+        <CustomAlert1
+            visible={isAlertVisible} 
+            mainTitle={alertMainTxt}
+            mainTextStyle = {styles.txtStyle}
+            subTitle = {alertTxt}
+            subTextStyle = {styles.subtxtStyle}
+            buttonText1 = {'확인'}
+            onPress={_onPressAlertOk} 
+
+        />
         <ScrollView
             keyboardDismissMode="interactive"
             keyboardDismissMode="on-drag"
             keyboardShouldPersistTaps="handled"
             style={styles.container}
             contentContainerStyle={{ flexGrow: 1, justifyContent: 'center' }}>
-            <NavHead title = {'회원가입'}/>
+            <NavSwitchHead navigation = {navigation} navtitle = {'Terms'} title = {'회원가입'}/>
             
             <View style = {{paddingLeft : 15,paddingRight : 15}}>
             <View style = {{flexDirection:'row',marginBottom:13}}>
@@ -219,7 +372,17 @@ const Register = (props) => {
             />
             <Text style={{ fontSize: 16, fontWeight: 'bold', marginBottom: 18}}>추가 정보</Text>
             <Text style={styles.textTitle}>성별</Text>
-
+            <View style={{flexDirection : 'row'}}>
+                <TouchableOpacity onPress = {()=>_onPressMan(man)} style={{flexDirection : 'row'}}>
+                    <_renderSex check={man}></_renderSex><Text style ={{marginRight:48}}>남자</Text>
+                </TouchableOpacity>
+                <TouchableOpacity onPress = {()=>_onPressWoman(woman)} style={{flexDirection : 'row'}}>
+                    <_renderSex check={woman}></_renderSex><Text style ={{marginRight:48}}>여자</Text>
+                </TouchableOpacity>
+                <TouchableOpacity onPress = {()=>_onPressNosex(nosex)} style={{flexDirection : 'row'}}>
+                    <_renderSex check={nosex}></_renderSex><Text style ={{marginRight:48}}>선택안함</Text>
+                </TouchableOpacity>
+            </View>
             <RegistInput
                 keyboardType={'number-pad'}
                 value = {birthDate} 
@@ -277,6 +440,7 @@ export default Register;
 const styles = StyleSheet.create({
     container: {
         flex: 1,
+        backgroundColor:Utill.color.white
     },
     textTitle: {
         fontSize: 14,
@@ -307,5 +471,18 @@ const styles = StyleSheet.create({
         justifyContent : 'center',
         marginTop : 39,
         marginBottom : 50,
+    },
+    txtStyle : {
+        marginBottom : 9,
+        fontSize : 18,
+        fontWeight : 'bold',
+        color : Utill.color.textBlack,
+        alignSelf : 'center',
+    },
+    subtxtStyle : {
+        marginBottom : 35,
+        fontSize : 16,
+        color : Utill.color.textBlack,
+        alignSelf : 'center',
     },
 })

@@ -36,10 +36,6 @@ const initialState = Map({
    phone : '',
    reviewcount : '',
    image : '',
-//    verfifyCode : '',
-//    error : '',
-//    status : '',
-//    //email : '',
 });
 
 export default handleActions({
@@ -50,7 +46,6 @@ export default handleActions({
     [UPDATE_REVIEWCOUNT]: (state, {payload : reviewcount}) => {return state.set('reviewcount',reviewcount)},
     [UPDATE_IMAGE]: (state, {payload : image}) => {return state.set('image',image)},
     [UPDATE_NAME] : (state, {payload : name}) => { return state.set('name',name)},
-    //[UPDATE_EMAIL] : (state, {payload : email}) => {return state.set('email',email)},
     [REGISTER] : (state, action) =>  state.set('status', 'register')
     .set('error', null),
     [REGISTER_VERIFY_CODE_REQUEST] : (state, action) =>  state.set('status', 'registerVerifyCodeRequest')

@@ -12,7 +12,6 @@ export default (props) => {
         kOSSettingsKeyAutoPrompt : true,
       });
     
-      OneSignal.inFocusDisplaying(2);
       OneSignal.enableVibrate(true);
     
       OneSignal.addEventListener('received', onReceived);

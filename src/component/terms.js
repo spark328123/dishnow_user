@@ -1,25 +1,28 @@
 import React, {useState, useEffect} from 'react';
 import {View, StyleSheet, ScrollView,Image} from 'react-native';
 
-import {BigButtonBorder, NavHead,Text} from './common';
+import {BigButtonBorder, NavSwitchHead,Text} from './common';
+import {handleAndroidBackButton,removeAndroidBackButtonHandler} from '../component/common/hardwareBackButton'
+
 import * as Utill from '../utill';
 
 import CheckView from '../component/register/TermsCheck';
 
 
-export default ({navigation}) => {
+export default Terms = ({navigation}) => {
 
     const [type] = useState(navigation.getParam('type'));
     const [token] = useState(navigation.getParam('token'));
     const [valid, setValid] = useState({c1 : false, c2 : false, c3 : false, c4 : false});
     const [validAll, setValidAll] = useState(false);
- 
+    
     const _onNextPress = () => {
-        navigation.push('Register',{
+        console.log('type : ' + type + 'token : ' + token);
+        navigation.navigate('Register',{
             type,
             token,
         },
-        console.log(type,token)
+        
         )
     }
     const _validation =()=> {
@@ -32,11 +35,16 @@ export default ({navigation}) => {
     const _isCheckAll =()=> {
         return validAll? true:null;
     }
+    _goBack = () =>{
+        navigation.navigate('Login')
+    }
+    handleAndroidBackButton(_goBack);
+    
     return (
         <ScrollView style={styles.pageContainer}>
-            <NavHead title = {'회원가입'}/>
+            <NavSwitchHead navigation = {navigation} title = {'회원가입'} navtitle = {'Login'}/>
             <View style = {styles.container}>
-                <View style = {{flexDirection:'row'}}>
+                <View style = {{flexDirection:'row',}}>
                     <Image 
                         style ={{width : 4, height : 4,marginRight:3}}
                         source = {{uri:'dot_purple'}}
@@ -63,7 +71,7 @@ export default ({navigation}) => {
                         onChange={change=>{
                             setValid(v=>({...v, c1:change}));
                         }}
-                        onPressBracket={()=>navigation.push('webView',{
+                        onPressBracket={()=>navigation.navigate('webView',{
                                 source : {uri : 'http://dishnow.kr/terms/1.html'}
                             })}
                     />
@@ -74,7 +82,7 @@ export default ({navigation}) => {
                         onChange={change=>{
                             setValid(v=>({...v, c2:change}));
                         }}
-                        onPressBracket={()=>navigation.push('webView',{
+                        onPressBracket={()=>navigation.navigate('webView',{
                             source : {uri : 'http://dishnow.kr/terms/2.html'}
                         })}
                     />
@@ -85,7 +93,7 @@ export default ({navigation}) => {
                         onChange={change=>{
                             setValid(v=>({...v, c3:change}));
                         }}
-                        onPressBracket={()=>navigation.push('webView',{
+                        onPressBracket={()=>navigation.navigate('webView',{
                             source : {uri : 'http://dishnow.kr/terms/3.html'}
                         })}
                     />
@@ -96,7 +104,7 @@ export default ({navigation}) => {
                         onChange={change=>{
                             setValid(v=>({...v, c4:change}));
                         }}
-                        onPressBracket={()=>navigation.push('webView',{
+                        onPressBracket={()=>navigation.navigate('webView',{
                             source : {uri : 'http://dishnow.kr/terms/4.html'}
                         })}
                     />
@@ -120,9 +128,11 @@ const styles = StyleSheet.create({
         flex : 1,
         marginLeft : 15,
         marginRight : 15,
+        
     },
     pageContainer : {
         width : Utill.screen.screenWidth,
+        backgroundColor:Utill.color.white,
     },
     termsArea : {
         borderTopWidth : 0.8,

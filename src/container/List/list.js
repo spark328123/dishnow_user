@@ -8,7 +8,7 @@ import {
     ActivityIndicator,
 } from 'react-native';
 import { connect } from 'react-redux';
-import { Text } from '../../component/common';
+import { Text,CustomAlert } from '../../component/common';
 import * as Utill from '../../utill';
 import * as API from '../../utill/API';
 import OneSiganl from 'react-native-onesignal';
@@ -23,6 +23,7 @@ const List = (props) => {
     const reservationId = parentNavigation.getParam('reservationId');
     const storeId = parentNavigation.getParam('storeId');
     const theme = parentNavigation.getParam('theme');
+    const [isAlertVisible, setIsAlertVisible] = useState(false);
 
     const storeCoords = {
         latitude,
@@ -32,6 +33,11 @@ const List = (props) => {
     const myCoords = {
         latitude : mylat,
         longitude : mylon
+    }
+
+    const _onPressAlertOk = async() => {
+        setIsAlertVisible(false);
+       _goHome();
     }
 
     const _substr = (imageSource)=>{
@@ -60,8 +66,8 @@ const List = (props) => {
     }
 
     const _goHome = () =>{
+        OneSiganl.removeEventListener('received',_oneSignalReceived);
         navigation.navigate('TabHome');
-        OneSiganl.removeEventListener('received');
     }
 
     const [ isLoaded, setIsLoaded ] = useState(true);
@@ -95,7 +101,7 @@ const List = (props) => {
     }
 
     useEffect(()=>{
-        OneSiganl.removeEventListener('received');
+        OneSiganl.removeEventListener('received',_oneSignalReceived);
         OneSiganl.addEventListener('received',_oneSignalReceived);
     },[listData]);
 
@@ -167,12 +173,23 @@ const List = (props) => {
 
     return(
         <View style = {styles.container}>
+            <CustomAlert 
+                visible={isAlertVisible} 
+                mainTitle={'취소'}
+                mainTextStyle = {styles.txtStyle}
+                subTitle = {'이미 요청을 수락한 가게가 있습니다.\n정말 취소할까요?'}
+                subTextStyle = {styles.subtxtStyle}
+                buttonText1={'아니오'} 
+                buttonText2={'네'} 
+                onPress={_onPressAlertOk} 
+            />
+
             <View style = {styles.header}>
                 <Text style = {{fontSize : 18}}>
                     예약 가능 식당
                 </Text>
                 <TouchableOpacity
-                    onPress = {()=>_goHome()}>
+                    onPress = {()=>setIsAlertVisible(true)}>
                     <Text style = {{color : Utill.color.red, fontSize : 14}}>취소하기</Text>
                 </TouchableOpacity>
             </View>
@@ -227,5 +244,18 @@ const styles = StyleSheet.create({
         opacity: 0.7,
         justifyContent: "center",
         alignItems: "center",
+    },
+    txtStyle : {
+        marginBottom : 9,
+        fontSize : 18,
+        fontWeight : 'bold',
+        color : Utill.color.red,
+        alignSelf : 'center',
+    },
+    subtxtStyle : {
+        marginBottom : 35,
+        fontSize : 16,
+        color : Utill.color.textBlack,
+        alignSelf : 'center',
     },
 })

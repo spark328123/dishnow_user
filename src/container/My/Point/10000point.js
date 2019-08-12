@@ -16,8 +16,7 @@ export default Point2 = (props)=> {
         {
             image : {uri : 'icon_x'},
             name : '[컬쳐랜드]\n문화상품권 10,000원권',
-        }
-        
+        },
     ]
     return (
         <View style = {styles.container}>

@@ -25,7 +25,7 @@ const naverLogin = (navigation) => {
         login(token)
         .then(res=>{
             if(!res){
-                navigation.push('Terms',{
+                navigation.navigate('Terms',{
                     token,
                     type
                 })
