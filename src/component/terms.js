@@ -15,11 +15,12 @@ export default ({navigation}) => {
     const [validAll, setValidAll] = useState(false);
  
     const _onNextPress = () => {
+        console.log('type : ' + type + 'token : ' + token);
         navigation.push('Register',{
             type,
             token,
         },
-        console.log(type,token)
+        
         )
     }
     const _validation =()=> {

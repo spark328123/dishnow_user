@@ -51,8 +51,6 @@ const TabHome = (props)=>{
     );
 
     const {navigation, latitude, longitude, address} = props;
-    
-
 
     useEffect(()=>{
         OneSignal.addEventListener('ids',onIds);
@@ -61,6 +59,7 @@ const TabHome = (props)=>{
             OneSignal.removeEventListener('ids',onIds);
         }
     },[]);
+
     const _reservation = async()=>{
         const token = await API.getLocal(API.LOCALKEY_TOKEN);
         const data = {
@@ -190,6 +189,7 @@ const TabHome = (props)=>{
                         <View style={styles.childchild1}><Text style = {styles.tst}>인원</Text></View>
                         <View style = {styles.childchild2}>
                             <TextInput 
+                            maxLength={2}
                             blurOnSubmit = {true}
                             keyboardType = 'number-pad'
                             selectionColor = '#733FFF'
