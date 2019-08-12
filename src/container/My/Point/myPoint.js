@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, StyleSheet, FlatList, Button } from 'react-native';
+import { View, StyleSheet, FlatList, Button,ScrollView } from 'react-native';
 import { connect, dispatch } from 'react-redux';
 import * as API from '../../../utill/API';
 import { Text,NavSwitchHead,BigButtonBorder } from '../../../component/common';
@@ -16,7 +16,7 @@ const MyPoint = (props)=>{
     handleAndroidBackButton(_goBack);
     const _renderItem = ({item}) =>{
         return (
-            <View style = {{height : 60}}>
+            <View style = {{height : 79}}>
                 <View style = {{flexDirection : 'row', justifyContent :'space-between',marginBottom:7,marginTop:12,}}>
                     <Text style = {{fontSize : 14,color : Utill.color.textBlack}}>
                         {item.name}
@@ -27,7 +27,7 @@ const MyPoint = (props)=>{
                 </View>
                 <Text style = {{color : Utill.color.textBlack,marginBottom:15}}>
                     {
-                        item.createdAt.substring(0,10)+
+                        `${parseInt(item.createdAt.substring(0,4))}.${item.createdAt.substring(5,7)}.${item.createdAt.substring(8,10)}`+
                         `(${parseInt(item.createdAt.substring(0,4)) + 1}.${item.createdAt.substring(5,7)}.${item.createdAt.substring(8,10)}소멸)`
                     }
                 </Text>
@@ -82,7 +82,10 @@ const MyPoint = (props)=>{
                 }}>
                     포인트 내역
                 </Text>
-                <FlatList data = {data} renderItem = {_renderItem}/>
+                <ScrollView  >
+                    <FlatList removeClippedSubviews={true} data = {data} renderItem = {_renderItem}/>
+                </ScrollView>
+                
             </View>
         </View>
     )

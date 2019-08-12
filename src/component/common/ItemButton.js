@@ -1,5 +1,5 @@
 import React from 'react';
-import {View,StyleSheet,Alert,Image, FlatList, TouchableOpacity} from 'react-native';
+import {View,StyleSheet,Alert,Image, FlatList, ScrollView} from 'react-native';
 import {Text,BigButtonBorder} from '../../component/common'
 import * as User from '../../store/modules/user';
 import CustomAlert from '../../component/common/CustomAlert';
@@ -30,31 +30,36 @@ export default ItemButton = (props)=> {
 
     const _renderItem = ({item})=>{
         return(
-            <View style ={styles.container}>
+            <ScrollView style ={styles.container}>
                 <View    
                     style = {styles.block}>
-                <Image 
-                    style = {styles.image}
-                    source = {{uri : 'icon_x'}}
-                    />
-
-                <View style = {{flexDirection : 'column',justifyContent : 'center',marginRight : Utill.screen.Screen.customWidth(9),}}>
-                    <Text style ={{color : Utill.color.textBlack,fontSize : 14,marginBottom:12,}}>
-                        {`${item.name}`}
-                    </Text>
-                    <BigButtonBorder
-                        onPress = {()=>_usePoint(item)}
-                        style = {styles.button}
-                        title = {'교환하기'}
-                        disabled = {false}
-                    >
-                    </BigButtonBorder>
-                </View> 
-
-                </View>
                 
+                    <View style = {{width:'50%',justifyContent : 'center'}}>
+                        <Image 
+                            style = {styles.image}
+                            source = {{uri : 'icon_x'}}
+                            />
+                    </View>
+
+                    <View style = {{width:'50%',justifyContent : 'center'}}>
+                        <View style = {{flexDirection : 'column'}}>
+                            <Text style ={{color : Utill.color.textBlack,fontSize : 14,marginBottom:12,}}>
+                                {`${item.name}`}
+                            </Text>
+                            <BigButtonBorder
+                                onPress = {()=>_usePoint(item)}
+                                style = {styles.button}
+                                title = {'교환하기'}
+                                disabled = {false}
+                            >
+                            </BigButtonBorder>
+                        </View> 
+                    </View>
+                </View>
+
                 <View style = {styles.line}/>
-            </View>
+
+            </ScrollView>
             
          )
     }
@@ -62,7 +67,7 @@ export default ItemButton = (props)=> {
     return (
         <View style = {styles.container}>
             <View style = {{flexDirection:'row'}}>
-               <FlatList renderItem={_renderItem} data={data}/>
+               <FlatList removeClippedSubviews={true} renderItem={_renderItem} data={data}/>
             </View>
         </View>
     )
@@ -85,7 +90,6 @@ const styles = StyleSheet.create({
     image : {
         height :Utill.screen.Screen.customHeight(90),
         width : Utill.screen.Screen.customWidth(90),
-        marginLeft : Utill.screen.Screen.customWidth(9),
         alignSelf : 'center',
     },
     line : {
@@ -97,6 +101,5 @@ const styles = StyleSheet.create({
         flexDirection : 'row', 
         marginRight : 15,
         marginLeft : 15,
-        justifyContent : 'space-between',
     },
 })
