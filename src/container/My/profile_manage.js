@@ -104,7 +104,7 @@ const Profile = ({navigation, userid, nickname, image, phone, point, name}) => {
                 {photo &&  (
                     <Image
                         source={profile}
-                        style={{ width: 90, height: 90, borderRadius : 40}}
+                        style={{ width: 90, height: 90, borderRadius : 45}}
                     />
                 )}
                 {!photo && ( 

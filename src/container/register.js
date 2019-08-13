@@ -9,10 +9,12 @@ import regs, * as Regs from '../store/modules/regs';
 import {useSelector, useDispatch} from 'react-redux';
 import {StackActions, NavigationActions} from 'react-navigation';
 import * as Utill from '../utill';
+import  RNKakaoLogins from 'react-native-kakao-logins';
 
 const Register = (props) => {
 
     const dispatch = useDispatch();
+    
 
     const [valid, setValid] = useState(
         {vname :false, vphone : false, vcode: null, vpassword: false, 
@@ -110,7 +112,7 @@ const Register = (props) => {
         if(!isitemail){
             let token = navigation.getParam('token');
             const type = navigation.getParam('type');
-
+         
             const res1 = /^[가-힣]{2,25}|[a-zA-Z]{2,25}\s[a-zA-Z]{2,25}$/.test(name.text);
             const res2 = /^\d{11}$/.test(phone.text);
             const res5 = /^[가-힣A-Za-z0-9]{2,20}$/.test(nickname.text)&&nickname.text!==undefined;
@@ -176,9 +178,131 @@ const Register = (props) => {
                     phone: phone.text,
                     name: name.text,
                 });
+                
                 console.log(regRes);
                 const loginRes = await API.login({ token, type });
-                API.setLocal(API.LOCALKEY_TOKEN, loginRes.token);
+                if(type === 'kakao'){       //각 이미지
+                    await API.changeprofile(loginRes.token,{
+                        image : navigation.getParam('kakaoProfile')
+                    })
+                }else{
+                    await API.changeprofile(loginRes.token,{
+                        image : `["https://ssl.pstatic.net/static/pwe/address/img_profile.png"]`
+                    })
+                }
+                await API.changenick(loginRes.token,{
+                    nickname : nickname.text
+                });
+                await API.setLocal(API.LOCALKEY_TOKEN, loginRes.token);
+                alert('회원가입이 완료되었습니다.');
+                dispatch(Regs.updateemail(email));
+                dispatch(User.updatenickname(nickname.text));
+                dispatch(User.upadtename(name));
+                dispatch(User.updatephone(phone));
+                navigation.navigate('Welcome', {
+                    name: name.text
+                });
+            }
+            else{
+                alert('정보를 확인해주세요');
+                return;
+            }
+        }//////////////////////////////////////////////////////////
+        else{
+            let token = email.text + '/' + password.text;
+            const type = navigation.getParam('type');
+           
+            const res1 = /^[가-힣]{2,25}|[a-zA-Z]{2,25}\s[a-zA-Z]{2,25}$/.test(name.text);
+            const res2 = /^\d{11}$/.test(phone.text);
+            const res3 = /^[A-Za-z0-9]{6,15}$/.test(password.text)&&password.text!==undefined;
+            const res4 = (password.text===password1.text);
+            const res5 = /^[가-힣A-Za-z0-9]{2,20}$/.test(nickname.text)&&nickname.text!==undefined;
+            const res6 = /^[a-z0-9_+.-]+@([a-z0-9-]+\.)+[a-z0-9]{2,4}$/.test(email.text)&&email.text!==undefined;
+            const res7 = /^\d{8}$/.test(birthDate.text);
+            const res8 = man||woman||nosex;
+    
+            if(!res1){
+                Alert.alert(
+                    '정보 알림',
+                    '이름을 확인해주세요',
+                    [{text: '확인'},],
+                    {cancelable: false},)
+            }
+            else if(!res2){
+                Alert.alert(
+                    '정보 알림',
+                    '휴대폰 번호를 확인해주세요.',
+                    [{text: '확인'},],
+                    {cancelable: false},)
+            }
+            else if(!isitokay){
+                Alert.alert(
+                    '정보 알림',
+                    '휴대폰 인증을 완료해주세요.',
+                    [{text: '확인'},],
+                    {cancelable: false},)
+            }
+            else if(!res7){
+                Alert.alert(
+                    '정보 알림',
+                    '생년월일을 확인해주세요.',
+                    [{text: '확인'},],
+                    {cancelable: false},)
+            }
+            else if(!res6){
+                Alert.alert(
+                    '정보 알림',
+                    '이메일을 확인해주세요.',
+                    [{text: '확인'},],
+                    {cancelable: false},)
+            }
+            else if(!res3){
+                Alert.alert(
+                    '정보 알림',
+                    '비밀번호 형식을 맞춰주세요.',
+                    [{text: '확인'},],
+                    {cancelable: false},)
+            }
+            else if(!res4){
+                Alert.alert(
+                    '정보 알림',
+                    '비밀번호가 일치하지 않습니다.',
+                    [{text: '확인'},],
+                    {cancelable: false},)
+            }
+            else if(!res5){
+                Alert.alert(
+                    '정보 알림',
+                    '닉네임을 확인해주세요.',
+                    [{text: '확인'},],
+                    {cancelable: false},)
+            }
+            else if(!res8){
+                Alert.alert(
+                    '정보 알림',
+                    '성별을 선택해주세요.',
+                    [{text: '확인'},],
+                    {cancelable: false},)
+            }
+            else if(isitokay&&res1&&res2&&res3&&res4&&res5&&res6) {
+                const regRes = await API.register({
+                    token,
+                    type : navigation.getParam('type'),
+                    sex,
+                    birthDate: birthDate.text,
+                    phone: phone.text,
+                    name: name.text,
+                })
+                console.log(regRes);
+                const loginRes = await API.login({ token, type });
+                console.log(loginRes);
+                await API.changenick(loginRes.token,{
+                    nickname : nickname.text
+                });
+                await API.changeprofile(loginRes.token,{
+                    image : `["https://ssl.pstatic.net/static/pwe/address/img_profile.png"]`
+                })
+                await API.setLocal(API.LOCALKEY_TOKEN, loginRes.token);
                 alert('회원가입이 완료되었습니다.');
                 dispatch(Regs.updateemail(email));
                 dispatch(User.updatenickname(nickname));
@@ -192,112 +316,6 @@ const Register = (props) => {
                 alert('정보를 확인해주세요');
                 return;
             }
-        }//////////////////////////////////////////////////////////
-        else{
-            // let token = email.text + '/' + password.text;
-            // const type = navigation.getParam('type');
-    
-            // const res1 = /^[가-힣]{2,25}|[a-zA-Z]{2,25}\s[a-zA-Z]{2,25}$/.test(name.text);
-            // const res2 = /^\d{11}$/.test(phone.text);
-            // const res3 = /^[A-Za-z0-9]{6,15}$/.test(password.text)&&password.text!==undefined;
-            // const res4 = (password.text===password1.text);
-            // const res5 = /^[가-힣A-Za-z0-9]{2,20}$/.test(nickname.text)&&nickname.text!==undefined;
-            // const res6 = /^[a-z0-9_+.-]+@([a-z0-9-]+\.)+[a-z0-9]{2,4}$/.test(email.text)&&email.text!==undefined;
-            // const res7 = /^\d{8}$/.test(birthDate.text);
-            // const res8 = man||woman||nosex;
-    
-            // if(!res1){
-            //     Alert.alert(
-            //         '정보 알림',
-            //         '이름을 확인해주세요',
-            //         [{text: '확인'},],
-            //         {cancelable: false},)
-            // }
-            // else if(!res2){
-            //     Alert.alert(
-            //         '정보 알림',
-            //         '휴대폰 번호를 확인해주세요.',
-            //         [{text: '확인'},],
-            //         {cancelable: false},)
-            // }
-            // else if(!isitokay){
-            //     Alert.alert(
-            //         '정보 알림',
-            //         '휴대폰 인증을 완료해주세요.',
-            //         [{text: '확인'},],
-            //         {cancelable: false},)
-            // }
-            // else if(!res7){
-            //     Alert.alert(
-            //         '정보 알림',
-            //         '생년월일을 확인해주세요.',
-            //         [{text: '확인'},],
-            //         {cancelable: false},)
-            // }
-            // else if(!res6){
-            //     Alert.alert(
-            //         '정보 알림',
-            //         '이메일을 확인해주세요.',
-            //         [{text: '확인'},],
-            //         {cancelable: false},)
-            // }
-            // else if(!res3){
-            //     Alert.alert(
-            //         '정보 알림',
-            //         '비밀번호 형식을 맞춰주세요.',
-            //         [{text: '확인'},],
-            //         {cancelable: false},)
-            // }
-            // else if(!res4){
-            //     Alert.alert(
-            //         '정보 알림',
-            //         '비밀번호가 일치하지 않습니다.',
-            //         [{text: '확인'},],
-            //         {cancelable: false},)
-            // }
-            // else if(!res5){
-            //     Alert.alert(
-            //         '정보 알림',
-            //         '닉네임을 확인해주세요.',
-            //         [{text: '확인'},],
-            //         {cancelable: false},)
-            // }
-            // else if(!res8){
-            //     Alert.alert(
-            //         '정보 알림',
-            //         '성별을 선택해주세요.',
-            //         [{text: '확인'},],
-            //         {cancelable: false},)
-            // }
-            // else if(isitokay&&res1&&res2&&res3&&res4&&res5&&res6) {
-            //     const regRes = await API.register({
-            //         token,
-            //         type,
-            //         sex,
-            //         birthDate: birthDate.text,
-            //         phone: phone.text,
-            //         name: name.text,
-            //     })
-            //     console.log(regRes);
-            //     const loginRes = await API.login({ token, type });
-            //     API.setLocal(API.LOCALKEY_TOKEN, loginRes.token);
-            //     alert('회원가입이 완료되었습니다.');
-            //     dispatch(Regs.updateemail(email));
-            //     dispatch(User.updatenickname(nickname));
-            //     dispatch(User.upadtename(name));
-            //     dispatch(User.updatephone(phone));
-            
-            navigation.navigate('Welcome',
-            {
-                removeAndroidBackButtonHandler,
-                name: name.text
-            });
-            
-            // }
-            // else{
-            //     alert('정보를 확인해주세요');
-            //     return;
-            // }
         }
     }
 

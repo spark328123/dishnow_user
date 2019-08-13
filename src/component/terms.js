@@ -21,8 +21,8 @@ export default Terms = ({navigation}) => {
         navigation.navigate('Register',{
             type,
             token,
+            kakaoProfile : navigation.getParam('kakaoProfile'),
         },
-        
         )
     }
     const _validation =()=> {

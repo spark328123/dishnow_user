@@ -72,7 +72,7 @@ export default ({ navigation }) => {
        console.log("error", err.toString());
        return;
      }
-     setKakaoProfile(["${result.thumb_image_path}"]);
+     setKakaoProfile(`["${result.thumb_image_path}"]`);
      console.log("result", result);
    });
  }

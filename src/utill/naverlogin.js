@@ -34,7 +34,10 @@ const naverLogin = (navigation) => {
             }
         })
         console.log(token);
+        const res = getProfile(token);
+        console.log(res);
     });
+   
   };
 
 export default({navigation}) =>{

@@ -64,6 +64,7 @@ const OnWait =  (props) =>{
             _toggle();
             OneSignal.removeEventListener('received',_oneSignalReceived);
             OneSignal.removeEventListener('opened',_oneSignalReceived);
+            OneSignal.inFocusDisplaying(2);
         }
     },[timerCount]);
 
@@ -91,6 +92,7 @@ const OnWait =  (props) =>{
         OneSignal.removeEventListener('received',_oneSignalReceived);
         OneSignal.removeEventListener('opened',_oneSignalReceived);
         navigation.navigate('TabHome');
+        OneSignal.inFocusDisplaying(2);
     }
 
     const _oneSignalReceived = (notification) => {

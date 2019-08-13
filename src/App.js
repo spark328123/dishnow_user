@@ -13,6 +13,7 @@ export default (props) => {
       });
     
       OneSignal.enableVibrate(true);
+      OneSignal.inFocusDisplaying(2);
     
       OneSignal.addEventListener('received', onReceived);
       OneSignal.addEventListener('opened', onOpened);
