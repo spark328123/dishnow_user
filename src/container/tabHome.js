@@ -8,15 +8,18 @@ import { View,
     Image, 
     KeyboardAvoidingView, 
     Keyboard, 
-    TouchableWithoutFeedback } from 'react-native';
+    TouchableWithoutFeedback,
+    
+} from 'react-native';
 import GoogleMap from '../utill/googlemap.js';
 import { useDispatch, connect } from 'react-redux';
 import * as API from '../utill/API';
 import * as Utill from '../utill';
 import  * as User from '../store/modules/user'
 import ModalDropdown from 'react-native-modal-dropdown';
-import { BigButtonColor, Text } from '../component/common'
+import { BigButtonColor, Text, CustomAlert } from '../component/common'
 import OneSignal from 'react-native-onesignal';
+import Toast from 'react-native-simple-toast';
 import { screenWidth } from '../utill/screen.js';
 
 const TabHome = (props)=>{
@@ -61,23 +64,28 @@ const TabHome = (props)=>{
     },[]);
 
     const _reservation = async()=>{
-        const token = await API.getLocal(API.LOCALKEY_TOKEN);
-        const data = {
-            storeTypeId : 1,
-            peopleNumber : parseInt(people.text),
-            minutes : parseInt(arr[parseInt(time)]),
-            latitude,
-            longitude, 
+        if(parseInt(people.text)>0&&parseInt(arr[parseInt(time)])>0){
+            const token = await API.getLocal(API.LOCALKEY_TOKEN);
+            const data = {
+                storeTypeId : 1,
+                peopleNumber : parseInt(people.text),
+                minutes : parseInt(arr[parseInt(time)]),
+                latitude,
+                longitude, 
+            }
+            console.log(data);
+            const res = await API.reservation(token,data);
+            console.log(res);
+            navigation.navigate('onWait',{
+                people : people.text,
+                time,
+                tema : temaList[tema].id,
+                address,
+            })
         }
-        console.log(data);
-        const res = await API.reservation(token,data);
-        console.log(res);
-        navigation.navigate('onWait',{
-            people : people.text,
-            time,
-            tema : temaList[tema].id,
-            address,
-        })
+        else{
+            Toast.show('인원과 출발 예정 시간을 확인해주세요.')
+        }
     }
 
     const onIds = ((device) => {
@@ -194,6 +202,7 @@ const TabHome = (props)=>{
                             keyboardType = 'number-pad'
                             selectionColor = '#733FFF'
                             placeholder ={'00'}
+                            placeholderTextColor = {'#CCCCCC'}
                             onChangeText={(text) => setPeople({text})}
                             value={people.text}
                             style={styles.personInput} />

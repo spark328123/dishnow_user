@@ -14,5 +14,6 @@ export {default as SungminButton} from './SungminButton';
 export {default as PushButton} from './PushButton';  
 export {default as NavSwitchHead} from './NavSwitchHead';  
 export {default as CustomAlert} from './CustomAlert';  
+export {default as CustomAlert1} from './CustomAlert1';
 export {default as SmallButton} from './SmallButton';
 export {default as ItemButton} from './ItemButton';

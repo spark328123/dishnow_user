@@ -10,7 +10,8 @@ import {
   Platform,
 } from 'react-native';
 import { getInset } from 'react-native-safe-area-view';
-import {NavHead, NavSwitchHead} from '../../../component/common'
+import {NavHead, NavSwitchHead} from '../../../component/common';
+import {handleAndroidBackButton} from '../../../component/common/hardwareBackButton'
 import BannerView from '../../../component/bannerView';
 import TabButton from '../../../component/TabButton';
 import Page1 from './page1';
@@ -141,6 +142,11 @@ const ListMenu = (props) =>  {
     outputRange: ['rgb(255,255,255)', 'rgb(255,255,255)', 'rgb(0,0,0)'],
     extrapolate: 'clamp',
   });
+  _goBack = () => {
+    navigation.navigate('TabBooked')
+}
+
+handleAndroidBackButton(_goBack);
   const _onScroll = (e) => {
     // console.log(e.nativeEvent.contentOffset.y)
       scrollY.setValue(e.nativeEvent.contentOffset.y);

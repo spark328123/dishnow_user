@@ -148,7 +148,7 @@ const GoogleMaps =  ({isPressed, toggle, navigation, latitudeDelta, latitude, lo
                 }></Image>
             </View>
             <View style = {styles.address}>
-                <Text style ={{fontSize:13,padding:10}}>출발지 : {address}</Text>
+                <Text style ={{fontSize:13,padding:10, color:'#555555'}}>출발지 : {address}</Text>
             </View>
             {isPressed? (
                 <TouchableOpacity

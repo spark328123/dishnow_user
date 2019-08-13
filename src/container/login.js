@@ -11,7 +11,6 @@ import NaverLogin from '../utill/naverlogin'
 import * as Utill from '../utill';
 import * as API from '../utill/API';
 import { Text, Button, BigButton, TextInput, SungminButton } from '../component/common'
-
 const type = 'email';
 var token = '';
 
@@ -24,7 +23,7 @@ const Login = (props) => {
 
 
   _emailaccount = () => {
-    navigation.push('Terms', {
+    navigation.navigate('Terms', {
       type,
       token,
     });
@@ -44,7 +43,7 @@ const Login = (props) => {
 
   return (
     <View style = {styles.container}>
-    <ImageBackground source={{uri : 'login_image'}} style={{flex:1,}}>
+    <ImageBackground source={{uri : "login_image2"}} style={{flex:1,}}>
     
         <View style={styles.logo}>
           <Image
@@ -98,9 +97,9 @@ const Login = (props) => {
            onPress={()=>_emailaccount()}
            >
            <Text style = {styles.createText}>{"이메일로 계정 만들기"}</Text>
-         </Button>
-         </ImageBackground>
-         </View>
+        </Button>
+    </ImageBackground>
+    </View>
 
  );
 }
@@ -113,7 +112,7 @@ const styles = StyleSheet.create({
    flexDirection: "column",
    //marginTop: Platform.OS === 'ios' ? 0 : 24,
    //paddingTop: Platform.OS === 'ios' ? 24 : 0,
- },
+ }, 
  linearGradient: {
    flex: 1
  },
@@ -122,37 +121,44 @@ const styles = StyleSheet.create({
    justifyContent: "center"
  },
  dishnowLogo: {
-   marginTop: Utill.screen.Screen.customHeight(132),
+   marginTop: Utill.screen.Screen.customHeight(117),
    width: 262,
    height: 55.24
  },
- loginContainer: {
+loginContainer: {
    alignItems: "center",
  },
- snsLoginContainer: {
+snsLoginContainer: {
    marginTop: Utill.screen.Screen.customHeight(40),
    marginBottom: Utill.screen.Screen.customHeight(51),
    alignItems: "center",
    justifyContent: "flex-start",
  },
- snsText: {
+snsText: {
    fontSize: 15,
    color: "#FFFFFF"
  },
- snsButtonContainer: {
+snsButtonContainer: {
    flexDirection: "row",
    justifyContent: "space-around",
    width: Utill.screen.Screen.customWidth(226),
  },
- create : {
+create : {
    alignItems : 'center',
    borderBottomColor : "white",
    height: 23,
    width: 140,
+   marginBottom : 10,
    borderBottomColor: "white",
    borderBottomWidth: 1,
-   alignSelf: 'center'
+   alignSelf: 'center',
+  
  },
+createText: {
+  fontSize: 16,
+  color: "white",
+  marginBottom : Utill.screen.Screen.customHeight(10),
+},
  loginButton : {
    alignItems: "center",
    justifyContent: "center",
@@ -161,13 +167,10 @@ const styles = StyleSheet.create({
  input : {
    fontSize : 18,
    width : Utill.screen.Screen.customWidth(278.5),
-   height: Utill.screen.Screen.customHeight(29),
+   height: Utill.screen.Screen.customHeight(33),
    borderBottomWidth : 1.3,
 borderBottomColor : Utill.color.onColorBackground,
    color : Utill.color.onColorBackground,
  },
- createText: {
-   fontSize: 16,
-   color: "white",
- }
+ 
 });
