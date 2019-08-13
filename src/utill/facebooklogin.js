@@ -27,7 +27,7 @@ const facebooklogin = (navigation) => {
                 login(data.accessToken.toString())
                     .then(res => {
                         if (!res) {
-                            navigation.push('Terms', {
+                            navigation.navigate('Terms', {
                                 type,
                                 token: result.token,
                             })

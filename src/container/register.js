@@ -1,11 +1,13 @@
 import React, { useState, useEffect} from 'react';
 import { View, StyleSheet, TextInput, ScrollView,Image, TouchableOpacity, Alert} from 'react-native';
-import {Button, BigButtonColor, BigButton, BigButtonBorder, CustomAlert, Text, NavHead} from '../component/common/'
+import {Button, BigButtonColor, BigButton, BigButtonBorder, CustomAlert1, Text, NavSwitchHead} from '../component/common/'
 import {RegistInput, RegisterInputPhone, RegisterInputCode, } from '../component/register';
+import {removeAndroidBackButtonHandler,handleAndroidBackButton} from '../component/common/hardwareBackButton'
 import * as API from '../utill/API';
 import user, * as User from '../store/modules/user';
 import regs, * as Regs from '../store/modules/regs';
-import {useSelector, useDispatch} from 'react-redux'
+import {useSelector, useDispatch} from 'react-redux';
+import {StackActions, NavigationActions} from 'react-navigation';
 import * as Utill from '../utill';
 import  RNKakaoLogins from 'react-native-kakao-logins';
 
@@ -35,22 +37,31 @@ const Register = (props) => {
     const [man, setMan] = useState(false);
     const [woman, setWoman] = useState(false);
     const [nosex, setNosex] = useState(false);
-    
+    const [alertTxt,setAlertTxt] = useState('전송되었습니다.');
+    const [alertMainTxt,setAlertMainTxt] = useState('인증');
+    const [isAlertVisible, setIsAlertVisible] = useState(false);
 
+    _goBack = () =>{
+        navigation.navigate('Terms')
+    }
+    handleAndroidBackButton(_goBack);
+    
+    const _onPressAlertOk = async() => {
+        setIsAlertVisible(false);
+    }
 
     const _renderSex = ({check}) => {
         console.log(check);
+
         if(check){
             return(
-                <Text>선택된 이미지</Text>
-                // <Image>
-    
-                // </Image>
+                <Image style = {{width : 22,height : 22,marginRight:10}} source = {{uri : 'icon_check_box_purple'}}/>
             )
         }
+
         else{
             return(
-                <Text>선택안된 이미지</Text>
+                <Image style = {{width : 22,height : 22,marginRight:10}} source = {{uri : 'icon_check_box_grey'}}/>
             )
         }
     }
@@ -88,10 +99,11 @@ const Register = (props) => {
 
     const _phoneAuth = async() =>{
         const phoneRes = await API.phoneAuth({ phone: phone.text });
-        alert('인증번호가 전송되었습니다.');
+        setPhoneRes(phoneRes);
+        setIsAlertVisible(true);
+        
         console.log('phoneRes:' + phoneRes);
         console.log('ps:' + phone.text );
-        setPhoneRes(phoneRes);
     }
 
     const _register = async () => {
@@ -310,24 +322,36 @@ const Register = (props) => {
     const _onPressVerifyCode = (injung) => {
         const st_injung = JSON.stringify(injung);
         if(st_injung===code.text&&code.text!==undefined){
-            alert('인증 되었습니다.');
+            setAlertTxt('인증되었습니다.');
+            setIsAlertVisible(true);
             setIsitokay(true);
         }
         else{
-            alert('인증 번호가 틀렸습니다.');
+            setAlertTxt('인증 번호가 틀렸습니다.');
+            setIsAlertVisible(true);
         }
     }
 
     return (
         <View style={{flex : 1}}>
         
+        <CustomAlert1
+            visible={isAlertVisible} 
+            mainTitle={alertMainTxt}
+            mainTextStyle = {styles.txtStyle}
+            subTitle = {alertTxt}
+            subTextStyle = {styles.subtxtStyle}
+            buttonText1 = {'확인'}
+            onPress={_onPressAlertOk} 
+
+        />
         <ScrollView
             keyboardDismissMode="interactive"
             keyboardDismissMode="on-drag"
             keyboardShouldPersistTaps="handled"
             style={styles.container}
             contentContainerStyle={{ flexGrow: 1, justifyContent: 'center' }}>
-            <NavHead title = {'회원가입'}/>
+            <NavSwitchHead navigation = {navigation} navtitle = {'Terms'} title = {'회원가입'}/>
             
             <View style = {{paddingLeft : 15,paddingRight : 15}}>
             <View style = {{flexDirection:'row',marginBottom:13}}>
@@ -368,13 +392,13 @@ const Register = (props) => {
             <Text style={styles.textTitle}>성별</Text>
             <View style={{flexDirection : 'row'}}>
                 <TouchableOpacity onPress = {()=>_onPressMan(man)} style={{flexDirection : 'row'}}>
-                    <_renderSex check={man}></_renderSex><Text>남자</Text>
+                    <_renderSex check={man}></_renderSex><Text style ={{marginRight:48}}>남자</Text>
                 </TouchableOpacity>
                 <TouchableOpacity onPress = {()=>_onPressWoman(woman)} style={{flexDirection : 'row'}}>
-                    <_renderSex check={woman}></_renderSex><Text>여자</Text>
+                    <_renderSex check={woman}></_renderSex><Text style ={{marginRight:48}}>여자</Text>
                 </TouchableOpacity>
                 <TouchableOpacity onPress = {()=>_onPressNosex(nosex)} style={{flexDirection : 'row'}}>
-                    <_renderSex check={nosex}></_renderSex><Text>선택안함</Text>
+                    <_renderSex check={nosex}></_renderSex><Text style ={{marginRight:48}}>선택안함</Text>
                 </TouchableOpacity>
             </View>
             <RegistInput
@@ -434,6 +458,7 @@ export default Register;
 const styles = StyleSheet.create({
     container: {
         flex: 1,
+        backgroundColor:Utill.color.white
     },
     textTitle: {
         fontSize: 14,
@@ -464,5 +489,18 @@ const styles = StyleSheet.create({
         justifyContent : 'center',
         marginTop : 39,
         marginBottom : 50,
+    },
+    txtStyle : {
+        marginBottom : 9,
+        fontSize : 18,
+        fontWeight : 'bold',
+        color : Utill.color.textBlack,
+        alignSelf : 'center',
+    },
+    subtxtStyle : {
+        marginBottom : 35,
+        fontSize : 16,
+        color : Utill.color.textBlack,
+        alignSelf : 'center',
     },
 })

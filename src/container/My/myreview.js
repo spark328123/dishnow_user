@@ -2,6 +2,7 @@ import React, { useEffect, useState,memo } from 'react';
 import { View, Text, StyleSheet, FlatList, Image, TouchableOpacity, ActivityIndicator } from 'react-native';
 import {NavSwitchHead} from '../../component/common';
 
+
 import * as API from '../../utill/API';
 import * as Utill from '../../utill';
 import Dialog from "react-native-dialog";
