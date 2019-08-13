@@ -1,6 +1,7 @@
 import React, { useEffect, useState,memo } from 'react';
-import { View, Text, StyleSheet, FlatList, Image,TouchableOpacity } from 'react-native';
-import {NavSwitchHead} from '../../component/common'
+import { View, Text, StyleSheet, FlatList, Image, TouchableOpacity, ActivityIndicator } from 'react-native';
+import {NavSwitchHead} from '../../component/common';
+
 
 import * as API from '../../utill/API';
 import * as Utill from '../../utill';
@@ -104,12 +105,12 @@ export default Review = ({navigation}) =>{
         }
         
         }>
-        <NavSwitchHead navigation={navigation} navtitle = {'TabMy'} title={`나의 리뷰`}/>
+        <NavSwitchHead navigation={navigation} navtitle = {'TabMy'} title={data.length && `나의 리뷰`}/>
         {data.length ?  
           <FlatList
             data = {data}
             renderItem = {_renderItem}
-        />:<Text>첫 리뷰를 작성해 주세요</Text>}
+        />:<ActivityIndicator/>}
             <Dialog.Container visible = {visible}>
                 <Dialog.Description>리뷰를 삭제하시겠습니까?</Dialog.Description>
                 <Dialog.Title>리뷰 삭제</Dialog.Title>
