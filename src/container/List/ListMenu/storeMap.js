@@ -9,16 +9,28 @@ import {
     TouchableOpacity, 
     BackHandler,
 } from "react-native";
-import CustomCallout from '../../component/common/customCallout';
-import { Text } from '../../component/common';
 
-const ListMap = (props) => {
-    const { navigation, latitude, longitude } = props;
-    const data = navigation.getParam('data');
-    const [ markers, setMarkers ] = useState(data);
+import { Text } from '../../../component/common';
+import CustomCallout from '../../../component/common/customCallout';
+
+const StoreMap = (props) => {
+    const { navigation } = props;   //뒤로가기 isReservation == false ? TabBooked : ListMenu
+    const latitude = navigation.getParam('latitude');
+    const longitude = navigation.getParam('longitude');
+    const name = navigation.getParam('name');
+    const theme = navigation.getParam('theme');
+    const isReservation = navigation.getParam('isReservation');
+
+
+    useEffect(()=>{
+        console.log(navigation);
+        console.log(latitude);
+        console.log(longitude,isReservation);
+    },[])
 
     return(
         <View style ={{flex :1}}>
+        
            <MapView 
            style = {{flex :1}}
            initialRegion = {{latitude,longitude,latitudeDelta: 0.0162,longitudeDelta: 0.00421}}
@@ -26,14 +38,11 @@ const ListMap = (props) => {
             showsUserLocation
             showsMyLocationButton 
             >
-            {markers.map(marker => <Marker
-
+          <Marker
                 coordinate={{
-                    latitude : marker.latitude,
-                    longitude : marker.longitude,
+                    latitude : latitude,
+                    longitude : longitude
                 }}
-                title={marker.name}
-                description={marker.theme}
                 image = {{uri : 'icon_pin'}}
             >
             <Callout
@@ -46,22 +55,20 @@ const ListMap = (props) => {
                 ) {
                     return;
                 }
-
-                }}
-               style = {{height : 80}}
+                }
+            }   style = {{height : 80}}
             >
                 <CustomCallout>
-                <Text style={{fontSize: 16, marginBottom: 5}}>{marker.name}</Text>
+                <Text style={{fontSize: 16, marginBottom: 5}}>{name}</Text>
                 <View style={{flexDirection: 'row', justifyContent:"space-between", width:126}}>
-                <Text style={{fontSize: 12}}>{marker.theme}</Text>
-                <Text style={{fontSize: 12, color: '#733FFF'}}>{`${marker.distance}m`}</Text>
+                <Text style={{fontSize: 12}}>{theme}</Text>
                 </View>
                 </CustomCallout>
                 </Callout>
-                </Marker>)}
-
+            </Marker>
            </MapView>
-        </View>
+       
+           </View>
     )
 }
 
@@ -72,4 +79,4 @@ const mapStateToProps = (state) => {
     }
 }
 
-export default connect(mapStateToProps)(ListMap);
+export default connect(mapStateToProps)(StoreMap);

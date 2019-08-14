@@ -22,7 +22,7 @@ const TabBooked = (props) =>{
         setdata(resList);
     }
 
-    const _showStoreDetail = async({storeId,reservationId})=>{
+    const _showStoreDetail = async({storeId,reservationId,latitude,longitude})=>{
         const token = await API.getLocal(API.LOCALKEY_TOKEN);
         const resDetail = await API.showStoreDetail(token,{storeId : storeId});
         const resReview = await API.showStoreReview(token,{storeId : storeId, page : 0});
@@ -49,6 +49,8 @@ const TabBooked = (props) =>{
             reservationId,
             photos,
             isReservation : false,
+            latitude,
+            longitude,
         })
         console.log(resDetail,resReview);
     }
