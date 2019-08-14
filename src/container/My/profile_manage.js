@@ -97,9 +97,9 @@ const Profile = ({navigation, userid, nickname, image, phone, point, name}) => {
                 buttonText2={'네'} 
                 onPress={_onPressAlertOk} 
             />
-            <View style = {{marginLeft:15, marginRight : 15}}>
+            <View style = {{marginLeft:Utill.screen.Screen.customWidth(15), marginRight : Utill.screen.Screen.customWidth(15)}}>
                 <TouchableOpacity onPress={()=>_handleChoosePhoto()}
-                    style = {{alignItems : 'center', marginTop : 15}}
+                    style = {{alignItems : 'center', marginTop : Utill.screen.Screen.customHeight(15)}}
                 >
                 {photo &&  (
                     <Image
@@ -140,14 +140,6 @@ const Profile = ({navigation, userid, nickname, image, phone, point, name}) => {
                         <Text style={{fontSize : 16, color : '#111111', fontFamily : 'NanumSquareOTF', alignSelf: 'flex-end'}}>{nm}</Text>
                     </View>
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.garo}>
-                    <View style={{width : '50%'}}>
-                        <Text style={{fontSize : 14, color : '#555555', fontFamily : 'NanumSquareOTF' }}>이메일</Text>
-                    </View>
-                    <View style={{width : '50%'}}>
-                        <Text style={{fontSize : 16, color : '#111111', fontFamily : 'NanumSquareOTF', alignSelf: 'flex-end'}}>이메일@입니다</Text>
-                    </View>
-                </TouchableOpacity>
                 <TouchableOpacity style={styles.garo} onPress = {()=>navigation.navigate('PasswordCheck',{title : '휴대폰 번호 변경'})}>
                     <View style={{width : '50%'}}>
                         <Text style={{fontSize : 14, color : '#555555', fontFamily : 'NanumSquareOTF' }}>휴대폰 번호</Text>
@@ -160,8 +152,8 @@ const Profile = ({navigation, userid, nickname, image, phone, point, name}) => {
                 <View style={styles.geajung}>
                 <Text >계정보안</Text>
                 </View>
-
-                <TouchableOpacity style={{height : 43, marginTop : 5, flexDirection : 'row'}} onPress = {()=>navigation.navigate('PasswordCheck',{title : '비밀번호 변경'})}>
+                {/*
+                <TouchableOpacity style={{height : Utill.screen.Screen.customHeight(43), marginTop : Utill.screen.Screen.customHeight(5), flexDirection : 'row'}} onPress = {()=>navigation.navigate('PasswordCheck',{title : '비밀번호 변경'})}>
                     <View style={{width : '50%'}}>
                         <Text style={{fontSize : 14, color : '#555555', fontFamily : 'NanumSquareOTF' }}>비밀번호 변경</Text>
                     </View>
@@ -171,9 +163,10 @@ const Profile = ({navigation, userid, nickname, image, phone, point, name}) => {
                         </View>
                     </View>
                 </TouchableOpacity>
+                */}
                 
                 <TouchableOpacity 
-                    style={{height : 43, flexDirection : 'row'}}
+                    style={{height : Utill.screen.Screen.customHeight(43), flexDirection : 'row'}}
                     onPress = {()=> setIsAlertVisible(true)}
                 >
                     <View style={{width : '50%'}}>
@@ -210,40 +203,34 @@ const styles = StyleSheet.create({
         flex : 1,
         backgroundColor : Utill.color.white,
     },
-    pht : {
-        height : 20,
-        alignItems : 'center',
-        justifyContent : 'center',
-        backgroundColor : '#4682B4',
-    },
     garo : {
         width : '100%',
-        height : 43,
+        height : Utill.screen.Screen.customHeight(43),
         flexDirection : 'row',
         alignItems : 'center',
     },
     geajung : {
-        height : 42,
+        height : Utill.screen.Screen.customHeight(42),
         justifyContent : 'center',
         fontSize : 12,
         color : '#555555',
         fontFamily : 'NanumSquareOTF'
     },
     line : {
-        marginBottom : 5,
-        marginTop : 8,
+        marginBottom : Utill.screen.Screen.customHeight(5),
+        marginTop : Utill.screen.Screen.customHeight(8),
         borderBottomWidth: 1,
         borderBottomColor:Utill.color.border,
     },
     txtStyle : {
-        marginBottom : 9,
+        marginBottom : Utill.screen.Screen.customHeight(9),
         fontSize : 18,
         fontWeight : 'bold',
         color : Utill.color.red,
         alignSelf : 'center',
     },
     subtxtStyle : {
-        marginBottom : 35,
+        marginBottom : Utill.screen.Screen.customHeight(35),
         fontSize : 16,
         color : Utill.color.textBlack,
         alignSelf : 'center',

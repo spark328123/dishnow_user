@@ -14,6 +14,7 @@ import * as API from '../../utill/API';
 import OneSiganl from 'react-native-onesignal';
 
 const List = (props) => {
+    
     const { navigation, mylat, mylon } = props;
     const parentNavigation = navigation.dangerouslyGetParent();
     const mainImage = parentNavigation.getParam('mainImage');
@@ -50,6 +51,7 @@ const List = (props) => {
         radians = (degrees * Math.PI)/180;
         return radians;
     }
+    
 
     const _computeDistance = (startCoords, destCoords) => {
         var startLatRads = degreesToRadians(startCoords.latitude);
@@ -64,7 +66,7 @@ const List = (props) => {
 
         return Math.floor(distance*1000);
     }
-
+    
     const _goHome = () =>{
         OneSiganl.removeEventListener('received',_oneSignalReceived);
         navigation.navigate('TabHome');
@@ -85,6 +87,7 @@ const List = (props) => {
         },
     ]);
 
+    
     const _oneSignalReceived = (notification)=>{
         if(!notification)return;
         const {latitude=null,longitude=null,mainImage=null,name=null,reservationId=null,storeId=null} = notification.payload.additionalData;
@@ -99,6 +102,7 @@ const List = (props) => {
             theme : '치킨',
         }));
     }
+    
 
     useEffect(()=>{
         OneSiganl.addEventListener('received',_oneSignalReceived);
@@ -138,12 +142,12 @@ const List = (props) => {
 
     const _renderItem = ({item}) => {
         return (
-            <View>
+            <View style={{marginBottom: Utill.screen.Screen.customHeight(73), marginLeft:Utill.screen.Screen.customWidth(5) , marginRight: Utill.screen.Screen.customWidth(5)}}>
                 <TouchableOpacity
                     style = {
                         {
-                            width : 160,
-                            height : 180,
+                            width : Utill.screen.Screen.customWidth(160),
+                            height : Utill.screen.Screen.customHeight(180),
                         }
                     }
                     onPress = {()=>_showStoreDetail(item)}
@@ -151,11 +155,10 @@ const List = (props) => {
                 {isLoaded && <ActivityIndicator style = { styles.indicator } />} 
                 <Image
                     source = {item.mainImage}
-                    style = {{width : 160, height : 180, marginBottom : 12}}
+                    style = {{width : Utill.screen.Screen.customWidth(160), height : Utill.screen.Screen.customHeight(180), marginBottom : 12}}
                     onLoadEnd = {()=>setIsLoaded(false)}
                     >
                 </Image>
-              
                 <Text style = {{fontSize : 16, color : Utill.color.black, marginBottom : 3}}>{item.name}</Text>
                 <View
                     style = {{flexDirection : 'row', justifyContent : 'space-between'}}>
@@ -183,27 +186,28 @@ const List = (props) => {
                 buttonText2={'네'} 
                 onPress={_onPressAlertOk} 
             />
-
+        
             <View style = {styles.header}>
-                <Text style = {{fontSize : 18}}>
+                <Text style={{fontSize:14, color:"#733FFF" }}>1:29</Text>
+                <Text style = {{fontSize : 18, fontWeight:'bold', marginLeft:Utill.screen.Screen.customWidth(20)}}>
                     예약 가능 식당
                 </Text>
                 <TouchableOpacity
                     onPress = {()=>setIsAlertVisible(true)}>
-                    <Text style = {{color : Utill.color.red, fontSize : 14}}>취소하기</Text>
+                    <Text style = {{color : Utill.color.red, fontSize : 14, alignSelf:'flex-end'}}>취소하기</Text>
                 </TouchableOpacity>
             </View>
+            <View style={{width:Utill.screen.Screen.customWidth(340),height:Utill.screen.Screen.customHeight(526), alignItems:"center",}}>
                 <FlatList 
                     data = {listData}
                     renderItem = {_renderItem}
                     numColumns = {2}
-                    paddingRight = {10}
-                    marginBottom = {24}
                     />
+            </View>
                 <TouchableOpacity style = {styles.button} 
                     onPress = {()=>navigation.push('ListMap',{data:listData})}>              
                     <Image source = {{uri : 'icon_on_map_white'}} style = {{width: 20,height:16, paddingRight :7}} />
-                    <Text style = {{fontSize : 16, color : '#FFFFFF'}}>지도에서 보기</Text>
+                    <Text style = {{fontSize : 16, color : '#FFFFFF'}}> 지도에서 보기</Text>
                 </TouchableOpacity>
         </View>
     )
@@ -221,19 +225,27 @@ export default connect(mapStateToProps)(List);
 const styles = StyleSheet.create({
     container : {
         flex : 1,
+        alignItems: "center"
     },
     header : {
         flexDirection : 'row',
-        alignItems : 'center',
         justifyContent : 'space-between',
-        height : 50,
+        alignItems: "center",
+        height : Utill.screen.Screen.customHeight(50),
+        marginTop: Utill.screen.topSafe,
+        width: Utill.screen.Screen.customWidth(340),
+        alignSelf: 'center'
     },
     button : {
+        position: "absolute",
+        top: Utill.screen.Screen.customHeight(590),
         flexDirection : 'row',
-        height : 50,
+        height : Utill.screen.Screen.customHeight(50),
+        width: Utill.screen.Screen.customWidth(360),
         backgroundColor : Utill.color.primary1,
         alignItems : 'center',
         justifyContent : 'center',
+        alignSelf: 'flex-end',
     },
     indicator: {
         position: "absolute",
@@ -246,14 +258,14 @@ const styles = StyleSheet.create({
         alignItems: "center",
     },
     txtStyle : {
-        marginBottom : 9,
+        marginBottom : Utill.screen.Screen.customHeight(9),
         fontSize : 18,
         fontWeight : 'bold',
         color : Utill.color.red,
         alignSelf : 'center',
     },
     subtxtStyle : {
-        marginBottom : 35,
+        marginBottom : Utill.screen.Screen.customHeight(35),
         fontSize : 16,
         color : Utill.color.textBlack,
         alignSelf : 'center',
