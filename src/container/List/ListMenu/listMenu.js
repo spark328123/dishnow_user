@@ -171,7 +171,28 @@ handleAndroidBackButton(_goBack);
   // 화면 하단 전화기 버튼
   const _onPressPhoneButton = () => {
     console.log('_onPressPhoneButton');
-    if(!isReservation)props.navigation.navigate('TabBooked');
+    const name = data.name;
+    const theme = '전체';
+    const latitude = props.navigation.getParam('latitude');
+    const longitude = props.navigation.getParam('longitude');
+    if(!isReservation){
+        props.navigation.navigate('StoreMap',{
+            latitude,
+            longitude,
+            name,
+            theme,
+            isReservation
+        });
+    }else{
+    console.log(data.latitude,data.longitude);
+        props.navigation.navigate('StoreMap',{
+            latitude : data.latitude,
+            longitude : data.longitude,
+            name,
+            theme,
+            isReservation
+        })
+    }
     return;
   }
   // 화면 하단 지도 버튼
