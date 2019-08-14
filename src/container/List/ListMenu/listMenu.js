@@ -164,6 +164,10 @@ handleAndroidBackButton(_goBack);
 
   // 화면 좌측 상단 뒤로가기 버튼
   const _onPressBackButton = () => {
+    if(isConfirm){
+        props.navigation.navigate('TabHome');
+        return;
+    }
     if(!isReservation)props.navigation.navigate('TabBooked');
     else props.navigation.pop();
     console.log('_onPressBackButton');
@@ -209,8 +213,12 @@ handleAndroidBackButton(_goBack);
   }
   // 화면 하단 예약하기 버튼
   const _onPressReservationButton = async() => {
+      if(isConfirm){
+          alert('이미 예약하신 식당입니다.');
+          return;
+      }
     if(!isReservation){
-      alert('예약이 불가능한 상태입니다.');
+        alert('예약이 불가능한 상태입니다.');
       return;
     }
     console.log('_onPressReservationButton');
@@ -407,7 +415,7 @@ handleAndroidBackButton(_goBack);
         </View>
         <View style={{
           flex:1,
-          backgroundColor : isReservation?'#733fff':'#CCCCCC'
+          backgroundColor : !isConfirm && isReservation?'#733fff':'#CCCCCC'
           }}>
           <TouchableOpacity 
             onPress={_onPressReservationButton}
@@ -421,7 +429,6 @@ handleAndroidBackButton(_goBack);
           </TouchableOpacity>
         </View>
       </View>
-
     </View>
   );
 }
