@@ -76,7 +76,7 @@ const TabHome = (props)=>{
             const res = await API.reservation(token,data);
             navigation.navigate('onWait',{
                 people : people.text,
-                time,
+                time : arr[parseInt(time)],
                 tema : temaList[tema].id,
                 address,
                 createdAt : `${res.substring(0,10)} ${res.substring(11,19)}`,
@@ -96,9 +96,9 @@ const TabHome = (props)=>{
     const [temaList, settemaList] = useState([  // 테마배열
         {   color : '#CCCCCC', isselect : false, id : '전체',},
         {   color : '#CCCCCC', isselect : false, id : '단체',},
-        {   color : '#CCCCCC', isselect : false, id : '룸',},
-        {   color : '#CCCCCC', isselect : false, id : '저렴한',},
-        {   color : '#CCCCCC', isselect : false, id : '감성적인',},
+        {   color : '#CCCCCC', isselect : false, id : '가성비',},
+        {   color : '#CCCCCC', isselect : false, id : '데이트',},
+        {   color : '#CCCCCC', isselect : false, id : '밥&술',},
         {   color : '#CCCCCC', isselect : false, id : '이자카야',},
     ]);
 

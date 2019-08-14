@@ -51,7 +51,6 @@ const List = (props) => {
         radians = (degrees * Math.PI)/180;
         return radians;
     }
-    
 
     const _computeDistance = (startCoords, destCoords) => {
         var startLatRads = degreesToRadians(startCoords.latitude);
@@ -90,7 +89,7 @@ const List = (props) => {
     
     const _oneSignalReceived = (notification)=>{
         if(!notification)return;
-        const {latitude=null,longitude=null,mainImage=null,name=null,reservationId=null,storeId=null} = notification.payload.additionalData;
+        const {latitude=null,longitude=null,mainImage=null,name=null,reservationId=null,storeId=null,storeType=null} = notification.payload.additionalData;
         setListData(listData.concat({
             mainImage : _substr(mainImage),
             name,
@@ -99,7 +98,7 @@ const List = (props) => {
             storeId,
             latitude,
             longitude,
-            theme : '치킨',
+            theme : storeType,
         }));
     }
     
@@ -109,7 +108,7 @@ const List = (props) => {
         OneSiganl.inFocusDisplaying(0);
     },[listData]);
 
-    const _showStoreDetail = async({storeId})=>{
+    const _showStoreDetail = async({storeId,theme,distance})=>{
         const token = await API.getLocal(API.LOCALKEY_TOKEN);
         const resDetail = await API.showStoreDetail(token,{storeId : storeId});
         const resReview = await API.showStoreReview(token,{storeId : storeId, page : 0});
@@ -136,6 +135,10 @@ const List = (props) => {
             reservationId,
             photos,
             isReservation : true,
+            theme,
+            distance,
+            peopleNumber : navigation.getParam('peopleNumber'),
+            minutes : navigation.getParam('minutes'),
         })
         console.log(resDetail,resReview);
     }
