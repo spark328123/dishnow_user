@@ -28,14 +28,14 @@ const Alert = (props) => {
                     </Text>
                     <View style = {styles.parent}>
                         <View style = {styles.child}>
-                        <Button style={styles.button} onPress={onPress}>
+                        <Button style={styles.button} onPress={onPressCancel}>
                             <Text style={styles.buttonText}>
                                 {buttonText1}
                             </Text>
                         </Button>
                         </View>
                         <View style = {styles.child}>
-                        <Button style={styles.button} onPress={onPressCancel}>
+                        <Button style={styles.button} onPress={onPress}>
                             <Text style={styles.buttonText}>
                                 {buttonText2}
                             </Text>

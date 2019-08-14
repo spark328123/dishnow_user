@@ -4,14 +4,14 @@ import { Text } from '../common/'
 import * as Utill from '../../utill';
 
 export default  (props) => {
-    var newdate = new Date();
-    var olddate = new Date(props.date);
-    var between = newdate.getTime() - olddate.getTime();
-    var betday = between/1000/60/60/24;
-
     const { navigation, reviewId, storeName, isUpdate } = props;
-    console.log(newdate,olddate,between,betday);
 
+    var between = props.newdate - props.date
+    var betday = between/1000/60/60/24;
+    console.log("props.new" + props.newdate);
+    console.log("props.date" + props.date);
+    console.log("betday : " + betday);
+    console.log("between : " + between);
 
     if(betday < parseFloat(7)){
         if(isUpdate !== 'false'){
@@ -37,6 +37,8 @@ export default  (props) => {
         }
     }
     else{
+        console.log("betday : " + betday);
+        console.log("between : " + between);
         return(
             <View style={styles.reviewText}>
                 <Text style={styles.CanNotWrite}> 리뷰 작성기간이 지났습니다 </Text>

@@ -1,7 +1,7 @@
 import React, { useEffect, useState,memo } from 'react';
 import { View, Text, StyleSheet, FlatList, Image, TouchableOpacity, ActivityIndicator } from 'react-native';
 import {NavSwitchHead} from '../../component/common';
-
+import {handleAndroidBackButton,removeAndroidBackButtonHandler} from '../../component/common/hardwareBackButton';
 
 import * as API from '../../utill/API';
 import * as Utill from '../../utill';
@@ -28,7 +28,10 @@ export default Review = ({navigation}) =>{
     const [ imageList, setImageList ] = useState([]);
     const [ isLoaded, setIsLoaded ] = useState(false);
     const [ deleteReviewId, setDeleteReviewId] = useState();
-
+    _goBack = () => {
+        navigation.navigate('TabMy')
+    }
+    handleAndroidBackButton(_goBack)
     const _deleteReview = async (reviewId)=>{
         const token = await API.getLocal(API.LOCALKEY_TOKEN);
         const res = await API.reviewDelete(token,{reviewId : reviewId});

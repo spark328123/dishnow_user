@@ -16,11 +16,6 @@ const ListMap = (props) => {
     const { navigation, latitude, longitude } = props;
     const data = navigation.getParam('data');
     const [ markers, setMarkers ] = useState(data);
-    useEffect(()=>{
-        markers.map(marker=>(
-            console.log(marker)
-        ));
-    },[]);
 
     return(
         <View style ={{flex :1}}>

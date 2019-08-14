@@ -178,17 +178,7 @@ const List = (props) => {
 
     return(
         <View style = {styles.container}>
-            <CustomAlert 
-                visible={isAlertVisible} 
-                mainTitle={'취소'}
-                mainTextStyle = {styles.txtStyle}
-                subTitle = {'이미 요청을 수락한 가게가 있습니다.\n정말 취소할까요?'}
-                subTextStyle = {styles.subtxtStyle}
-                buttonText1={'아니오'} 
-                buttonText2={'네'} 
-                onPress={_onPressAlertOk} 
-                onPressCancel = {_onPressAlertCancel}
-            />
+            
         
             <View style = {styles.header}>
                 <Text style={{fontSize:14, color:"#733FFF" }}>1:29</Text>

@@ -9,9 +9,7 @@ import * as Utill from '../utill';
 const TabBooked = (props) =>{
     const {navigation} = props;
     const [ isLoaded, setIsLoaded ] = useState(true);
-    const [ data, setdata ] = useState([ 
-        
-    ]);
+    const [ data, setdata ] = useState([]);
     const [ topSafe ] = useState(Utill.screen.topSafe);
 
     const _showRes = async() => {
@@ -22,7 +20,7 @@ const TabBooked = (props) =>{
         setdata(resList);
     }
 
-    const _showStoreDetail = async({storeId,reservationId})=>{
+    const _showStoreDetail = async({storeId,reservationId,latitude,longitude})=>{
         const token = await API.getLocal(API.LOCALKEY_TOKEN);
         const resDetail = await API.showStoreDetail(token,{storeId : storeId});
         const resReview = await API.showStoreReview(token,{storeId : storeId, page : 0});
@@ -49,6 +47,8 @@ const TabBooked = (props) =>{
             reservationId,
             photos,
             isReservation : false,
+            latitude,
+            longitude,
         })
         console.log(resDetail,resReview);
     }
@@ -73,7 +73,8 @@ const TabBooked = (props) =>{
                 </View>
                 <ReviewButton
                     isUpdate = {item.isUpdate}
-                    date = {item.createdAt}
+                    date = {(new Date(item.createdAt)).getTime()}
+                    newdate = {(new Date()).getTime()}
                     reviewId = {item.reviewId}
                     rate = {item.rating}
                     storeName = {item.name}

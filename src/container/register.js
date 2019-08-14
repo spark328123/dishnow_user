@@ -346,7 +346,6 @@ const Register = (props) => {
             subTextStyle = {styles.subtxtStyle}
             buttonText1 = {'확인'}
             onPress={_onPressAlertOk} 
-            onPressCancel = {_onPressAlertCancel}
         />
         <ScrollView
             keyboardDismissMode="interactive"
