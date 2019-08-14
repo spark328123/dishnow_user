@@ -19,9 +19,9 @@ import Page2 from './page2';
 import Page3 from './page3';
 import * as API from '../../../utill/API';
 import call from 'react-native-phone-call';
-import { Text } from '../../../component/common';
+import { Text,CustomAlert } from '../../../component/common';
 import { connect } from 'react-redux';
-
+import * as Utill from '../../../utill'
 const icon_square_bracket_left = {uri : 'icon_square_bracket_left'};
 const icon_on_map = {uri : 'icon_on_map_black'};
 const icon_call = {uri : 'icon_call'};
@@ -143,8 +143,18 @@ const ListMenu = (props) =>  {
     outputRange: ['rgb(255,255,255)', 'rgb(255,255,255)', 'rgb(0,0,0)'],
     extrapolate: 'clamp',
   });
+  const [isAlertVisible, setIsAlertVisible] = useState(false);
+
+    const _onPressAlertCancel = async() => {
+        setIsAlertVisible(false);
+    }
+
+    const _onPressAlertOk = () => {
+        setIsAlertVisible(false);
+        _onPressReservationButton();
+    }
   _goBack = () => {
-    navigation.navigate('TabBooked')
+    isReservation ? navigation.navigate('List') :navigation.navigate('TabBooked')
 }
 
 handleAndroidBackButton(_goBack);
@@ -164,25 +174,39 @@ handleAndroidBackButton(_goBack);
 
   // 화면 좌측 상단 뒤로가기 버튼
   const _onPressBackButton = () => {
+    //예약 중이면 
     if(!isReservation)props.navigation.navigate('TabBooked');
+
+    //예약 중이 아니면 
     else props.navigation.pop();
     console.log('_onPressBackButton');
     return;
   }
   // 화면 하단 전화기 버튼
   const _onPressPhoneButton = () => {
+    const args = {
+      number: data.mainPhone, // String value with the number to call
+      prompt: false // Optional boolean property. Determines if the user should be prompt prior to the call 
+    }
+  call(args).catch(console.error)
     console.log('_onPressPhoneButton');
+    return;
+  }
+  // 화면 하단 지도 버튼
+  const _onPressMapButton = () => {
     const name = data.name;
     const theme = '전체';
     const latitude = props.navigation.getParam('latitude');
     const longitude = props.navigation.getParam('longitude');
     if(!isReservation){
         props.navigation.navigate('StoreMap',{
+            page1Data,
             latitude,
             longitude,
             name,
             theme,
-            isReservation
+            isReservation,
+            mainMenu : data.mainMenu,
         });
     }else{
     console.log(data.latitude,data.longitude);
@@ -195,18 +219,11 @@ handleAndroidBackButton(_goBack);
             distance : props.navigation.getParam('distance'),
         })
     }
+    console.log('_onPressPhoneButton');
+    
     return;
   }
-  // 화면 하단 지도 버튼
-  const _onPressMapButton = () => {
-    const args = {
-      number: data.mainPhone, // String value with the number to call
-      prompt: false // Optional boolean property. Determines if the user should be prompt prior to the call 
-    }
-  call(args).catch(console.error)
-    console.log('_onPressMapButton');
-    return;
-  }
+  
   // 화면 하단 예약하기 버튼
   const _onPressReservationButton = async() => {
     if(!isReservation){
@@ -244,8 +261,17 @@ handleAndroidBackButton(_goBack);
 
   return (
     <View style ={{flex : 1,backgroundColor:'#EEEEEE'}}>
-      {navtitle? <NavSwitchHead navigation={navigation} navtitle = {navigation.getParam('navtitle')} title={navigation.getParam('title')}/>
-      : <NavHead title = {navigation.getParam('title')}/>}
+       <CustomAlert 
+                visible={isAlertVisible} 
+                mainTitle={'예약'}
+                mainTextStyle = {styles.txtStyle}
+                subTitle = {'최종 예약 하시겠습니까?'}
+                subTextStyle = {styles.subtxtStyle}
+                buttonText1={'아니오'} 
+                buttonText2={'네'} 
+                onPressCancel = {_onPressAlertCancel}
+                onPress={_onPressAlertOk} 
+        />
       {/* 각 페이지를 담는 부분입니다.*/}
       {page == 0 && <Page1 paddingTop={HEADER_MAX_HEIGHT + HEADER_TAB_HEIGHT} initialScroll={scrollY._value} onScroll={_onScroll} data={page1Data} />}
       {page == 1 && <Page2 paddingTop={HEADER_MAX_HEIGHT + HEADER_TAB_HEIGHT} initialScroll={scrollY._value} onScroll={_onScroll} data={page2Data}/>}
@@ -385,7 +411,7 @@ handleAndroidBackButton(_goBack);
         }}>
           <View style={{flex : 1, borderRightWidth:1, borderColor:'#EEEEEE'}}>
             <TouchableOpacity 
-              onPress={_onPressMapButton}
+              onPress={_onPressPhoneButton}
               style ={{
                 height : 50,
                 justifyContent : 'center',
@@ -395,7 +421,7 @@ handleAndroidBackButton(_goBack);
             </TouchableOpacity>
           </View>
           <TouchableOpacity 
-            onPress={_onPressPhoneButton}
+            onPress={_onPressMapButton}
               style = {{
               flex : 1,
               height : 50,
@@ -410,7 +436,7 @@ handleAndroidBackButton(_goBack);
           backgroundColor : isReservation?'#733fff':'#CCCCCC'
           }}>
           <TouchableOpacity 
-            onPress={_onPressReservationButton}
+            onPress={()=>setIsAlertVisible(true)}
               style = {{
               flex : 1,
               alignSelf : 'stretch',
@@ -503,6 +529,19 @@ const styles = StyleSheet.create({
   scrollViewContent: {
     marginTop: HEADER_MAX_HEIGHT,
   },
+  txtStyle : {
+    marginBottom : Utill.screen.Screen.customHeight(9),
+    fontSize : 18,
+    fontWeight : 'bold',
+    color : Utill.color.primary1,
+    alignSelf : 'center',
+},
+subtxtStyle : {
+    marginBottom : Utill.screen.Screen.customHeight(35),
+    fontSize : 16,
+    color : Utill.color.textBlack,
+    alignSelf : 'center',
+},
 });
 
 // export default ScrollableHeader;

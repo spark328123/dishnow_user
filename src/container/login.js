@@ -11,6 +11,7 @@ import NaverLogin from '../utill/naverlogin'
 import * as Utill from '../utill';
 import * as API from '../utill/API';
 import { Text, Button, BigButton, TextInput, SungminButton } from '../component/common'
+import Toast from 'react-native-simple-toast';
 const type = 'email';
 var token = '';
 
@@ -20,6 +21,7 @@ const Login = (props) => {
  const [id, setId] = useState('');
  const [password, setPassword] = useState('');
  const [buttonLock, setButtonLock] = useState(false);
+
 
   _emailaccount = () => {
     navigation.navigate('Terms', {
@@ -38,11 +40,14 @@ const Login = (props) => {
             await API.setLocal(API.LOCALKEY_TOKEN,loginRes.token);
             navigation.navigate('TabHome');
         }
+        else{
+          Toast.show('이메일과 비밀번호를 확인해주세요.');
+        }
   }
 
   return (
     <View style = {styles.container}>
-    <ImageBackground source={{uri : "login_image"}} style={{flex:1,}}>
+    <ImageBackground source={{uri : "login_image2"}} style={{flex:1,}}>
     
         <View style={styles.logo}>
           <Image
