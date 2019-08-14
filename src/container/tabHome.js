@@ -73,15 +73,15 @@ const TabHome = (props)=>{
                 latitude,
                 longitude, 
             }
-            console.log(data);
             const res = await API.reservation(token,data);
-            console.log(res);
             navigation.navigate('onWait',{
                 people : people.text,
                 time,
                 tema : temaList[tema].id,
                 address,
-            })
+                createdAt : `${res.substring(0,10)} ${res.substring(11,19)}`,
+            });
+            console.log(res);
         }
         else{
             Toast.show('인원과 출발 예정 시간을 확인해주세요.')

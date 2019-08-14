@@ -21,7 +21,6 @@ const Login = (props) => {
  const [password, setPassword] = useState('');
  const [buttonLock, setButtonLock] = useState(false);
 
-
   _emailaccount = () => {
     navigation.navigate('Terms', {
       type,
@@ -43,7 +42,7 @@ const Login = (props) => {
 
   return (
     <View style = {styles.container}>
-    <ImageBackground source={{uri : "login_image2"}} style={{flex:1,}}>
+    <ImageBackground source={{uri : "login_image"}} style={{flex:1,}}>
     
         <View style={styles.logo}>
           <Image

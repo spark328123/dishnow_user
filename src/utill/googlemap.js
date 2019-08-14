@@ -109,7 +109,7 @@ const GoogleMaps =  ({isPressed, toggle, navigation, latitudeDelta, latitude, lo
             onRegionChangeComplete = {
                 region=>{
                     setRegion({region})
-                    //_getAddress(region.latitude,region.longitude)   
+                    _getAddress(region.latitude,region.longitude)   
                 }}
             showsUserLocation = {isPressed}
             showsMyLocationButton = {isPressed}
@@ -119,7 +119,7 @@ const GoogleMaps =  ({isPressed, toggle, navigation, latitudeDelta, latitude, lo
             zoomEnabled = {isPressed}
             followsUserLocation = {isPressed}
             >
-                
+                {/*
                 <Circle
                 center = {{latitude,longitude}}
                 strokeColor = {'rgb(115,63,255,0.5)'}
@@ -127,6 +127,7 @@ const GoogleMaps =  ({isPressed, toggle, navigation, latitudeDelta, latitude, lo
                 zIndex = {2}
                 radius = {300}
                 />
+                */}
             </MapView>
             {isPressed? (
                 <View style = {styles.backFixed}>
@@ -217,4 +218,4 @@ const styles = StyleSheet.create({
         fontSize : 20,
         color : 'white',
     }
-})
+});
