@@ -163,24 +163,28 @@ handleAndroidBackButton(_goBack);
 
   // 화면 좌측 상단 뒤로가기 버튼
   const _onPressBackButton = () => {
+    //예약 중이면 
     if(!isReservation)props.navigation.navigate('TabBooked');
+
+    //예약 중이 아니면 
     else props.navigation.pop();
     console.log('_onPressBackButton');
     return;
   }
   // 화면 하단 전화기 버튼
   const _onPressPhoneButton = () => {
-    console.log('_onPressPhoneButton');
-    if(!isReservation)props.navigation.navigate('TabBooked');
-    return;
-  }
-  // 화면 하단 지도 버튼
-  const _onPressMapButton = () => {
     const args = {
       number: data.mainPhone, // String value with the number to call
       prompt: false // Optional boolean property. Determines if the user should be prompt prior to the call 
     }
   call(args).catch(console.error)
+    console.log('_onPressPhoneButton');
+    
+    return;
+  }
+  // 화면 하단 지도 버튼
+  const _onPressMapButton = () => {
+    if(!isReservation)props.navigation.navigate('TabBooked');
     console.log('_onPressMapButton');
     return;
   }

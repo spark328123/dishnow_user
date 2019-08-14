@@ -40,7 +40,9 @@ const List = (props) => {
         setIsAlertVisible(false);
        _goHome();
     }
-
+    const _onPressAlertCancel = async() => {
+        setIsAlertVisible(false);
+    }
     const _substr = (imageSource)=>{
         var image = JSON.stringify(imageSource);
         image = image.substring(4,image.length-4);
@@ -185,6 +187,7 @@ const List = (props) => {
                 buttonText1={'아니오'} 
                 buttonText2={'네'} 
                 onPress={_onPressAlertOk} 
+                onPressCancel = {_onPressAlertCancel}
             />
         
             <View style = {styles.header}>

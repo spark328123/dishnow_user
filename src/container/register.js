@@ -45,7 +45,10 @@ const Register = (props) => {
         navigation.navigate('Terms')
     }
     handleAndroidBackButton(_goBack);
-    
+    const _onPressAlertCancel = async() => {
+        setIsAlertVisible(false);
+    }
+
     const _onPressAlertOk = async() => {
         setIsAlertVisible(false);
     }
@@ -343,7 +346,7 @@ const Register = (props) => {
             subTextStyle = {styles.subtxtStyle}
             buttonText1 = {'확인'}
             onPress={_onPressAlertOk} 
-
+            onPressCancel = {_onPressAlertCancel}
         />
         <ScrollView
             keyboardDismissMode="interactive"

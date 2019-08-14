@@ -12,11 +12,12 @@ export default  (props) => {
     const { navigation, reviewId, storeName, isUpdate } = props;
     console.log(newdate,olddate,between,betday);
 
-    if(betday < 7){
+
+    if(betday < parseFloat(7)){
         if(isUpdate !== 'false'){
         return (
             <TouchableOpacity style={[styles.ReviewButton, {width: Utill.screen.Screen.customWidth(330)}]}
-                onPressIn = {()=>navigation.navigate('ReviewWrite',{
+                onPress = {()=>navigation.navigate('ReviewWrite',{
                     reviewId,
                     storeName,
                     isUpdate : 'false',

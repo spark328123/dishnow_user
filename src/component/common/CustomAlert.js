@@ -8,7 +8,7 @@ import Button from './Button';
 import * as Utill from '../../utill';
 
 const Alert = (props) => {
-    const {visible, onPress, mainTitle, subTitle, buttonText1,buttonText2,mainTextStyle,subTextStyle} = props;
+    const {visible, onPress,onPressCancel, mainTitle, subTitle, buttonText1,buttonText2,mainTextStyle,subTextStyle} = props;
 
     return (
         <Modal
@@ -35,7 +35,7 @@ const Alert = (props) => {
                         </Button>
                         </View>
                         <View style = {styles.child}>
-                        <Button style={styles.button} onPress={onPress}>
+                        <Button style={styles.button} onPress={onPressCancel}>
                             <Text style={styles.buttonText}>
                                 {buttonText2}
                             </Text>
