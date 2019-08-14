@@ -197,7 +197,7 @@ const List = (props) => {
                     <Text style = {{color : Utill.color.red, fontSize : 14, alignSelf:'flex-end'}}>취소하기</Text>
                 </TouchableOpacity>
             </View>
-            <View style={{width:Utill.screen.Screen.customWidth(340),height:Utill.screen.Screen.customHeight(526), alignItems:"center",}}>
+            <View style={{width:Utill.screen.Screen.customWidth(340),height:Utill.screen.Screen.customHeight(526), alignItems:"flex-start",}}>
                 <FlatList 
                     data = {listData}
                     renderItem = {_renderItem}
