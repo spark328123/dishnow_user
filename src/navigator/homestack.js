@@ -5,6 +5,7 @@ import TabHome from '../container/tabHome';
 import Departure from '../container/stackDeparture';
 import onWait from '../container/onWait';
 import List from './liststack';
+import Callout from '../container/callout';
 
 const HomeStack = createSwitchNavigator(
     {
@@ -12,6 +13,7 @@ const HomeStack = createSwitchNavigator(
         Departure : {screen : Departure },
         onWait : {screen : onWait },
         List,
+        Callout,
     },
     {
         initialRouteName : 'TabHome',

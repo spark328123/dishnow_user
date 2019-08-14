@@ -11,10 +11,12 @@ import { Text,CustomAlert } from '../component/common';
 import * as Utill from '../utill';
 import OneSignal from 'react-native-onesignal';
 import * as API from '../utill/API';
+import Toast from 'react-native-simple-toast';
 
 const OnWait =  (props) =>{
     const WaitTime = 120;
     const { navigation, latitude, longitude } = props;
+    const createdAt = navigation.getParam('createdAt');
 
     const [timer, setTimer] = useState(null);
     const [timerCount, setTimerCount] = useState(WaitTime);
@@ -24,8 +26,13 @@ const OnWait =  (props) =>{
 
     const _onPressAlertOk = async() => {
         setIsAlertVisible(false);
+        const token = await API.getLocal(API.LOCALKEY_TOKEN);
+        const res = await API.reservation_cancel(token,{createdAt : navigation.getParam('createdAt')});
+        console.log(res);
+        Toast.show('예약을 취소했습니다');
        _goBack();
     }
+
     useEffect(()=>{
         _timerStart();
         OneSignal.addEventListener('received',_oneSignalReceived);
@@ -54,8 +61,7 @@ const OnWait =  (props) =>{
             latitude,
             longitude, 
         };
-        const res = await API.reservation(token,data);
-        console.log(res); 
+        await API.reservation(token,data);
     }
 
     useEffect(()=>{

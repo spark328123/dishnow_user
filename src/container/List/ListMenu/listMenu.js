@@ -171,6 +171,7 @@ handleAndroidBackButton(_goBack);
   // 화면 하단 전화기 버튼
   const _onPressPhoneButton = () => {
     console.log('_onPressPhoneButton');
+    if(!isReservation)props.navigation.navigate('TabBooked');
     return;
   }
   // 화면 하단 지도 버튼

@@ -86,12 +86,19 @@ export const setPushToken = (token, data) => {
 export const reservation = (token, data) => {
     const url = `${apiUrl}reservation`;
     return fetch.postAuthServer(url,token,data)
-    .then(res => ({isSuccess : res? true : false}))
+    .then(res => res.json())
     .catch(error=>({error}));
 }
 
 export const reservation_confirm = (token, data) => {
     const url = `${apiUrl}reservation/confirm`;
+    return fetch.putAuthServer(url,token,data)
+    .then(res => ({isSuccess : res?true : false}))
+    .catch(error=>{error});
+}
+
+export const reservation_cancel = (token, data) => {
+    const url = `${apiUrl}reservation/cancel`;
     return fetch.putAuthServer(url,token,data)
     .then(res => ({isSuccess : res?true : false}))
     .catch(error=>{error});

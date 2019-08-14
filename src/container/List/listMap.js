@@ -1,5 +1,5 @@
 import React ,{ useState, useEffect, useStore }from "react";
-import MapView, { PROVIDER_GOOGLE, Marker, Circle } from "react-native-maps";
+import MapView, { PROVIDER_GOOGLE, Marker, Circle, Callout } from "react-native-maps";
 import { connect } from 'react-redux';
 import { 
     View,
@@ -8,8 +8,9 @@ import {
     Image, 
     TouchableOpacity, 
     BackHandler,
-    Text,
 } from "react-native";
+import CustomCallout from '../../component/common/customCallout';
+import { Text } from '../../component/common';
 
 const ListMap = (props) => {
     const { navigation, latitude, longitude } = props;
@@ -19,8 +20,7 @@ const ListMap = (props) => {
         markers.map(marker=>(
             console.log(marker)
         ));
-    },[])
-    
+    },[]);
 
     return(
         <View style ={{flex :1}}>
@@ -32,6 +32,7 @@ const ListMap = (props) => {
             showsMyLocationButton 
             >
             {markers.map(marker => <Marker
+
                 coordinate={{
                     latitude : marker.latitude,
                     longitude : marker.longitude,
@@ -39,7 +40,29 @@ const ListMap = (props) => {
                 title={marker.name}
                 description={marker.theme}
                 image = {{uri : 'icon_pin'}}
-            >   
+            >
+            <Callout
+                alphaHitTest
+                tooltip
+                onPress={e => {
+                if (
+                    e.nativeEvent.action === 'marker-inside-overlay-press' ||
+                    e.nativeEvent.action === 'callout-inside-press'
+                ) {
+                    return;
+                }
+
+                }}
+               style = {{height : 80}}
+            >
+                <CustomCallout>
+                <Text style={{fontSize: 16, marginBottom: 5}}>{marker.name}</Text>
+                <View style={{flexDirection: 'row', justifyContent:"space-between", width:126}}>
+                <Text style={{fontSize: 12}}>{marker.theme}</Text>
+                <Text style={{fontSize: 12, color: '#733FFF'}}>{`${marker.distance}m`}</Text>
+                </View>
+                </CustomCallout>
+                </Callout>
                 </Marker>)}
 
            </MapView>
