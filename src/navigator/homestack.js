@@ -1,4 +1,4 @@
-import { createSwitchNavigator } from 'react-navigation';
+import { createStackNavigator, createSwitchNavigator } from 'react-navigation';
 import { Animated, Easing } from 'react-native';
 
 import TabHome from '../container/tabHome';
@@ -6,14 +6,16 @@ import Departure from '../container/stackDeparture';
 import onWait from '../container/onWait';
 import List from './liststack';
 import Callout from '../container/callout';
+import Booked from '../container/List/ListMenu/booked';
 
-const HomeStack = createSwitchNavigator(
+const HomeStack = createStackNavigator(
     {
         TabHome : { screen : TabHome },
         Departure : {screen : Departure },
         onWait : {screen : onWait },
         List,
         Callout,
+        Booked,
     },
     {
         initialRouteName : 'TabHome',

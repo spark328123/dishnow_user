@@ -1,24 +1,20 @@
 import React, {memo, useEffect, useState} from 'react';
 import {View, StyleSheet, Image, ImageBackground, ActivityIndicator} from 'react-native';
-import moment from 'moment';
-
 import {useSelector, useDispatch} from 'react-redux';
 
-import {Text, BigButtonBorder, Alert} from '../../component/common';
-
-import * as Utill from '../../utill';
-
-const Booked = memo((props) => {
+import { Text } from '../../../component/common';
+import * as Utill from '../../../utill'
+export default (props)=>{
+    const { navigation } = props;
     const dispatch = useDispatch();
-    const [isLoaded, setIsLoaded] = useState(false);
+    const [isLoaded, setIsLoaded] = useState(true);
     const [left, setLeft] = useState(); // 화면에 표시될 도착 예정 시간 (left 분후)
-
-
+   
     return (
         <View style={styles.container}>
             
             <View style={styles.titleArea}>
-                <Image style={styles.logo} resizeMode={'contain'} source={{uri : 'dishnowsymbolpurple'}} />
+                <Image style={styles.logo} resizeMode={'contain'} source={{uri : 'icon_logo_purple_main'}} />
                 <Text style={styles.title}>{'예약 완료'}</Text>
             </View>
 
@@ -26,14 +22,15 @@ const Booked = memo((props) => {
 
             
             <View style={{flex:1, justifyContent:'center'}}>
-                {!isLoaded && <ActivityIndicator size="large" color="#0000ff" />}
+                
+                {/* //{!isLoaded && <ActivityIndicator size="large" color="#0000ff" />} */}
                 {isLoaded && 
                     <ImageBackground
                         style={styles.infoContainer}
                         source={{uri:'bookedinfocard'}}
                     >
                         <View style={styles.nameArea}>
-                            <Text style={styles.name}>{bookedList[0].name}</Text>
+                            <Text style={styles.name}>{navigation.getParam('name')}</Text>
                         </View>
 
                         <View style={{flex:1, justifyContent : 'center'}}>
@@ -41,7 +38,7 @@ const Booked = memo((props) => {
 
                                 <View style={styles.infoLine}>
                                     <Text style={styles.infoTitle}>{'인원'}</Text>
-                                    <Text style={styles.infoData}>{`${bookedList[0].peopleNumber}`}</Text>
+                                    <Text style={styles.infoData}>{navigation.getParam('peopleNumber')}</Text>
                                 </View>
 
                                 <View style={[styles.infoLine, {marginTop:17}]}>
@@ -53,13 +50,9 @@ const Booked = memo((props) => {
                     </ImageBackground>
                 }
             </View>
-            
-            <BigButtonBorder title={'확인'} onPress={Alert.alert('ok!')} disabled={!isLoaded}/>
         </View>
-    )
-});
-
-export default Booked;
+    );
+}
 
 const styles = StyleSheet.create({
     container : {
@@ -122,6 +115,5 @@ const styles = StyleSheet.create({
         fontWeight : 'bold',
         color : Utill.color.textBlack,
     },
+});
 
-    
-})

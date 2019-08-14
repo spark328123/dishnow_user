@@ -16,13 +16,34 @@ import { handleAndroidBackButton,removeAndroidBackButtonHandler} from '../../../
 import CustomCallout from '../../../component/common/customCallout';
 
 const StoreMap = (props) => {
-    const { navigation } = props;   //뒤로가기 isReservation == false ? TabBooked : ListMenu
+    const { navigation, mylat, mylon } = props;   //뒤로가기 isReservation == false ? TabBooked : ListMenu
     const latitude = navigation.getParam('latitude');
     const longitude = navigation.getParam('longitude');
     const name = navigation.getParam('name');
     const theme = navigation.getParam('theme');
     const isReservation = navigation.getParam('isReservation');
-    const data = navigation.getParam('resDetail');
+    const distance = navigation.getParam('distance');
+
+    const degreesToRadians = (degrees)=> {
+        radians = (degrees * Math.PI)/180;
+        return radians;
+    }
+    
+
+    const _computeDistance = (startCoords, destCoords) => {
+        var startLatRads = degreesToRadians(startCoords.latitude);
+        var startLongRads = degreesToRadians(startCoords.longitude);
+        var destLatRads = degreesToRadians(destCoords.latitude);
+        var destLongRads = degreesToRadians(destCoords.longitude);
+
+        var Radius = 6371; 
+        var distance = Math.acos(Math.sin(startLatRads) * Math.sin(destLatRads) + 
+                        Math.cos(startLatRads) * Math.cos(destLatRads) *
+                        Math.cos(startLongRads - destLongRads)) * Radius;
+
+        return Math.floor(distance*1000);
+    }
+
 
     useEffect(()=>{
         console.log(navigation);
@@ -69,6 +90,7 @@ const StoreMap = (props) => {
                 <Text style={{fontSize: 16, marginBottom: 5}}>{name}</Text>
                 <View style={{flexDirection: 'row', justifyContent:"space-between", width:126}}>
                 <Text style={{fontSize: 12}}>{theme}</Text>
+                <Text style={{fontSize: 12, color : '#733FFF'}}>{`${distance}m`}</Text>
                 </View>
                 </CustomCallout>
                 </Callout>
@@ -81,8 +103,8 @@ const StoreMap = (props) => {
 
 const mapStateToProps = (state) => {
     return {
-        latitude : state.Maps._root.entries[0][1].latitude,
-        longitude : state.Maps._root.entries[0][1].longitude,
+        mylat : state.Maps._root.entries[0][1].latitude,
+        mylon : state.Maps._root.entries[0][1].longitude,
     }
 }
 

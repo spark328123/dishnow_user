@@ -182,7 +182,7 @@ const ReviewItem =({data, onPressManageReviewButton}) => {
                                     {hostName}
                                 </Text>
                                 <Text style={{color:"#555555", fontSize:10, marginLeft:5}}>
-                                    {createdAt}
+                                    {createdAt.substring(0,10)}
                                 </Text>
                                 
                             </View>

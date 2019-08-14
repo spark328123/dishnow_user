@@ -4,7 +4,7 @@ import List from '../container/List/list';
 import ListMap from '../container/List/listMap';
 import ListMenu from '../container/List/ListMenu/listMenu';
 import StoreMap from '../container/List/ListMenu/storeMap';
-import Booked from '../container/List/listBooked';
+import Booked from '../container/List/ListMenu/booked';
 const ListStack = createStackNavigator(
     {
         List,

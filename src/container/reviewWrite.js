@@ -194,8 +194,7 @@ const ReviewWrite = (props) => {
     return (      
         <TouchableWithoutFeedback onPress  = {()=>{Keyboard.dismiss();}}>
             <View style = {styles.container}>
-                {navigation.getParam('my')==true? <NavSwitchHead navigation = {navigation} title = {storeName} navtitle={'MyReview'}/>
-                : <NavHead navigation = {navigation} title = {storeName} />}
+            <NavSwitchHead navigation = {navigation} title = {storeName} navtitle={navigation.getParam('my')==true?'MyReview' : 'TabBooked'}/>
                 <View style ={styles.contentContainer}>
                     <View style = {[styles.header, {marginTop: Utill.screen.Screen.customHeight(20)}]}>
                         <Text style = {{color: "#CCCCCC"}}>별점을 선택해주세요</Text>
