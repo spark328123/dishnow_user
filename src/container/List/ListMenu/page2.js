@@ -132,14 +132,16 @@ const Help = (props) => {
                             <Image style={{width:40, height:40, marginBottom : 8,}} source={icon_wifi}/>
                             <Text>{`와이파이`}</Text>
                         </View>}
-                        {data.facilities.charger && <View style={{alignItems:'center', marginRight:20,}}>
+                        {data.facilities.battery && <View style={{alignItems:'center', marginRight:20,}}>
                             <Image style={{width:40, height:40, marginBottom : 8,}} source={icon_charger}/>
                             <Text>{`휴대폰충전`}</Text>
                         </View>}
-                        {data.facilities.park && <View style={{alignItems:'center', marginRight:20,}}>
+                        {data.facilities.parking && <View style={{alignItems:'center', marginRight:20,}}>
                             <Image style={{width:40, height:40, marginBottom : 8,}} source={icon_park}/>
                             <Text>{`주차장`}</Text>
                         </View>}
+                    </View>
+                    <View style={{flexDirection:'row', marginTop:15}}>
                         {data.facilities.kids && <View style={{alignItems:'center', marginRight:20,}}>
                             <Image style={{width:40, height:40, marginBottom : 8,}} source={icon_kids}/>
                             <Text>{`키즈존`}</Text>
@@ -148,7 +150,7 @@ const Help = (props) => {
                             <Image style={{width:40, height:40, marginBottom : 8,}} source={icon_pet}/>
                             <Text>{`반려동물`}</Text>
                         </View>}
-                        {data.facilities.smoke && <View style={{alignItems:'center', marginRight:20,}}>
+                        {data.facilities.somke && <View style={{alignItems:'center', marginRight:20,}}>
                             <Image style={{width:40, height:40, marginBottom : 8,}} source={icon_smoke}/>
                             <Text>{`흡연실`}</Text>
                         </View>}

@@ -53,6 +53,7 @@ const ListMenu = (props) =>  {
   const [photos] = useState(props.navigation.getParam('photos'));
   const isReservation = props.navigation.getParam('isReservation');
   const {navigation,navtitle,title} = props;
+  const isConfirm = navigation.getParam('isConfirm');
   const [page1Data] = useState({
       "mainMenu" : JSON.parse(data.mainMenu),
       "subMenu" : JSON.parse(data.subMenu),
@@ -189,8 +190,9 @@ handleAndroidBackButton(_goBack);
             latitude : data.latitude,
             longitude : data.longitude,
             name,
-            theme,
-            isReservation
+            theme : props.navigation.getParam('theme'),
+            isReservation,
+            distance : props.navigation.getParam('distance'),
         })
     }
     return;
@@ -222,7 +224,11 @@ handleAndroidBackButton(_goBack);
         diff : ReviewAward,
         name : data.name,
     });
-    navigation.navigate('TabHome');
+    navigation.navigate('Booked',{
+        peopleNumber : navigation.getParam('peopleNumber'),
+        minutes : navigation.getParam('minutes'),
+        name : data.name,
+    });
     return;
   }
 

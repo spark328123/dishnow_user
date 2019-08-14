@@ -105,7 +105,7 @@ const OnWait =  (props) =>{
         console.log(notification);
         if (!notification) return;
         let notiData = notification.notification? {...notification.notification} : notification;
-        const {latitude=null,longitude=null,mainImage=null,name=null,reservationId=null,storeId=null} = notiData.payload.additionalData;
+        const {latitude=null,longitude=null,mainImage=null,name=null,reservationId=null,storeId=null,storeType=null} = notiData.payload.additionalData;
         navigation.navigate('List',{
             latitude,
             longitude,
@@ -113,7 +113,9 @@ const OnWait =  (props) =>{
             name,
             reservationId,
             storeId,
-            theme : navigation.getParam('tema'),
+            theme : storeType,
+            peopleNumber : navigation.getParam('people'),
+            minutes : navigation.getParam('time'),
         });
     };
 
