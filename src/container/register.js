@@ -7,14 +7,12 @@ import * as API from '../utill/API';
 import user, * as User from '../store/modules/user';
 import regs, * as Regs from '../store/modules/regs';
 import {useSelector, useDispatch} from 'react-redux';
-import {StackActions, NavigationActions} from 'react-navigation';
 import * as Utill from '../utill';
-import  RNKakaoLogins from 'react-native-kakao-logins';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 
 const Register = (props) => {
 
     const dispatch = useDispatch();
-    
 
     const [valid, setValid] = useState(
         {vname :false, vphone : false, vcode: null, vpassword: false, 
@@ -188,6 +186,10 @@ const Register = (props) => {
                     await API.changeprofile(loginRes.token,{
                         image : navigation.getParam('kakaoProfile')
                     })
+                }else if(type ==='facebook'){
+                    await API.changeprofile(loginRes.token,{
+                        image : navigation.getParam('faceBookProfile')
+                    })
                 }else{
                     await API.changeprofile(loginRes.token,{
                         image : `["https://ssl.pstatic.net/static/pwe/address/img_profile.png"]`
@@ -336,6 +338,8 @@ const Register = (props) => {
     }
 
     return (
+        <KeyboardAwareScrollView>
+
         <View style={{flex : 1}}>
         
         <CustomAlert1
@@ -453,6 +457,7 @@ const Register = (props) => {
             </View>
         </ScrollView>
         </View>
+        </KeyboardAwareScrollView>
     )
 }
 export default Register;

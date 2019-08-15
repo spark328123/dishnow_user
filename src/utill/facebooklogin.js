@@ -4,8 +4,8 @@ import {
     TouchableOpacity,
     Image,
 }
-    from "react-native";
-import { AccessToken, LoginManager } from "react-native-fbsdk";
+from "react-native";
+import { AccessToken, LoginManager, GraphRequestManager, GraphRequest} from "react-native-fbsdk";
 import * as API from '../utill/API';
 
 const type = 'facebook';
@@ -22,22 +22,42 @@ const login = async (token) => {
 const facebooklogin = (navigation) => {
     LoginManager.logInWithPermissions(['public_profile'])
         .then(result => {
+            console.log(result);
+            if(result.isCancelled)return;
             AccessToken.getCurrentAccessToken().then(data => {
-
-                login(data.accessToken.toString())
+                let facebookId = data.userID;
+                let accessToken = data.accessToken;
+                const responseInfoCallback = (error, result) => {
+                    if(error)return;
+                    let user = {
+                        token: accessToken.toString(),
+                        name: result.name,
+                        picture: result.picture.data.url,          
+                        providerId: facebookId
+                    }
+                    console.log(user);
+                    login(user.token)
                     .then(res => {
                         if (!res) {
                             navigation.navigate('Terms', {
                                 type,
-                                token: result.token,
+                                token: user.token,
+                                faceBookProfile : `["${user.picture}"]`,
                             })
                         } else {
                             navigation.navigate('Main');
                         }
                     })
-            })
+                }
+                const infoRequest = new GraphRequest('/me',{
+                    accessToken : accessToken, parameters : {
+                        fields : {string : 'name,picture'}}
+                    },responseInfoCallback);
+                    new GraphRequestManager().addRequest(infoRequest).start();
+                });
         })
 }
+
 
 const FaceBookLogin = ({navigation}) => {
     return (
