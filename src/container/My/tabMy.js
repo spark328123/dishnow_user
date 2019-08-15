@@ -29,18 +29,14 @@ const TabMy = ({navigation, userid, nickname, image, phone, point, name, reviewc
         _me();
     },[])
 
-    const _me = async() =>{
-        const token = await API.getLocal(API.LOCALKEY_TOKEN);
-        const res = await API.me(token);
-        if(res.error){
-            Toast.show('네트워크 환경을 확인해 주세요');            
-            return;
-        }
-        setIsLoaded(false);
-    }
     const _me = async() => {
         const token = await API.getLocal(API.LOCALKEY_TOKEN);
         const meRes = await API.me(token);
+          if(meRes.error){
+            Toast.show('네트워크 환경을 확인해 주세요');            
+            return;
+        }
+      
         const userid = meRes.userId;
         const point = meRes.point;
         const name = meRes.name;
@@ -57,6 +53,7 @@ const TabMy = ({navigation, userid, nickname, image, phone, point, name, reviewc
         dispatch(User.updatenickname(nickname));
         const pushToken = await API.getPush(API.PUSH_TOKEN);
         const ret = await API.setPushToken(token,{pushToken});
+         setIsLoaded(false);
     }
 
 
