@@ -1,22 +1,28 @@
 import React, {memo, useEffect, useState} from 'react';
-import {View, StyleSheet, Image, ImageBackground, ActivityIndicator} from 'react-native';
+import {View, StyleSheet, Image, ImageBackground, ActivityIndicator,BackHandler} from 'react-native';
 import {useSelector, useDispatch} from 'react-redux';
-import moment from 'moment';
 import { Text,BigButtonBorder } from '../../../component/common';
+import { handleAndroidBackButton, removeAndroidBackButtonHandler } from '../../../component/common/hardwareBackButton';
 import * as Utill from '../../../utill'
 export default (props)=>{
     const { navigation } = props;
     const dispatch = useDispatch();
     const [isLoaded, setIsLoaded] = useState(false);
     let minutes = navigation.getParam('minutes');
+
     useEffect(()=> {
-        minutes = moment(minutes);
         setIsLoaded(true);
-           
     },[minutes])
+
+    _goBack = () => {
+        navigation.navigate('ListMenu',{
+            isConfirm : true,
+        })
+    }
+
+    handleAndroidBackButton(_goBack)
     return (
         <View style={styles.container}>
-            
             <View style={styles.titleArea}>
                 <Image style={styles.logo} resizeMode={'contain'} source={{uri : 'icon_logo_purple_main'}} />
                 <Text style={styles.title}>{'예약 완료'}</Text>
@@ -53,7 +59,7 @@ export default (props)=>{
                     </ImageBackground>
                 }
             </View>
-            <BigButtonBorder title={'확인'} onPress={()=>navigation.navigate('TabHome',{
+            <BigButtonBorder title={'확인'} onPress={()=>navigation.navigate('ListMenu',{
                 isConfirm : true,
             })}  />
         </View>

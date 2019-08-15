@@ -10,7 +10,7 @@ import {
   Platform,
 } from 'react-native';
 import { getInset } from 'react-native-safe-area-view';
-import {NavHead, NavSwitchHead} from '../../../component/common';
+import {NavHead, NavSwitchHead, Button} from '../../../component/common';
 import {handleAndroidBackButton} from '../../../component/common/hardwareBackButton'
 import BannerView from '../../../component/bannerView';
 import TabButton from '../../../component/TabButton';
@@ -22,6 +22,7 @@ import call from 'react-native-phone-call';
 import { Text,CustomAlert } from '../../../component/common';
 import { connect } from 'react-redux';
 import * as Utill from '../../../utill'
+import Toast from 'react-native-simple-toast';
 const icon_square_bracket_left = {uri : 'icon_square_bracket_left'};
 const icon_on_map = {uri : 'icon_on_map_black'};
 const icon_call = {uri : 'icon_call'};
@@ -53,7 +54,9 @@ const ListMenu = (props) =>  {
   const [photos] = useState(props.navigation.getParam('photos'));
   const isReservation = props.navigation.getParam('isReservation');
   const {navigation,navtitle,title} = props;
+  const [isAlertVisible, setIsAlertVisible] = useState(false);
   const isConfirm = navigation.getParam('isConfirm');
+  
   const [page1Data] = useState({
       "mainMenu" : JSON.parse(data.mainMenu),
       "subMenu" : JSON.parse(data.subMenu),
@@ -74,6 +77,9 @@ const ListMenu = (props) =>  {
   const [scrollYListener, setScrollYListener] = useState(null);
   const [yValue, setYValue] = useState(0);
   const [page, setPage] = useState(0);
+  var Buttoncolor = '#733FFF';
+  if(isConfirm) Buttoncolor = Utill.color.red;
+  if(!isReservation && !isConfirm) Buttoncolor = '#CCCCCC';
 
   // background
   const _backgroundHeight = scrollY.interpolate({
@@ -143,21 +149,26 @@ const ListMenu = (props) =>  {
     outputRange: ['rgb(255,255,255)', 'rgb(255,255,255)', 'rgb(0,0,0)'],
     extrapolate: 'clamp',
   });
-  const [isAlertVisible, setIsAlertVisible] = useState(false);
 
-    const _onPressAlertCancel = async() => {
+  const _onPressAlertCancel = async() => {
         setIsAlertVisible(false);
-    }
+  }
+  const _isConfirm = () => {
+    setIsAlertVisible(false);
+    Toast.show('도착 하셨습니다');
+    navigation.navigate('TabHome');
+  }
 
-    const _onPressAlertOk = () => {
-        setIsAlertVisible(false);
-        _onPressReservationButton();
-    }
+  const _notConfirm = () => {
+    setIsAlertVisible(false);
+    _onPressReservationButton();
+  }
+
   _goBack = () => {
     isReservation ? navigation.navigate('List') :navigation.navigate('TabBooked')
-}
+  }
 
-handleAndroidBackButton(_goBack);
+  handleAndroidBackButton(_goBack);
   const _onScroll = (e) => {
     // console.log(e.nativeEvent.contentOffset.y)
       scrollY.setValue(e.nativeEvent.contentOffset.y);
@@ -270,16 +281,16 @@ handleAndroidBackButton(_goBack);
   return (
     <View style ={{flex : 1,backgroundColor:'#EEEEEE'}}>
        <CustomAlert 
-                visible={isAlertVisible} 
-                mainTitle={'예약'}
-                mainTextStyle = {styles.txtStyle}
-                subTitle = {'최종 예약 하시겠습니까?'}
-                subTextStyle = {styles.subtxtStyle}
-                buttonText1={'아니오'} 
-                buttonText2={'네'} 
-                onPressCancel = {_onPressAlertCancel}
-                onPress={_onPressAlertOk} 
-        />
+        visible={isAlertVisible} 
+        mainTitle={isConfirm ? "도착":"예약"}
+        mainTextStyle = {styles.txtStyle}
+        subTitle = {isConfirm ? "도착하셨습니까?":"최종 예약 하시겠습니까?"}
+        subTextStyle = {styles.subtxtStyle}
+        buttonText1={'아니오'}
+        buttonText2={'네'}
+        onPressCancel = {_onPressAlertCancel}
+        onPress={isConfirm? _isConfirm : _notConfirm} 
+      />
       {/* 각 페이지를 담는 부분입니다.*/}
       {page == 0 && <Page1 paddingTop={HEADER_MAX_HEIGHT + HEADER_TAB_HEIGHT} initialScroll={scrollY._value} onScroll={_onScroll} data={page1Data} />}
       {page == 1 && <Page2 paddingTop={HEADER_MAX_HEIGHT + HEADER_TAB_HEIGHT} initialScroll={scrollY._value} onScroll={_onScroll} data={page2Data}/>}
@@ -441,7 +452,7 @@ handleAndroidBackButton(_goBack);
         </View>
         <View style={{
           flex:1,
-          backgroundColor : !isConfirm && isReservation?'#733fff':'#CCCCCC'
+          backgroundColor : Buttoncolor
           }}>
           <TouchableOpacity 
             onPress={()=>setIsAlertVisible(true)}
@@ -451,7 +462,7 @@ handleAndroidBackButton(_goBack);
               justifyContent : 'center',
               alignItems : 'center',
           }}>
-            <Text style={{color:'#FFFFFF', fontSize:18}}>{`예약하기`}</Text>
+            <Text style={{color : Utill.color.white, fontSize:18}}> {isConfirm ? '도착완료' : '예약하기'}</Text>
           </TouchableOpacity>
         </View>
       </View>
