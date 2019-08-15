@@ -9,16 +9,22 @@ import {
     Alert,
 } from 'react-native'
 import {BigButton,SmallButton,NavSwitchHead} from '../../../component/common'
+import {handleAndroidBackButton} from '../../../component/common/hardwareBackButton'
 import * as API from '../../../utill/API'
 import { useDispatch, connect } from 'react-redux';
 import  * as User from '../../../store/modules/user'
 import * as Utill from '../../../utill'
+import { NavigationActions } from 'react-navigation';
 export default Nick = ({navigation}) => {
     const [nickName,setNickName] = useState(navigation.getParam('nickname')); //닉네임
     const [nickLength,setNickLength] = useState(navigation.getParam('nickname').length);
     const [pressed,isPressed] = useState(false);
     const id = navigation.getParam('id'); //사용자 id
     const dispatch = useDispatch();
+    _goBack = () => {
+        navigation.navigate('Profile');
+    }
+    handleAndroidBackButton(_goBack);
     //nick이 변경될 때 마다 호출
     _setNickName = (text) => {
         setNickName(text);

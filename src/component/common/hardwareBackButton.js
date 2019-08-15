@@ -8,6 +8,6 @@ const handleAndroidBackButton = callback => {
     });
 };
 const removeAndroidBackButtonHandler = () => {
-    BackHandler.removeEventListener('hardwareBackPress', () => {});
+    BackHandler.removeEventListener('hardwareBackPress', () => {return true;});
 }
 export {handleAndroidBackButton, removeAndroidBackButtonHandler};

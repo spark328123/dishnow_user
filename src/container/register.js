@@ -203,7 +203,7 @@ const Register = (props) => {
                 dispatch(Regs.updateemail(email));
                 dispatch(User.updatenickname(nickname.text));
                 dispatch(User.upadtename(name));
-                dispatch(User.updatephone(phone));
+                dispatch(User.updatephone(콜));
                 navigation.navigate('Welcome', {
                     name: name.text
                 });
@@ -312,7 +312,7 @@ const Register = (props) => {
                 dispatch(Regs.updateemail(email));
                 dispatch(User.updatenickname(nickname));
                 dispatch(User.upadtename(name));
-                dispatch(User.updatephone(phone));
+                dispatch(User.updatephone(콜));
                 navigation.navigate('Welcome', {
                     name: name.text
                 });

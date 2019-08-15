@@ -25,7 +25,7 @@ const Point = (props) =>{
     handleAndroidBackButton(_goBack);
     return(
         <View style ={styles.container}>
-            <NavSwitchHead navigation={navigation} navtitle = {'TabMy'} title={`디나포인트`}/>
+            <NavSwitchHead navigation={navigation} navtitle = {'myPoint'} title={`디나포인트`}/>
             {/* <LoadingModal visible={isLoadingVisible} /> */}
 
             <View style={styles.tabArea}>

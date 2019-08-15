@@ -57,11 +57,13 @@ const ListMenu = (props) =>  {
   }
   
   const phone = props.phone;
+
   const [data] = useState(_navigation.getParam('resDetail'));
   const [reviewData] = useState(_navigation.getParam('resReview'));
   const [photos] = useState(_navigation.getParam('photos'));
   const [isAlertVisible, setIsAlertVisible] = useState(false);
   const isConfirm = _navigation.getParam('isConfirm');
+
   
   const [page1Data] = useState({
       "mainMenu" : JSON.parse(data.mainMenu),
@@ -176,7 +178,7 @@ const ListMenu = (props) =>  {
 
   _goBack = () => {
     isReservation ? _navigation.navigate('List') :_navigation.navigate('TabBooked')
-  }
+
 
   handleAndroidBackButton(_goBack);
   const _onScroll = (e) => {
