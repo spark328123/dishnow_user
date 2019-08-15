@@ -1,6 +1,7 @@
 const HEADER_APPJSON = 'application/json';
 const HEADER_WWWENCODED = 'application/x-www-form-urlencoded;charset=UTF-8';
 const HEADER_MULTIPART = 'multipart/form-data';
+import Toast from 'react-native-simple-toast'
 
 const bodyEncoder = (data=null) => {
     let formBody = [];
@@ -51,12 +52,12 @@ export const getAuthServer = async (url, token, data = null) => {
             },
 
         });
-        // console.log(res);
-        // console.log(token);
         if (res.ok) return res;
-        console.log(await res.json());
-        return null;
-        
+        res = await res.json();
+        if(res.message){
+            Toast.show('네트워크 환경을 확인해 주세요.');
+            return null;
+        }
     }catch(e){
         console.log('getAuth' + e);
     }

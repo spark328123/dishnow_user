@@ -5,6 +5,7 @@ import { Text } from '../component/common/'
 import ReviewButton from '../component/common/ReviewButton';
 import * as API from '../utill/API';
 import * as Utill from '../utill';
+import Toast from 'react-native-simple-toast';
 
 const TabBooked = (props) =>{
     const {navigation} = props;
@@ -16,6 +17,7 @@ const TabBooked = (props) =>{
         const token = await API.getLocal(API.LOCALKEY_TOKEN);
         const resList = await API.showRes(token);
         console.log(resList);
+        return;
         setIsLoaded(false);
         setdata(resList);
     }

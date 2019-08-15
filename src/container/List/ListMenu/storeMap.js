@@ -49,11 +49,10 @@ const StoreMap = (props) => {
         console.log(navigation);
         console.log(latitude);
         console.log(longitude,isReservation);
-        console.log(data);
     },[])
 
     const _goBack= () => {
-        navigation.navigate('ListMenu',{data});
+        navigation.navigate('ListMenu');
     }
     handleAndroidBackButton(_goBack);
     return(
