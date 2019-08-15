@@ -22,7 +22,6 @@ const TabBooked = (props) =>{
             return;
         }
         setIsLoaded(false);
-        setdata(resList);
         Nowtime((new Date()).getTime());
     }
 
@@ -104,16 +103,17 @@ const TabBooked = (props) =>{
                 {marginTop : topSafe}
             ]
         }>
-        <TouchableOpacity style={styles.container} onPress ={()=>_onPress()}>
-            <Image style={{height : 15, width : 15}} source={{uri : 'icon_logo_purple_main'}} />
-            <Text style={styles.text}>새로고침</Text>
-        </TouchableOpacity>
+     
         {!isLoaded?(  <FlatList
             data = {data}
             renderItem = {_renderItem}
           />):(
                 <ActivityIndicator size="large" color={"#733FFF"}/>
           )}
+             <TouchableOpacity style={styles.container} onPress ={()=>_onPress()}>
+            <Image style={{height : 15, width : 15}} source={{uri : 'icon_logo_purple_main'}} />
+            <Text style={styles.text}>새로고침</Text>
+        </TouchableOpacity>
             
         
         </View>
