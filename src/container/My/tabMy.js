@@ -9,6 +9,7 @@ import {
     Image,
     Alert,
     Switch,
+    ActivityIndicator,
 } from 'react-native';
 import LogOut from './logout'
 import {Button, BigButtonColor,MenuButton,TopMenuButton,PushButton} from '../../component/common'
@@ -22,6 +23,21 @@ import Toast from 'react-native-simple-toast';
 
 const TabMy = ({navigation, userid, nickname, image, phone, point, name, reviewcount}) => { 
     const [Pressed,setPressed] = useState(false);
+    const [isLoaded,setIsLoaded] = useState(true);
+
+    useEffect(()=>{
+        _me();
+    },[])
+
+    const _me = async() =>{
+        const token = await API.getLocal(API.LOCALKEY_TOKEN);
+        const res = await API.me(token);
+        if(res.error){
+            Toast.show('네트워크 환경을 확인해 주세요');            
+            return;
+        }
+        setIsLoaded(false);
+    }
     const _me = async() => {
         const token = await API.getLocal(API.LOCALKEY_TOKEN);
         const meRes = await API.me(token);
@@ -43,9 +59,6 @@ const TabMy = ({navigation, userid, nickname, image, phone, point, name, reviewc
         const ret = await API.setPushToken(token,{pushToken});
     }
 
-    useEffect(()=>{
-        _me();
-    },[]);
 
     _setPressed = (Pressed) => {
         if(Pressed) Pressed = false;
@@ -84,7 +97,7 @@ const TabMy = ({navigation, userid, nickname, image, phone, point, name, reviewc
         <View
             style={styles.container}
             contentContainerStyle={{ flexGrow: 1, justifyContent: 'center' }}>
-
+                {!isLoaded? (
             <TouchableOpacity 
                     style = {styles.top}
                     onPress = {()=>navigation.navigate('Profile',
@@ -211,7 +224,7 @@ const TabMy = ({navigation, userid, nickname, image, phone, point, name, reviewc
                         )
                 } 
                 style = {styles.menus} 
-            />
+            />:(<ActivityIndicator />}
         </View> 
     )
 }
