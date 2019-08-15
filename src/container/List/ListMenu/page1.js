@@ -161,6 +161,7 @@ const ListItem = memo((props) => {
     return (
         <View style={{
             marginBottom : 12,
+            backgroundColor : Utill.color.white,
         }}> 
             <View style ={{
                 zIndex : 1,

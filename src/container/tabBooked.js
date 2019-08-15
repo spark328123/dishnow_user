@@ -46,7 +46,7 @@ const TabBooked = (props) =>{
                 else photos.push(subImage[i].substring(1,subImage[i].length-1));
             }
         }
-        navigation.navigate('ListMenu',{
+        navigation.navigate('StoreStack',{
             resDetail,
             resReview,
             storeId,
@@ -59,7 +59,6 @@ const TabBooked = (props) =>{
         console.log(resDetail,resReview);
     }
     const _onPress = () => {
-        console.log("눌렀슴");
         navigation.navigate('splash2');
     }
     useEffect(() => {

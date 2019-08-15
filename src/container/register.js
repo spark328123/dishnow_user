@@ -13,7 +13,6 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 const Register = (props) => {
 
     const dispatch = useDispatch();
-    
 
     const [valid, setValid] = useState(
         {vname :false, vphone : false, vcode: null, vpassword: false, 
@@ -187,6 +186,10 @@ const Register = (props) => {
                     await API.changeprofile(loginRes.token,{
                         image : navigation.getParam('kakaoProfile')
                     })
+                }else if(type ==='facebook'){
+                    await API.changeprofile(loginRes.token,{
+                        image : navigation.getParam('faceBookProfile')
+                    })
                 }else{
                     await API.changeprofile(loginRes.token,{
                         image : `["https://ssl.pstatic.net/static/pwe/address/img_profile.png"]`
@@ -200,7 +203,7 @@ const Register = (props) => {
                 dispatch(Regs.updateemail(email));
                 dispatch(User.updatenickname(nickname.text));
                 dispatch(User.upadtename(name));
-                dispatch(User.updatephone(콜));
+                dispatch(User.updatephone(phone));
                 navigation.navigate('Welcome', {
                     name: name.text
                 });
@@ -309,7 +312,7 @@ const Register = (props) => {
                 dispatch(Regs.updateemail(email));
                 dispatch(User.updatenickname(nickname));
                 dispatch(User.upadtename(name));
-                dispatch(User.updatephone(콜));
+                dispatch(User.updatephone(phone));
                 navigation.navigate('Welcome', {
                     name: name.text
                 });

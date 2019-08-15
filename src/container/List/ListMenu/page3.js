@@ -74,7 +74,7 @@ const Help = (props) => {
      }
 
     return (
-        <View style = {{flex : 1, paddingBottom : 50+HEADER_BOTTOM_SAFE,}}>
+        <View style = {{flex : 1, paddingBottom : 50+HEADER_BOTTOM_SAFE,backgroundColor : Utill.color.white,}}>
             <FlatList
                 contentContainerStyle = {{paddingTop, zIndex : 0, paddingHorizontal : 15}}
                 nestedScrollEnabled={true}

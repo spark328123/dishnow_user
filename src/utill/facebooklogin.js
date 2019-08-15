@@ -4,51 +4,66 @@ import {
     TouchableOpacity,
     Image,
 }
-    from "react-native";
-import { AccessToken, LoginManager } from "react-native-fbsdk";
+from "react-native";
+import { AccessToken, LoginManager, GraphRequestManager, GraphRequest} from "react-native-fbsdk";
 import * as API from '../utill/API';
 
+const type = 'facebook';
 
+const login = async (token) => {
+    console.log(token);
+    const loginRes = await API.login({ token, type });
+    console.log(loginRes);
+    if (loginRes.token==='') { return false; }
+    await API.setLocal(API.LOCALKEY_TOKEN, loginRes.token);
+    return true;
+}
+
+const facebooklogin = (navigation) => {
+    LoginManager.logInWithPermissions(['public_profile'])
+        .then(result => {
+            console.log(result);
+            if(result.isCancelled)return;
+            AccessToken.getCurrentAccessToken().then(data => {
+                let facebookId = data.userID;
+                let accessToken = data.accessToken;
+                const responseInfoCallback = (error, result) => {
+                    if(error)return;
+                    let user = {
+                        token: accessToken.toString(),
+                        name: result.name,
+                        picture: result.picture.data.url,          
+                        providerId: facebookId
+                    }
+                    console.log(user);
+                    login(user.token)
+                    .then(res => {
+                        if (!res) {
+                            navigation.navigate('Terms', {
+                                type,
+                                token: user.token,
+                                faceBookProfile : `["${user.picture}"]`,
+                            })
+                        } else {
+                            navigation.navigate('Main');
+                        }
+                    })
+                }
+                const infoRequest = new GraphRequest('/me',{
+                    accessToken : accessToken, parameters : {
+                        fields : {string : 'name,picture'}}
+                    },responseInfoCallback);
+                    new GraphRequestManager().addRequest(infoRequest).start();
+                });
+        })
+}
 
 
 const FaceBookLogin = ({navigation}) => {
-    const type = 'facebook';
-    const login = async (token) => {
-        console.log(token);
-        const loginRes = await API.login({ token, type });
-        console.log(loginRes);
-        if (loginRes.token==='') { return false; }
-        await API.setLocal(API.LOCALKEY_TOKEN, loginRes.token);
-        return true;
-    }
-    
-    const facebooklogin = (err,result) => {
-        console.log("   facebooklogin   ");
-        LoginManager.logInWithPermissions(['public_profile'])
-            .then(result => {
-                AccessToken.getCurrentAccessToken().then(data => {
-
-                    login(data.accessToken.toString())
-                        .then(res => {
-                            if (!res) {
-                                navigation.navigate('Terms', {
-                                    type,
-                                    token: result.token,
-                                })
-                            } else {
-                                navigation.navigate('Main',{
-                                    type,
-                                    token: result.token,
-                                });
-                            }
-                        })
-                })
-            })
-    }
     return (
         <TouchableOpacity
             style={styles.btnFaceBookLogin}
-            onPress={()=>facebooklogin(navigation)}
+            onPressIn={()=>facebooklogin(navigation)}
         >
             <Image
                 style={styles.btnFaceBookLogin}

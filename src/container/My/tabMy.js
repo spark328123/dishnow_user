@@ -12,7 +12,7 @@ import {
     ActivityIndicator,
 } from 'react-native';
 import LogOut from './logout'
-import {Button, BigButtonColor,MenuButton,TopMenuButton,PushButton} from '../../component/common'
+import {CustomAlert,MenuButton,TopMenuButton,PushButton,} from '../../component/common'
 import * as Color from '../../utill/color'
 import * as API from '../../utill/API' 
 import * as Utill from '../../utill'
@@ -26,6 +26,12 @@ const TabMy = ({navigation, userid, nickname, image, phone, point, name, reviewc
     const [isLoaded,setIsLoaded] = useState(true);
     const [isPhotoLoaded,setPhotoLoaded] = useState(true);
     const [photo, setPhoto] = useState(image.substring(2,image.length-2));
+    const [isAlertVisible, setIsAlertVisible] = useState(false);
+
+    const _onPressAlertCancel = async() => {
+        setIsAlertVisible(false);
+    }
+
     useEffect(()=>{
         _me();
         _loadPhoto();
@@ -89,6 +95,7 @@ const TabMy = ({navigation, userid, nickname, image, phone, point, name, reviewc
 
     const _logOut = async () => {
         await API.setLocal(API.LOCALKEY_TOKEN, 'null');
+        setIsAlertVisible(false);
         navigation.navigate('Splash')
     }
 
@@ -96,6 +103,17 @@ const TabMy = ({navigation, userid, nickname, image, phone, point, name, reviewc
 
     return (
         <View style = {{flex : 1}}> 
+        <CustomAlert 
+                visible={isAlertVisible} 
+                mainTitle={'로그아웃'}
+                mainTextStyle = {styles.txtStyle}
+                subTitle = {'하시겠습니까?'}
+                subTextStyle = {styles.subtxtStyle}
+                buttonText1={'아니오'} 
+                buttonText2={'네'} 
+                onPress={_logOut} 
+                onPressCancel = {_onPressAlertCancel}
+            />
         {!isLoaded? (
         <View
             style={styles.container}
@@ -206,24 +224,7 @@ const TabMy = ({navigation, userid, nickname, image, phone, point, name, reviewc
             <MenuButton 
                 title={'로그아웃'} 
                 source={{uri:'icon_signout'}} 
-                onPress={()=>
-                    Alert.alert(
-                        '로그아웃',
-                        '로그아웃 하시겠습니까?',
-                        [
-                            {
-                                text: '취소',
-                                onPress: () => console.log('Cancel Pressed'),
-                                style: 'cancel',
-                            },
-                            {
-                                text: '확인', 
-                                onPress: _logOut
-                            },
-                        ],
-                            {cancelable: false},
-                        )
-                } 
+                onPress={()=>setIsAlertVisible(true)} 
                 style = {styles.menus}/>
             
         </View>
@@ -287,5 +288,18 @@ const styles = StyleSheet.create({
         position: 'absolute',
         left: Utill.screen.screenWidth/2-15,
         top: Utill.screen.screenHeight/2-50        
+    },
+    txtStyle : {
+        marginBottom : Utill.screen.Screen.customHeight(9),
+        fontSize : 18,
+        fontWeight : 'bold',
+        color : Utill.color.red,
+        alignSelf : 'center',
+    },
+    subtxtStyle : {
+        marginBottom : Utill.screen.Screen.customHeight(35),
+        fontSize : 16,
+        color : Utill.color.textBlack,
+        alignSelf : 'center',
     },
 })

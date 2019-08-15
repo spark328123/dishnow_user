@@ -61,7 +61,7 @@ const MyPoint = (props)=>{
                     5,000원 이상 100원 단위로 사용 가능합니다.
                 </Text>
                 <Text
-                    style = {[styles.subTxt,{marginBottom:22}]}
+                    style = {styles.subTxt}
                 >
                     {`이번 달 소멸 예정 포인트는 0원 입니다.`}
                 </Text>

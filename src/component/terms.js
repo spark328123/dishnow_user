@@ -22,6 +22,7 @@ export default Terms = ({navigation}) => {
             type,
             token,
             kakaoProfile : navigation.getParam('kakaoProfile'),
+            faceBookProfile : navigation.getParam('faceBookProfile'),
         },
         )
     }
