@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, StyleSheet, Image } from 'react-native';
+import { View, StyleSheet, Image, ActivityIndicator } from 'react-native';
 import { useDispatch } from 'react-redux';
 import * as API from '../utill/API';
 import * as Utill from '../utill';
@@ -20,7 +20,7 @@ export default (props) => {
 
     return (
         <View style={styles.container}>
-            <Image source={{uri: "dishnow_logo_purple"}} style={{width:262, height:53}} />
+            <ActivityIndicator/>
         </View>
     );
 }

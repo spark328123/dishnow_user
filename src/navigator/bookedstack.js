@@ -4,6 +4,8 @@ import TabBooked from '../container/tabBooked';
 import ReviewWrite from '../container/reviewWrite';
 import ListMenu from '../container/List/ListMenu/listMenu';
 import splash2 from '../container/splash2';
+import StoreMap from '../container/List/ListMenu/storeMap';
+import StoreStack from '../navigator/storestack';
 
 const BookStack = createSwitchNavigator(
     {
@@ -11,6 +13,8 @@ const BookStack = createSwitchNavigator(
         ReviewWrite,
         ListMenu,
         splash2,
+        StoreMap,
+        StoreStack,
     },
     {
         initialRouteName : 'TabBooked',

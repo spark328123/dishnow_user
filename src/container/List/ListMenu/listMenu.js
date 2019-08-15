@@ -10,7 +10,7 @@ import {
   Platform,
 } from 'react-native';
 import { getInset } from 'react-native-safe-area-view';
-import {NavHead, NavSwitchHead} from '../../../component/common';
+import {NavHead, NavSwitchHead, Button} from '../../../component/common';
 import {handleAndroidBackButton} from '../../../component/common/hardwareBackButton'
 import BannerView from '../../../component/bannerView';
 import TabButton from '../../../component/TabButton';
@@ -22,6 +22,7 @@ import call from 'react-native-phone-call';
 import { Text,CustomAlert } from '../../../component/common';
 import { connect } from 'react-redux';
 import * as Utill from '../../../utill'
+import Toast from 'react-native-simple-toast';
 const icon_square_bracket_left = {uri : 'icon_square_bracket_left'};
 const icon_on_map = {uri : 'icon_on_map_black'};
 const icon_call = {uri : 'icon_call'};
@@ -47,13 +48,21 @@ const HEADER_TAB_HEIGHT = 88;
 const SCREEN_HEIGHT = height - HEADER_MAX_HEIGHT;
 
 const ListMenu = (props) =>  {
+  const BookedNavigation = props.navigation.dangerouslyGetParent();
+  var _navigation = props.navigation;
+  var isReservation = true;
+  if(BookedNavigation.getParam('isReservation')===false){
+       _navigation = BookedNavigation;
+       isReservation = false;
+  }
+  
   const phone = props.phone;
-  const [data] = useState(props.navigation.getParam('resDetail'));
-  const [reviewData] = useState(props.navigation.getParam('resReview'));
-  const [photos] = useState(props.navigation.getParam('photos'));
-  const isReservation = props.navigation.getParam('isReservation');
-  const {navigation,navtitle,title} = props;
-  const isConfirm = navigation.getParam('isConfirm');
+  const [data] = useState(_navigation.getParam('resDetail'));
+  const [reviewData] = useState(_navigation.getParam('resReview'));
+  const [photos] = useState(_navigation.getParam('photos'));
+  const [isAlertVisible, setIsAlertVisible] = useState(false);
+  const isConfirm = _navigation.getParam('isConfirm');
+  
   const [page1Data] = useState({
       "mainMenu" : JSON.parse(data.mainMenu),
       "subMenu" : JSON.parse(data.subMenu),
@@ -70,10 +79,14 @@ const ListMenu = (props) =>  {
       review : reviewData.review,
       totalCount : reviewData.totalCount,
   });
+  console.log(data)
   const [scrollY] = useState(new Animated.Value(0));
   const [scrollYListener, setScrollYListener] = useState(null);
   const [yValue, setYValue] = useState(0);
   const [page, setPage] = useState(0);
+  var Buttoncolor = '#733FFF';
+  if(isConfirm) Buttoncolor = Utill.color.red;
+  if(!isReservation && !isConfirm) Buttoncolor = '#CCCCCC';
 
   // background
   const _backgroundHeight = scrollY.interpolate({
@@ -143,21 +156,29 @@ const ListMenu = (props) =>  {
     outputRange: ['rgb(255,255,255)', 'rgb(255,255,255)', 'rgb(0,0,0)'],
     extrapolate: 'clamp',
   });
-  const [isAlertVisible, setIsAlertVisible] = useState(false);
 
-    const _onPressAlertCancel = async() => {
+  const _onPressAlertCancel = async() => {
         setIsAlertVisible(false);
+  }
+  const _isConfirm = () => {
+    if(isReservation){
+      setIsAlertVisible(false);
+      Toast.show('도착 하셨습니다');
+      _navigation.navigate('TabHome');
     }
+  }
 
-    const _onPressAlertOk = () => {
-        setIsAlertVisible(false);
-        _onPressReservationButton();
-    }
+  const _notConfirm = () => {
+      setIsAlertVisible(false);
+      _onPressReservationButton();
+    
+  }
+
   _goBack = () => {
-    isReservation ? navigation.navigate('List') :navigation.navigate('TabBooked')
-}
+    isReservation ? _navigation.navigate('List') :_navigation.navigate('TabBooked')
+  }
 
-handleAndroidBackButton(_goBack);
+  handleAndroidBackButton(_goBack);
   const _onScroll = (e) => {
     // console.log(e.nativeEvent.contentOffset.y)
       scrollY.setValue(e.nativeEvent.contentOffset.y);
@@ -175,14 +196,14 @@ handleAndroidBackButton(_goBack);
   // 화면 좌측 상단 뒤로가기 버튼
   const _onPressBackButton = () => {
     if(isConfirm){
-        props.navigation.navigate('TabHome');
+        _navigation.navigate('TabHome');
         return;
     }
     //예약 중이면 
-    if(!isReservation)props.navigation.navigate('TabBooked');
+    if(!isReservation)_navigation.navigate('TabBooked');
 
     //예약 중이 아니면 
-    else props.navigation.pop();
+    else _navigation.pop();
     console.log('_onPressBackButton');
     return;
   }
@@ -200,10 +221,10 @@ handleAndroidBackButton(_goBack);
   const _onPressMapButton = () => {
     const name = data.name;
     const theme = '전체';
-    const latitude = props.navigation.getParam('latitude');
-    const longitude = props.navigation.getParam('longitude');
+    const latitude = _navigation.getParam('latitude');
+    const longitude = _navigation.getParam('longitude');
     if(!isReservation){
-        props.navigation.navigate('StoreMap',{
+        _navigation.navigate('StoreMap',{
             page1Data,
             latitude,
             longitude,
@@ -214,13 +235,13 @@ handleAndroidBackButton(_goBack);
         });
     }else{
     console.log(data.latitude,data.longitude);
-        props.navigation.navigate('StoreMap',{
+        _navigation.navigate('StoreMap',{
             latitude : data.latitude,
             longitude : data.longitude,
             name,
-            theme : props.navigation.getParam('theme'),
+            theme : _navigation.getParam('theme'),
             isReservation,
-            distance : props.navigation.getParam('distance'),
+            distance : _navigation.getParam('distance'),
         })
     }
     console.log('_onPressPhoneButton');
@@ -241,17 +262,17 @@ handleAndroidBackButton(_goBack);
     console.log('_onPressReservationButton');
     const token =  await API.getLocal(API.LOCALKEY_TOKEN);
     await API.reservation_confirm(token,{
-        storeId : props.navigation.getParam('storeId'), 
-        reservationId : props.navigation.getParam('reservationId')})
+        storeId : _navigation.getParam('storeId'), 
+        reservationId : _navigation.getParam('reservationId')})
     await API.postDNpoint(token,{
         phone,
         type : 'save',
         diff : ReviewAward,
         name : data.name,
     });
-    navigation.navigate('Booked',{
-        peopleNumber : navigation.getParam('peopleNumber'),
-        minutes : navigation.getParam('minutes'),
+    _navigation.navigate('Booked',{
+        peopleNumber : _navigation.getParam('peopleNumber'),
+        minutes : _navigation.getParam('minutes'),
         name : data.name,
     });
     return;
@@ -270,16 +291,16 @@ handleAndroidBackButton(_goBack);
   return (
     <View style ={{flex : 1,backgroundColor:'#EEEEEE'}}>
        <CustomAlert 
-                visible={isAlertVisible} 
-                mainTitle={'예약'}
-                mainTextStyle = {styles.txtStyle}
-                subTitle = {'최종 예약 하시겠습니까?'}
-                subTextStyle = {styles.subtxtStyle}
-                buttonText1={'아니오'} 
-                buttonText2={'네'} 
-                onPressCancel = {_onPressAlertCancel}
-                onPress={_onPressAlertOk} 
-        />
+        visible={isAlertVisible} 
+        mainTitle={isConfirm ? "도착":"예약"}
+        mainTextStyle = {styles.txtStyle}
+        subTitle = {isConfirm ? "도착하셨습니까?":"최종 예약 하시겠습니까?"}
+        subTextStyle = {styles.subtxtStyle}
+        buttonText1={'아니오'}
+        buttonText2={'네'}
+        onPressCancel = {_onPressAlertCancel}
+        onPress={isConfirm? _isConfirm :_notConfirm }
+      />
       {/* 각 페이지를 담는 부분입니다.*/}
       {page == 0 && <Page1 paddingTop={HEADER_MAX_HEIGHT + HEADER_TAB_HEIGHT} initialScroll={scrollY._value} onScroll={_onScroll} data={page1Data} />}
       {page == 1 && <Page2 paddingTop={HEADER_MAX_HEIGHT + HEADER_TAB_HEIGHT} initialScroll={scrollY._value} onScroll={_onScroll} data={page2Data}/>}
@@ -441,17 +462,17 @@ handleAndroidBackButton(_goBack);
         </View>
         <View style={{
           flex:1,
-          backgroundColor : !isConfirm && isReservation?'#733fff':'#CCCCCC'
+          backgroundColor : Buttoncolor
           }}>
           <TouchableOpacity 
-            onPress={()=>setIsAlertVisible(true)}
+            onPress={()=>isReservation? setIsAlertVisible(true) : Toast.show("예약 해주세요")}
               style = {{
               flex : 1,
               alignSelf : 'stretch',
               justifyContent : 'center',
               alignItems : 'center',
           }}>
-            <Text style={{color:'#FFFFFF', fontSize:18}}>{`예약하기`}</Text>
+            <Text style={{color : Utill.color.white, fontSize:18}}> {isConfirm ? '도착완료' : '예약하기'}</Text>
           </TouchableOpacity>
         </View>
       </View>
