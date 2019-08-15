@@ -66,6 +66,16 @@ const mySwitch = createSwitchNavigator(
 )
 
 export default mySwitch; 
+mySwitch.navigationOptions = ({ navigation }) => {
+    let tabBarVisible = true;
+  if (navigation.state.index > 0) {
+    tabBarVisible = false;
+  }
+
+  return {
+    tabBarVisible,
+  };
+}
 //프로필관리
 //디나포인트 나의리뷰
 //공지사항

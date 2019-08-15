@@ -20,6 +20,8 @@ import {handleAndroidBackButton} from '../component/common/hardwareBackButton';
 import Toast from 'react-native-simple-toast';
 import { connect, useDispatch } from 'react-redux';
 import User from '../store/modules/user';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
+
 
 const defaultImageSource = {uri: 'icon_add_photo'};
 const addImageSource = {uri: 'icon_add_photo_add'};
@@ -192,6 +194,8 @@ const ReviewWrite = (props) => {
       };
     
     return (      
+
+        
         <TouchableWithoutFeedback onPress  = {()=>{Keyboard.dismiss();}}>
             <View style = {styles.container}>
             <NavSwitchHead navigation = {navigation} title = {storeName} navtitle={navigation.getParam('my')==true?'MyReview' : 'TabBooked'}/>
@@ -212,6 +216,8 @@ const ReviewWrite = (props) => {
                         {width: Utill.screen.Screen.customWidth(330),
                         height: Utill.screen.Screen.customHeight(150),
                         marginTop: Utill.screen.Screen.customHeight(30)}]}>
+
+                        <KeyboardAwareScrollView>
                         <TextInput 
                             placeholder = {'솔직한 리뷰를 작성해주세요.'}
                             editable = {true}
@@ -221,6 +227,8 @@ const ReviewWrite = (props) => {
                             onChangeText = { (text)=>_textListener(text) }
                             style = {[styles.textInput,{width: Utill.screen.Screen.customWidth(306),
                                     height: Utill.screen.Screen.customHeight(120)}]} />
+                        </KeyboardAwareScrollView>
+
                     </View>
                     {isLoaded && <ActivityIndicator style = {styles.indicator}/>}
                         <View style = {[styles.imagePickerContainer, {width: Utill.screen.Screen.customWidth(330)}]}>

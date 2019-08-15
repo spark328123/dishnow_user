@@ -27,6 +27,7 @@ const TabHome = (props)=>{
     const dispatch = useDispatch();
     const [isLoaded, setIsLoaded] = useState(true);
     const [touch,setTouch] = useState(false);
+
     const _me = async() => {
         const res = await API.test();
         if(res.error){
@@ -254,7 +255,9 @@ const TabHome = (props)=>{
             </TouchableWithoutFeedback>
              </KeyboardAvoidingView>
             ):(
-            <ActivityIndicator/>
+                <View style={styles.whiteOverlay}>
+                    <ActivityIndicator style={styles.indicator} size="large" color={"#733FFF"} />
+                </View>
             )}
        </View>
     )
@@ -349,5 +352,17 @@ const styles = StyleSheet.create({
     },
     textinput : {                         // 00 부분
 
+    },
+    whiteOverlay: {
+        width: Utill.screen.screenWidth,
+        height: Utill.screen.screenHeight,  
+        backgroundColor: 'white',
+        position: 'absolute',     
+        zIndex: 20        
+    },
+    indicator: {
+        position: 'absolute',
+        left: Utill.screen.screenWidth/2-15,
+        top: Utill.screen.screenHeight/2-50        
     },
 })

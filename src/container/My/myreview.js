@@ -79,6 +79,7 @@ export default Review = ({navigation}) =>{
                         })}}
                         >
                         <Text style={styles.buttonText}>수정</Text>
+
                     </TouchableOpacity>
                     <TouchableOpacity
                      onPress ={()=>{setVisible(true);setDeleteReviewId(item.reviewId)}}
@@ -107,18 +108,20 @@ export default Review = ({navigation}) =>{
         }
         
         }>
-        <NavSwitchHead navigation={navigation} navtitle = {'TabMy'} title={data.length ? `나의 리뷰` : ''}/>
+        {data.length? <NavSwitchHead navigation={navigation} navtitle = {'TabMy'} title={`나의 리뷰`}/> : null}
         {data.length ?  
+        
           <FlatList
             data = {data}
             renderItem = {_renderItem}
-        />:<ActivityIndicator/>}
+        />:<ActivityIndicator size="large" color="#0000ff"/>}
             <Dialog.Container visible = {visible}>
                 <Dialog.Description>리뷰를 삭제하시겠습니까?</Dialog.Description>
                 <Dialog.Title>리뷰 삭제</Dialog.Title>
                 <Dialog.Button label="취소" onPress = {()=>setVisible(false)} />
                 <Dialog.Button label="삭제"
                     onPress = {()=>{setVisible(false);_deleteReview(deleteReviewId)}}/>
+                
             </Dialog.Container>
         </View>
     )
@@ -128,6 +131,7 @@ const styles = StyleSheet.create({
     container : {
         flex : 1,
         justifyContent:'center',
+        backgroundColor : Utill.color.white,
     },
     name: {
         fontSize: 16,
