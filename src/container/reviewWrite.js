@@ -20,6 +20,8 @@ import {handleAndroidBackButton} from '../component/common/hardwareBackButton';
 import Toast from 'react-native-simple-toast';
 import { connect, useDispatch } from 'react-redux';
 import User from '../store/modules/user';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
+
 
 const defaultImageSource = {uri: 'icon_add_photo'};
 const addImageSource = {uri: 'icon_add_photo_add'};
@@ -192,6 +194,9 @@ const ReviewWrite = (props) => {
       };
     
     return (      
+        <KeyboardAwareScrollView>
+
+        
         <TouchableWithoutFeedback onPress  = {()=>{Keyboard.dismiss();}}>
             <View style = {styles.container}>
             <NavSwitchHead navigation = {navigation} title = {storeName} navtitle={navigation.getParam('my')==true?'MyReview' : 'TabBooked'}/>
@@ -262,6 +267,7 @@ const ReviewWrite = (props) => {
                     </View>)}
             </View>
         </TouchableWithoutFeedback>
+        </KeyboardAwareScrollView>
     );
 }
 
@@ -277,6 +283,7 @@ export default connect(mapStateToProps)(ReviewWrite);
 const styles = StyleSheet.create({
     container : {
         flex : 1,
+        backgroundColor : Utill.color.white,
     },
     contentContainer: {
         flex: 1,

@@ -26,6 +26,7 @@ import { screenWidth } from '../utill/screen.js';
 const TabHome = (props)=>{
     const dispatch = useDispatch();
     const [isLoaded, setIsLoaded] = useState(true);
+
     const _me = async() => {
         const token = await API.getLocal(API.LOCALKEY_TOKEN);
         const meRes = await API.me(token);
@@ -264,7 +265,9 @@ const TabHome = (props)=>{
             </TouchableWithoutFeedback>
              </KeyboardAvoidingView>
             ):(
-            <ActivityIndicator/>
+                <View style={styles.whiteOverlay}>
+                    <ActivityIndicator style={styles.indicator} size="large" color={"#733FFF"} />
+                </View>
             )}
        </View>
     )
@@ -359,5 +362,17 @@ const styles = StyleSheet.create({
     },
     textinput : {                         // 00 부분
 
+    },
+    whiteOverlay: {
+        width: Utill.screen.screenWidth,
+        height: Utill.screen.screenHeight,  
+        backgroundColor: 'white',
+        position: 'absolute',     
+        zIndex: 20        
+    },
+    indicator: {
+        position: 'absolute',
+        left: Utill.screen.screenWidth/2-15,
+        top: Utill.screen.screenHeight/2-50        
     },
 })

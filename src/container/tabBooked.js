@@ -12,6 +12,7 @@ const TabBooked = (props) =>{
     const [ isLoaded, setIsLoaded ] = useState(true);
     const [ data, setdata ] = useState([]);
     const [ topSafe ] = useState(Utill.screen.topSafe);
+    const [ nowtime, setNowtime ] = useState((new Date()).getTime());
 
     const _showRes = async() => {
         const token = await API.getLocal(API.LOCALKEY_TOKEN);
@@ -20,6 +21,9 @@ const TabBooked = (props) =>{
             Toast.show('네트워크 상태를 확인해 주세요');
             return;
         }
+        setIsLoaded(false);
+        setdata(resList);
+        Nowtime((new Date()).getTime());
     }
 
     const _showStoreDetail = async({storeId,reservationId,latitude,longitude})=>{
@@ -79,7 +83,7 @@ const TabBooked = (props) =>{
                 <ReviewButton
                     isUpdate = {item.isUpdate}
                     date = {(new Date(item.createdAt)).getTime()}
-                    newdate = {(new Date()).getTime()}
+                    newdate = {nowtime}
                     reviewId = {item.reviewId}
                     rate = {item.rating}
                     storeName = {item.name}
@@ -108,7 +112,7 @@ const TabBooked = (props) =>{
             data = {data}
             renderItem = {_renderItem}
           />):(
-                <ActivityIndicator/>
+                <ActivityIndicator size="large" color={"#733FFF"}/>
           )}
             
         
