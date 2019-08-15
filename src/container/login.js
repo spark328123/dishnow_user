@@ -134,7 +134,7 @@ loginContainer: {
  },
 snsLoginContainer: {
    marginTop: Utill.screen.Screen.customHeight(40),
-   marginBottom: Utill.screen.Screen.customHeight(51),
+   marginBottom: Utill.screen.Screen.customHeight(48),
    alignItems: "center",
    justifyContent: "flex-start",
  },

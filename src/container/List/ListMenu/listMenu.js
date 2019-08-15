@@ -73,6 +73,7 @@ const ListMenu = (props) =>  {
       review : reviewData.review,
       totalCount : reviewData.totalCount,
   });
+  console.log(data)
   const [scrollY] = useState(new Animated.Value(0));
   const [scrollYListener, setScrollYListener] = useState(null);
   const [yValue, setYValue] = useState(0);
@@ -154,14 +155,17 @@ const ListMenu = (props) =>  {
         setIsAlertVisible(false);
   }
   const _isConfirm = () => {
-    setIsAlertVisible(false);
-    Toast.show('도착 하셨습니다');
-    navigation.navigate('TabHome');
+    if(isReservation){
+      setIsAlertVisible(false);
+      Toast.show('도착 하셨습니다');
+      navigation.navigate('TabHome');
+    }
   }
 
   const _notConfirm = () => {
-    setIsAlertVisible(false);
-    _onPressReservationButton();
+      setIsAlertVisible(false);
+      _onPressReservationButton();
+    
   }
 
   _goBack = () => {
@@ -289,7 +293,7 @@ const ListMenu = (props) =>  {
         buttonText1={'아니오'}
         buttonText2={'네'}
         onPressCancel = {_onPressAlertCancel}
-        onPress={isConfirm? _isConfirm : _notConfirm} 
+        onPress={isConfirm? _isConfirm :_notConfirm }
       />
       {/* 각 페이지를 담는 부분입니다.*/}
       {page == 0 && <Page1 paddingTop={HEADER_MAX_HEIGHT + HEADER_TAB_HEIGHT} initialScroll={scrollY._value} onScroll={_onScroll} data={page1Data} />}
@@ -455,7 +459,7 @@ const ListMenu = (props) =>  {
           backgroundColor : Buttoncolor
           }}>
           <TouchableOpacity 
-            onPress={()=>setIsAlertVisible(true)}
+            onPress={()=>isReservation? setIsAlertVisible(true) : Toast.show("예약 해주세요")}
               style = {{
               flex : 1,
               alignSelf : 'stretch',

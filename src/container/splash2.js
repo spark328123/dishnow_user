@@ -20,7 +20,6 @@ export default (props) => {
 
     return (
         <View style={styles.container}>
-            <Image source={{uri: "dishnow_logo_purple"}} style={{width:262, height:53}} />
         </View>
     );
 }

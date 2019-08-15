@@ -25,6 +25,7 @@ export default (props) => {
             navigation.navigate('Login');
         }
     }
+
     const { navigation } = props;
     const dispatch = useDispatch();
 

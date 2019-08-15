@@ -43,7 +43,7 @@ const FaceBookLogin = ({navigation}) => {
     return (
         <TouchableOpacity
             style={styles.btnFaceBookLogin}
-            onPressIn={()=>facebooklogin(navigation)}
+            onPress={()=>facebooklogin(navigation)}
         >
             <Image
                 style={styles.btnFaceBookLogin}
