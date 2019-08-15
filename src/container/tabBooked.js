@@ -16,8 +16,10 @@ const TabBooked = (props) =>{
     const _showRes = async() => {
         const token = await API.getLocal(API.LOCALKEY_TOKEN);
         const resList = await API.showRes(token);
-        console.log(resList);
-        return;
+        if(resList.error){
+            Toast.show('네트워크 상태를 확인해 주세요');
+            return;
+        }
         setIsLoaded(false);
         setdata(resList);
     }

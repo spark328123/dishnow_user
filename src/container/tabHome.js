@@ -9,6 +9,7 @@ import { View,
     KeyboardAvoidingView, 
     Keyboard, 
     TouchableWithoutFeedback,
+    ActivityIndicator,
     
 } from 'react-native';
 import GoogleMap from '../utill/googlemap.js';
@@ -24,9 +25,14 @@ import { screenWidth } from '../utill/screen.js';
 
 const TabHome = (props)=>{
     const dispatch = useDispatch();
+    const [isLoaded, setIsLoaded] = useState(true);
     const _me = async() => {
         const token = await API.getLocal(API.LOCALKEY_TOKEN);
         const meRes = await API.me(token);
+        if(meRes.error){
+            Toast.show('네트워크 상태를 확인해 주세요');
+            return;
+        }
         const userid = meRes.userId;
         const point = meRes.point;
         const name = meRes.name;
@@ -43,6 +49,7 @@ const TabHome = (props)=>{
         dispatch(User.updatenickname(nickname));
         const pushToken = await API.getPush(API.PUSH_TOKEN);
         const ret = await API.setPushToken(token,{pushToken});
+        setIsLoaded(false);
     }
 
     const [people, setPeople] = useState('');
@@ -135,8 +142,10 @@ const TabHome = (props)=>{
     }
 
     return(
-        <KeyboardAvoidingView style={styles.container} behavior= "height" enabled>
-            <View style = {styles.map}>
+        <View style = {{flex : 1}}>
+            {!isLoaded?(
+                <KeyboardAvoidingView style={styles.container} behavior= "height" enabled>
+                 <View style = {styles.map}>
             <GoogleMap
                isPressed = { false }
                navigation = { navigation }   
@@ -250,7 +259,11 @@ const TabHome = (props)=>{
             </View>
             </View>
             </TouchableWithoutFeedback>
-        </KeyboardAvoidingView>
+             </KeyboardAvoidingView>
+            ):(
+            <ActivityIndicator/>
+            )}
+       </View>
     )
 }
 
