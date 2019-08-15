@@ -3,14 +3,14 @@ import { createStackNavigator, createSwitchNavigator } from 'react-navigation';
 import TabBooked from '../container/tabBooked';
 import ReviewWrite from '../container/reviewWrite';
 import ListMenu from '../container/List/ListMenu/listMenu';
-import StoreMap from '../container/List/ListMenu/storeMap';
+import splash2 from '../container/splash2';
 
 const BookStack = createSwitchNavigator(
     {
         TabBooked,
         ReviewWrite,
         ListMenu,
-        StoreMap,
+        splash2,
     },
     {
         initialRouteName : 'TabBooked',

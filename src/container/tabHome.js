@@ -146,7 +146,7 @@ const TabHome = (props)=>{
             </View>
             <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={true}>
             <View style = {styles.input}>
-                <ScrollView
+            <ScrollView
                     style = {styles.scrollViewContainer}
                     horizontal = {true}
                     showsVerticalScrollIndicator = {true}
@@ -187,7 +187,10 @@ const TabHome = (props)=>{
                             <View style = {styles.item}><Text  style = {{color : temaList[5].color }}> 이자카야 </Text></View>
                         </TouchableOpacity>
                         </View>
-                    </ScrollView>
+                        <View style = {{width : 70 }}>
+
+                        </View>
+                </ScrollView>
 
                 <View style={[styles.parent, {height: Utill.screen.Screen.customHomeHeight(172)}]} horizontal = {true}>
 

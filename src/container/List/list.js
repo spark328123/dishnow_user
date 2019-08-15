@@ -37,7 +37,7 @@ const List = (props) => {
     }
 
     const _onPressAlertOk = async() => {
-        setIsAlertVisible(false);
+        await setIsAlertVisible(false);
        _goHome();
     }
     const _onPressAlertCancel = async() => {
@@ -181,7 +181,17 @@ const List = (props) => {
 
     return(
         <View style = {styles.container}>
-            
+            <CustomAlert 
+                visible={isAlertVisible} 
+                mainTitle={'취소'}
+                mainTextStyle = {styles.txtStyle}
+                subTitle = {'이미 요청을 수락한 가게가 있습니다.정말 취소할까요?'}
+                subTextStyle = {styles.subtxtStyle}
+                buttonText1={'아니오'} 
+                buttonText2={'네'} 
+                onPressCancel = {_onPressAlertCancel}
+                onPress={_onPressAlertOk} 
+        />
         
             <View style = {styles.header}>
                 <Text style={{fontSize:14, color:"#733FFF" }}>1:29</Text>
@@ -252,6 +262,19 @@ const styles = StyleSheet.create({
         opacity: 0.7,
         justifyContent: "center",
         alignItems: "center",
+    },
+    txtStyle : {
+        marginBottom : Utill.screen.Screen.customHeight(9),
+        fontSize : 18,
+        fontWeight : 'bold',
+        color : Utill.color.red,
+        alignSelf : 'center',
+    },
+    subtxtStyle : {
+        marginBottom : Utill.screen.Screen.customHeight(35),
+        fontSize : 16,
+        color : Utill.color.textBlack,
+        alignSelf : 'center',
     },
     txtStyle : {
         marginBottom : Utill.screen.Screen.customHeight(9),
