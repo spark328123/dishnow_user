@@ -285,6 +285,7 @@ export default connect(mapStateToProps)(ReviewWrite);
 const styles = StyleSheet.create({
     container : {
         flex : 1,
+        backgroundColor : Utill.color.white,
     },
     contentContainer: {
         flex: 1,

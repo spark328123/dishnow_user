@@ -39,8 +39,10 @@ const Login = (props) => {
             type
         });
         if(loginRes.token!==''){
+
             await API.setLocal(API.LOCALKEY_TOKEN,loginRes.token);
             navigation.navigate('TabHome');
+            
         }
         else{
           Toast.show('이메일과 비밀번호를 확인해주세요.');
@@ -138,7 +140,7 @@ loginContainer: {
  },
 snsLoginContainer: {
    marginTop: Utill.screen.Screen.customHeight(40),
-   marginBottom: Utill.screen.Screen.customHeight(51),
+   marginBottom: Utill.screen.Screen.customHeight(48),
    alignItems: "center",
    justifyContent: "flex-start",
  },
