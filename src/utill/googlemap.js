@@ -187,11 +187,11 @@ const styles = StyleSheet.create({
         width: 40
       },
       backFixed : {
-        width : 20,
-        height : 20,
+        width : 200,
+        height : 200,
         left : '12%',
-        marginLeft: -24,
-        marginTop: -24,
+        marginLeft: -12,
+        marginTop: -12,
         position: 'absolute',
         top : '12%'
       },

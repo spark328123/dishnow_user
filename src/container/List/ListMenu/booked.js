@@ -1,15 +1,19 @@
 import React, {memo, useEffect, useState} from 'react';
 import {View, StyleSheet, Image, ImageBackground, ActivityIndicator} from 'react-native';
 import {useSelector, useDispatch} from 'react-redux';
-
-import { Text } from '../../../component/common';
+import moment from 'moment';
+import { Text,BigButtonBorder } from '../../../component/common';
 import * as Utill from '../../../utill'
 export default (props)=>{
     const { navigation } = props;
     const dispatch = useDispatch();
-    const [isLoaded, setIsLoaded] = useState(true);
-    const [left, setLeft] = useState(); // 화면에 표시될 도착 예정 시간 (left 분후)
-   
+    const [isLoaded, setIsLoaded] = useState(false);
+    let minutes = navigation.getParam('minutes');
+    useEffect(()=> {
+        minutes = moment(minutes);
+        setIsLoaded(true);
+           
+    },[minutes])
     return (
         <View style={styles.container}>
             
@@ -22,9 +26,8 @@ export default (props)=>{
 
             
             <View style={{flex:1, justifyContent:'center'}}>
-                
-                {/* //{!isLoaded && <ActivityIndicator size="large" color="#0000ff" />} */}
-                {isLoaded && 
+                {!isLoaded && <ActivityIndicator size="large" color="#0000ff" />} 
+                {isLoaded &&
                     <ImageBackground
                         style={styles.infoContainer}
                         source={{uri:'bookedinfocard'}}
@@ -43,13 +46,16 @@ export default (props)=>{
 
                                 <View style={[styles.infoLine, {marginTop:17}]}>
                                     <Text style={styles.infoTitle}>{'도착 예정 시간'}</Text>
-                                    <Text style={styles.infoData}>{`${left>0? left : -left} 분 ${left>0? '후' : '전'}`}</Text>
+                                    <Text style={styles.infoData}>{`${minutes}분 후`}</Text>
                                 </View>
                             </View>
                         </View>
                     </ImageBackground>
                 }
             </View>
+            <BigButtonBorder title={'확인'} onPress={()=>navigation.navigate('TabHome',{
+                isConfirm : true,
+            })}  />
         </View>
     );
 }

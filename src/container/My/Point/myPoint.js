@@ -140,7 +140,7 @@ const styles = StyleSheet.create({
         alignSelf:'center',
         fontSize : 14, 
         color:Utill.color.itemTitle,
-        marginBottom : 12,
+        marginBottom : Utill.screen.Screen.customHeight(12),
     },
     button : {
         borderRadius : 25,
