@@ -24,9 +24,11 @@ import Toast from 'react-native-simple-toast';
 const TabMy = ({navigation, userid, nickname, image, phone, point, name, reviewcount}) => { 
     const [Pressed,setPressed] = useState(false);
     const [isLoaded,setIsLoaded] = useState(true);
-
+    const [isPhotoLoaded,setPhotoLoaded] = useState(true);
+    const [photo, setPhoto] = useState(image.substring(2,image.length-2));
     useEffect(()=>{
         _me();
+        _loadPhoto();
     },[])
 
     const _me = async() => {
@@ -53,9 +55,12 @@ const TabMy = ({navigation, userid, nickname, image, phone, point, name, reviewc
         dispatch(User.updatenickname(nickname));
         const pushToken = await API.getPush(API.PUSH_TOKEN);
         const ret = await API.setPushToken(token,{pushToken});
-         setIsLoaded(false);
+        setIsLoaded(false);
     }
-
+    const _loadPhoto = () => {
+        {!photo && 
+        setPhotoLoaded(false);}
+    }
 
     _setPressed = (Pressed) => {
         if(Pressed) Pressed = false;
@@ -74,7 +79,6 @@ const TabMy = ({navigation, userid, nickname, image, phone, point, name, reviewc
     }
     const [id, idChange] = useState(userid);
     const [nick, nickChange] = useState(nickname);
-    const [photo, setPhoto] = useState(image.substring(2,image.length-2));
     const [phonenum, phoChange] = useState(phone);
     const [pt, ptChange] = useState(point);
     const [nm, nmChange] = useState(name);
@@ -91,10 +95,12 @@ const TabMy = ({navigation, userid, nickname, image, phone, point, name, reviewc
     const dispatch = useDispatch();
 
     return (
+        <View style = {{flex : 1}}> 
+        {!isLoaded? (
         <View
             style={styles.container}
             contentContainerStyle={{ flexGrow: 1, justifyContent: 'center' }}>
-                {!isLoaded? (
+               
             <TouchableOpacity 
                     style = {styles.top}
                     onPress = {()=>navigation.navigate('Profile',
@@ -115,8 +121,8 @@ const TabMy = ({navigation, userid, nickname, image, phone, point, name, reviewc
                     )}
                     {!photo && ( 
                         <Image
-                        source={{uri : 'icon_profile'}}
-                        style={{ width: 45, height: 45 }}
+                            source={{uri : 'icon_profile'}}
+                            style={{ width: 45, height: 45 }}
                         />
                     )}
 
@@ -127,7 +133,6 @@ const TabMy = ({navigation, userid, nickname, image, phone, point, name, reviewc
                 <Image source = {{uri : 'icon_rsquare_bracket'}} style = {{width : 9, height : 15, alignSelf : 'center'}}/>
             </TouchableOpacity>
 
-            {/* 라인 */}
             <View style={styles.line}/>
             
             <View style = { styles.parent }>
@@ -167,7 +172,6 @@ const TabMy = ({navigation, userid, nickname, image, phone, point, name, reviewc
                 </View>
             </View>
             <View style={styles.line}/>
-            {/* 라인 끝 */}
 
             <MenuButton 
                 title={`공지사항`} 
@@ -220,9 +224,11 @@ const TabMy = ({navigation, userid, nickname, image, phone, point, name, reviewc
                             {cancelable: false},
                         )
                 } 
-                style = {styles.menus} 
-            />:(<ActivityIndicator />}
-        </View> 
+                style = {styles.menus}/>
+            
+        </View>
+            ):<ActivityIndicator style={styles.indicator} size="large" color={"#733FFF"}/>} 
+        </View>
     )
 }
 
@@ -276,5 +282,10 @@ const styles = StyleSheet.create({
     line : {
         borderBottomWidth: 1,
         borderBottomColor:Utill.color.border,
+    },
+    indicator: {
+        position: 'absolute',
+        left: Utill.screen.screenWidth/2-15,
+        top: Utill.screen.screenHeight/2-50        
     },
 })

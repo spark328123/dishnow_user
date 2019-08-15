@@ -20,6 +20,8 @@ const TabBooked = (props) =>{
             Toast.show('네트워크 상태를 확인해 주세요');
             return;
         }
+        setdata(resList);
+        setIsLoaded(false);
     }
 
     const _showStoreDetail = async({storeId,reservationId,latitude,longitude})=>{
@@ -100,16 +102,17 @@ const TabBooked = (props) =>{
                 {marginTop : topSafe}
             ]
         }>
-        <TouchableOpacity style={styles.container} onPress ={()=>_onPress()}>
-            <Image style={{height : 15, width : 15}} source={{uri : 'icon_logo_purple_main'}} />
-            <Text style={styles.text}>새로고침</Text>
-        </TouchableOpacity>
+     
         {!isLoaded?(  <FlatList
             data = {data}
             renderItem = {_renderItem}
           />):(
                 <ActivityIndicator/>
           )}
+             <TouchableOpacity style={styles.container} onPress ={()=>_onPress()}>
+            <Image style={{height : 15, width : 15}} source={{uri : 'icon_logo_purple_main'}} />
+            <Text style={styles.text}>새로고침</Text>
+        </TouchableOpacity>
             
         
         </View>
