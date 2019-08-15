@@ -26,30 +26,14 @@ import { screenWidth } from '../utill/screen.js';
 const TabHome = (props)=>{
     const dispatch = useDispatch();
     const [isLoaded, setIsLoaded] = useState(true);
+    const [touch,setTouch] = useState(false);
 
     const _me = async() => {
-        const token = await API.getLocal(API.LOCALKEY_TOKEN);
-        const meRes = await API.me(token);
-        if(meRes.error){
-            Toast.show('네트워크 상태를 확인해 주세요');
+        const res = await API.test();
+        if(res.error){
+            Toast.show('네트워크 연결 상태를 확인해 주세요');
             return;
-        }
-        const userid = meRes.userId;
-        const point = meRes.point;
-        const name = meRes.name;
-        const phone = meRes.phone;
-        const image = meRes.image;
-        const reviewcount = meRes.reviewCount;
-        const nickname = meRes.nickname;
-        dispatch(User.updateuserid(userid));
-        dispatch(User.updatepoint(point));
-        dispatch(User.upadtename(name));
-        dispatch(User.updatephone(phone));
-        dispatch(User.updateimage(image));
-        dispatch(User.updatereviewcount(reviewcount));
-        dispatch(User.updatenickname(nickname));
-        const pushToken = await API.getPush(API.PUSH_TOKEN);
-        const ret = await API.setPushToken(token,{pushToken});
+        } 
         setIsLoaded(false);
     }
 
@@ -72,6 +56,12 @@ const TabHome = (props)=>{
     },[]);
 
     const _reservation = async()=>{
+        if(touch)return;
+        setTouch(true);
+        setTimeout(()=>{
+            setTouch(false);
+        },500)
+
         if(parseInt(people.text)>0&&parseInt(arr[parseInt(time)])>0){
             const token = await API.getLocal(API.LOCALKEY_TOKEN);
             const data = {
@@ -179,17 +169,17 @@ const TabHome = (props)=>{
                         </View>
                         <View style = {styles.item}>
                         <TouchableOpacity onPress = {()=>_changeTemaColor(2)}>
-                            <View style = {styles.item}><Text  style = {{color : temaList[2].color }}> 룸 </Text></View>
+                            <View style = {styles.item}><Text  style = {{color : temaList[2].color }}> 가성비 </Text></View>
                         </TouchableOpacity>
                         </View>
                         <View style = {styles.item}>
                         <TouchableOpacity onPress = {()=>_changeTemaColor(3)}>
-                            <View style = {styles.item}><Text  style = {{color : temaList[3].color }}> 저렴한 </Text></View>
+                            <View style = {styles.item}><Text  style = {{color : temaList[3].color }}> 데이트 </Text></View>
                         </TouchableOpacity>
                         </View>
                         <View style = {styles.item}>
                         <TouchableOpacity onPress = {()=>_changeTemaColor(4)}>
-                            <View style = {styles.item}><Text  style = {{color : temaList[4].color }}> 감성적인 </Text></View>
+                            <View style = {styles.item}><Text  style = {{color : temaList[4].color }}> {`밥&술`} </Text></View>
                         </TouchableOpacity>
                         </View>
                         <View style = {styles.item}>

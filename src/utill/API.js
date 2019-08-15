@@ -188,3 +188,10 @@ export const postDNpoint = (token,data) =>{
     .then(res =>res.json())
     .catch(error => ({error})); 
 }
+
+export const test = ()=>{
+    const url = `${apiUrl}user/test`;
+    return fetch.getServer(url)
+    .then(res=>res.json())
+    .catch(error=>({error}));
+}

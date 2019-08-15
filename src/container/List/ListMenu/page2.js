@@ -1,7 +1,7 @@
 import React, {useState, useEffect, memo, useRef} from 'react';
 import {View, ScrollView, Button, Dimensions, Image} from 'react-native';
 import { Text } from '../../../component/common';
-
+import * as Utill from '../../../utill'
 import { getInset } from 'react-native-safe-area-view';
 const {width} = Dimensions.get('screen');
 const HEADER_BOTTOM_SAFE = getInset('bottom', false);

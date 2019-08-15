@@ -38,29 +38,11 @@ const TabMy = ({navigation, userid, nickname, image, phone, point, name, reviewc
     },[])
 
     const _me = async() => {
-        const token = await API.getLocal(API.LOCALKEY_TOKEN);
-        const meRes = await API.me(token);
-          if(meRes.error){
-            Toast.show('네트워크 환경을 확인해 주세요');            
+        const res = await API.test();
+        if(res.error){
+            Toast.show('네트워크 상태를 확인해 주세요');
             return;
         }
-      
-        const userid = meRes.userId;
-        const point = meRes.point;
-        const name = meRes.name;
-        const phone = meRes.phone;
-        const image = meRes.image;
-        const reviewcount = meRes.reviewCount;
-        const nickname = meRes.nickname;
-        dispatch(User.updateuserid(userid));
-        dispatch(User.updatepoint(point));
-        dispatch(User.upadtename(name));
-        dispatch(User.updatephone(phone));
-        dispatch(User.updateimage(image));
-        dispatch(User.updatereviewcount(reviewcount));
-        dispatch(User.updatenickname(nickname));
-        const pushToken = await API.getPush(API.PUSH_TOKEN);
-        const ret = await API.setPushToken(token,{pushToken});
         setIsLoaded(false);
     }
     const _loadPhoto = () => {
@@ -74,15 +56,17 @@ const TabMy = ({navigation, userid, nickname, image, phone, point, name, reviewc
         setPressed(Pressed);
      }
 
-    const _pushStop = ()=>{
-        OneSignal.removeEventListener();
+    const _push = (press)=>{
+        if(!press){
+        OneSignal.inFocusDisplaying(0);
         Toast.show('푸시가 중단되었습니다.');
+
+        }else{
+            OneSignal.inFocusDisplaying(2);
+            Toast.show('푸시가 활성화되었습니다.')
+        }
     } 
 
-    const _pushStart = ()=>{
-        OneSignal.addEventListener()
-        Toast.show('푸시가 시작되었습니다.');
-    }
     const [id, idChange] = useState(userid);
     const [nick, nickChange] = useState(nickname);
     const [phonenum, phoChange] = useState(phone);
@@ -215,7 +199,7 @@ const TabMy = ({navigation, userid, nickname, image, phone, point, name, reviewc
                 title={'푸쉬알람'} 
                 source={{uri:'icon_push'}} 
                 style = {styles.menus}
-                onValueChange = {()=>{_setPressed(Pressed);}}
+                onValueChange = {()=>{_setPressed(Pressed);_push(Pressed)}}
                 value = {!Pressed}
             />
                 

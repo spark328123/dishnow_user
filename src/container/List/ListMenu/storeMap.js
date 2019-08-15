@@ -24,27 +24,6 @@ const StoreMap = (props) => {
     const isReservation = navigation.getParam('isReservation');
     const distance = navigation.getParam('distance');
 
-    const degreesToRadians = (degrees)=> {
-        radians = (degrees * Math.PI)/180;
-        return radians;
-    }
-    
-
-    const _computeDistance = (startCoords, destCoords) => {
-        var startLatRads = degreesToRadians(startCoords.latitude);
-        var startLongRads = degreesToRadians(startCoords.longitude);
-        var destLatRads = degreesToRadians(destCoords.latitude);
-        var destLongRads = degreesToRadians(destCoords.longitude);
-
-        var Radius = 6371; 
-        var distance = Math.acos(Math.sin(startLatRads) * Math.sin(destLatRads) + 
-                        Math.cos(startLatRads) * Math.cos(destLatRads) *
-                        Math.cos(startLongRads - destLongRads)) * Radius;
-
-        return Math.floor(distance*1000);
-    }
-
-
     useEffect(()=>{
         console.log(navigation);
         console.log(latitude);
@@ -88,7 +67,7 @@ const StoreMap = (props) => {
                 <Text style={{fontSize: 16, marginBottom: 5}}>{name}</Text>
                 <View style={{flexDirection: 'row', justifyContent:"space-between", width:126}}>
                 <Text style={{fontSize: 12}}>{theme}</Text>
-                <Text style={{fontSize: 12, color : '#733FFF'}}>{`${distance}m`}</Text>
+                <Text style={{fontSize: 12, color : '#733FFF'}}>{distance && `${distance}m`}</Text>
                 </View>
                 </CustomCallout>
                 </Callout>

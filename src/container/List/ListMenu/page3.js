@@ -1,6 +1,6 @@
 import React, {useState, useEffect, memo, useRef} from 'react';
 import {View, FlatList, StyleSheet, Dimensions, Image, TouchableOpacity} from 'react-native';
-
+import * as Utill from '../../../utill'
 import { Text } from '../../../component/common';
 
 import { getInset } from 'react-native-safe-area-view';
