@@ -54,6 +54,7 @@ target 'react_dishnow_user' do
     :inhibit_warnings => true
     pod 'react-native-simple-toast', :path => '../node_modules/react-native-simple-toast'
 	 pod 'FBSDKLoginKit'
+	 pod 'FacebookSDK' 
   end
   
   post_install do |installer|

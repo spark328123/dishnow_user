@@ -132,11 +132,11 @@ const GoogleMaps =  ({isPressed, toggle, navigation, latitudeDelta, latitude, lo
             {isPressed? (
                 <View style = {styles.backFixed}>
                     <TouchableOpacity 
-                        onPressIn = {_goBack}>
+                        onPress = {_goBack}>
                         <Image source = {
                             {uri: 'icon_back_button'}
                         }
-                        style = {styles.backFixed} />
+                        style = {styles.backimg} />
                     </TouchableOpacity>
                 </View>
 
@@ -187,13 +187,17 @@ const styles = StyleSheet.create({
         width: 40
       },
       backFixed : {
-        width : 200,
-        height : 200,
-        left : '12%',
+        width : 40,
+        height : 40,
+        left : 25,
         marginLeft: -12,
         marginTop: -12,
         position: 'absolute',
-        top : '12%'
+        top : 30,
+      },
+      backimg : {
+        width : 15,
+        height : 20,
       },
       back :{
           height : 80,
