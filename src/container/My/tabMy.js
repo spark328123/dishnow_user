@@ -38,6 +38,27 @@ const TabMy = ({navigation, userid, nickname, image, phone, point, name, reviewc
         }
         setIsLoaded(false);
     }
+    const _me = async() => {
+        const token = await API.getLocal(API.LOCALKEY_TOKEN);
+        const meRes = await API.me(token);
+        const userid = meRes.userId;
+        const point = meRes.point;
+        const name = meRes.name;
+        const phone = meRes.phone;
+        const image = meRes.image;
+        const reviewcount = meRes.reviewCount;
+        const nickname = meRes.nickname;
+        dispatch(User.updateuserid(userid));
+        dispatch(User.updatepoint(point));
+        dispatch(User.upadtename(name));
+        dispatch(User.updatephone(phone));
+        dispatch(User.updateimage(image));
+        dispatch(User.updatereviewcount(reviewcount));
+        dispatch(User.updatenickname(nickname));
+        const pushToken = await API.getPush(API.PUSH_TOKEN);
+        const ret = await API.setPushToken(token,{pushToken});
+    }
+
 
     _setPressed = (Pressed) => {
         if(Pressed) Pressed = false;

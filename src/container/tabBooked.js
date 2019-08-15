@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
-import { View, FlatList, StyleSheet, TouchableOpacity, Button, Image, ActivityIndicator } from 'react-native';
+import { View, FlatList, StyleSheet, TouchableOpacity, Image, ActivityIndicator } from 'react-native';
 import { useDispatch, connect } from 'react-redux';
-import { Text } from '../component/common/'
+import { Text,Button } from '../component/common/'
 import ReviewButton from '../component/common/ReviewButton';
 import * as API from '../utill/API';
 import * as Utill from '../utill';
@@ -20,8 +20,6 @@ const TabBooked = (props) =>{
             Toast.show('네트워크 상태를 확인해 주세요');
             return;
         }
-        setIsLoaded(false);
-        setdata(resList);
     }
 
     const _showStoreDetail = async({storeId,reservationId,latitude,longitude})=>{
@@ -56,7 +54,10 @@ const TabBooked = (props) =>{
         })
         console.log(resDetail,resReview);
     }
-
+    const _onPress = () => {
+        console.log("눌렀슴");
+        navigation.navigate('splash2');
+    }
     useEffect(() => {
         _showRes();
     },[]);
@@ -99,6 +100,10 @@ const TabBooked = (props) =>{
                 {marginTop : topSafe}
             ]
         }>
+        <TouchableOpacity style={styles.container} onPress ={()=>_onPress()}>
+            <Image style={{height : 15, width : 15}} source={{uri : 'icon_logo_purple_main'}} />
+            <Text style={styles.text}>새로고침</Text>
+        </TouchableOpacity>
         {!isLoaded?(  <FlatList
             data = {data}
             renderItem = {_renderItem}
@@ -126,12 +131,38 @@ const mapStateToProps = (state) => {
 export default connect(mapStateToProps)(TabBooked);
 
 const styles = StyleSheet.create({
+    container : {
+        width : 90,
+        position : 'absolute',
+        top : 15,
+        right : 15,
+        height: 22,
+        borderWidth: 1,
+        borderColor: '#733FFF',
+        justifyContent: 'center',
+        alignItems : 'center',
+        borderRadius : 25,
+        flexDirection : 'row',
+    },
+    button : {
+        width : 103,
+        height : 46,
+        flexDirection : 'row',
+        justifyContent : 'center',
+        alignItems : 'center',
+    },
+    text : {
+        fontSize : 14,
+        marginLeft : 8.5,
+        color : Utill.color.primary2,
+    },
     list: {
         height: 172,
         borderBottomWidth: 1,
         borderColor: '#EEEEEE'
     },
     nameContainer:{
+        width : '60%',
         flexDirection: 'row',
         alignItems: 'center',
         marginTop: 30
