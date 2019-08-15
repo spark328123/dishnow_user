@@ -103,9 +103,11 @@ const Profile = ({navigation, userid, nickname, image, phone, point, name}) => {
                 onPressCancel = {_onPressAlertCancel}
             />
             <View style = {{marginLeft:Utill.screen.Screen.customWidth(15), marginRight : Utill.screen.Screen.customWidth(15)}}>
+                
                 <TouchableOpacity onPress={()=>_handleChoosePhoto()}
                     style = {{alignItems : 'center', marginTop : Utill.screen.Screen.customHeight(15)}}
                 >
+
                 {photo &&  (
                     <Image
                         source={profile}
@@ -137,14 +139,14 @@ const Profile = ({navigation, userid, nickname, image, phone, point, name}) => {
                 <View style={styles.geajung}>
                 <Text>계정정보</Text>
                 </View>
-                <TouchableOpacity style={styles.garo}>
+                <View style={styles.garo}>
                     <View style={{width : '50%'}}>
                         <Text style={{fontSize : 14, color : '#555555', fontFamily : 'NanumSquareOTF' }}>이름</Text>
                     </View>
                     <View style={{width : '50%'}}>
                         <Text style={{fontSize : 16, color : '#111111', fontFamily : 'NanumSquareOTF', alignSelf: 'flex-end'}}>{nm}</Text>
                     </View>
-                </TouchableOpacity>
+                </View>
                 <TouchableOpacity style={styles.garo} onPress = {()=>navigation.navigate('PasswordCheck',{title : '휴대폰 번호 변경'})}>
                     <View style={{width : '50%'}}>
                         <Text style={{fontSize : 14, color : '#555555', fontFamily : 'NanumSquareOTF' }}>휴대폰 번호</Text>

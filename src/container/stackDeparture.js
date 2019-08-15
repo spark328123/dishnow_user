@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import { View, StyleSheet, TouchableOpacity} from 'react-native';
+import { View, StyleSheet, TouchableOpacity,Image} from 'react-native';
 import { Text } from '../component/common'
 import GoogleMap from '../utill/googlemap';
 import {handleAndroidBackButton, removeAndroidBackButtonHandler} from '../component/common/hardwareBackButton'
@@ -11,6 +11,7 @@ const StackDeparture = (props)=>{
     handleAndroidBackButton(_goBack)
     return(
         <View style = {styles.container}>
+                    
             <GoogleMap style={styles.map}
                 isPressed = {true}
                 navigation = {navigation}
@@ -31,4 +32,5 @@ const styles = StyleSheet.create({
     map : {
         flex :1,
     },
+   
 });

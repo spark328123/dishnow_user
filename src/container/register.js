@@ -7,9 +7,8 @@ import * as API from '../utill/API';
 import user, * as User from '../store/modules/user';
 import regs, * as Regs from '../store/modules/regs';
 import {useSelector, useDispatch} from 'react-redux';
-import {StackActions, NavigationActions} from 'react-navigation';
 import * as Utill from '../utill';
-import  RNKakaoLogins from 'react-native-kakao-logins';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 
 const Register = (props) => {
 
@@ -201,7 +200,7 @@ const Register = (props) => {
                 dispatch(Regs.updateemail(email));
                 dispatch(User.updatenickname(nickname.text));
                 dispatch(User.upadtename(name));
-                dispatch(User.updatephone(phone));
+                dispatch(User.updatephone(콜));
                 navigation.navigate('Welcome', {
                     name: name.text
                 });
@@ -310,7 +309,7 @@ const Register = (props) => {
                 dispatch(Regs.updateemail(email));
                 dispatch(User.updatenickname(nickname));
                 dispatch(User.upadtename(name));
-                dispatch(User.updatephone(phone));
+                dispatch(User.updatephone(콜));
                 navigation.navigate('Welcome', {
                     name: name.text
                 });
@@ -336,6 +335,8 @@ const Register = (props) => {
     }
 
     return (
+        <KeyboardAwareScrollView>
+
         <View style={{flex : 1}}>
         
         <CustomAlert1
@@ -453,6 +454,7 @@ const Register = (props) => {
             </View>
         </ScrollView>
         </View>
+        </KeyboardAwareScrollView>
     )
 }
 export default Register;

@@ -97,7 +97,8 @@ const GoogleMaps =  ({isPressed, toggle, navigation, latitudeDelta, latitude, lo
         }, 10);
     }, [])
     
-
+// We define the function first
+    
     return (
         <View style = {{flex : 1}}>
             <MapView
@@ -132,7 +133,7 @@ const GoogleMaps =  ({isPressed, toggle, navigation, latitudeDelta, latitude, lo
             {isPressed? (
                 <View style = {styles.backFixed}>
                     <TouchableOpacity 
-                        onPressIn = {_goBack}>
+                        onPress = {_goBack}>
                         <Image source = {
                             {uri: 'icon_back_button'}
                         }
@@ -187,11 +188,11 @@ const styles = StyleSheet.create({
         width: 40
       },
       backFixed : {
-        width : 200,
-        height : 200,
+        width : 9.5,
+        height : 16,
         left : '12%',
         marginLeft: -12,
-        marginTop: -12,
+        marginTop: -24,
         position: 'absolute',
         top : '12%'
       },
