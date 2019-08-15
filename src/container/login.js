@@ -12,6 +12,8 @@ import * as Utill from '../utill';
 import * as API from '../utill/API';
 import { Text, Button, BigButton, TextInput, SungminButton } from '../component/common'
 import Toast from 'react-native-simple-toast';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
+
 const type = 'email';
 var token = '';
 
@@ -47,6 +49,7 @@ const Login = (props) => {
 
   return (
     <View style = {styles.container}>
+        <KeyboardAwareScrollView>
     <ImageBackground source={{uri : "login_image2"}} style={{flex:1,}}>
     
         <View style={styles.logo}>
@@ -103,6 +106,7 @@ const Login = (props) => {
            <Text style = {styles.createText}>{"이메일로 계정 만들기"}</Text>
         </Button>
     </ImageBackground>
+    </KeyboardAwareScrollView>
     </View>
 
  );

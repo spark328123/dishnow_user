@@ -23,6 +23,7 @@ import { Text,CustomAlert } from '../../../component/common';
 import { connect } from 'react-redux';
 import * as Utill from '../../../utill'
 import Toast from 'react-native-simple-toast';
+
 const icon_square_bracket_left = {uri : 'icon_square_bracket_left'};
 const icon_on_map = {uri : 'icon_on_map_black'};
 const icon_call = {uri : 'icon_call'};
@@ -178,6 +179,7 @@ const ListMenu = (props) =>  {
 
   _goBack = () => {
     isReservation ? _navigation.navigate('List') :_navigation.navigate('TabBooked')
+  }
 
 
   handleAndroidBackButton(_goBack);
@@ -573,5 +575,3 @@ subtxtStyle : {
     alignSelf : 'center',
 },
 });
-
-// export default ScrollableHeader;

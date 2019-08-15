@@ -16,11 +16,12 @@ export default (props) => {
     const dispatch = useDispatch();
 
     const _getPosition = async () => {
+        if(isLoaded){
             await navigator.geolocation.getCurrentPosition((position) => {
             latitude = position.coords.latitude;
             longitude = position.coords.longitude;
             dispatch(updateLocation({ latitude, longitude }));
-        });
+        })}
         setIsLoaded(false);
     }
     const _me = async () => {
