@@ -6,6 +6,7 @@ export const apiUrl = 'http://54.180.6.107:8001/api/user/';
 export const LOCALKEY_TOKEN = 'LOC_STORE_KEY_TOKEN'
 export const PUSH_TOKEN = 'PUSH_TOKEN';
 
+
 export const getLocal =  async (key) => {
     try {
         const value = await AsyncStorage.getItem(key);

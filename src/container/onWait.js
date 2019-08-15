@@ -139,8 +139,8 @@ const OnWait =  (props) =>{
                     <TouchableOpacity
                         onPress = {()=>setIsAlertVisible(true)}>
                             {toggle?
-                        (<Text style= {[styles.headerText,{color : Utill.color.red}]}>취소하기</Text>):
-                        (<Text style = {[styles.headerText,{color : Utill.color.textBlack}]}>홈으로</Text>)
+                                (<Text style= {[styles.headerText,{color : Utill.color.red, marginTop : 15, marginRight : 15}]}>취소하기</Text>):
+                                (<Text style = {[styles.headerText,{color : Utill.color.textBlack, marginTop : 15, marginRight : 15}]}>홈으로</Text>)
                             }
                     </TouchableOpacity>
                  </View>
@@ -200,7 +200,7 @@ const OnWait =  (props) =>{
                     <Text style = {{color : '#FFF', fontSize : 16}}>다시 찾기</Text>
                 </TouchableOpacity>
             ):(
-                <View style = {[styles.button,{backgroundColor : '#FFF'}]}/>
+                <View style = {[styles.button,{backgroundColor : '#FFFFFF'}]}/>
             )}
         </View>
     )

@@ -90,7 +90,6 @@ export default Review = ({navigation}) =>{
                     {item.answer!==null ? ( <View style={styles.answerContent}>
                         <View style={styles.ownerContent}>
                         <Text style={styles.ownerText}>사장님</Text>
-                        <Text style={styles.ownerDate}>그제</Text>
                         </View>
                         <Text style={styles.answerText}>{item.answer}</Text>
                     </View>) : null}
@@ -108,7 +107,7 @@ export default Review = ({navigation}) =>{
         }
         
         }>
-        <NavSwitchHead navigation={navigation} navtitle = {'TabMy'} title={data.length && `나의 리뷰`}/>
+        <NavSwitchHead navigation={navigation} navtitle = {'TabMy'} title={data.length ? `나의 리뷰` : ''}/>
         {data.length ?  
           <FlatList
             data = {data}
