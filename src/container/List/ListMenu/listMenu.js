@@ -48,14 +48,22 @@ const HEADER_TAB_HEIGHT = 88;
 const SCREEN_HEIGHT = height - HEADER_MAX_HEIGHT;
 
 const ListMenu = (props) =>  {
+  const BookedNavigation = props.navigation.dangerouslyGetParent();
+  var _navigation = props.navigation;
+  var isReservation = true;
+  if(BookedNavigation.getParam('isReservation')===false){
+       _navigation = BookedNavigation;
+       isReservation = false;
+  }
+  
   const phone = props.phone;
-  const [data] = useState(props.navigation.getParam('resDetail'));
-  const [reviewData] = useState(props.navigation.getParam('resReview'));
-  const [photos] = useState(props.navigation.getParam('photos'));
-  const isReservation = props.navigation.getParam('isReservation');
-  const {navigation,navtitle,title} = props;
+
+  const [data] = useState(_navigation.getParam('resDetail'));
+  const [reviewData] = useState(_navigation.getParam('resReview'));
+  const [photos] = useState(_navigation.getParam('photos'));
   const [isAlertVisible, setIsAlertVisible] = useState(false);
-  const isConfirm = navigation.getParam('isConfirm');
+  const isConfirm = _navigation.getParam('isConfirm');
+
   
   const [page1Data] = useState({
       "mainMenu" : JSON.parse(data.mainMenu),
@@ -73,6 +81,7 @@ const ListMenu = (props) =>  {
       review : reviewData.review,
       totalCount : reviewData.totalCount,
   });
+  console.log(data)
   const [scrollY] = useState(new Animated.Value(0));
   const [scrollYListener, setScrollYListener] = useState(null);
   const [yValue, setYValue] = useState(0);
@@ -154,19 +163,22 @@ const ListMenu = (props) =>  {
         setIsAlertVisible(false);
   }
   const _isConfirm = () => {
-    setIsAlertVisible(false);
-    Toast.show('도착 하셨습니다');
-    navigation.navigate('TabHome');
+    if(isReservation){
+      setIsAlertVisible(false);
+      Toast.show('도착 하셨습니다');
+      _navigation.navigate('TabHome');
+    }
   }
 
   const _notConfirm = () => {
-    setIsAlertVisible(false);
-    _onPressReservationButton();
+      setIsAlertVisible(false);
+      _onPressReservationButton();
+    
   }
 
   _goBack = () => {
-    isReservation ? navigation.navigate('List') :navigation.navigate('TabBooked')
-  }
+    isReservation ? _navigation.navigate('List') :_navigation.navigate('TabBooked')
+
 
   handleAndroidBackButton(_goBack);
   const _onScroll = (e) => {
@@ -186,14 +198,14 @@ const ListMenu = (props) =>  {
   // 화면 좌측 상단 뒤로가기 버튼
   const _onPressBackButton = () => {
     if(isConfirm){
-        props.navigation.navigate('TabHome');
+        _navigation.navigate('TabHome');
         return;
     }
     //예약 중이면 
-    if(!isReservation)props.navigation.navigate('TabBooked');
+    if(!isReservation)_navigation.navigate('TabBooked');
 
     //예약 중이 아니면 
-    else props.navigation.pop();
+    else _navigation.pop();
     console.log('_onPressBackButton');
     return;
   }
@@ -211,10 +223,10 @@ const ListMenu = (props) =>  {
   const _onPressMapButton = () => {
     const name = data.name;
     const theme = '전체';
-    const latitude = props.navigation.getParam('latitude');
-    const longitude = props.navigation.getParam('longitude');
+    const latitude = _navigation.getParam('latitude');
+    const longitude = _navigation.getParam('longitude');
     if(!isReservation){
-        props.navigation.navigate('StoreMap',{
+        _navigation.navigate('StoreMap',{
             page1Data,
             latitude,
             longitude,
@@ -225,13 +237,13 @@ const ListMenu = (props) =>  {
         });
     }else{
     console.log(data.latitude,data.longitude);
-        props.navigation.navigate('StoreMap',{
+        _navigation.navigate('StoreMap',{
             latitude : data.latitude,
             longitude : data.longitude,
             name,
-            theme : props.navigation.getParam('theme'),
+            theme : _navigation.getParam('theme'),
             isReservation,
-            distance : props.navigation.getParam('distance'),
+            distance : _navigation.getParam('distance'),
         })
     }
     console.log('_onPressPhoneButton');
@@ -252,17 +264,17 @@ const ListMenu = (props) =>  {
     console.log('_onPressReservationButton');
     const token =  await API.getLocal(API.LOCALKEY_TOKEN);
     await API.reservation_confirm(token,{
-        storeId : props.navigation.getParam('storeId'), 
-        reservationId : props.navigation.getParam('reservationId')})
+        storeId : _navigation.getParam('storeId'), 
+        reservationId : _navigation.getParam('reservationId')})
     await API.postDNpoint(token,{
         phone,
         type : 'save',
         diff : ReviewAward,
         name : data.name,
     });
-    navigation.navigate('Booked',{
-        peopleNumber : navigation.getParam('peopleNumber'),
-        minutes : navigation.getParam('minutes'),
+    _navigation.navigate('Booked',{
+        peopleNumber : _navigation.getParam('peopleNumber'),
+        minutes : _navigation.getParam('minutes'),
         name : data.name,
     });
     return;
@@ -289,7 +301,7 @@ const ListMenu = (props) =>  {
         buttonText1={'아니오'}
         buttonText2={'네'}
         onPressCancel = {_onPressAlertCancel}
-        onPress={isConfirm? _isConfirm : _notConfirm} 
+        onPress={isConfirm? _isConfirm :_notConfirm }
       />
       {/* 각 페이지를 담는 부분입니다.*/}
       {page == 0 && <Page1 paddingTop={HEADER_MAX_HEIGHT + HEADER_TAB_HEIGHT} initialScroll={scrollY._value} onScroll={_onScroll} data={page1Data} />}
@@ -455,7 +467,7 @@ const ListMenu = (props) =>  {
           backgroundColor : Buttoncolor
           }}>
           <TouchableOpacity 
-            onPress={()=>setIsAlertVisible(true)}
+            onPress={()=>isReservation? setIsAlertVisible(true) : Toast.show("예약 해주세요")}
               style = {{
               flex : 1,
               alignSelf : 'stretch',

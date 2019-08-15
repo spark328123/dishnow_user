@@ -51,13 +51,12 @@ const StoreMap = (props) => {
         console.log(longitude,isReservation);
     },[])
 
-    const _goBack= () => {
+    const _goBack = () => {
         navigation.navigate('ListMenu');
     }
     handleAndroidBackButton(_goBack);
     return(
         <View style ={{flex :1}}>
-            <Image source = {{uri : 'icon_back_button'}} style = {{position : 'absolute',top : 24,left : 24,height : 9.5,width:16}}/>
            <MapView 
            style = {{flex :1}}
            initialRegion = {{latitude,longitude,latitudeDelta: 0.0162,longitudeDelta: 0.00421}}
@@ -95,7 +94,15 @@ const StoreMap = (props) => {
                 </Callout>
             </Marker>
            </MapView>
-       
+           <View style = {styles.backFixed}>
+                <TouchableOpacity 
+                        onPress = {_goBack}>
+                        <Image source = {
+                            {uri: 'icon_back_button'}
+                        }
+                        style = {styles.backimg} />
+                </TouchableOpacity>
+            </View>
            </View>
     )
 }
@@ -108,3 +115,20 @@ const mapStateToProps = (state) => {
 }
 
 export default connect(mapStateToProps)(StoreMap);
+
+const styles = StyleSheet.create({
+    backFixed : {
+        width : 40,
+        height : 40,
+        left : 25,
+        marginLeft: -12,
+        marginTop: -12,
+        position: 'absolute',
+        top : 30,
+    },
+    backimg : {
+        width : 15,
+        height : 20,
+      },
+
+})

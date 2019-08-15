@@ -4,6 +4,13 @@ import OneSignal from 'react-native-onesignal';
 import Store from './store';
 import { Provider } from 'react-redux';
 import * as API from './utill/API';
+import {AppEventsLogger} from 'react-native-fbsdk';    
+
+const advancedMatching = { em: 'dishnoww@gmail.com' };
+const options = {
+    autoConfig: true, 	
+    debug: false, 	
+};
 
 export default (props) => {
   useEffect (()=>{
@@ -20,6 +27,11 @@ export default (props) => {
       OneSignal.addEventListener('ids', onIds);
 
       OneSignal.configure(); 	// triggers the ids event
+
+ 
+      //ReactPixel.pageView(); 					// For tracking page view
+      //ReactPixel.track( event, data ) 		// For tracking default events, more info about events and data https://developers.facebook.com/docs/ads-for-websites/pixel-events/v2.9
+      //ReactPixel.trackCustom( event, data ) 	// For tracking custom events
 
     return ()=> {
       OneSignal.removeEventListener('received', onReceived);
