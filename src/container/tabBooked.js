@@ -77,7 +77,7 @@ const TabBooked = (props) =>{
                 </TouchableOpacity>
                 <View style={styles.dateContainer}>
                     <Text style={styles.date}>예약시간 : </Text>
-                    <Text style={styles.date}>{item.createdAt}</Text>
+                    <Text style={styles.date}>{item.createdAt.substring(0,10)}</Text>
                 </View>
                 <ReviewButton
                     isUpdate = {item.isUpdate}
@@ -103,16 +103,17 @@ const TabBooked = (props) =>{
                 {marginTop : topSafe}
             ]
         }>
-        <TouchableOpacity style={styles.container} onPress ={()=>_onPress()}>
-            <Image style={{height : 15, width : 15}} source={{uri : 'icon_logo_purple_main'}} />
-            <Text style={styles.text}>새로고침</Text>
-        </TouchableOpacity>
+       
         {!isLoaded?(  <FlatList
             data = {data}
             renderItem = {_renderItem}
           />):(
                 <ActivityIndicator size="large" color={"#733FFF"}/>
           )}
+           <TouchableOpacity style={styles.container} onPress ={()=>_onPress()}>
+            <Image style={{height : 15, width : 15}} source={{uri : 'icon_logo_purple_main'}} />
+            <Text style={styles.text}>새로고침</Text>
+        </TouchableOpacity>
             
         
         </View>

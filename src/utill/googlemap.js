@@ -137,7 +137,7 @@ const GoogleMaps =  ({isPressed, toggle, navigation, latitudeDelta, latitude, lo
                         <Image source = {
                             {uri: 'icon_back_button'}
                         }
-                        style = {styles.backFixed} />
+                        style = {styles.backimg} />
                     </TouchableOpacity>
                 </View>
 
@@ -194,7 +194,11 @@ const styles = StyleSheet.create({
         marginLeft: -12,
         marginTop: -24,
         position: 'absolute',
-        top : '12%'
+        top : 30,
+      },
+      backimg : {
+        width : 15,
+        height : 20,
       },
       back :{
           height : 80,
