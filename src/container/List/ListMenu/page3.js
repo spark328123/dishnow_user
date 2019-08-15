@@ -1,6 +1,6 @@
 import React, {useState, useEffect, memo, useRef} from 'react';
 import {View, FlatList, StyleSheet, Dimensions, Image, TouchableOpacity} from 'react-native';
-
+import * as Utill from '../../../utill'
 import { Text } from '../../../component/common';
 
 import { getInset } from 'react-native-safe-area-view';
@@ -74,7 +74,7 @@ const Help = (props) => {
      }
 
     return (
-        <View style = {{flex : 1, paddingBottom : 50+HEADER_BOTTOM_SAFE,}}>
+        <View style = {{flex : 1, paddingBottom : 50+HEADER_BOTTOM_SAFE,backgroundColor : Utill.color.white,}}>
             <FlatList
                 contentContainerStyle = {{paddingTop, zIndex : 0, paddingHorizontal : 15}}
                 nestedScrollEnabled={true}

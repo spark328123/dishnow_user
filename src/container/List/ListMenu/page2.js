@@ -1,7 +1,7 @@
 import React, {useState, useEffect, memo, useRef} from 'react';
 import {View, ScrollView, Button, Dimensions, Image} from 'react-native';
 import { Text } from '../../../component/common';
-
+import * as Utill from '../../../utill'
 import { getInset } from 'react-native-safe-area-view';
 const {width} = Dimensions.get('screen');
 const HEADER_BOTTOM_SAFE = getInset('bottom', false);
@@ -56,7 +56,7 @@ const Help = (props) => {
     } 
 
     return (
-        <View style={{flex : 1, paddingBottom : 50 + HEADER_BOTTOM_SAFE}}>
+        <View style={{flex : 1, paddingBottom : 50 + HEADER_BOTTOM_SAFE,backgroundColor : Utill.color.white,}}>
             <ScrollView
                 contentContainerStyle ={{ paddingTop, paddingHorizontal: 15, zIndex : 0}}
                 nestedScrollEnabled={true}

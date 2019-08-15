@@ -97,8 +97,7 @@ const GoogleMaps =  ({isPressed, toggle, navigation, latitudeDelta, latitude, lo
         }, 10);
     }, [])
     
-// We define the function first
-    
+
     return (
         <View style = {{flex : 1}}>
             <MapView
@@ -188,11 +187,11 @@ const styles = StyleSheet.create({
         width: 40
       },
       backFixed : {
-        width : 9.5,
-        height : 16,
-        left : '12%',
+        width : 40,
+        height : 40,
+        left : 25,
         marginLeft: -12,
-        marginTop: -24,
+        marginTop: -12,
         position: 'absolute',
         top : 30,
       },

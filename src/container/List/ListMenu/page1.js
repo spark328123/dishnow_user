@@ -1,7 +1,7 @@
 import React, {useState, useEffect, memo, useRef} from 'react';
 import {View, FlatList,  TouchableOpacity, Dimensions, Image} from 'react-native';
 import { Text } from '../../../component/common';
-
+import * as Utill from '../../../utill'
 
 import { getInset } from 'react-native-safe-area-view';
 const {width, height} = Dimensions.get('screen');
@@ -156,6 +156,7 @@ const ListItem = memo((props) => {
     return (
         <View style={{
             marginBottom : 12,
+            backgroundColor : Utill.color.white,
         }}> 
             <View style ={{
                 zIndex : 1,
