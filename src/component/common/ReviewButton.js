@@ -4,19 +4,16 @@ import { Text } from '../common/'
 import * as Utill from '../../utill';
 
 export default  (props) => {
-    var newdate = new Date();
-    var olddate = new Date(props.date);
-    var between = newdate.getTime() - olddate.getTime();
+    const { navigation, reviewId, storeName, isUpdate } = props;
+
+    var between = props.newdate - props.date
     var betday = between/1000/60/60/24;
 
-    const { navigation, reviewId, storeName, isUpdate } = props;
-    console.log(newdate,olddate,between,betday);
-
-    if(betday < 7){
+    if(betday < parseFloat(7)){
         if(isUpdate !== 'false'){
         return (
             <TouchableOpacity style={[styles.ReviewButton, {width: Utill.screen.Screen.customWidth(330)}]}
-                onPressIn = {()=>navigation.navigate('ReviewWrite',{
+                onPress = {()=>navigation.navigate('ReviewWrite',{
                     reviewId,
                     storeName,
                     isUpdate : 'false',

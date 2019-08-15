@@ -5,19 +5,19 @@ import { Text } from '../component/common/'
 import ReviewButton from '../component/common/ReviewButton';
 import * as API from '../utill/API';
 import * as Utill from '../utill';
+import Toast from 'react-native-simple-toast';
 
 const TabBooked = (props) =>{
     const {navigation} = props;
     const [ isLoaded, setIsLoaded ] = useState(true);
-    const [ data, setdata ] = useState([ 
-        
-    ]);
+    const [ data, setdata ] = useState([]);
     const [ topSafe ] = useState(Utill.screen.topSafe);
 
     const _showRes = async() => {
         const token = await API.getLocal(API.LOCALKEY_TOKEN);
         const resList = await API.showRes(token);
         console.log(resList);
+        return;
         setIsLoaded(false);
         setdata(resList);
     }
@@ -75,7 +75,8 @@ const TabBooked = (props) =>{
                 </View>
                 <ReviewButton
                     isUpdate = {item.isUpdate}
-                    date = {item.createdAt}
+                    date = {(new Date(item.createdAt)).getTime()}
+                    newdate = {(new Date()).getTime()}
                     reviewId = {item.reviewId}
                     rate = {item.rating}
                     storeName = {item.name}

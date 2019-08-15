@@ -24,6 +24,9 @@ const OnWait =  (props) =>{
 
     const [isAlertVisible, setIsAlertVisible] = useState(false);
 
+    const _onPressAlertCancel = async() => {
+        setIsAlertVisible(false);
+    }
     const _onPressAlertOk = async() => {
         setIsAlertVisible(false);
         const token = await API.getLocal(API.LOCALKEY_TOKEN);
@@ -93,7 +96,7 @@ const OnWait =  (props) =>{
             return timer; 
         })
     }
-
+   
     const _goBack = () =>{
         OneSignal.removeEventListener('received',_oneSignalReceived);
         OneSignal.removeEventListener('opened',_oneSignalReceived);
@@ -130,6 +133,7 @@ const OnWait =  (props) =>{
                 buttonText1={'아니오'} 
                 buttonText2={'네'} 
                 onPress={_onPressAlertOk} 
+                onPressCancel={_onPressAlertCancel}
             />
                 <View style = {styles.header}>
                     <TouchableOpacity

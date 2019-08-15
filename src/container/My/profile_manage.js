@@ -37,6 +37,10 @@ const Profile = ({navigation, userid, nickname, image, phone, point, name}) => {
     const [isAlertVisible, setIsAlertVisible] = useState(false);
     const photo = [];
 
+    const _onPressAlertCancel = async() => {
+        setIsAlertVisible(false);
+    }
+
     const _onPressAlertOk = () => {
         setIsAlertVisible(false);
     }
@@ -96,6 +100,7 @@ const Profile = ({navigation, userid, nickname, image, phone, point, name}) => {
                 buttonText1={'아니오'} 
                 buttonText2={'네'} 
                 onPress={_onPressAlertOk} 
+                onPressCancel = {_onPressAlertCancel}
             />
             <View style = {{marginLeft:Utill.screen.Screen.customWidth(15), marginRight : Utill.screen.Screen.customWidth(15)}}>
                 <TouchableOpacity onPress={()=>_handleChoosePhoto()}

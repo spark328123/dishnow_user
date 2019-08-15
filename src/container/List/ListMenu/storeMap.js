@@ -8,9 +8,11 @@ import {
     Image, 
     TouchableOpacity, 
     BackHandler,
+    Animated,
 } from "react-native";
 
-import { Text } from '../../../component/common';
+import { Text,NavSwitchHead, } from '../../../component/common';
+import { handleAndroidBackButton,removeAndroidBackButtonHandler} from '../../../component/common/hardwareBackButton';
 import CustomCallout from '../../../component/common/customCallout';
 
 const StoreMap = (props) => {
@@ -49,9 +51,13 @@ const StoreMap = (props) => {
         console.log(longitude,isReservation);
     },[])
 
+    const _goBack= () => {
+        navigation.navigate('ListMenu');
+    }
+    handleAndroidBackButton(_goBack);
     return(
         <View style ={{flex :1}}>
-        
+            <Image source = {{uri : 'icon_back_button'}} style = {{position : 'absolute',top : 24,left : 24,height : 9.5,width:16}}/>
            <MapView 
            style = {{flex :1}}
            initialRegion = {{latitude,longitude,latitudeDelta: 0.0162,longitudeDelta: 0.00421}}

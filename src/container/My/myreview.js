@@ -1,7 +1,7 @@
 import React, { useEffect, useState,memo } from 'react';
 import { View, Text, StyleSheet, FlatList, Image, TouchableOpacity, ActivityIndicator } from 'react-native';
 import {NavSwitchHead} from '../../component/common';
-
+import {handleAndroidBackButton,removeAndroidBackButtonHandler} from '../../component/common/hardwareBackButton';
 
 import * as API from '../../utill/API';
 import * as Utill from '../../utill';
@@ -28,7 +28,10 @@ export default Review = ({navigation}) =>{
     const [ imageList, setImageList ] = useState([]);
     const [ isLoaded, setIsLoaded ] = useState(false);
     const [ deleteReviewId, setDeleteReviewId] = useState();
-
+    _goBack = () => {
+        navigation.navigate('TabMy')
+    }
+    handleAndroidBackButton(_goBack)
     const _deleteReview = async (reviewId)=>{
         const token = await API.getLocal(API.LOCALKEY_TOKEN);
         const res = await API.reviewDelete(token,{reviewId : reviewId});
@@ -87,7 +90,6 @@ export default Review = ({navigation}) =>{
                     {item.answer!==null ? ( <View style={styles.answerContent}>
                         <View style={styles.ownerContent}>
                         <Text style={styles.ownerText}>사장님</Text>
-                        <Text style={styles.ownerDate}>그제</Text>
                         </View>
                         <Text style={styles.answerText}>{item.answer}</Text>
                     </View>) : null}
@@ -105,7 +107,7 @@ export default Review = ({navigation}) =>{
         }
         
         }>
-        <NavSwitchHead navigation={navigation} navtitle = {'TabMy'} title={data.length && `나의 리뷰`}/>
+        <NavSwitchHead navigation={navigation} navtitle = {'TabMy'} title={data.length ? `나의 리뷰` : ''}/>
         {data.length ?  
           <FlatList
             data = {data}
