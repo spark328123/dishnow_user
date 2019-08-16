@@ -15,7 +15,12 @@ export default Review = ({navigation}) =>{
     const _showReview = async() =>{
         const token = await API.getLocal(API.LOCALKEY_TOKEN);
         const res = await API.reviewMe(token);
+        if(res.error){
+            Toast.show('네트워크 상태를 확인해 주세요');
+            return;
+        }
         setData(res);
+        setIsLoaded(false);
         console.log(res);
     }
 
@@ -108,8 +113,8 @@ export default Review = ({navigation}) =>{
         }
         
         }>
-        {data.length? <NavSwitchHead navigation={navigation} navtitle = {'TabMy'} title={`나의 리뷰`}/> : null}
-        {data.length ?  
+        {!isLoaded? <NavSwitchHead navigation={navigation} navtitle = {'TabMy'} title={`나의 리뷰`}/> : null}
+        {!isLoaded ?  
         
           <FlatList
             data = {data}

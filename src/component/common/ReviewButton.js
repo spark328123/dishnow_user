@@ -9,36 +9,36 @@ export default  (props) => {
     var between = props.newdate - props.date
     var betday = between/1000/60/60/24;
     console.log("betday : " + betday + " / bool : " + (betday < parseFloat(7)));
-    if(betday < parseFloat(7)){
-        if(isUpdate !== 'false'){
-        return (
-            <TouchableOpacity style={[styles.ReviewButton, {width: Utill.screen.Screen.customWidth(330)}]}
-                onPress = {()=>navigation.navigate('ReviewWrite',{
-                    reviewId,
-                    storeName,
-                    isUpdate : 'false',
-                })}>
-                <View style={styles.ReviewButtonTextContainer}>
-                <Text style={styles.CanWrite}>리뷰 작성하기</Text>
-                <Text style={styles.CanWriteUnder}> (7일간 작성 가능)</Text>
-                </View>
-            </TouchableOpacity>
-        )
-        }else{
-            return(
-                <View style={styles.reviewText}>
-                    <Text style={styles.CanNotWrite}> 리뷰를 작성하셨습니다 </Text>
-                </View>
-            )
-        }
-    }
-    else{
+    if(betday > parseFloat(7)){
         console.log("betday : " + betday + " / bool : " + (betday < parseFloat(7)))
         return(
             <View style={styles.reviewText}>
                 <Text style={styles.CanNotWrite}> 리뷰 작성기간이 지났습니다 </Text>
             </View>
         )
+    }
+    else{
+        if(isUpdate !== 'false'){
+            return (
+                <TouchableOpacity style={[styles.ReviewButton, {width: Utill.screen.Screen.customWidth(330)}]}
+                    onPress = {()=>navigation.navigate('ReviewWrite',{
+                        reviewId,
+                        storeName,
+                        isUpdate : 'false',
+                    })}>
+                    <View style={styles.ReviewButtonTextContainer}>
+                    <Text style={styles.CanWrite}>리뷰 작성하기</Text>
+                    <Text style={styles.CanWriteUnder}> (7일간 작성 가능)</Text>
+                    </View>
+                </TouchableOpacity>
+            )
+            }else{
+                return(
+                    <View style={styles.reviewText}>
+                        <Text style={styles.CanNotWrite}> 리뷰를 작성하셨습니다 </Text>
+                    </View>
+                )
+            }
     }
 }
 

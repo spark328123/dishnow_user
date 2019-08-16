@@ -152,6 +152,7 @@ const List = (props) => {
         const token = await API.getLocal(API.LOCALKEY_TOKEN);
         const resDetail = await API.showStoreDetail(token,{storeId : storeId});
         const resReview = await API.showStoreReview(token,{storeId : storeId, page : 0});
+        console.log(resReview);
         var mainImage = resDetail.mainImage;
         var subImage = resDetail.subImage;
         const photos = [];

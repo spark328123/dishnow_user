@@ -177,8 +177,8 @@ export default connect(mapStateToProps)(GoogleMaps);
 const styles = StyleSheet.create({
     markerFixed: {
         left: '50%',
-        marginLeft: -24,
-        marginTop: -48,
+        marginLeft: -20,
+        marginTop: -64,
         position: 'absolute',
         top: '50%'
       },
@@ -193,7 +193,7 @@ const styles = StyleSheet.create({
         marginLeft: -12,
         marginTop: -12,
         position: 'absolute',
-        top : 30,
+        top : 50,
       },
       backimg : {
         width : 15,
