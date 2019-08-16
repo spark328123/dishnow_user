@@ -70,6 +70,7 @@ const TabHome = (props)=>{
         setIsAlertVisible(false);
     }
 
+
     useEffect(()=>{
         OneSignal.addEventListener('ids',onIds);
         _me();
@@ -84,7 +85,7 @@ const TabHome = (props)=>{
         setTimeout(()=>{
             setTouch(false);
         },500)
-        setIsAlertVisible(false);
+
         if(parseInt(people.text)>0&&parseInt(arr[parseInt(time)])>0){
             const token = await API.getLocal(API.LOCALKEY_TOKEN);
             const data = {
@@ -104,9 +105,7 @@ const TabHome = (props)=>{
             });
             console.log(res);
         }
-        else{
-            Toast.show('인원과 출발 예정 시간을 확인해주세요.')
-        }
+        setIsAlertVisible(false);
     }
 
     const onIds = ((device) => {
@@ -161,7 +160,7 @@ const TabHome = (props)=>{
                 visible={isAlertVisible} 
                 mainTitle={'술집 찾기'}
                 mainTextStyle = {styles.txtStyle}
-                subTitle = {'콜을 보내시겠습니까?'}
+                subTitle = {'찾겠습니까?'}
                 subTextStyle = {styles.subtxtStyle}
                 buttonText1={'아니오'} 
                 buttonText2={'네'} 
@@ -281,7 +280,7 @@ const TabHome = (props)=>{
             <View style={{alignItems: 'center'}}>
             <BigButtonColor 
                     style={[styles.find, {marginBottom: Utill.screen.Screen.customHeight(52)}]}
-                    onPress ={()=>setIsAlertVisible(true)}
+                    onPress ={()=> (parseInt(people.text)>0&&parseInt(arr[parseInt(time)])>0) ? setIsAlertVisible(true) : Toast.show("인원과 출발 예정 시간을 확인해주세요.")}
                     title = {'술집 찾기'}
             />
             </View>

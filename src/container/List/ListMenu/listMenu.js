@@ -174,7 +174,6 @@ const ListMenu = (props) =>  {
   const _notConfirm = () => {
       setIsAlertVisible(false);
       _onPressReservationButton();
-    
   }
 
   _goBack = () => {

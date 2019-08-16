@@ -2,14 +2,19 @@ import React, { useState, useEffect } from 'react';
 import { View, StyleSheet, FlatList, Button,ScrollView } from 'react-native';
 import { connect, dispatch } from 'react-redux';
 import * as API from '../../../utill/API';
-import { Text,NavSwitchHead,BigButtonBorder } from '../../../component/common';
+import { Text,NavSwitchHead,BigButtonBorder,CustomAlert1 } from '../../../component/common';
 import {handleAndroidBackButton} from '../../../component/common/hardwareBackButton';
 import * as Utill from '../../../utill'
 const MyPoint = (props)=>{
     
     const { navigation, point } = props;
     const [ data, setData ] = useState([]); 
+    const [isAlertVisible, setIsAlertVisible] = useState(false);
     
+    const _onPressAlertOk = async() => {
+        setIsAlertVisible(false);
+    }
+
     _goBack = () => {
         navigation.navigate('TabMy')
     }
