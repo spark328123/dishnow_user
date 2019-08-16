@@ -4,6 +4,7 @@ import { Text } from '../../../component/common';
 import * as Utill from '../../../utill'
 
 import { getInset } from 'react-native-safe-area-view';
+import { ScrollView } from 'react-native-gesture-handler';
 const {width, height} = Dimensions.get('screen');
 const HEADER_BOTTOM_SAFE = getInset('bottom', false);
 const ratio = width/360;
