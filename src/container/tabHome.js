@@ -29,11 +29,28 @@ const TabHome = (props)=>{
     const [touch,setTouch] = useState(false);
 
     const _me = async() => {
-        const res = await API.test();
-        if(res.error){
+        const token = await API.getLocal(API.LOCALKEY_TOKEN);
+        const meRes = await API.me(token);
+        if(meRes.error){
             Toast.show('네트워크 연결 상태를 확인해 주세요');
             return;
-        } 
+        }
+        const userid = meRes.userId;
+        const point = meRes.point;
+        const name = meRes.name;
+        const phone = meRes.phone;
+        const image = meRes.image;
+        const reviewcount = meRes.reviewCount;
+        const nickname = meRes.nickname;
+        dispatch(User.updateuserid(userid));
+        dispatch(User.updatepoint(point));
+        dispatch(User.upadtename(name));
+        dispatch(User.updatephone(phone));
+        dispatch(User.updateimage(image));
+        dispatch(User.updatereviewcount(reviewcount));
+        dispatch(User.updatenickname(nickname));
+        const pushToken = await API.getPush(API.PUSH_TOKEN);
+        await API.setPushToken(token,{pushToken});
         setIsLoaded(false);
     }
 

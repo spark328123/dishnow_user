@@ -9,7 +9,7 @@ import { useDispatch } from 'react-redux';
 
 
 export default ItemButton = (props)=> {
-   const { point ,phone,data,name,diff,type } = props;
+   const { point ,phone,data,name,diff,type, } = props;
    const dispatch = useDispatch();
     
    const _usePoint = async({name})=>{
@@ -39,7 +39,7 @@ export default ItemButton = (props)=> {
                     <View style = {{width:'50%',justifyContent : 'center'}}>
                         <Image 
                             style = {styles.image}
-                            source = {{uri : 'icon_x'}}
+                            source = {item.image}
                             />
                     </View>
 

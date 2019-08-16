@@ -36,7 +36,7 @@ const Help = (props) => {
             <ScrollView
                 contentContainerStyle ={{ paddingTop, paddingHorizontal: 15, zIndex : 0}}
                 nestedScrollEnabled={true}
-                scrollEventThrottle={100}
+                scrollEventThrottle={1}  
                 ref = {r=>setRefScroll(r)}
                 onScroll = {(e)=>onScroll(e)}
                 useScrollView={true}

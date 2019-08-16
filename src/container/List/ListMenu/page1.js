@@ -12,7 +12,6 @@ const ratio = width/360;
 const icon_square_bracket_down = {uri : 'icon_rsquare_bracket_under'}
 
 
-
 const Help = (props) => {
     const {initialScroll, onScroll, paddingTop,data} = props;
     const [refFlatList, setRefFaletList] = useState(null);
