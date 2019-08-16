@@ -13,53 +13,6 @@ const ratio = width/360;
 const icon_star = {uri : 'icon_star_full_review'}
 const icon_star_blur = {uri : 'icon_star_empty_review'};
 
-const data=[{
-    reviewId : 122,
-    createdAt : '2019.06.15',
-    answerAt : '2019.06.15',
-    profile : 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ3pVc096DoDW1pkzUFKkRoZ7s4zNbGLc9QY3KW1xVp3W4ZvKopGQ',
-    image : 'https://images.foody.vn/res/g73/727803/prof/s480x300/foody-upload-api-foody-mobile-uncle-jpg-180329091435.jpg',
-    name : '끄덕이는미식가',
-    hostName : '사장님',
-    rate : 5,
-    answer : '',
-    content : '맛있고 서비스도 좋아여^^\n다음에 또 여기 올듯~',
-},
-{
-    reviewId : 55,
-    createdAt : '2019.06.15',
-    answerAt : '2019.06.15', 
-    profile : 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png',
-    image : '',
-    name : '사용자2',
-    hostName : '사장님',
-    rate : 2,
-    answer : '감사합니다.',
-    content : '맛 없어요',
-},
-{
-    reviewId : 24,
-    createdAt : '2019.06.15',
-    answerAt : '2019.06.15',
-    profile : 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png',
-    image : 'https://cdn.kapwing.com/final_5cc8f8c6df9c570014d84101_804902.jpg',
-    name : '사용자1',
-    hostName : '사장님',
-    rate : 5,
-    content : '맛있고 서비스도 좋아여^^\n다음에 또 여기 올듯~',
-    answer : '감사합니다.',
-},
-{
-    reviewId : 1,
-    createdAt : '2019.06.15',
-    answerAt : '2019.06.15',
-    profile : 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png',
-    image : 'https://cdn.kapwing.com/final_5cc8f8c6df9c570014d84101_804902.jpg',
-    name : '사용자1',
-    hostName : '사장님',
-    rate : 5,
-    answer : '감사합니다.',
-}]
 
 const Help = (props) => {
     const {initialScroll, onScroll, paddingTop, onPressManageReviewButton, data} = props;

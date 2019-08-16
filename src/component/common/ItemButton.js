@@ -11,7 +11,7 @@ import { useDispatch } from 'react-redux';
 export default ItemButton = (props)=> {
    const { point ,phone,data,name,diff,type } = props;
    const dispatch = useDispatch();
-
+    
    const _usePoint = async({name})=>{
        console.log(parseInt(point));
        const token = await API.getLocal(API.LOCALKEY_TOKEN);

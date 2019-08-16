@@ -13,30 +13,6 @@ const icon_smoke = {uri : 'icon_smoke'}
 const icon_kids = {uri : 'icon_kids'}
 const icon_pet = {uri : 'icon_pet'} 
 
-const data = {
-    "name": "ㅁㄴㅇㅁㄴㅇ",
-    "mainPhone": "123123",
-    "content": "싱싱한 닭이나옵니다ㅇㅇ",
-    "address": "주소가 여기에 ",
-    "facilities": JSON.parse("{\"wifi\":true,\"battery\":true,\"parking\":true,\"somke\":false,\"pet\":false,\"kids\":true}"),
-    "businessHour": {
-        "mondayOpen": "00:00:00",
-        "mondayClose": "00:00:00",
-        "tuesdayOpen": "08:30:00",
-        "tuesdayClose": "02:50:00",
-        "wednesdayOpen": "09:50:00",
-        "wednesdayClose": "20:55:00",
-        "thursdayOpen": "09:05:00",
-        "thursdayClose": "00:00:00",
-        "fridayOpen": "05:30:00",
-        "fridayClose": "02:00:00",
-        "saturdayOpen": "07:40:00",
-        "saturdayClose": "06:30:00",
-        "sundayOpen": "00:00:00",
-        "sundayClose": "00:00:00",
-        "breakTime": "오후 2시 ~ 3시는 휴식시간 입니다."
-    }
-};
 
 
 const Help = (props) => {
@@ -63,6 +39,7 @@ const Help = (props) => {
                 scrollEventThrottle={100}
                 ref = {r=>setRefScroll(r)}
                 onScroll = {(e)=>onScroll(e)}
+                useScrollView={true}
             >
             <View style={{marginTop : 30}}>
                     <Text style={{

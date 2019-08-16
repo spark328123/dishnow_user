@@ -4,17 +4,14 @@ import { Text } from '../../../component/common';
 import * as Utill from '../../../utill'
 
 import { getInset } from 'react-native-safe-area-view';
+import { ScrollView } from 'react-native-gesture-handler';
 const {width, height} = Dimensions.get('screen');
 const HEADER_BOTTOM_SAFE = getInset('bottom', false);
 const ratio = width/360;
 
 const icon_square_bracket_down = {uri : 'icon_rsquare_bracket_under'}
 
-const data = {
 
-    "mainMenu": JSON.parse("[{\"name\":\"크림 송이\",\"price\":\"7200500\",\"image\":[\"https://dishnow.s3.ap-northeast-2.amazonaws.com/5ab67526bbaedd8835aa416e6769b3274d6423506b7a6d127af85634fc4f60b9ef0aacd310b278b79fb1d76666ac23dc\"]},{\"name\":\"살려주세요\",\"price\":\"4646461\",\"image\":[\"https://dishnow.s3.ap-northeast-2.amazonaws.com/852288a26d0f52c3bdb1e8b2808b426777814d120e5ffec1bbe5f7b8f9ff149f1c7660b42984dbe5979ab187d221113b\"]},{\"name\":\"ㅗ촐ㄹ\",\"price\":\"494959595\",\"image\":[\"https://dishnow.s3.ap-northeast-2.amazonaws.com/0b4b1e0adb9672239bc147720cd71e1c39976c928f04ec40ccebcab61c5a0c0fde9147c6c2400f7a252c196c6d03c114\"]}]"),
-    "subMenu": JSON.parse("[{\"name\":\"카테고리\",\"menu\":[{\"name\":\"양념치킨 \",\"price\":\"12000\"},{\"name\":\"2번 메뉴 gg\",\"price\":\"30000\"}]},{\"name\":\"치킨메뉴\",\"menu\":[{\"name\":\"짜장면\",\"price\":\"6000\"},{\"name\":\"ㄴㅇㄱ ㄴㅇㄱ\",\"price\":\"250800\"}]},{\"name\":\"반찬류\",\"menu\":[{\"name\":\"양념 게장\",\"price\":\"5600\"},{\"name\":\"간장 게장\",\"price\":\"5200\"}]}]"),
-};
 
 const Help = (props) => {
     const {initialScroll, onScroll, paddingTop,data} = props;
