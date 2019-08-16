@@ -5,6 +5,7 @@ import * as Utill from '../../../utill'
 import { getInset } from 'react-native-safe-area-view';
 const {width} = Dimensions.get('screen');
 const HEADER_BOTTOM_SAFE = getInset('bottom', false);
+import FastScroll from 'react-native-esoftplay-fast-scroll'
 
 const icon_wifi = {uri : 'icon_wifi'}
 const icon_charger = {uri : 'icon_charge'}
@@ -60,7 +61,7 @@ const Help = (props) => {
             <ScrollView
                 contentContainerStyle ={{ paddingTop, paddingHorizontal: 15, zIndex : 0}}
                 nestedScrollEnabled={true}
-                scrollEventThrottle={100}
+                scrollEventThrottle={1}  
                 ref = {r=>setRefScroll(r)}
                 onScroll = {(e)=>onScroll(e)}
             >

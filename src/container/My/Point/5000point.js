@@ -6,15 +6,15 @@ export default Point1 = (props)=> {
     const { point ,phone } = props;
     const data = [
         {
-            image : {uri : 'icon_x'},
+            image : {uri : 'dn_1'},
             name : '[스타벅스] \n 아이스 아메리카노 Tall',
         },
         {
-            image : {uri : 'icon_x'},
+            image : {uri : 'dn_2'},
             name : '[베스킨라빈스]\n더블주니어 아이스크림',
         },
         {
-            image : {uri : 'icon_x'},
+            image : {uri : 'dn_3'},
             name : '[컬쳐랜드]\n문화상품권 5,000원권',
         },
     ]
