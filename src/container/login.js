@@ -50,14 +50,16 @@ const Login = (props) => {
   }
 
   return (
+
     <View style = {styles.container}>
-        <KeyboardAwareScrollView>
-    <ImageBackground source={{uri : "login_image2"}} style={{flex:1,}}>
-    
+        
+    <ImageBackground source={{uri : "login_image3"}} style={{flex: 1}} imageStyle={{resizeMode: "cover"}}>
+    <KeyboardAwareScrollView>
         <View style={styles.logo}>
           <Image
             style={styles.dishnowLogo}
             source={{uri: "dishnow_logo_white"}}
+            resizeMode="contain"
           />
         </View>
 
@@ -107,9 +109,10 @@ const Login = (props) => {
            >
            <Text style = {styles.createText}>{"이메일로 계정 만들기"}</Text>
         </Button>
+        </KeyboardAwareScrollView>
     </ImageBackground>
-    </KeyboardAwareScrollView>
     </View>
+
 
  );
 }
@@ -131,16 +134,16 @@ const styles = StyleSheet.create({
    justifyContent: "center"
  },
  dishnowLogo: {
-   marginTop: Utill.screen.Screen.customHeight(117),
-   width: 262,
-   height: 55.24
+   marginTop: Utill.screen.Screen.customHeight(100),
+   width: Utill.screen.Screen.customWidth(262),
+   height: Utill.screen.Screen.customHeight(55.24)
  },
 loginContainer: {
    alignItems: "center",
  },
 snsLoginContainer: {
    marginTop: Utill.screen.Screen.customHeight(40),
-   marginBottom: Utill.screen.Screen.customHeight(48),
+   marginBottom: Utill.screen.Screen.customHeight(40),
    alignItems: "center",
    justifyContent: "flex-start",
  },
@@ -156,8 +159,6 @@ snsButtonContainer: {
 create : {
    alignItems : 'center',
    borderBottomColor : "white",
-   height: 23,
-   width: 140,
    marginBottom : 10,
    borderBottomColor: "white",
    borderBottomWidth: 1,
@@ -179,7 +180,7 @@ createText: {
    width : Utill.screen.Screen.customWidth(278.5),
    height: Utill.screen.Screen.customHeight(33),
    borderBottomWidth : 1.3,
-borderBottomColor : Utill.color.onColorBackground,
+   borderBottomColor : Utill.color.onColorBackground,
    color : Utill.color.onColorBackground,
  },
  

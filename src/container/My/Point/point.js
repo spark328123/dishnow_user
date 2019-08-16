@@ -10,6 +10,12 @@ import Point2 from './10000point';
 
 const Point = (props) =>{
     const {navigation, point, phone} = props;
+    const [isAlertVisible, setIsAlertVisible] = useState(false);
+
+    const _onPressAlertOk = async() => {
+        setIsAlertVisible(false);
+    }
+    
     console.log(props);
     const [isLoadingVisible, setIsLoadingVisible] = useState(true);
     const [page, setPage] = useState(1);

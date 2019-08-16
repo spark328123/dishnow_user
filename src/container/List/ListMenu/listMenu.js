@@ -167,14 +167,13 @@ const ListMenu = (props) =>  {
     if(isReservation){
       setIsAlertVisible(false);
       Toast.show('도착 하셨습니다');
-      _navigation.navigate('TabHome');
+      _navigation.navigate('Splash');
     }
   }
 
   const _notConfirm = () => {
       setIsAlertVisible(false);
       _onPressReservationButton();
-    
   }
 
   _goBack = () => {

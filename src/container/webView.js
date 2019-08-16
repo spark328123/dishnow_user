@@ -29,12 +29,12 @@ export default webView = ({navigation,navtitle,title}) => {
 
 const styles = StyleSheet.create ({
     backFixed : {
-        width : 20,
-        height : 20,
-        left : '12%',
-        marginLeft: -24,
-        marginTop: -24,
+        width : 40,
+        height : 40,
+        left : 25,
+        marginLeft: -12,
+        marginTop: -12,
         position: 'absolute',
-        top : '12%'
+        top : 50,
       },
 })
