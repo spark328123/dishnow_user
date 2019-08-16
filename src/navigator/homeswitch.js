@@ -17,7 +17,7 @@ const HomeSwitch = createSwitchNavigator(
               easing: Easing.step0,
               },
           }),
-          */
+        */
     }
 )
 export default HomeSwitch;

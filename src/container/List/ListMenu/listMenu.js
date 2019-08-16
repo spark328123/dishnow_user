@@ -199,7 +199,7 @@ const ListMenu = (props) =>  {
   // 화면 좌측 상단 뒤로가기 버튼
   const _onPressBackButton = () => {
     if(isConfirm){
-        _navigation.navigate('TabHome');
+        _navigation.navigate('Splash');
         return;
     }
     //예약 중이면 
