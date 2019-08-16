@@ -70,9 +70,6 @@ const TabHome = (props)=>{
         setIsAlertVisible(false);
     }
 
-    const _onPressAlertOK = async() => {
-        
-    }
 
     useEffect(()=>{
         OneSignal.addEventListener('ids',onIds);
@@ -108,9 +105,7 @@ const TabHome = (props)=>{
             });
             console.log(res);
         }
-        else{
-            Toast.show('인원과 출발 예정 시간을 확인해주세요.')
-        }
+        setIsAlertVisible(false);
     }
 
     const onIds = ((device) => {
@@ -285,7 +280,7 @@ const TabHome = (props)=>{
             <View style={{alignItems: 'center'}}>
             <BigButtonColor 
                     style={[styles.find, {marginBottom: Utill.screen.Screen.customHeight(52)}]}
-                    onPress ={()=>setIsAlertVisible(true)}
+                    onPress ={()=> (parseInt(people.text)>0&&parseInt(arr[parseInt(time)])>0) ? setIsAlertVisible(true) : Toast.show("인원과 출발 예정 시간을 확인해주세요.")}
                     title = {'술집 찾기'}
             />
             </View>
