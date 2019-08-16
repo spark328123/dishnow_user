@@ -5,7 +5,7 @@
 	<key> NSLocationWhenInUseUsageDescription</key>
 	<string>현재 위치를 이용하려면 위치 접근 권한을 허용해야 합니다</string>
 	<key>CFBundleDevelopmentRegion</key>
-	<string>en</string>
+	<string>ko</string>
 	<key>CFBundleDisplayName</key>
 	<string>디쉬나우</string>
 	<key>CFBundleExecutable</key>
@@ -49,7 +49,7 @@
 	<key>FacebookAppID</key>
 	<string>341578776721580</string>
 	<key>FacebookDisplayName</key>
-	<string>dishnow</string>
+	<string>디쉬나우</string>
 	<key>KAKAO_APP_KEY</key>
 	<string>7de09f46628e492617c2151ee2933872</string>
 	<key>LSApplicationQueriesSchemes</key>

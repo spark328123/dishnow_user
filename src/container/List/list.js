@@ -12,10 +12,15 @@ import { Text,CustomAlert } from '../../component/common';
 import * as Utill from '../../utill';
 import * as API from '../../utill/API';
 import OneSiganl from 'react-native-onesignal';
+import Toast from 'react-native-simple-toast';
 
 const List = (props) => {
-    
+
     const { navigation, mylat, mylon } = props;
+    const WaitTime = 60*5+navigation.getParam('timerCount');
+
+    const [timer, setTimer] = useState(null);
+    const [timerCount, setTimerCount] = useState(WaitTime);
     const parentNavigation = navigation.dangerouslyGetParent();
     const mainImage = parentNavigation.getParam('mainImage');
     const name = parentNavigation.getParam('name');
@@ -25,6 +30,7 @@ const List = (props) => {
     const storeId = parentNavigation.getParam('storeId');
     const theme = parentNavigation.getParam('theme');
     const [isAlertVisible, setIsAlertVisible] = useState(false);
+
 
     const storeCoords = {
         latitude,
@@ -106,9 +112,41 @@ const List = (props) => {
     
 
     useEffect(()=>{
+        _timerStart();
         OneSiganl.addEventListener('received',_oneSignalReceived);
         OneSiganl.inFocusDisplaying(0);
-    },[listData]);
+    },[]);
+
+    useEffect(()=>{
+        if (timer && (timerCount <= 0)) {
+            _timerStop();
+            OneSignal.removeEventListener('received',_oneSignalReceived);
+            OneSignal.removeEventListener('opened',_oneSignalReceived);
+            OneSignal.inFocusDisplaying(2);
+            Toast.show('선택 시간이 지났습니다. 홈 화면으로 이동합니다');
+            navigation.navigate('TabHome');
+        }
+    },[timerCount]);
+
+    const _timerStart =()=> {
+        setTimer(timer=>{
+            if (timer==null) return setInterval(()=>_timerTick(), 1000);
+        });
+    }
+
+    const _timerTick =()=> {
+        setTimerCount(count=>count-1);
+    }
+
+    const _timerStop =()=> {
+        setTimer(timer=> {
+            if (timer!=null) {
+                clearInterval(timer);
+                return null;
+            }
+            return timer; 
+        })
+    }
 
     const _showStoreDetail = async({storeId,theme,distance})=>{
         const token = await API.getLocal(API.LOCALKEY_TOKEN);
@@ -194,7 +232,7 @@ const List = (props) => {
         />
         
             <View style = {styles.header}>
-                <Text style={{fontSize:14, color:"#733FFF" }}>1:29</Text>
+                <Text style={{fontSize:14, color:"#733FFF" }}>{`${Math.floor(timerCount/60)}:${timerCount%60}`}</Text>
                 <Text style = {{fontSize : 18, fontWeight:'bold', marginLeft:Utill.screen.Screen.customWidth(20)}}>
                     예약 가능 식당
                 </Text>

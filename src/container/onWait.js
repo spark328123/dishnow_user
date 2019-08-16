@@ -119,6 +119,7 @@ const OnWait =  (props) =>{
             theme : storeType,
             peopleNumber : navigation.getParam('people'),
             minutes : navigation.getParam('time'),
+            timerCount,
         });
     };
 
@@ -223,8 +224,8 @@ const styles = StyleSheet.create({
     header : {
         justifyContent : 'center',
         alignItems : 'flex-end',
-        paddingRight : 16,
-        marginBottom: 10
+        marginBottom: 10,
+        marginTop: Utill.screen.topSafe,
     },
     headerText:{
         fontSize : 14,
