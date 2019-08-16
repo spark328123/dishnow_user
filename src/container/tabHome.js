@@ -64,6 +64,16 @@ const TabHome = (props)=>{
 
     const {navigation, latitude, longitude, address} = props;
 
+    const [isAlertVisible, setIsAlertVisible] = useState(false);
+
+    const _onPressAlertCancel = async() => {
+        setIsAlertVisible(false);
+    }
+
+    const _onPressAlertOK = async() => {
+        
+    }
+
     useEffect(()=>{
         OneSignal.addEventListener('ids',onIds);
         _me();
@@ -151,6 +161,17 @@ const TabHome = (props)=>{
 
     return(
         <View style = {{flex : 1}}>
+             <CustomAlert 
+                visible={isAlertVisible} 
+                mainTitle={'술집 찾기'}
+                mainTextStyle = {styles.txtStyle}
+                subTitle = {'찾겠습니까?'}
+                subTextStyle = {styles.subtxtStyle}
+                buttonText1={'아니오'} 
+                buttonText2={'네'} 
+                onPress={_reservation} 
+                onPressCancel = {_onPressAlertCancel}
+            />
             {!isLoaded?(
                 <KeyboardAvoidingView style={styles.container} behavior= "height" enabled>
                  <View style = {styles.map}>
@@ -264,7 +285,7 @@ const TabHome = (props)=>{
             <View style={{alignItems: 'center'}}>
             <BigButtonColor 
                     style={[styles.find, {marginBottom: Utill.screen.Screen.customHeight(52)}]}
-                    onPress ={_reservation}
+                    onPress ={()=>setIsAlertVisible(true)}
                     title = {'술집 찾기'}
             />
             </View>
@@ -381,5 +402,18 @@ const styles = StyleSheet.create({
         position: 'absolute',
         left: Utill.screen.screenWidth/2-15,
         top: Utill.screen.screenHeight/2-50        
+    },
+    txtStyle : {
+        marginBottom : Utill.screen.Screen.customHeight(9),
+        fontSize : 18,
+        fontWeight : 'bold',
+        color : Utill.color.red,
+        alignSelf : 'center',
+    },
+    subtxtStyle : {
+        marginBottom : Utill.screen.Screen.customHeight(35),
+        fontSize : 16,
+        color : Utill.color.textBlack,
+        alignSelf : 'center',
     },
 })

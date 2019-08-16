@@ -193,7 +193,7 @@ const styles = StyleSheet.create({
         marginLeft: -12,
         marginTop: -12,
         position: 'absolute',
-        top : 30,
+        top : 50,
       },
       backimg : {
         width : 15,

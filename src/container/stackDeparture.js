@@ -5,6 +5,7 @@ import GoogleMap from '../utill/googlemap';
 import {handleAndroidBackButton, removeAndroidBackButtonHandler} from '../component/common/hardwareBackButton'
 const StackDeparture = (props)=>{
     const { navigation } = props;
+    
     const _goBack = ()=>{
         navigation.navigate('TabHome');
     }

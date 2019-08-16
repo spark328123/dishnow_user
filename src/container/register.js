@@ -9,7 +9,7 @@ import regs, * as Regs from '../store/modules/regs';
 import {useSelector, useDispatch} from 'react-redux';
 import * as Utill from '../utill';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
-
+import Toast from 'react-native-simple-toast'
 const Register = (props) => {
 
     const dispatch = useDispatch();
@@ -122,53 +122,25 @@ const Register = (props) => {
             const res8 = man||woman||nosex;
 
             if(!res1){
-                Alert.alert(
-                    '정보 알림',
-                    '이름을 확인해주세요',
-                    [{text: '확인'},],
-                    {cancelable: false},)
+                Toast.show('이름을 확인해주세요');
             }
             else if(!res2){
-                Alert.alert(
-                    '정보 알림',
-                    '휴대폰 번호를 확인해주세요.',
-                    [{text: '확인'},],
-                    {cancelable: false},)
+                Toast.show('휴대폰 번호를 확인해주세요');
             }
             else if(!isitokay){
-                Alert.alert(
-                    '정보 알림',
-                    '휴대폰 인증을 완료해주세요.',
-                    [{text: '확인'},],
-                    {cancelable: false},)
+                Toast.show('휴대폰 인증을 완료해주세요');
             }
             else if(!res7){
-                Alert.alert(
-                    '정보 알림',
-                    '생년월일을 확인해주세요.',
-                    [{text: '확인'},],
-                    {cancelable: false},)
+                Toast.show('생년월일을 확인해주세요');
             }
             else if(!res6){
-                Alert.alert(
-                    '정보 알림',
-                    '이메일을 확인해주세요.',
-                    [{text: '확인'},],
-                    {cancelable: false},)
+                Toast.show('이메일을 확인해주세요');
             }
             else if(!res5){
-                Alert.alert(
-                    '정보 알림',
-                    '닉네임을 확인해주세요.',
-                    [{text: '확인'},],
-                    {cancelable: false},)
+                Toast.show('닉네임을 확인해주세요');
             }
             else if(!res8){
-                Alert.alert(
-                    '정보 알림',
-                    '성별을 선택해주세요.',
-                    [{text: '확인'},],
-                    {cancelable: false},)
+                Toast.show('성별을 확인해주세요');
             }
             else if(isitokay&&res1&&res2&&res5&&res6) {
                 const regRes = await API.register({
@@ -209,7 +181,7 @@ const Register = (props) => {
                 });
             }
             else{
-                alert('정보를 확인해주세요');
+                Toast.show('정보를 확인해주세요');
                 return;
             }
         }//////////////////////////////////////////////////////////
@@ -227,67 +199,31 @@ const Register = (props) => {
             const res8 = man||woman||nosex;
     
             if(!res1){
-                Alert.alert(
-                    '정보 알림',
-                    '이름을 확인해주세요',
-                    [{text: '확인'},],
-                    {cancelable: false},)
+                Toast.show('이름을 확인해주세요');
             }
             else if(!res2){
-                Alert.alert(
-                    '정보 알림',
-                    '휴대폰 번호를 확인해주세요.',
-                    [{text: '확인'},],
-                    {cancelable: false},)
+                Toast.show('휴대폰 번호를 확인해주세요');
             }
             else if(!isitokay){
-                Alert.alert(
-                    '정보 알림',
-                    '휴대폰 인증을 완료해주세요.',
-                    [{text: '확인'},],
-                    {cancelable: false},)
+                Toast.show('휴대폰 인증을 완료해주세요');
             }
             else if(!res7){
-                Alert.alert(
-                    '정보 알림',
-                    '생년월일을 확인해주세요.',
-                    [{text: '확인'},],
-                    {cancelable: false},)
+                Toast.show('생년월일을 확인해주세요');
             }
             else if(!res6){
-                Alert.alert(
-                    '정보 알림',
-                    '이메일을 확인해주세요.',
-                    [{text: '확인'},],
-                    {cancelable: false},)
+                Toast.show('이메일을 확인해주세요');
             }
             else if(!res3){
-                Alert.alert(
-                    '정보 알림',
-                    '비밀번호 형식을 맞춰주세요.',
-                    [{text: '확인'},],
-                    {cancelable: false},)
+                Toast.show('비밀번호 형식을 맞춰주세요');
             }
             else if(!res4){
-                Alert.alert(
-                    '정보 알림',
-                    '비밀번호가 일치하지 않습니다.',
-                    [{text: '확인'},],
-                    {cancelable: false},)
+                Toast.show('비밀번호가 일치하지 않습니다');
             }
             else if(!res5){
-                Alert.alert(
-                    '정보 알림',
-                    '닉네임을 확인해주세요.',
-                    [{text: '확인'},],
-                    {cancelable: false},)
+                Toast.show('닉네임을 확인해주세요');
             }
             else if(!res8){
-                Alert.alert(
-                    '정보 알림',
-                    '성별을 선택해주세요.',
-                    [{text: '확인'},],
-                    {cancelable: false},)
+                Toast.show('성별을 선택해주세요');
             }
             else if(isitokay&&res1&&res2&&res3&&res4&&res5&&res6) {
                 const regRes = await API.register({
@@ -318,7 +254,7 @@ const Register = (props) => {
                 });
             }
             else{
-                alert('정보를 확인해주세요');
+                Toast.show('정보를 확인해주세요');
                 return;
             }
         }
