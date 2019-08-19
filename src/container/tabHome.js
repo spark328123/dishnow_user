@@ -155,14 +155,15 @@ const TabHome = (props)=>{
         setTime(rowData);
         setBol(false);
     }
-
+    
+   
     return(
         <View style = {{flex : 1}}>
              <CustomAlert 
                 visible={isAlertVisible} 
                 mainTitle={'요청 안내'}
                 mainTextStyle = {styles.txtStyle}
-                subTitle = {`${msg} 요청을 보내게 되면 300m 내 전체 술집에 알람이 가게 됩니다. 실시간 예약 가능 여부를 물으시겠습니까?`}
+                subTitle = {'요청을 보내게 되면 300m 내 전체 술집에 알람이 가게 됩니다. 실시간 예약 가능 여부를 물으시겠습니까?'}
                 subTextStyle = {styles.subtxtStyle}
                 buttonText1={'아니오'} 
                 buttonText2={'네'} 

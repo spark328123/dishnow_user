@@ -125,7 +125,7 @@ const GoogleMaps =  ({isPressed, toggle, navigation, latitudeDelta, latitude, lo
                         longitude : longitude
                     }}
                     image = {{uri : 'icon_departure'}}></Marker>}
-             
+
             </MapView>
             {isPressed? (
                 <View style = {styles.backFixed}>
