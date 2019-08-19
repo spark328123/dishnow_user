@@ -13,10 +13,7 @@ export default webView = ({navigation,navtitle,title}) => {
     
     return(
         <View style = {{flex : 1}}>
-        {navtitle? 
-            <NavHead navigation={navigation} title={navigation.getParam('title')}/> : 
             <NavSwitchHead navigation={navigation} navtitle = {navigation.getParam('navtitle')} title={navigation.getParam('title')}/>
-        }
         <WebView
             source={source}
             //navigation = {navigation}

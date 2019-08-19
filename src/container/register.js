@@ -43,11 +43,11 @@ const Register = (props) => {
         navigation.navigate('Terms')
     }
     handleAndroidBackButton(_goBack);
-    const _onPressAlertCancel = async() => {
+    const _onPressAlertCancel = () => {
         setIsAlertVisible(false);
     }
 
-    const _onPressAlertOk = async() => {
+    const _onPressAlertOk = () => {
         setIsAlertVisible(false);
     }
 

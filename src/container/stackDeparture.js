@@ -5,11 +5,19 @@ import GoogleMap from '../utill/googlemap';
 import {handleAndroidBackButton, removeAndroidBackButtonHandler} from '../component/common/hardwareBackButton'
 const StackDeparture = (props)=>{
     const { navigation } = props;
-    
     const _goBack = ()=>{
         navigation.navigate('TabHome');
     }
+
+    // navigationOptions = ({ navigation }) => {
+    //     let tabBarVisible = false;
+    //     return {
+    //         tabBarVisible,
+    //     };
+    // }
+    
     handleAndroidBackButton(_goBack)
+
     return(
         <View style = {styles.container}>
                     
@@ -25,6 +33,8 @@ const StackDeparture = (props)=>{
 } 
 
 export default StackDeparture;
+
+
 
 const styles = StyleSheet.create({
     container : {

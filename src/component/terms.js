@@ -73,7 +73,9 @@ export default Terms = ({navigation}) => {
                             setValid(v=>({...v, c1:change}));
                         }}
                         onPressBracket={()=>navigation.navigate('webView',{
-                                source : {uri : 'http://dishnow.kr/terms/1.html'}
+                                source : {uri : 'http://dishnow.kr/terms/1.html'},
+                                navtitle : 'Terms',
+                                title : '이용약관',
                             })}
                     />
                     <CheckView 
@@ -84,7 +86,9 @@ export default Terms = ({navigation}) => {
                             setValid(v=>({...v, c2:change}));
                         }}
                         onPressBracket={()=>navigation.navigate('webView',{
-                            source : {uri : 'http://dishnow.kr/terms/2.html'}
+                            source : {uri : 'http://dishnow.kr/terms/2.html'},
+                            navtitle : 'Terms',
+                            title : '이용약관',
                         })}
                     />
                     <CheckView 
@@ -95,7 +99,9 @@ export default Terms = ({navigation}) => {
                             setValid(v=>({...v, c3:change}));
                         }}
                         onPressBracket={()=>navigation.navigate('webView',{
-                            source : {uri : 'http://dishnow.kr/terms/3.html'}
+                            source : {uri : 'http://dishnow.kr/terms/3.html'},
+                            navtitle : 'Terms',
+                            title : '이용약관',
                         })}
                     />
                     <CheckView 
@@ -106,7 +112,9 @@ export default Terms = ({navigation}) => {
                             setValid(v=>({...v, c4:change}));
                         }}
                         onPressBracket={()=>navigation.navigate('webView',{
-                            source : {uri : 'http://dishnow.kr/terms/4.html'}
+                            source : {uri : 'http://dishnow.kr/terms/4.html'},
+                            navtitle : 'Terms',
+                            title : '이용약관',
                         })}
                     />
                 </View>

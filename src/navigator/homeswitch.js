@@ -9,6 +9,7 @@ const HomeSwitch = createSwitchNavigator(
     {
         initialRouteName : 'TabHome',
         headerMode : 'none',
+
     }
 )
 export default HomeSwitch;
