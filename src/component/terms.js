@@ -23,6 +23,7 @@ export default Terms = ({navigation}) => {
             token,
             kakaoProfile : navigation.getParam('kakaoProfile'),
             faceBookProfile : navigation.getParam('faceBookProfile'),
+            naverProfile : navigation.getParam('naverProfile'),
         })
     }
     const _validation =()=> {

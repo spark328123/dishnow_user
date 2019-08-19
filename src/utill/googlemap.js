@@ -90,7 +90,7 @@ const GoogleMaps =  ({isPressed, toggle, navigation, latitudeDelta, latitude, lo
     }
 
     useEffect(()=>{
-        _getPosition();
+        //_getPosition();
         _initAddress(region.latitude,region.longitude);
         setTimeout(()=>{
             _setFlex();
@@ -125,15 +125,7 @@ const GoogleMaps =  ({isPressed, toggle, navigation, latitudeDelta, latitude, lo
                         longitude : longitude
                     }}
                     image = {{uri : 'icon_departure'}}></Marker>}
-                {/*
-                <Circle
-                center = {{latitude,longitude}}
-                strokeColor = {'rgb(115,63,255,0.5)'}
-                fillColor = {'rgba(115,63,255,0.5)'} 
-                zIndex = {2}
-                radius = {300} 
-                />
-                */}
+
             </MapView>
             {isPressed? (
                 <View style = {styles.backFixed}>

@@ -14,9 +14,11 @@ import * as API from '../utill/API';
 import Toast from 'react-native-simple-toast';
 
 const OnWait =  (props) =>{
-    const WaitTime = 120;
+    const WaitTime = 119;
     const { navigation, latitude, longitude } = props;
     const createdAt = navigation.getParam('createdAt');
+    var address = navigation.getParam('address');
+    address = address.substring(0,15)+'\n'+' '+address.substring(15);
 
     const [timer, setTimer] = useState(null);
     const [timerCount, setTimerCount] = useState(WaitTime);
@@ -33,6 +35,7 @@ const OnWait =  (props) =>{
         const res = await API.reservation_cancel(token,{createdAt : navigation.getParam('createdAt')});
         console.log(res);
         Toast.show('예약을 취소했습니다');
+        OneSignal.inFocusDisplaying(0);
        _goBack();
     }
 
@@ -189,7 +192,7 @@ const OnWait =  (props) =>{
                             출발지
                         </Text>
                         <Text style={styles.paraText}>
-                            {navigation.getParam('address')}
+                            {address}
                         </Text>
                     </View>
                 </View>
