@@ -28,7 +28,7 @@ const TabMy = ({navigation, userid, nickname, image, phone, point, name, reviewc
     const [photo, setPhoto] = useState(image.substring(2,image.length-2));
     const [isAlertVisible, setIsAlertVisible] = useState(false);
 
-    const _onPressAlertCancel = async() => {
+    const _onPressAlertCancel = () => {
         setIsAlertVisible(false);
     }
 

@@ -11,7 +11,7 @@ const MyPoint = (props)=>{
     const [ data, setData ] = useState([]); 
     const [isAlertVisible, setIsAlertVisible] = useState(false);
     
-    const _onPressAlertOk = async() => {
+    const _onPressAlertOk = () => {
         setIsAlertVisible(false);
     }
 

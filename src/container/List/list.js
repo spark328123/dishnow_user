@@ -42,11 +42,11 @@ const List = (props) => {
         longitude : mylon
     }
 
-    const _onPressAlertOk = async() => {
-        await setIsAlertVisible(false);
+    const _onPressAlertOk = () => {
+        setIsAlertVisible(false);
        _goHome();
     }
-    const _onPressAlertCancel = async() => {
+    const _onPressAlertCancel = () => {
         setIsAlertVisible(false);
     }
     const _substr = (imageSource)=>{
@@ -76,7 +76,7 @@ const List = (props) => {
     
     const _goHome = () =>{
         OneSiganl.removeEventListener('received',_oneSignalReceived);
-        navigation.navigate('TabHome');
+        navigation.navigate('Splash');
     }
 
     const [ isLoaded, setIsLoaded ] = useState(true);
@@ -124,7 +124,7 @@ const List = (props) => {
             OneSignal.removeEventListener('opened',_oneSignalReceived);
             OneSignal.inFocusDisplaying(2);
             Toast.show('선택 시간이 지났습니다. 홈 화면으로 이동합니다');
-            navigation.navigate('TabHome');
+            navigation.navigate('Splah');
         }
     },[timerCount]);
 

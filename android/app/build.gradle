@@ -96,6 +96,14 @@ def enableSeparateBuildPerCPUArchitecture = false
 def enableProguardInReleaseBuilds = false
 
 android {
+    signingConfigs {
+        release {
+            storeFile file('C:\\Users\\Johnny\\Desktop\\dev\\important\\realease_key')
+            storePassword 'eltnlskdn'
+            keyPassword 'eltnlskdn'
+            keyAlias = 'dishnow'
+        }
+    }
     compileSdkVersion 28
 
     compileOptions {
@@ -122,6 +130,8 @@ android {
         release {
             minifyEnabled enableProguardInReleaseBuilds
             proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
+            signingConfig signingConfigs.release
+            multiDexEnabled = true
         }
     }
     buildToolsVersion = '28.0.3'

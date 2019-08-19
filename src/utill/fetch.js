@@ -14,28 +14,21 @@ const bodyEncoder = (data=null) => {
 }
 
 export const getServer = async (url, data = null) => {
-
     try{
         url = url + '?' + bodyEncoder(data);
         let res = await fetch(url, {
-
             method : 'GET',
-
             headers: {
                 Accept: HEADER_APPJSON,
                 'Content-Type' : HEADER_WWWENCODED,
             },
-
         });
         if(res.ok) return res;
         console.log(await res.json());
-        return null;
-
-        
+        return null;        
     }catch(e){
         console.log('get' +e);
     }
-    
 }
 
 
