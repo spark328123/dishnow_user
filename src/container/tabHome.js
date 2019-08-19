@@ -21,12 +21,12 @@ import ModalDropdown from 'react-native-modal-dropdown';
 import { BigButtonColor, Text, CustomAlert } from '../component/common'
 import OneSignal from 'react-native-onesignal';
 import Toast from 'react-native-simple-toast';
-import { screenWidth } from '../utill/screen.js';
 
 const TabHome = (props)=>{
     const dispatch = useDispatch();
     const [isLoaded, setIsLoaded] = useState(true);
     const [touch,setTouch] = useState(false);
+    var msg ='';
 
     const _me = async() => {
         const token = await API.getLocal(API.LOCALKEY_TOKEN);
@@ -80,6 +80,8 @@ const TabHome = (props)=>{
     },[]);
 
     const _reservation = async()=>{
+        console.log(time);
+        Toast.show(`카테고리를 선택하지 않으셔서 '전체' 로 등록됩니다.`);
         if(touch)return;
         setTouch(true);
         setTimeout(()=>{

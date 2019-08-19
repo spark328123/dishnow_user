@@ -17,20 +17,19 @@ import Toast from 'react-native-simple-toast';
 const List = (props) => {
 
     const { navigation, mylat, mylon } = props;
-    const WaitTime = 60*5+navigation.getParam('timerCount');
+    const WaitTime = 60*5+navigation.getParam('timerCount')-1;
 
     const [timer, setTimer] = useState(null);
     const [timerCount, setTimerCount] = useState(WaitTime);
     const parentNavigation = navigation.dangerouslyGetParent();
     const mainImage = parentNavigation.getParam('mainImage');
     const name = parentNavigation.getParam('name');
-    const latitude = parentNavigation.getParam('latitude');
+    const latitude = parentNavigation.getParam('latitude'); 
     const longitude = parentNavigation.getParam('longitude');
     const reservationId = parentNavigation.getParam('reservationId');
     const storeId = parentNavigation.getParam('storeId');
     const theme = parentNavigation.getParam('theme');
     const [isAlertVisible, setIsAlertVisible] = useState(false);
-
 
     const storeCoords = {
         latitude,
@@ -49,6 +48,7 @@ const List = (props) => {
     const _onPressAlertCancel = () => {
         setIsAlertVisible(false);
     }
+
     const _substr = (imageSource)=>{
         var image = JSON.stringify(imageSource);
         image = image.substring(4,image.length-4);
@@ -75,7 +75,6 @@ const List = (props) => {
     }
     
     const _goHome = () =>{
-        OneSiganl.removeEventListener('received',_oneSignalReceived);
         navigation.navigate('Splash');
     }
 
@@ -93,7 +92,6 @@ const List = (props) => {
             theme,
         },
     ]);
-
     
     const _oneSignalReceived = (notification)=>{
         if(!notification)return;
@@ -124,11 +122,11 @@ const List = (props) => {
             OneSignal.removeEventListener('opened',_oneSignalReceived);
             OneSignal.inFocusDisplaying(2);
             Toast.show('선택 시간이 지났습니다. 홈 화면으로 이동합니다');
-            navigation.navigate('Splah');
+            navigation.navigate('Splash');
         }
     },[timerCount]);
 
-    const _timerStart =()=> {
+    const _timerStart = ()=> {
         setTimer(timer=>{
             if (timer==null) return setInterval(()=>_timerTick(), 1000);
         });
