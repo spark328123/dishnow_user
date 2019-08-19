@@ -26,7 +26,7 @@ const OnWait =  (props) =>{
 
     const [isAlertVisible, setIsAlertVisible] = useState(false);
 
-    const _onPressAlertCancel = async() => {
+    const _onPressAlertCancel = () => {
         setIsAlertVisible(false);
     }
     const _onPressAlertOk = async() => {

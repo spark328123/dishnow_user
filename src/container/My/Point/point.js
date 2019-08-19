@@ -12,7 +12,7 @@ const Point = (props) =>{
     const {navigation, point, phone} = props;
     const [isAlertVisible, setIsAlertVisible] = useState(false);
 
-    const _onPressAlertOk = async() => {
+    const _onPressAlertOk = () => {
         setIsAlertVisible(false);
     }
     
