@@ -90,7 +90,7 @@ const GoogleMaps =  ({isPressed, toggle, navigation, latitudeDelta, latitude, lo
     }
 
     useEffect(()=>{
-        _getPosition();
+        //_getPosition();
         _initAddress(region.latitude,region.longitude);
         setTimeout(()=>{
             _setFlex();
@@ -119,15 +119,13 @@ const GoogleMaps =  ({isPressed, toggle, navigation, latitudeDelta, latitude, lo
             zoomEnabled = {isPressed}
             followsUserLocation = {isPressed}
             >
-                {/*
-                <Circle
-                center = {{latitude,longitude}}
-                strokeColor = {'rgb(115,63,255,0.5)'}
-                fillColor = {'rgba(115,63,255,0.5)'} 
-                zIndex = {2}
-                radius = {300}
-                />
-                */}
+                {!isPressed&&<Marker
+                     coordinate={{
+                        latitude : latitude,
+                        longitude : longitude
+                    }}
+                    image = {{uri : 'icon_departure'}}></Marker>}
+             
             </MapView>
             {isPressed? (
                 <View style = {styles.backFixed}>
@@ -143,11 +141,13 @@ const GoogleMaps =  ({isPressed, toggle, navigation, latitudeDelta, latitude, lo
             )
             :null
             }
-            <View style={styles.markerFixed}>
-                <Image style = {styles.marker} source = {
-                    {uri: 'icon_departure'}
-                }></Image>
-            </View>
+            {isPressed&&
+                <View style={styles.markerFixed}>
+                    <Image style = {styles.marker} source = {
+                        {uri: 'icon_departure'}
+                    }></Image>
+                </View>
+            }
             <View style = {styles.address}>
                 <Text style ={{fontSize:13,padding:10, color:'#555555'}}>출발지 : {address}</Text>
             </View>
@@ -180,7 +180,7 @@ const styles = StyleSheet.create({
         marginLeft: -20,
         marginTop: -64,
         position: 'absolute',
-        top: '50%'
+        top: '48%'
       },
       marker: {
         height: 40,

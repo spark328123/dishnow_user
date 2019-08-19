@@ -154,18 +154,22 @@ const Register = (props) => {
                 
                 console.log(regRes);
                 const loginRes = await API.login({ token, type });
-                if(type === 'kakao'){       //각 이미지
+                if(type === 'kakao'){      
                     await API.changeprofile(loginRes.token,{
                         image : navigation.getParam('kakaoProfile')
-                    })
+                    });
                 }else if(type ==='facebook'){
                     await API.changeprofile(loginRes.token,{
                         image : navigation.getParam('faceBookProfile')
-                    })
+                    });
+                }else if(type ==='naver'){
+                    await API.changeprofile(loginRes.token,{
+                        image : navigation.getParam('naverProfile')
+                    });
                 }else{
                     await API.changeprofile(loginRes.token,{
                         image : `["https://ssl.pstatic.net/static/pwe/address/img_profile.png"]`
-                    })
+                    });
                 }
                 await API.changenick(loginRes.token,{
                     nickname : nickname.text

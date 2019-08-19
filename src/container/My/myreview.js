@@ -2,6 +2,8 @@ import React, { useEffect, useState,memo } from 'react';
 import { View, Text, StyleSheet, FlatList, Image, TouchableOpacity, ActivityIndicator } from 'react-native';
 import {NavSwitchHead} from '../../component/common';
 import {handleAndroidBackButton,removeAndroidBackButtonHandler} from '../../component/common/hardwareBackButton';
+import {useDispatch} from 'react-redux';
+import * as User from '../../store/modules/user';
 
 import * as API from '../../utill/API';
 import * as Utill from '../../utill';
@@ -12,6 +14,7 @@ const full_field_star = { uri : 'icon_star_full_review'};
 const empty_field_star = { uri : 'icon_star_empty_review'};
 
 export default Review = ({navigation}) =>{
+    const dispatch = useDispatch();
     const _showReview = async() =>{
         const token = await API.getLocal(API.LOCALKEY_TOKEN);
         const res = await API.reviewMe(token);
@@ -40,9 +43,10 @@ export default Review = ({navigation}) =>{
     const _deleteReview = async (reviewId)=>{
         const token = await API.getLocal(API.LOCALKEY_TOKEN);
         const res = await API.reviewDelete(token,{reviewId : reviewId});
-        
         setData(data.filter(info=>info.reviewId !== reviewId));
-        console.log(res);
+        const meRes = await API.me(token);
+        dispatch(User.updatereviewcount(meRes.reviewCount));     
+        console.log(meRes.reviewCount);   
         Toast.show('삭제되었습니다.');
     }
 

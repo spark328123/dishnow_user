@@ -11,9 +11,7 @@ const icon_charger = {uri : 'icon_charge'}
 const icon_park = {uri : 'icon_park'}
 const icon_smoke = {uri : 'icon_smoke'}
 const icon_kids = {uri : 'icon_kids'}
-const icon_pet = {uri : 'icon_pet'} 
-
-
+const icon_pet = {uri : 'icon_pet'}  
 
 const Help = (props) => {
     const {initialScroll, onScroll, paddingTop,data} = props;
@@ -28,7 +26,7 @@ const Help = (props) => {
     }
     const _timeToString = (openTime, CloseTime) => {
         return ((openTime == "00:00:00") && (CloseTime == "00:00:00"))? 
-            `휴무` : `${openTime}   ~   ${CloseTime} `;
+            `휴무` : `${openTime.substring(0,5)}   ~   ${CloseTime.substring(0,5)} `;
     } 
 
     return (
@@ -53,7 +51,7 @@ const Help = (props) => {
                         marginTop : 15,
                         fontSize : 14,
                     }}>
-                        {data.content}
+                        {data.content!=='null'?data.content:`소개가 아직 없어요!`}
                     </Text>
                 </View>
 
@@ -141,7 +139,7 @@ const Help = (props) => {
                     </View>
                     <View style={{flexDirection:'row', marginBottom:20}}>
                     <Text style={{fontSize:14, color:'#555555'}}>{`주소`}</Text> 
-                    <Text style={{fontSize:14, color:'#111111', marginLeft:15}}>{data.address}</Text>
+                    <Text style={{fontSize:14, color:'#111111', marginLeft:15}}>{data.address.substring(0,20)+'\n'+data.address.substring(20)}</Text>
                     </View>
                     <View style={{flexDirection:'row', marginBottom:20}}>
                     <Text style={{fontSize:14, color:'#555555'}}>{`대표번호`}</Text> 

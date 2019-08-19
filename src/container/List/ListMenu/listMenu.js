@@ -199,7 +199,7 @@ const ListMenu = (props) =>  {
   // 화면 좌측 상단 뒤로가기 버튼
   const _onPressBackButton = () => {
     if(isConfirm){
-        _navigation.navigate('TabHome');
+        _navigation.navigate('Splash');
         return;
     }
     //예약 중이면 
@@ -468,7 +468,7 @@ const ListMenu = (props) =>  {
           backgroundColor : Buttoncolor
           }}>
           <TouchableOpacity 
-            onPress={()=>isReservation? setIsAlertVisible(true) : Toast.show("예약 해주세요")}
+            onPress={()=>isReservation? setIsAlertVisible(true) : Toast.show("예약 가능한 상태가 아닙니다.")}
               style = {{
               flex : 1,
               alignSelf : 'stretch',

@@ -22,6 +22,7 @@ import OneSignal from 'react-native-onesignal';
 import Toast from 'react-native-simple-toast';
 
 const TabMy = ({navigation, userid, nickname, image, phone, point, name, reviewcount}) => { 
+    console.log(reviewcount);
     const [Pressed,setPressed] = useState(false);
     const [isLoaded,setIsLoaded] = useState(true);
     const [isPhotoLoaded,setPhotoLoaded] = useState(true);
@@ -196,7 +197,7 @@ const TabMy = ({navigation, userid, nickname, image, phone, point, name, reviewc
             />
 
             <PushButton 
-                title={'푸쉬알람'} 
+                title={'푸시알람'} 
                 source={{uri:'icon_push'}} 
                 style = {styles.menus}
                 onValueChange = {()=>{_setPressed(Pressed);_push(Pressed)}}
@@ -237,7 +238,8 @@ const styles = StyleSheet.create({
         paddingLeft: 15,
         paddingRight: 15,
     },
-    top : {                         // 맨위에 끄덕이는 미식가
+    top : {
+        marginTop : Utill.screen.topSafe,                         // 맨위에 끄덕이는 미식가
         flexDirection : 'row',
         height : 95,
         alignItems : 'center',

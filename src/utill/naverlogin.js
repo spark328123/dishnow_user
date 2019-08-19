@@ -20,22 +20,25 @@ const login = async (token) => {
     return true;
 }
 
-const naverLogin = (navigation) => {
-    NaverLogin.login(initials,(err,token)=>{
+const naverLogin = async (navigation) => {
+    NaverLogin.login(initials,async(err,token)=>{
+        const res = await getProfile(token);
+        const naverProfile = res.response.profile_image;
+        console.log(naverProfile);
         login(token)
         .then(res=>{
             if(!res){
                 navigation.navigate('Terms',{
                     token,
-                    type
+                    type,
+                    naverProfile : `["${naverProfile}"]`
                 })
             }else{
                 navigation.navigate('Main');
             }
         })
         console.log(token);
-        const res = getProfile(token);
-        console.log(res);
+      
     });
    
   };
