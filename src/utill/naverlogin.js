@@ -16,7 +16,7 @@ const initials = {
 const login = async (token) => {
     const loginRes = await API.login({token,type});
     await API.setLocal(API.LOCALKEY_TOKEN, loginRes.token);
-    if(loginRes.error) {return false;}
+    if(loginRes.token === '') {return false;}
     return true;
 }
 
