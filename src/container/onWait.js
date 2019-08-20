@@ -4,9 +4,9 @@ import {
     StyleSheet,
     ActivityIndicator,
     TouchableOpacity,
+    AppState,
 } from 'react-native';
 import { connect } from 'react-redux';
-
 import { Text,CustomAlert } from '../component/common';
 import * as Utill from '../utill';
 import OneSignal from 'react-native-onesignal';
@@ -35,7 +35,6 @@ const OnWait =  (props) =>{
         const res = await API.reservation_cancel(token,{createdAt : navigation.getParam('createdAt')});
         console.log(res);
         Toast.show('예약을 취소했습니다');
-        OneSignal.inFocusDisplaying(0);
        _goBack();
     }
 
@@ -43,7 +42,33 @@ const OnWait =  (props) =>{
         _timerStart();
         OneSignal.addEventListener('received',_oneSignalReceived);
         OneSignal.addEventListener('opened',_oneSignalReceived)
+        AppState.addEventListener('change',_handleChange);
+        return()=>{
+            AppState.removeEventListener('change',_handleChange);
+        }
     },[]);
+
+    const _handleChange = async()=>{
+        if(AppState.currentState==='active'){
+            const token = await API.getLocal(API.LOCALKEY_TOKEN);
+            var res = await API.getReservation_accept(token);
+            res = res[0];
+            console.log(res);
+            const {latitude,longitude,mainImage,name,reservationId,storeId} = res;
+            navigation.navigate('List',{
+                latitude,
+                longitude,
+                mainImage,
+                name,
+                reservationId,
+                storeId,
+                theme : res.type,
+                peopleNumber : navigation.getParam('people'),
+                minutes : navigation.getParam('time'),
+                timerCount,
+            });
+        }
+    }
     
     const _toggle = ()=>{
         setToggle(!toggle);
@@ -53,8 +78,6 @@ const OnWait =  (props) =>{
         _toggle();
         setTimerCount(WaitTime);
         _timerStart();
-        OneSignal.addEventListener('received',_oneSignalReceived);
-        OneSignal.addEventListener('opened',_oneSignalReceived)
         _reservation();
     }
 
@@ -74,9 +97,6 @@ const OnWait =  (props) =>{
         if (timer && (timerCount <= 0)) {
             _timerStop();
             _toggle();
-            OneSignal.removeEventListener('received',_oneSignalReceived);
-            OneSignal.removeEventListener('opened',_oneSignalReceived);
-            OneSignal.inFocusDisplaying(2);
         }
     },[timerCount]);
 
@@ -104,11 +124,9 @@ const OnWait =  (props) =>{
         OneSignal.removeEventListener('received',_oneSignalReceived);
         OneSignal.removeEventListener('opened',_oneSignalReceived);
         navigation.navigate('TabHome');
-        OneSignal.inFocusDisplaying(2);
     }
 
     const _oneSignalReceived = (notification) => {
-        console.log(notification);
         if (!notification) return;
         let notiData = notification.notification? {...notification.notification} : notification;
         const {latitude=null,longitude=null,mainImage=null,name=null,reservationId=null,storeId=null,storeType=null} = notiData.payload.additionalData;
