@@ -60,11 +60,11 @@ const TabMy = ({navigation, userid, nickname, image, phone, point, name, reviewc
     const _push = (press)=>{
         if(!press){
         OneSignal.inFocusDisplaying(0);
-        Toast.show('푸시가 중단되었습니다.');
+        Toast.show('푸쉬가 중단되었습니다.');
 
         }else{
             OneSignal.inFocusDisplaying(2);
-            Toast.show('푸시가 활성화되었습니다.')
+            Toast.show('푸쉬가 활성화되었습니다.')
         }
     } 
 
@@ -197,7 +197,7 @@ const TabMy = ({navigation, userid, nickname, image, phone, point, name, reviewc
             />
 
             <PushButton 
-                title={'푸시알람'} 
+                title={'푸쉬알람'} 
                 source={{uri:'icon_push'}} 
                 style = {styles.menus}
                 onValueChange = {()=>{_setPressed(Pressed);_push(Pressed)}}

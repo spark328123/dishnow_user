@@ -28,7 +28,7 @@ export default (props)=>{
                 <Text style={styles.title}>{'예약 완료'}</Text>
             </View>
 
-            <Text style={styles.subTitle}>{'손님 맞을 준비를 해볼까요?'}</Text>
+            <Text style={styles.subTitle}>{'예약 시간에 맞춰 꼭 방문해주세요.'}</Text>
 
             
             <View style={{flex:1, justifyContent:'center'}}>
@@ -128,4 +128,3 @@ const styles = StyleSheet.create({
         color : Utill.color.textBlack,
     },
 });
-

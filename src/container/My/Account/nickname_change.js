@@ -8,7 +8,7 @@ import {
     TouchableOpacity,
     Alert,
 } from 'react-native'
-import {BigButton,SmallButton,NavSwitchHead} from '../../../component/common'
+import {BigButton,SmallButton,NavSwitchHead,CustomAlert} from '../../../component/common'
 import {handleAndroidBackButton} from '../../../component/common/hardwareBackButton'
 import * as API from '../../../utill/API'
 import { useDispatch, connect } from 'react-redux';
@@ -30,6 +30,14 @@ export default Nick = ({navigation}) => {
         setNickName(text);
         setNickLength(text.length);
     }
+    
+    const [isAlertVisible, setIsAlertVisible] = useState(false);
+
+    const _onPressAlertCancel = () => {
+        setIsAlertVisible(false);
+    }
+
+
     _isLong = (nick) => {
         if(nick.length > 20)
             {
@@ -60,16 +68,20 @@ export default Nick = ({navigation}) => {
 
             <NavSwitchHead navigation={navigation} title={`닉네임 변경`} navtitle={'Profile'} onSavePress = {() =>
                 {
-                    Alert.alert("닉네임 변경.","닉네임을 변경하시겠습니까?",
-                        [
-                            {
-                                text: '확인', onPress: () =>  _saveNickName(nickName), 
-                            },
-                        ],
-                        {cancelable: false},
-                    );
+                <CustomAlert 
+                    visible={isAlertVisible} 
+                    mainTitle={'닉네임 변경'}
+                    mainTextStyle = {styles.txtStyle}
+                    subTitle = {'닉네임을 변경하시겠습니까?'}
+                    subTextStyle = {styles.subtxtStyle}
+                    buttonText1={'취소'} 
+                    buttonText2={'확인'} 
+                    onPressCancel = {_onPressAlertCancel}
+                    onPress={_saveNickName(nickName)}/>
                 }
-                }/>
+                }
+            />
+                   
             <View style = {{marginRight : 15, marginLeft : 15}}>
                 <Text style={{marginTop : 17, fontFamily : 'NanumSquareOTF', fontSize : 14, color : '#555555'}}>
                     닉네임
@@ -127,5 +139,18 @@ const styles = StyleSheet.create({
         borderBottomWidth: 2,
         borderBottomColor:Utill.color.primary1,
         marginBottom : 11,
+    },
+    txtStyle : {
+        marginBottom : Utill.screen.Screen.customHeight(9),
+        fontSize : 18,
+        fontWeight : 'bold',
+        color : Utill.color.textBlack,
+        alignSelf : 'center',
+    },
+    subtxtStyle : {
+        marginBottom : Utill.screen.Screen.customHeight(35),
+        fontSize : 16,
+        color : Utill.color.textBlack,
+        alignSelf : 'center',
     },
 })

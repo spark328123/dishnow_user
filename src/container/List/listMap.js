@@ -16,7 +16,9 @@ const ListMap = (props) => {
     const { navigation, latitude, longitude } = props;
     const data = navigation.getParam('data');
     const [ markers, setMarkers ] = useState(data);
-
+    const _goBack = ()=>{
+        navigation.navigate('List');
+    }
     return(
         <View style ={{flex :1}}>
            <MapView 
@@ -61,6 +63,15 @@ const ListMap = (props) => {
                 </Marker>)}
 
            </MapView>
+           <View style = {styles.backFixed}>
+                    <TouchableOpacity 
+                        onPress = {_goBack}>
+                        <Image source = {
+                            {uri: 'icon_back_button'}
+                        }
+                        style = {styles.backimg} />
+                    </TouchableOpacity>
+            </View>
         </View>
     )
 }
@@ -73,3 +84,19 @@ const mapStateToProps = (state) => {
 }
 
 export default connect(mapStateToProps)(ListMap);
+
+const styles = StyleSheet.create({
+    backFixed : {
+        width : 40,
+        height : 40,
+        left : 25,
+        marginLeft: -12,
+        marginTop: -12,
+        position: 'absolute',
+        top : 50,
+      },
+      backimg : {
+        width : 15,
+        height : 20,
+      },
+})

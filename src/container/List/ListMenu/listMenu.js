@@ -295,9 +295,9 @@ const ListMenu = (props) =>  {
     <View style ={{flex : 1,backgroundColor:'#EEEEEE'}}>
        <CustomAlert 
         visible={isAlertVisible} 
-        mainTitle={isConfirm ? "도착":"예약"}
+        mainTitle={isConfirm ? "도착완료":"예약"}
         mainTextStyle = {styles.txtStyle}
-        subTitle = {isConfirm ? "도착하셨습니까?":"최종 예약 하시겠습니까?"}
+        subTitle = {isConfirm ? "가게에 도착하셨나요?\n사장님에게 도착 요청을 해주세요.\n포인트가 적립됩니다.?":"최종 예약 하시겠습니까?"}
         subTextStyle = {styles.subtxtStyle}
         buttonText1={'아니오'}
         buttonText2={'네'}

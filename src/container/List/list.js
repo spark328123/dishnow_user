@@ -261,7 +261,7 @@ const List = (props) => {
                 subTitle = {'이미 요청을 수락한 가게가 있습니다.정말 취소할까요?'}
                 subTextStyle = {styles.subtxtStyle}
                 buttonText1={'아니오'} 
-                buttonText2={'네'} 
+                buttonText2={'네'}
                 onPressCancel = {_onPressAlertCancel}
                 onPress={_onPressAlertOk} 
         />
@@ -317,8 +317,8 @@ const styles = StyleSheet.create({
     },
     button : {
         position: "absolute",
-        top: Utill.screen.Screen.customHeight(590),
         flexDirection : 'row',
+        bottom : 1,
         height : Utill.screen.Screen.customHeight(50),
         width: Utill.screen.Screen.customWidth(360),
         backgroundColor : Utill.color.primary1,
