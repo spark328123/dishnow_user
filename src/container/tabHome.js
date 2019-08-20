@@ -281,7 +281,7 @@ const TabHome = (props)=>{
             <View style={{alignItems: 'center'}}>
             <BigButtonColor 
                     style={[styles.find, {marginBottom: Utill.screen.Screen.customHeight(52)}]}
-                    onPress ={()=> (tema&&parseInt(people.text)>0&&parseInt(arr[parseInt(time)])>0) ? setIsAlertVisible(true) : Toast.show("테마, 인원, 출발 예정 시간을 확인해주세요.")}
+                    onPress ={()=> ((tema+1)&&parseInt(people.text)>0&&parseInt(arr[parseInt(time)])>0) ? setIsAlertVisible(true) : Toast.show("테마, 인원, 출발 예정 시간을 확인해주세요.")}
                     title = {'술집 찾기'}
             />
             </View>
