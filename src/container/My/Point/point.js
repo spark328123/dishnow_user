@@ -1,6 +1,6 @@
 import React , { useState} from 'react';
 import { View, StyleSheet } from 'react-native';
-import {NavSwitchHead,Button,Text,LoadingModal,Screen} from '../../../component/common';
+import {NavSwitchHead,Button,Text,CustomAlert1} from '../../../component/common';
 import {handleAndroidBackButton} from '../../../component/common/hardwareBackButton';
 import {useSelector, useDispatch, connect} from 'react-redux'
 import * as Utill from '../../../utill'
@@ -17,7 +17,6 @@ const Point = (props) =>{
     }
     
     console.log(props);
-    const [isLoadingVisible, setIsLoadingVisible] = useState(true);
     const [page, setPage] = useState(1);
     const Screen =(props)=> {
         if(props.page == 1) return <Point1 data={props.data} phone = {phone} point = {point}/>
@@ -33,7 +32,7 @@ const Point = (props) =>{
         <View style ={styles.container}>
             <NavSwitchHead navigation={navigation} navtitle = {'myPoint'} title={`디나포인트`}/>
             {/* <LoadingModal visible={isLoadingVisible} /> */}
-
+            
             <View style={styles.tabArea}>
                 <Button 
                     style={page==1 ? styles.button : styles.buttonUnSelected} 
@@ -108,4 +107,5 @@ const styles = StyleSheet.create({
         color : Utill.color.border,
         fontSize : 16,
     },
+    
 })

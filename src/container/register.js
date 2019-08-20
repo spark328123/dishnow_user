@@ -130,6 +130,9 @@ const Register = (props) => {
             else if(!isitokay){
                 Toast.show('휴대폰 인증을 완료해주세요');
             }
+            else if(!res8){
+                Toast.show('성별을 확인해주세요');
+            }
             else if(!res7){
                 Toast.show('생년월일을 확인해주세요');
             }
@@ -138,9 +141,6 @@ const Register = (props) => {
             }
             else if(!res5){
                 Toast.show('닉네임을 확인해주세요');
-            }
-            else if(!res8){
-                Toast.show('성별을 확인해주세요');
             }
             else if(isitokay&&res1&&res2&&res5&&res6) {
                 const regRes = await API.register({
@@ -175,7 +175,6 @@ const Register = (props) => {
                     nickname : nickname.text
                 });
                 await API.setLocal(API.LOCALKEY_TOKEN, loginRes.token);
-                alert('회원가입이 완료되었습니다.');
                 dispatch(Regs.updateemail(email));
                 dispatch(User.updatenickname(nickname.text));
                 dispatch(User.upadtename(name));
@@ -195,7 +194,7 @@ const Register = (props) => {
            
             const res1 = /^[가-힣]{2,25}|[a-zA-Z]{2,25}\s[a-zA-Z]{2,25}$/.test(name.text);
             const res2 = /^\d{11}$/.test(phone.text);
-            const res3 = /^[A-Za-z0-9]{6,15}$/.test(password.text)&&password.text!==undefined;
+            const res3 = /^[A-Za-z0-9?=.*[~`!@#$%\^&*()-+=]{6,15}$/.test(password.text)&&password.text!==undefined;
             const res4 = (password.text===password1.text);
             const res5 = /^[가-힣A-Za-z0-9]{2,20}$/.test(nickname.text)&&nickname.text!==undefined;
             const res6 = /^[a-z0-9_+.-]+@([a-z0-9-]+\.)+[a-z0-9]{2,4}$/.test(email.text)&&email.text!==undefined;
@@ -211,6 +210,9 @@ const Register = (props) => {
             else if(!isitokay){
                 Toast.show('휴대폰 인증을 완료해주세요');
             }
+            else if(!res8){
+                Toast.show('성별을 선택해주세요');
+            }
             else if(!res7){
                 Toast.show('생년월일을 확인해주세요');
             }
@@ -225,9 +227,6 @@ const Register = (props) => {
             }
             else if(!res5){
                 Toast.show('닉네임을 확인해주세요');
-            }
-            else if(!res8){
-                Toast.show('성별을 선택해주세요');
             }
             else if(isitokay&&res1&&res2&&res3&&res4&&res5&&res6) {
                 const regRes = await API.register({
@@ -248,7 +247,6 @@ const Register = (props) => {
                     image : `["https://ssl.pstatic.net/static/pwe/address/img_profile.png"]`
                 })
                 await API.setLocal(API.LOCALKEY_TOKEN, loginRes.token);
-                alert('회원가입이 완료되었습니다.');
                 dispatch(Regs.updateemail(email));
                 dispatch(User.updatenickname(nickname));
                 dispatch(User.upadtename(name));
@@ -366,7 +364,7 @@ const Register = (props) => {
                     secureTextEntry = {true}
                     value = {password} 
                     title='비밀번호'
-                    placeholder='영문, 숫자 6~15자의 비밀번호를 설정하세요'
+                    placeholder='영문,특수문자,숫자 6~15자의 비밀번호를 설정하세요'
                     errorMsg='영문, 숫자 6~15자의 비밀번호를 설정하세요'
                     onChangeText={(text)=>setPassword({text})}
                 />

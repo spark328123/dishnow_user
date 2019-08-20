@@ -70,7 +70,6 @@ const TabHome = (props)=>{
         setIsAlertVisible(false);
     }
 
-
     useEffect(()=>{
         OneSignal.addEventListener('ids',onIds);
         _me();
@@ -81,7 +80,6 @@ const TabHome = (props)=>{
 
     const _reservation = async()=>{
         console.log(time);
-        Toast.show(`카테고리를 선택하지 않으셔서 '전체' 로 등록됩니다.`);
         if(touch)return;
         setTouch(true);
         setTimeout(()=>{
@@ -116,32 +114,32 @@ const TabHome = (props)=>{
       })
 
     const [temaList, settemaList] = useState([  // 테마배열
-        {   color : '#CCCCCC', isselect : false, id : '전체',},
-        {   color : '#CCCCCC', isselect : false, id : '단체',},
-        {   color : '#CCCCCC', isselect : false, id : '가성비',},
-        {   color : '#CCCCCC', isselect : false, id : '데이트',},
-        {   color : '#CCCCCC', isselect : false, id : '밥&술',},
-        {   color : '#CCCCCC', isselect : false, id : '이자카야',},
+        {   color : '#111111', isselect : false, id : '전체',},
+        {   color : '#111111', isselect : false, id : '단체',},
+        {   color : '#111111', isselect : false, id : '가성비',},
+        {   color : '#111111', isselect : false, id : '데이트',},
+        {   color : '#111111', isselect : false, id : '밥&술',},
+        {   color : '#111111', isselect : false, id : '이자카야',},
     ]);
 
     const _toggle = async(i,newTemaList) =>{ // 색깔바뀌는 함수 밖으로 빼냄
         await _selectTema(i);                // ***tema 동기화 잘안됨!
         for(let k=0; k<6; k++){
             if(i!==k){
-                newTemaList[k].color = '#CCCCCC';
+                newTemaList[k].color = '#111111';
                 newTemaList[k].isselect = false;
             }
         }
-        newTemaList[i].color = '#111111';
+        newTemaList[i].color = '#733FFF';
         newTemaList[i].isselect = true;
     }
 
     const _changeTemaColor = async(i) => {  // 테마선택 색깔,선택 바뀌게하는 함수
         let newTemaList = [...temaList];
-        if(newTemaList[i].color === '#CCCCCC'){
+        if(newTemaList[i].color === '#111111'){
           await _toggle(i,newTemaList);
         }else{
-            newTemaList[i].color = '#CCCCCC';
+            newTemaList[i].color = '#111111';
             newTemaList[i].isselect = false;
         }
         settemaList(newTemaList);
@@ -283,7 +281,7 @@ const TabHome = (props)=>{
             <View style={{alignItems: 'center'}}>
             <BigButtonColor 
                     style={[styles.find, {marginBottom: Utill.screen.Screen.customHeight(52)}]}
-                    onPress ={()=> (parseInt(people.text)>0&&parseInt(arr[parseInt(time)])>0) ? setIsAlertVisible(true) : Toast.show("인원과 출발 예정 시간을 확인해주세요.")}
+                    onPress ={()=> (tema&&parseInt(people.text)>0&&parseInt(arr[parseInt(time)])>0) ? setIsAlertVisible(true) : Toast.show("테마, 인원, 출발 예정 시간을 확인해주세요.")}
                     title = {'술집 찾기'}
             />
             </View>
