@@ -93,7 +93,7 @@ const List = (props) => {
         },
     ]);
     
-    const _oneSignalReceived = (notification)=>{
+    const _oneSignalReceived = ({notification})=>{
         if(!notification)return;
         const {latitude=null,longitude=null,mainImage=null,name=null,reservationId=null,storeId=null,storeType=null} = notification.payload.additionalData;
         setListData(listData.concat({
@@ -107,20 +107,17 @@ const List = (props) => {
             theme : storeType,
         }));
     }
-    
 
     useEffect(()=>{
         _timerStart();
         OneSiganl.addEventListener('received',_oneSignalReceived);
+        OneSiganl.addEventListener('opened',_oneSignalReceived);
         OneSiganl.inFocusDisplaying(0);
     },[]);
 
     useEffect(()=>{
         if (timer && (timerCount <= 0)) {
             _timerStop();
-            OneSignal.removeEventListener('received',_oneSignalReceived);
-            OneSignal.removeEventListener('opened',_oneSignalReceived);
-            OneSignal.inFocusDisplaying(2);
             Toast.show('선택 시간이 지났습니다. 홈 화면으로 이동합니다');
             navigation.navigate('Splash');
         }
