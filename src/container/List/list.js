@@ -6,6 +6,7 @@ import {
     FlatList,
     TouchableOpacity,
     ActivityIndicator,
+    AppState,
 } from 'react-native';
 import { connect } from 'react-redux';
 import { Text,CustomAlert } from '../../component/common';
@@ -92,6 +93,26 @@ const List = (props) => {
             theme,
         },
     ]);
+
+    const _handleChange = async()=>{
+        if(AppState.currentState==='active'){
+            const token = await API.getLocal(API.LOCALKEY_TOKEN);
+            var res = await API.getReservation_accept(token);
+            setListData(res.map(item=>{
+                const {latitude,longitude,mainImage,name,reservationId,storeId,type} = item;
+                return {
+                    mainImage : _substr(mainImage),
+                    name : name,
+                    distance : _computeDistance(myCoords, { latitude,longitude}),
+                    reservationId,
+                    storeId,
+                    latitude,
+                    longitude,
+                    theme : type, 
+                }
+            }).reverse())                
+        }
+    }
     
     const _oneSignalReceived = ({notification})=>{
         if(!notification)return;
@@ -108,11 +129,29 @@ const List = (props) => {
         }));
     }
 
+    const _oneSignalReceived_received = (notification)=>{
+        if(!notification)return;
+        const {latitude=null,longitude=null,mainImage=null,name=null,reservationId=null,storeId=null,storeType=null} = notification.payload.additionalData;
+        setListData(listData.concat({
+            mainImage : _substr(mainImage),
+            name,
+            distance : _computeDistance(myCoords, {latitude,longitude}),
+            reservationId,
+            storeId,
+            latitude,
+            longitude,
+            theme : storeType,
+        }));
+    }
+
     useEffect(()=>{
         _timerStart();
-        OneSiganl.addEventListener('received',_oneSignalReceived);
+        OneSiganl.addEventListener('received',_oneSignalReceived_received);
         OneSiganl.addEventListener('opened',_oneSignalReceived);
-        OneSiganl.inFocusDisplaying(0);
+        AppState.addEventListener('change',_handleChange);
+        return()=>{
+            AppState.removeEventListener('change',_handleChange);
+        }
     },[]);
 
     useEffect(()=>{

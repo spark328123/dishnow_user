@@ -4,9 +4,9 @@ import {
     StyleSheet,
     ActivityIndicator,
     TouchableOpacity,
+    AppState,
 } from 'react-native';
 import { connect } from 'react-redux';
-
 import { Text,CustomAlert } from '../component/common';
 import * as Utill from '../utill';
 import OneSignal from 'react-native-onesignal';
@@ -42,7 +42,33 @@ const OnWait =  (props) =>{
         _timerStart();
         OneSignal.addEventListener('received',_oneSignalReceived);
         OneSignal.addEventListener('opened',_oneSignalReceived)
+        AppState.addEventListener('change',_handleChange);
+        return()=>{
+            AppState.removeEventListener('change',_handleChange);
+        }
     },[]);
+
+    const _handleChange = async()=>{
+        if(AppState.currentState==='active'){
+            const token = await API.getLocal(API.LOCALKEY_TOKEN);
+            var res = await API.getReservation_accept(token);
+            res = res[0];
+            console.log(res);
+            const {latitude,longitude,mainImage,name,reservationId,storeId} = res;
+            navigation.navigate('List',{
+                latitude,
+                longitude,
+                mainImage,
+                name,
+                reservationId,
+                storeId,
+                theme : res.type,
+                peopleNumber : navigation.getParam('people'),
+                minutes : navigation.getParam('time'),
+                timerCount,
+            });
+        }
+    }
     
     const _toggle = ()=>{
         setToggle(!toggle);
