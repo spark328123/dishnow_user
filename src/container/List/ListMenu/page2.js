@@ -17,10 +17,6 @@ const Help = (props) => {
     const {initialScroll, onScroll, paddingTop,data} = props;
     const [refScroll, setRefScroll] = useState(null);
     const [isPageLoaded, setIsPageLoaded] = useState(false);
-<<<<<<< HEAD
-=======
-
->>>>>>> 1578408c889994dc68156b697301abc22205e073
     const _timeToString = (openTime, CloseTime) => {
         return ((openTime == "00:00:00") && (CloseTime == "00:00:00"))? 
             `휴무` : `${openTime.substring(0,5)}   ~   ${CloseTime.substring(0,5)} `;

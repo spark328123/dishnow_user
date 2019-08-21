@@ -124,9 +124,9 @@ const List = (props) => {
     }
     
     const _oneSignalReceived = ({notification})=>{ 
-        if(!notification)return;
+        if(!notification || AppState.currentState=='active')return;
         const {latitude=null,longitude=null,mainImage=null,name=null,reservationId=null,storeId=null,storeType=null} = notification.payload.additionalData;
-        if(res.length>listData.length){
+       
             setListData(listData.concat({
                 mainImage : _substr(mainImage),
                 name,
@@ -137,13 +137,13 @@ const List = (props) => {
                 longitude,
                 theme : storeType,
             }));
-        }
+      
     }
 
     const _oneSignalReceived_received = (notification)=>{
         if(!notification)return;
         const {latitude=null,longitude=null,mainImage=null,name=null,reservationId=null,storeId=null,storeType=null} = notification.payload.additionalData;
-        if(res.length>listData.length){
+       
             setListData(listData.concat({
                 mainImage : _substr(mainImage),
                 name,
@@ -154,7 +154,7 @@ const List = (props) => {
                 longitude,
                 theme : storeType,
             }));
-        }
+   
     }
 
     useEffect(()=>{
