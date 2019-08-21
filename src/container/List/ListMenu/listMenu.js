@@ -267,12 +267,6 @@ const ListMenu = (props) =>  {
     await API.reservation_confirm(token,{
         storeId : _navigation.getParam('storeId'), 
         reservationId : _navigation.getParam('reservationId')})
-    await API.postDNpoint(token,{
-        phone,
-        type : 'save',
-        diff : ReviewAward,
-        name : data.name,
-    });
     _navigation.navigate('Booked',{
         peopleNumber : _navigation.getParam('peopleNumber'),
         minutes : _navigation.getParam('minutes'),
