@@ -11,38 +11,42 @@ import { useDispatch } from 'react-redux';
 export default ItemButton = (props)=> {
    const { point ,phone,data,name,diff,type, } = props;
    const dispatch = useDispatch();
-//    const [isAlertVisible, setIsAlertVisible] = useState(false);
-//    const [mainTxt,setMainTxt] = useState('교환 완료!');
-   //const [subTxt,setSubTxt] = useState('2~3일 안에 카카오톡 선물하기로 개별 발송해드립니다.');
-//    const _onPressAlertOk = async () => {
-       
-//        setIsAlertVisible(false);
-//    }
-
-    
-  
-
-   const _usePoint = async({name})=>{
-    
-        console.log(parseInt(point));
-        const token = await API.getLocal(API.LOCALKEY_TOKEN);
-      
-        if(point<parseInt(diff)){
-        //    setMainTxt('포인트가 부족해요!');
-        //    setSubTxt('디쉬나우를 이용해 포인트를 모아보세요');
-        //    setIsAlertVisible(true);
-           alert('수정예정');
-           return;
-        }
+   const [isAlertVisible, setIsAlertVisible] = useState(false);
+   const [mainTxt,setMainTxt] = useState('');
+   const [subTxt,setSubTxt] = useState('');
+   const _onPressAlertOk =  async() => {
+        setIsAlertVisible(false);
         const res = await API.postDNpoint(token,{
             phone,
             name,
             diff,
             type,
         });
-        await dispatch(User.updatepoint(res.point));
-       // setIsAlertVisible(true);
-      alert('수정예정');
+        console.log(res);
+        dispatch(User.updatepoint(res.point));
+   }
+
+    
+  
+
+   const _usePoint = async({name})=>{
+        console.log(parseInt(point));
+        const token = await API.getLocal(API.LOCALKEY_TOKEN);
+      
+        if(point<parseInt(diff)){
+           setMainTxt('포인트가 부족해요!');
+           setSubTxt('디쉬나우를 이용해 포인트를 모아보세요');
+           //alert('수정예정');
+            setIsAlertVisible(true);
+        }else{
+            setMainTxt('교환 완료!');
+            setSubTxt('2~3일 안에 카카오톡 선물하기로 개별 발송해드립니다.');
+            setIsAlertVisible(true);            
+            
+        }
+
+     
+      //alert('수정예정');
    }
 
 
@@ -86,7 +90,9 @@ export default ItemButton = (props)=> {
 
     return (
         <View style = {styles.container}>
-            {/* <CustomAlert1
+           
+            <View style = {{flexDirection:'row'}}>
+            <CustomAlert1
     visible={isAlertVisible} 
     mainTitle={mainTxt}
     mainTextStyle = {styles.txtStyle}
@@ -94,10 +100,13 @@ export default ItemButton = (props)=> {
     subTextStyle = {styles.subtxtStyle}
     buttonText1 = {'확인'}
     onPress={_onPressAlertOk} 
-/> */}
-            <View style = {{flexDirection:'row'}}>
-            
-               <FlatList removeClippedSubviews={true} renderItem={_renderItem} data={data}/>
+/>
+                <FlatList 
+                    removeClippedSubviews={true} 
+                    renderItem={_renderItem} 
+                    data={data}
+                    keyExtractor={(item, index) => index.toString()}
+                />
             </View>
         </View>
     )

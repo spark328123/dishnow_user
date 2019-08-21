@@ -407,6 +407,7 @@ const styles = StyleSheet.create({
         alignSelf : 'center',
     },
     subtxtStyle : {
+        width : 300,
         marginBottom : Utill.screen.Screen.customHeight(35),
         fontSize : 16,
         color : Utill.color.textBlack,

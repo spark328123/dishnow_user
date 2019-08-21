@@ -8,13 +8,8 @@ const StackDeparture = (props)=>{
     const _goBack = ()=>{
         navigation.navigate('TabHome');
     }
-
-    // navigationOptions = ({ navigation }) => {
-    //     let tabBarVisible = false;
-    //     return {
-    //         tabBarVisible,
-    //     };
-    // }
+    
+    
     
     handleAndroidBackButton(_goBack)
 
@@ -33,8 +28,6 @@ const StackDeparture = (props)=>{
 } 
 
 export default StackDeparture;
-
-
 
 const styles = StyleSheet.create({
     container : {
