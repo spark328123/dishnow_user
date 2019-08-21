@@ -42,8 +42,10 @@ const List = (props) => {
         longitude : mylon
     }
 
-    const _onPressAlertOk = () => {
+    const _onPressAlertOk = async() => {
         setIsAlertVisible(false);
+        const token = await API.getLocal(API.LOCALKEY_TOKEN);
+        await API.reservation_cancel(token);
        _goHome();
     }
     const _onPressAlertCancel = () => {
@@ -93,14 +95,16 @@ const List = (props) => {
             theme,
         },
     ]);
-
+9
     const _handleChange = async()=>{
         if(AppState.currentState==='active'){
             const token = await API.getLocal(API.LOCALKEY_TOKEN);
             var res = await API.getReservation_accept(token);
-            setListData(res.map(item=>{
-                const {latitude,longitude,mainImage,name,reservationId,storeId,type} = item;
-                return {
+            res = res[res.length-1];
+            const {latitude,longitude,mainImage,name,reservationId,storeId,type} = res;
+            
+            setListData(listData.concat(
+                {
                     mainImage : _substr(mainImage),
                     name : name,
                     distance : _computeDistance(myCoords, { latitude,longitude}),
@@ -109,8 +113,8 @@ const List = (props) => {
                     latitude,
                     longitude,
                     theme : type, 
-                }
-            }).reverse())                
+                })
+            )                
         }
     }
     
