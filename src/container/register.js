@@ -324,7 +324,7 @@ const Register = (props) => {
             <RegisterInputPhone 
                 value = {phone} 
                 title='휴대폰 번호'
-                placeholder={`휴대폰 번호를 '-'없이 입력하세요`}
+                placeholder={`휴대폰 번호를 '-' 없이 입력하세요`}
                 onChangeText= {text=>setPhone({text})}
                 onPress = {_phoneAuth}
             />
@@ -337,9 +337,9 @@ const Register = (props) => {
                 onPress={()=>_onPressVerifyCode(phoneRes)}
                 time={timerCount}
             />
-            <Text style={{ fontSize: 16, fontWeight: 'bold', marginBottom: 18}}>추가 정보</Text>
+            <Text style={{ fontSize: 16, fontWeight: 'bold', marginBottom: 18, marginTop : 16}}>추가 정보</Text>
             <Text style={styles.textTitle}>성별</Text>
-            <View style={{flexDirection : 'row'}}>
+            <View style={{flexDirection : 'row', marginBottom : 12}}>
                 <TouchableOpacity onPress = {()=>_onPressMan(man)} style={{flexDirection : 'row'}}>
                     <_renderSex check={man}></_renderSex><Text style ={{marginRight:48}}>남자</Text>
                 </TouchableOpacity>
@@ -357,7 +357,7 @@ const Register = (props) => {
                 placeholder='생년월일을 입력하세요 ex)19901231'
                 onChangeText={(text)=>setBirth({text})}
             />
-            <Text style={{ fontSize: 16, fontWeight: 'bold', marginBottom: 18}}>아이디 정보</Text>
+            <Text style={{ fontSize: 16, fontWeight: 'bold', marginBottom: 18, marginTop : 16}}>아이디 정보</Text>
             <RegistInput
                 value = {email} 
                 title='이메일'
@@ -411,6 +411,7 @@ const styles = StyleSheet.create({
         backgroundColor:Utill.color.white
     },
     textTitle: {
+        color : Utill.color.itemTitle,
         fontSize: 14,
         marginBottom: 12,
     },

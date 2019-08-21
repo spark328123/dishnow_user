@@ -54,7 +54,7 @@ export default Client = ({navigation}) =>{
 
     const _setIsPressed = ({id})=>{
         setData(data.map(item => 
-            item.id===id ? {...item,isPressed:!item.isPressed} : item));
+            item.id===id ? {...item,isPressed:!item.isPressed} : {...item,isPressed:false}));
     }
 
     const _renderItem = ({item}) => {
@@ -82,7 +82,6 @@ export default Client = ({navigation}) =>{
                       </View>  
                 ):null}
             </View>
-
         )
     }    
 

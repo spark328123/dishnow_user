@@ -230,7 +230,7 @@ const TabHome = (props)=>{
 
                
                 <View style={styles.content}>
-                    <View style={styles.child}>
+                    <View style={{alignItems : 'flex-start', marginTop : 1}}>
                         <View style={styles.childchild1}><Text style = {styles.tst}>인원</Text></View>
                         <View style = {styles.childchild2}>
                             <TextInput 
