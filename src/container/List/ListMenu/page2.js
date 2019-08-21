@@ -18,12 +18,6 @@ const Help = (props) => {
     const [refScroll, setRefScroll] = useState(null);
     const [isPageLoaded, setIsPageLoaded] = useState(false);
 
-    useEffect(()=> {        
-        if (refScroll != null) setTimeout (()=>scrollToTop(0, false), 1);
-    }, [refScroll]);
-    const scrollToTop = (offset = initialScroll, animated = false) => {
-        if (refScroll != null) refScroll.scrollTo({ y : offset  , animated});
-    }
     const _timeToString = (openTime, CloseTime) => {
         return ((openTime == "00:00:00") && (CloseTime == "00:00:00"))? 
             `휴무` : `${openTime.substring(0,5)}   ~   ${CloseTime.substring(0,5)} `;
