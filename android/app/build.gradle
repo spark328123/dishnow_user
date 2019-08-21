@@ -98,9 +98,9 @@ def enableProguardInReleaseBuilds = false
 android {
     signingConfigs {
         release {
-            storeFile file('C:\\Users\\Johnny\\Desktop\\dev\\important\\realease_key\\dishnow_user.jks')
-            storePassword 'eltnlskdn'
-            keyPassword 'eltnlskdn'
+            storeFile file('C:\\Users\\hong\\Desktop\\Dish_apk1.0\\disnow_user1.0.jks')
+            storePassword 'dishnow'
+            keyPassword 'dishnow'
             keyAlias = 'key0'
         }
     }
@@ -115,8 +115,8 @@ android {
         applicationId "com.react_dishnow_user"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 1
-        versionName "1.0"
+        versionCode 3
+        versionName "1.2"
     }
     splits {
         abi {
@@ -128,7 +128,6 @@ android {
     }
     buildTypes {
         release {
-
             minifyEnabled enableProguardInReleaseBuilds
             proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
             signingConfig signingConfigs.release
