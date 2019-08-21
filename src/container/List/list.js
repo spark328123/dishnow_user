@@ -345,25 +345,12 @@ const styles = StyleSheet.create({
         fontSize : 18,
         fontWeight : 'bold',
         color : Utill.color.red,
-        alignSelf : 'center',
+        textAlign : 'center',
     },
     subtxtStyle : {
         marginBottom : Utill.screen.Screen.customHeight(35),
         fontSize : 16,
         color : Utill.color.textBlack,
-        alignSelf : 'center',
-    },
-    txtStyle : {
-        marginBottom : Utill.screen.Screen.customHeight(9),
-        fontSize : 18,
-        fontWeight : 'bold',
-        color : Utill.color.red,
-        alignSelf : 'center',
-    },
-    subtxtStyle : {
-        marginBottom : Utill.screen.Screen.customHeight(35),
-        fontSize : 16,
-        color : Utill.color.textBlack,
-        alignSelf : 'center',
+        textAlign : 'center',
     },
 })

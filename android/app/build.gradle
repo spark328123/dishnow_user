@@ -98,10 +98,10 @@ def enableProguardInReleaseBuilds = false
 android {
     signingConfigs {
         release {
-            storeFile file('C:\\Users\\Johnny\\Desktop\\dev\\important\\realease_key')
+            storeFile file('C:\\Users\\Johnny\\Desktop\\dev\\important\\realease_key\\dishnow_user.jks')
             storePassword 'eltnlskdn'
             keyPassword 'eltnlskdn'
-            keyAlias = 'dishnow'
+            keyAlias = 'key0'
         }
     }
     compileSdkVersion 28
