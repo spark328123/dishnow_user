@@ -4,15 +4,15 @@ import List from './liststack';
 import Callout from '../container/callout';
 import Booked from '../container/List/ListMenu/booked';
 import HomeSwitch from '../navigator/homeswitch';
-import Departure from '../container/stackDeparture';
+//import Departure from '../container/stackDeparture';
 const HomeStack = createStackNavigator(
     {
         onWait : {screen : onWait },
         List,
         Callout,
         Booked,
-        HomeSwitch,
-        Departure
+        HomeSwitch
+        
     },
     {
         initialRouteName : 'HomeSwitch',

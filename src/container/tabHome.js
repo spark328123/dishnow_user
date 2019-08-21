@@ -157,13 +157,13 @@ const TabHome = (props)=>{
    
     return(
         <View style = {{flex : 1}}>
-             <CustomAlert 
+             <CustomAlert
                 visible={isAlertVisible} 
                 mainTitle={'요청 안내'}
                 mainTextStyle = {styles.txtStyle}
                 subTitle = {'요청을 보내게 되면 300m 내 전체 술집에 알람이 가게 됩니다. 실시간 예약 가능 여부를 물으시겠습니까?'}
                 subTextStyle = {styles.subtxtStyle}
-                buttonText1={'아니오'} 
+                buttonText1={'아니오'}
                 buttonText2={'네'} 
                 onPress={_reservation} 
                 onPressCancel = {_onPressAlertCancel}
@@ -230,7 +230,7 @@ const TabHome = (props)=>{
 
                
                 <View style={styles.content}>
-                    <View style={styles.child}>
+                    <View style={{alignItems : 'flex-start', marginTop : 1}}>
                         <View style={styles.childchild1}><Text style = {styles.tst}>인원</Text></View>
                         <View style = {styles.childchild2}>
                             <TextInput 
@@ -404,13 +404,13 @@ const styles = StyleSheet.create({
         fontSize : 18,
         fontWeight : 'bold',
         color : Utill.color.red,
-        textAlign : 'center',
+        alignSelf : 'center',
     },
     subtxtStyle : {
-        width : Utill.screen.Screen.customWidth(262),
+        width : 300,
         marginBottom : Utill.screen.Screen.customHeight(35),
         fontSize : 16,
         color : Utill.color.textBlack,
-        textAlign : 'center',
+        alignSelf : 'center',
     },
 })
