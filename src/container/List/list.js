@@ -262,7 +262,7 @@ const List = (props) => {
                 visible={isAlertVisible} 
                 mainTitle={'취소'}
                 mainTextStyle = {styles.txtStyle}
-                subTitle = {'이미 요청을 수락한 가게가 있습니다.정말 취소할까요?'}
+                subTitle = {'이미 요청을 수락한 가게가 있습니다.\n정말 취소할까요?'}
                 subTextStyle = {styles.subtxtStyle}
                 buttonText1={'아니오'} 
                 buttonText2={'네'}
@@ -349,6 +349,7 @@ const styles = StyleSheet.create({
     },
     subtxtStyle : {
         marginBottom : Utill.screen.Screen.customHeight(35),
+        width : Utill.screen.Screen.customWidth(262),
         fontSize : 16,
         color : Utill.color.textBlack,
         textAlign : 'center',
