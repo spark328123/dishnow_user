@@ -31,6 +31,7 @@ const List = (props) => {
     const storeId = parentNavigation.getParam('storeId');
     const theme = parentNavigation.getParam('theme');
     const [isAlertVisible, setIsAlertVisible] = useState(false);
+    const [appState, setAppState] = useState(AppState.currentState);
 
     const storeCoords = {
         latitude,
@@ -48,6 +49,7 @@ const List = (props) => {
         await API.reservation_cancel(token);
        _goHome();
     }
+
     const _onPressAlertCancel = () => {
         setIsAlertVisible(false);
     }
@@ -96,8 +98,8 @@ const List = (props) => {
         },
     ]);
 9
-    const _handleChange = async()=>{
-        if(AppState.currentState==='active'){
+    const _handleChange = async(nextAppState)=>{
+        if(appState === 'active' && nextAppState === 'active') {
             const token = await API.getLocal(API.LOCALKEY_TOKEN);
             var res = await API.getReservation_accept(token);
             res = res[res.length-1];
@@ -116,6 +118,7 @@ const List = (props) => {
                 })
             )                
         }
+        setAppState(nextAppState);
     }
     
     const _oneSignalReceived = ({notification})=>{ 

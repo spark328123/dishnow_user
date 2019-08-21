@@ -41,15 +41,6 @@ const GoogleMaps =  ({isPressed, toggle, navigation, latitudeDelta, latitude, lo
         navigation.navigate('TabHome');
     }
 
-    const _getPosition = async () => {
-        await navigator.geolocation.getCurrentPosition((position) => {
-        setRegion ({
-            ...region,
-            latitude : position.coords.latitude,
-            longitude : position.coords.longitude
-        });
-    })}
-
     const _initAddress = async (lat,lon) =>{
         const url = `${google_url}${lat},${lon}&key=${GOOGLE_API_KEY}&language=ko`
         await fetch(url)
@@ -90,7 +81,6 @@ const GoogleMaps =  ({isPressed, toggle, navigation, latitudeDelta, latitude, lo
     }
 
     useEffect(()=>{
-        //_getPosition();
         _initAddress(region.latitude,region.longitude);
         setTimeout(()=>{
             _setFlex();
