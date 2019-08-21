@@ -178,6 +178,7 @@ const ListMenu = (props) =>  {
 
   _goBack = () => {
     isReservation ? _navigation.navigate('List') :_navigation.navigate('TabBooked')
+    console.log(isReservation);
   }
 
 
