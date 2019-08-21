@@ -166,7 +166,6 @@ const ListMenu = (props) =>  {
   const _isConfirm = () => {
     if(isReservation){
       setIsAlertVisible(false);
-      Toast.show('도착 하셨습니다');
       _navigation.navigate('Splash');
     }
   }
@@ -177,8 +176,20 @@ const ListMenu = (props) =>  {
   }
 
   _goBack = () => {
-    isReservation ? _navigation.navigate('List') :_navigation.navigate('TabBooked')
+    if(isReservation)
+    {
+      if(isConfirm)
+      {
+        _navigation.navigate('Splash')
+      }
+      else
+      {_navigation.navigate('List')}
+      
+    }
+    else
+    {_navigation.navigate('TabBooked')}
     console.log(isReservation);
+    console.log(isConfirm);
   }
 
 
