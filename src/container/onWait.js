@@ -32,7 +32,7 @@ const OnWait =  (props) =>{
     const _onPressAlertOk = async() => {
         setIsAlertVisible(false);
         const token = await API.getLocal(API.LOCALKEY_TOKEN);
-        const res = await API.reservation_cancel(token,{createdAt : navigation.getParam('createdAt')});
+        const res = await API.reservation_cancel(token);
         console.log(res);
         Toast.show('예약을 취소했습니다');
        _goBack();
@@ -52,8 +52,8 @@ const OnWait =  (props) =>{
         if(AppState.currentState==='active'){
             const token = await API.getLocal(API.LOCALKEY_TOKEN);
             var res = await API.getReservation_accept(token);
-            res = res[0];
-            console.log(res);
+            res = res[res.length-1];
+            
             const {latitude,longitude,mainImage,name,reservationId,storeId} = res;
             navigation.navigate('List',{
                 latitude,
