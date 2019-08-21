@@ -146,7 +146,7 @@ const styles = StyleSheet.create({
     },
     subtxtStyle : {
         marginBottom : Utill.screen.Screen.customHeight(35),
-        width : 300,
+        width : Utill.screen.Screen.customWidth(262),
         fontSize : 16,
         color : Utill.color.textBlack,
         textAlign : 'center',
