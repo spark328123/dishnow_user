@@ -14,39 +14,35 @@ export default ItemButton = (props)=> {
    const [isAlertVisible, setIsAlertVisible] = useState(false);
    const [mainTxt,setMainTxt] = useState('');
    const [subTxt,setSubTxt] = useState('');
+   const [isOk,setIsOk] = useState(false);
    const _onPressAlertOk =  async() => {
         setIsAlertVisible(false);
-        const res = await API.postDNpoint(token,{
-            phone,
-            name,
-            diff,
-            type,
-        });
-        console.log(res);
-        dispatch(User.updatepoint(res.point));
+        if(isOk){
+            const token = await API.getLocal(API.LOCALKEY_TOKEN);
+            const res = await API.postDNpoint(token,{
+                phone,
+                name,
+                diff,
+                type,
+            });
+            console.log(res);
+            dispatch(User.updatepoint(res.point));
+        }
    }
-
-    
-  
 
    const _usePoint = async({name})=>{
         console.log(parseInt(point));
-        const token = await API.getLocal(API.LOCALKEY_TOKEN);
-      
         if(point<parseInt(diff)){
            setMainTxt('포인트가 부족해요!');
            setSubTxt('디쉬나우를 이용해 포인트를 모아보세요');
-           //alert('수정예정');
             setIsAlertVisible(true);
         }else{
             setMainTxt('교환 완료!');
             setSubTxt('2~3일 안에 카카오톡 선물하기로 개별 발송해드립니다.');
             setIsAlertVisible(true);            
-            
-        }
+            setIsOk(true);
 
-     
-      //alert('수정예정');
+        }
    }
 
 
@@ -146,12 +142,13 @@ const styles = StyleSheet.create({
         fontSize : 18,
         fontWeight : 'bold',
         color : Utill.color.textBlack,
-        alignSelf : 'center',
+        textAlign : 'center',
     },
     subtxtStyle : {
         marginBottom : Utill.screen.Screen.customHeight(35),
+        width : 300,
         fontSize : 16,
         color : Utill.color.textBlack,
-        alignSelf : 'center',
+        textAlign : 'center',
     },
 })

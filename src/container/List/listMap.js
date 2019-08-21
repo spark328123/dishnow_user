@@ -17,7 +17,7 @@ const ListMap = (props) => {
     const data = navigation.getParam('data');
     const [ markers, setMarkers ] = useState(data);
     const _goBack = ()=>{
-        navigation.navigate('List');
+        navigation.navigate('List',{data});
     }
     return(
         <View style ={{flex :1}}>
