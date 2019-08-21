@@ -98,9 +98,16 @@ export const reservation_confirm = (token, data) => {
     .catch(error=>{error});
 }
 
-export const reservation_cancel = (token, data) => {
+export const reservation_cancel = (token) => {
     const url = `${apiUrl}reservation/cancel`;
-    return fetch.putAuthServer(url,token,data)
+    return fetch.putAuthServer(url,token)
+    .then(res => ({isSuccess : res?true : false}))
+    .catch(error=>{error});
+}
+
+export const reservation_revert = (token) => {
+    const url = `${apiUrl}reservation/revert`;
+    return fetch.putAuthServer(url,token)
     .then(res => ({isSuccess : res?true : false}))
     .catch(error=>{error});
 }

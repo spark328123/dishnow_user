@@ -37,7 +37,7 @@ export default ({ navigation }) => {
          console.log("error", err.toString());
          return;
        }
-       image = `[${result.profile_image_path}"]`;
+       image = `["${result.profile_image_path}"]`;
        console.log(image);
      });
      login(result.token)
