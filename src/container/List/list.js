@@ -105,18 +105,20 @@ const List = (props) => {
             res = res[res.length-1];
             const {latitude,longitude,mainImage,name,reservationId,storeId,type} = res;
             
-            setListData(listData.concat(
-                {
-                    mainImage : _substr(mainImage),
-                    name : name,
-                    distance : _computeDistance(myCoords, { latitude,longitude}),
-                    reservationId,
-                    storeId,
-                    latitude,
-                    longitude,
-                    theme : type, 
-                })
-            )                
+            if(res.length>listData.length){
+                setListData(listData.concat(
+                    {
+                        mainImage : _substr(mainImage),
+                        name : name,
+                        distance : _computeDistance(myCoords, { latitude,longitude}),
+                        reservationId,
+                        storeId,
+                        latitude,
+                        longitude,
+                        theme : type, 
+                    })
+                )                
+            }
         }
         setAppState(nextAppState);
     }
@@ -124,31 +126,35 @@ const List = (props) => {
     const _oneSignalReceived = ({notification})=>{ 
         if(!notification)return;
         const {latitude=null,longitude=null,mainImage=null,name=null,reservationId=null,storeId=null,storeType=null} = notification.payload.additionalData;
-        setListData(listData.concat({
-            mainImage : _substr(mainImage),
-            name,
-            distance : _computeDistance(myCoords, {latitude,longitude}),
-            reservationId,
-            storeId,
-            latitude,
-            longitude,
-            theme : storeType,
-        }));
+        if(res.length>listData.length){
+            setListData(listData.concat({
+                mainImage : _substr(mainImage),
+                name,
+                distance : _computeDistance(myCoords, {latitude,longitude}),
+                reservationId,
+                storeId,
+                latitude,
+                longitude,
+                theme : storeType,
+            }));
+        }
     }
 
     const _oneSignalReceived_received = (notification)=>{
         if(!notification)return;
         const {latitude=null,longitude=null,mainImage=null,name=null,reservationId=null,storeId=null,storeType=null} = notification.payload.additionalData;
-        setListData(listData.concat({
-            mainImage : _substr(mainImage),
-            name,
-            distance : _computeDistance(myCoords, {latitude,longitude}),
-            reservationId,
-            storeId,
-            latitude,
-            longitude,
-            theme : storeType,
-        }));
+        if(res.length>listData.length){
+            setListData(listData.concat({
+                mainImage : _substr(mainImage),
+                name,
+                distance : _computeDistance(myCoords, {latitude,longitude}),
+                reservationId,
+                storeId,
+                latitude,
+                longitude,
+                theme : storeType,
+            }));
+        }
     }
 
     useEffect(()=>{
