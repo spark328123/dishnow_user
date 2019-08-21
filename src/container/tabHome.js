@@ -26,7 +26,6 @@ const TabHome = (props)=>{
     const dispatch = useDispatch();
     const [isLoaded, setIsLoaded] = useState(true);
     const [touch,setTouch] = useState(false);
-    var msg ='';
 
     const _me = async() => {
         const token = await API.getLocal(API.LOCALKEY_TOKEN);
@@ -88,6 +87,7 @@ const TabHome = (props)=>{
 
         if(parseInt(people.text)>0&&parseInt(arr[parseInt(time)])>0){
             const token = await API.getLocal(API.LOCALKEY_TOKEN);
+            await API.reservation_revert(token);
             const data = {
                 storeTypeId : 1,
                 peopleNumber : parseInt(people.text),

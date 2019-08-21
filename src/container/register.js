@@ -72,7 +72,7 @@ const Register = (props) => {
             setMan(true);
             setWoman(false);
             setNosex(false);
-            setSex('Man');
+            setSex('male');
         }else{
             setMan(false);
         }
@@ -82,7 +82,7 @@ const Register = (props) => {
             setMan(false);
             setWoman(true);
             setNosex(false);
-            setSex('Woman');
+            setSex('female');
         }else{
             setWoman(false);
         }
@@ -154,10 +154,16 @@ const Register = (props) => {
                 
                 console.log(regRes);
                 const loginRes = await API.login({ token, type });
-                if(type === 'kakao'){      
-                    await API.changeprofile(loginRes.token,{
-                        image : navigation.getParam('kakaoProfile')
-                    });
+                if(type === 'kakao'){    
+                    if(navigation.getParam('kakaoProfile')!=undefined){  
+                        await API.changeprofile(loginRes.token,{
+                            image : navigation.getParam('kakaoProfile')
+                        });
+                    }else{
+                        await API.changeprofile(loginRes.token,{
+                            image : `["https://ssl.pstatic.net/static/pwe/address/img_profile.png"]`
+                        });
+                    }
                 }else if(type ==='facebook'){
                     await API.changeprofile(loginRes.token,{
                         image : navigation.getParam('faceBookProfile')
