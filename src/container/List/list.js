@@ -118,7 +118,7 @@ const List = (props) => {
         }
     }
     
-    const _oneSignalReceived = ({notification})=>{
+    const _oneSignalReceived = ({notification})=>{ 
         if(!notification)return;
         const {latitude=null,longitude=null,mainImage=null,name=null,reservationId=null,storeId=null,storeType=null} = notification.payload.additionalData;
         setListData(listData.concat({
