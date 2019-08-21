@@ -8,16 +8,13 @@ const StackDeparture = (props)=>{
     const _goBack = ()=>{
         navigation.navigate('TabHome');
     }
-
     // navigationOptions = ({ navigation }) => {
     //     let tabBarVisible = false;
     //     return {
     //         tabBarVisible,
     //     };
     // }
-    
     handleAndroidBackButton(_goBack)
-
     return(
         <View style = {styles.container}>
                     
@@ -27,15 +24,9 @@ const StackDeparture = (props)=>{
                 latitudeDelta = {0.0125}
             ></GoogleMap>
         </View>
-        
     )
-    
 } 
-
 export default StackDeparture;
-
-
-
 const styles = StyleSheet.create({
     container : {
         flex : 1

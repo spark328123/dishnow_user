@@ -13,7 +13,7 @@ const TabBooked = (props) =>{
     const [ data, setdata ] = useState([]);
     const [ topSafe ] = useState(Utill.screen.topSafe);
     const [ nowtime, setNowtime ] = useState((new Date()).getTime());
-
+    //const [tb,setTb] = useState(false);
     const _showRes = async() => {
         const token = await API.getLocal(API.LOCALKEY_TOKEN);
         const resList = await API.showRes(token);

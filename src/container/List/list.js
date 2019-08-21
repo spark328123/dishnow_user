@@ -31,6 +31,7 @@ const List = (props) => {
     const storeId = parentNavigation.getParam('storeId');
     const theme = parentNavigation.getParam('theme');
     const [isAlertVisible, setIsAlertVisible] = useState(false);
+    const [appState, setAppState] = useState(AppState.currentState);
 
     const storeCoords = {
         latitude,
@@ -48,6 +49,7 @@ const List = (props) => {
         await API.reservation_cancel(token);
        _goHome();
     }
+
     const _onPressAlertCancel = () => {
         setIsAlertVisible(false);
     }
@@ -96,56 +98,63 @@ const List = (props) => {
         },
     ]);
 9
-    const _handleChange = async()=>{
-        if(AppState.currentState==='active'){
+    const _handleChange = async(nextAppState)=>{
+        if(appState === 'active' && nextAppState === 'active') {
             const token = await API.getLocal(API.LOCALKEY_TOKEN);
             var res = await API.getReservation_accept(token);
             res = res[res.length-1];
             const {latitude,longitude,mainImage,name,reservationId,storeId,type} = res;
             
-            setListData(listData.concat(
-                {
-                    mainImage : _substr(mainImage),
-                    name : name,
-                    distance : _computeDistance(myCoords, { latitude,longitude}),
-                    reservationId,
-                    storeId,
-                    latitude,
-                    longitude,
-                    theme : type, 
-                })
-            )                
+            if(res.length>listData.length){
+                setListData(listData.concat(
+                    {
+                        mainImage : _substr(mainImage),
+                        name : name,
+                        distance : _computeDistance(myCoords, { latitude,longitude}),
+                        reservationId,
+                        storeId,
+                        latitude,
+                        longitude,
+                        theme : type, 
+                    })
+                )                
+            }
         }
+        setAppState(nextAppState);
     }
     
-    const _oneSignalReceived = ({notification})=>{
-        if(!notification)return;
+    const _oneSignalReceived = ({notification})=>{ 
+        if(!notification || AppState.currentState=='active')return;
         const {latitude=null,longitude=null,mainImage=null,name=null,reservationId=null,storeId=null,storeType=null} = notification.payload.additionalData;
-        setListData(listData.concat({
-            mainImage : _substr(mainImage),
-            name,
-            distance : _computeDistance(myCoords, {latitude,longitude}),
-            reservationId,
-            storeId,
-            latitude,
-            longitude,
-            theme : storeType,
-        }));
+       
+            setListData(listData.concat({
+                mainImage : _substr(mainImage),
+                name,
+                distance : _computeDistance(myCoords, {latitude,longitude}),
+                reservationId,
+                storeId,
+                latitude,
+                longitude,
+                theme : storeType,
+            }));
+      
     }
 
     const _oneSignalReceived_received = (notification)=>{
         if(!notification)return;
         const {latitude=null,longitude=null,mainImage=null,name=null,reservationId=null,storeId=null,storeType=null} = notification.payload.additionalData;
-        setListData(listData.concat({
-            mainImage : _substr(mainImage),
-            name,
-            distance : _computeDistance(myCoords, {latitude,longitude}),
-            reservationId,
-            storeId,
-            latitude,
-            longitude,
-            theme : storeType,
-        }));
+       
+            setListData(listData.concat({
+                mainImage : _substr(mainImage),
+                name,
+                distance : _computeDistance(myCoords, {latitude,longitude}),
+                reservationId,
+                storeId,
+                latitude,
+                longitude,
+                theme : storeType,
+            }));
+   
     }
 
     useEffect(()=>{
@@ -262,7 +271,7 @@ const List = (props) => {
                 visible={isAlertVisible} 
                 mainTitle={'취소'}
                 mainTextStyle = {styles.txtStyle}
-                subTitle = {'이미 요청을 수락한 가게가 있습니다.정말 취소할까요?'}
+                subTitle = {'이미 요청을 수락한 가게가 있습니다.\n정말 취소할까요?'}
                 subTextStyle = {styles.subtxtStyle}
                 buttonText1={'아니오'} 
                 buttonText2={'네'}
@@ -345,25 +354,13 @@ const styles = StyleSheet.create({
         fontSize : 18,
         fontWeight : 'bold',
         color : Utill.color.red,
-        alignSelf : 'center',
+        textAlign : 'center',
     },
     subtxtStyle : {
         marginBottom : Utill.screen.Screen.customHeight(35),
+        width : Utill.screen.Screen.customWidth(262),
         fontSize : 16,
         color : Utill.color.textBlack,
-        alignSelf : 'center',
-    },
-    txtStyle : {
-        marginBottom : Utill.screen.Screen.customHeight(9),
-        fontSize : 18,
-        fontWeight : 'bold',
-        color : Utill.color.red,
-        alignSelf : 'center',
-    },
-    subtxtStyle : {
-        marginBottom : Utill.screen.Screen.customHeight(35),
-        fontSize : 16,
-        color : Utill.color.textBlack,
-        alignSelf : 'center',
+        textAlign : 'center',
     },
 })

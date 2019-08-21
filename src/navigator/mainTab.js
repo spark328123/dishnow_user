@@ -11,7 +11,7 @@ import * as Utill from '../utill';
 const mainTab = createBottomTabNavigator(
     {
         tab1 : Booked,
-        tab2 : Home,
+        tab2 : Home ,
         tab3 : My,
     },
     {
@@ -40,20 +40,21 @@ const mainTab = createBottomTabNavigator(
             allowFontScaling : false,
             showLabel : false,
             style : {height : Utill.screen.bottomTabHeight, padding : 0},
+                
         },
         initialRouteName :'tab2',
-    }
+    },
+    
 )
 
+  
 mainTab.navigationOptions = ({ navigation }) => {
     let tabBarVisible = true;
     if (navigation.state.index > 0) {
       tabBarVisible = false;
     }
-  
     return {
       tabBarVisible,
     };
   };
-
 export default mainTab;

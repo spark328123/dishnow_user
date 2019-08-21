@@ -166,7 +166,6 @@ const ListMenu = (props) =>  {
   const _isConfirm = () => {
     if(isReservation){
       setIsAlertVisible(false);
-      Toast.show('도착 하셨습니다');
       _navigation.navigate('Splash');
     }
   }
@@ -177,7 +176,20 @@ const ListMenu = (props) =>  {
   }
 
   _goBack = () => {
-    isReservation ? _navigation.navigate('List') :_navigation.navigate('TabBooked')
+    if(isReservation)
+    {
+      if(isConfirm)
+      {
+        _navigation.navigate('Splash')
+      }
+      else
+      {_navigation.navigate('List')}
+      
+    }
+    else
+    {_navigation.navigate('TabBooked')}
+    console.log(isReservation);
+    console.log(isConfirm);
   }
 
 
@@ -267,12 +279,6 @@ const ListMenu = (props) =>  {
     await API.reservation_confirm(token,{
         storeId : _navigation.getParam('storeId'), 
         reservationId : _navigation.getParam('reservationId')})
-    await API.postDNpoint(token,{
-        phone,
-        type : 'save',
-        diff : ReviewAward,
-        name : data.name,
-    });
     _navigation.navigate('Booked',{
         peopleNumber : _navigation.getParam('peopleNumber'),
         minutes : _navigation.getParam('minutes'),
@@ -297,7 +303,7 @@ const ListMenu = (props) =>  {
         visible={isAlertVisible} 
         mainTitle={isConfirm ? "도착완료":"예약"}
         mainTextStyle = {styles.txtStyle}
-        subTitle = {isConfirm ? "가게에 도착하셨나요?\n사장님에게 도착 요청을 해주세요.\n포인트가 적립됩니다.?":"최종 예약 하시겠습니까?"}
+        subTitle = {isConfirm ? "가게에 도착하셨나요?사장님에게 도착 요청을 해주세요.포인트가 적립됩니다":"최종 예약 하시겠습니까?"}
         subTextStyle = {styles.subtxtStyle}
         buttonText1={'아니오'}
         buttonText2={'네'}
@@ -564,12 +570,13 @@ const styles = StyleSheet.create({
     fontSize : 18,
     fontWeight : 'bold',
     color : Utill.color.primary1,
-    alignSelf : 'center',
+    textAlign : 'center',
 },
 subtxtStyle : {
     marginBottom : Utill.screen.Screen.customHeight(35),
+    width : Utill.screen.Screen.customWidth(262),
     fontSize : 16,
     color : Utill.color.textBlack,
-    alignSelf : 'center',
+    textAlign : 'center',
 },
 });

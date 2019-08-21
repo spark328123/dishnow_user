@@ -23,6 +23,7 @@ const OnWait =  (props) =>{
     const [timer, setTimer] = useState(null);
     const [timerCount, setTimerCount] = useState(WaitTime);
     const [toggle, setToggle] = useState(true);
+    const [appState, setAppState] = useState(AppState.currentState);
 
     const [isAlertVisible, setIsAlertVisible] = useState(false);
 
@@ -47,11 +48,14 @@ const OnWait =  (props) =>{
             AppState.removeEventListener('change',_handleChange);
         }
     },[]);
+  
 
-    const _handleChange = async()=>{
-        if(AppState.currentState==='active'){
+    const _handleChange = async(nextAppState)=>{
+        console.log(appState, nextAppState);
+        if(appState === 'active' && nextAppState === 'active') {
             const token = await API.getLocal(API.LOCALKEY_TOKEN);
             var res = await API.getReservation_accept(token);
+            console.log(res);
             res = res[res.length-1];
             
             const {latitude,longitude,mainImage,name,reservationId,storeId} = res;
@@ -68,6 +72,7 @@ const OnWait =  (props) =>{
                 timerCount,
             });
         }
+        setAppState(nextAppState);
     }
     
     const _toggle = ()=>{
@@ -298,12 +303,13 @@ const styles = StyleSheet.create({
         fontSize : 18,
         fontWeight : 'bold',
         color : Utill.color.red,
-        alignSelf : 'center',
+        textAlign : 'center',
     },
     subtxtStyle : {
         marginBottom : 35,
+        width : Utill.screen.Screen.customWidth(262),
         fontSize : 16,
         color : Utill.color.textBlack,
-        alignSelf : 'center',
+        textAlign : 'center',
     },
 });
