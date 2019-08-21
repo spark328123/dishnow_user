@@ -59,6 +59,7 @@ export default Client = ({navigation}) =>{
 
     const _renderItem = ({item}) => {
         return (
+
             <View style = {styles.container}>
                 <TouchableOpacity onPress = {()=>_setIsPressed(item)}>
                     <View style= {{padding : 15}}>
@@ -81,6 +82,7 @@ export default Client = ({navigation}) =>{
                       </View>  
                 ):null}
             </View>
+
         )
     }    
 

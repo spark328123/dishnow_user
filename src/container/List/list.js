@@ -318,7 +318,7 @@ const styles = StyleSheet.create({
     button : {
         position: "absolute",
         flexDirection : 'row',
-        bottom : 1,
+        bottom : 0,
         height : Utill.screen.Screen.customHeight(50),
         width: Utill.screen.Screen.customWidth(360),
         backgroundColor : Utill.color.primary1,

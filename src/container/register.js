@@ -59,7 +59,6 @@ const Register = (props) => {
                 <Image style = {{width : 22,height : 22,marginRight:10}} source = {{uri : 'icon_check_box_purple'}}/>
             )
         }
-
         else{
             return(
                 <Image style = {{width : 22,height : 22,marginRight:10}} source = {{uri : 'icon_check_box_grey'}}/>
@@ -72,7 +71,7 @@ const Register = (props) => {
             setMan(true);
             setWoman(false);
             setNosex(false);
-            setSex('Man');
+            setSex('male');
         }else{
             setMan(false);
         }
@@ -82,7 +81,7 @@ const Register = (props) => {
             setMan(false);
             setWoman(true);
             setNosex(false);
-            setSex('Woman');
+            setSex('female');
         }else{
             setWoman(false);
         }
@@ -92,7 +91,7 @@ const Register = (props) => {
             setMan(false);
             setWoman(false);
             setNosex(true);
-            setSex('Nosex');
+            setSex('d');
         }else{
             setNosex(false);
         }

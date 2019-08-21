@@ -13,9 +13,9 @@
     <application
       android:name=".MainApplication"
       android:label="@string/app_name"
-      android:icon="@mipmap/ic_launcher"
-      android:roundIcon="@mipmap/ic_launcher_round"
-      android:allowBackup="true"
+        android:icon="@mipmap/appicon"
+      android:roundIcon="@mipmap/appicon"
+        android:allowBackup="true"
       android:theme="@style/AppTheme"
       tools:ignore="GoogleAppIndexingWarning"
       android:usesCleartextTraffic="true">
@@ -26,7 +26,7 @@
             android:value="AIzaSyD86CzlV8y_4IMmp0W1BCgXSnDVlrn0NZY"/>
       <activity
         android:name=".MainActivity"
-        android:label="@string/app_name"
+        android:label="디쉬나우"
         android:configChanges="keyboard|keyboardHidden|orientation|screenSize"
         android:windowSoftInputMode="adjustPan"
         android:launchMode="singleTop">
