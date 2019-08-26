@@ -27,10 +27,6 @@ const TabHome = (props)=>{
     const [isLoaded, setIsLoaded] = useState(true);
     const [touch,setTouch] = useState(false);
     const [tabtimer, setTabtimer] = useState();
-<<<<<<< HEAD
-=======
-    const [nowtime, setNowtime] = useState((new Date()).getTime())
->>>>>>> ce710b96ff87f8a74debe9977dc9873cb3ac860d
 
     const _me = async() => {
         setTabtimer(API.getTimer(await API.TAB_TIMER));
@@ -85,11 +81,6 @@ const TabHome = (props)=>{
     },[]);
 
     const _reservation = async()=>{
-<<<<<<< HEAD
-=======
-        console.log(time);
-        console.log(tabtimer);
->>>>>>> ce710b96ff87f8a74debe9977dc9873cb3ac860d
         if(touch)return;
         setTouch(true);
         setTimeout(()=>{
