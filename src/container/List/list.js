@@ -157,6 +157,9 @@ const List = (props) => {
                 else photos.push(subImage[i].substring(1,subImage[i].length-1));
             }
         }
+        console.log("list의 n,t");
+        console.log(navigation.getParam('resnumber'));
+        console.log(navigation.getParam('restime'))
         navigation.push('ListMenu',{
             resDetail,
             resReview,
@@ -166,8 +169,8 @@ const List = (props) => {
             isReservation : true,
             theme,
             distance,
-            peopleNumber : navigation.getParam('peopleNumber'),
-            minutes : navigation.getParam('minutes'),
+            peopleNumber : navigation.getParam('resnumber'),
+            minutes : navigation.getParam('restime'),
         })
         console.log(resDetail,resReview);
     }
