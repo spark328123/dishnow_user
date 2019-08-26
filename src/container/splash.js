@@ -26,7 +26,6 @@ export default (props) => {
         setIsLoaded(false);
     }
     const _me = async () => {
-        await API.setTimer(API.TAB_TIMER, "0");
         let token = await API.getLocal(API.LOCALKEY_TOKEN);
         console.log(token);
         const res = await API.test();
@@ -52,6 +51,7 @@ export default (props) => {
             dispatch(User.updatereviewcount(reviewcount));
             dispatch(User.updatenickname(nickname));
             const pushToken = await API.getPush(API.PUSH_TOKEN);
+            API.setTimer(API.TAB_TIMER, JSON.stringify(new Date().getTime()));
             await API.setPushToken(token,{pushToken});
             navigation.navigate('Main');
         } else {

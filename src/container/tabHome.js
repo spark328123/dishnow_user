@@ -26,7 +26,7 @@ const TabHome = (props)=>{
     const dispatch = useDispatch();
     const [isLoaded, setIsLoaded] = useState(true);
     const [touch,setTouch] = useState(false);
-    var tabtimer;
+    const [tabtimer, setTabtimer] = useState();
     const [nowtime, setNowtime] = useState((new Date()).getTime())
 
     const _me = async() => {
@@ -36,7 +36,6 @@ const TabHome = (props)=>{
             Toast.show('네트워크 연결 상태를 확인해 주세요');
             return;
         }
-        tabtimer = await API.getTimer(API.TAB_TIMER);
         const userid = meRes.userId;
         const point = meRes.point;
         const name = meRes.name;
@@ -72,8 +71,9 @@ const TabHome = (props)=>{
         setIsAlertVisible(false);
     }
 
-    useEffect(()=>{
+    useEffect(async()=>{
         OneSignal.addEventListener('ids',onIds);
+        setTabtimer(await API.getTimer(API.TAB_TIMER));
         _me();
         return () => {
             OneSignal.removeEventListener('ids',onIds);
@@ -82,6 +82,7 @@ const TabHome = (props)=>{
 
     const _reservation = async()=>{
         console.log(time);
+        console.log(tabtimer);
         if(touch)return;
         setTouch(true);
         setTimeout(()=>{
@@ -92,8 +93,6 @@ const TabHome = (props)=>{
         // console.log("ready time : " + readytime);
         // const tabtimer = (new Date()).getTime();
         // console.log("tabtimer : " + tabtimer);
-        console.log("tabtimer : " + JSON.stringify(tabtimer));
-        console.log("nowtime : " + nowtime);
         
         if(tabtimer===null){
             console.log("timer is null")
