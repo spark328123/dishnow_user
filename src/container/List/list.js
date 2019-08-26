@@ -22,25 +22,32 @@ const List = (props) => {
 
     const [timer, setTimer] = useState(null);
     const [timerCount, setTimerCount] = useState(WaitTime);
-    const parentNavigation = navigation.dangerouslyGetParent();
-    const mainImage = parentNavigation.getParam('mainImage');
-    const name = parentNavigation.getParam('name');
-    const latitude = parentNavigation.getParam('latitude'); 
-    const longitude = parentNavigation.getParam('longitude');
-    const reservationId = parentNavigation.getParam('reservationId');
-    const storeId = parentNavigation.getParam('storeId');
-    const theme = parentNavigation.getParam('theme');
     const [isAlertVisible, setIsAlertVisible] = useState(false);
     const [appState, setAppState] = useState(AppState.currentState);
-
-    const storeCoords = {
-        latitude,
-        longitude,
-    }
 
     const myCoords = {
         latitude : mylat,
         longitude : mylon
+    }
+
+
+    const _getServer = async() => {
+        const token = await API.getLocal(API.LOCALKEY_TOKEN);
+        const res = await API.getReservation_accept(token);
+        setListData(res.map(item=>{
+            const {mainImage,name,reservationId,storeId,latitude,longitude,type,mainMenu}=item;
+            const JSONmainMenu = JSON.parse(mainMenu);
+            return{
+                mainImage : _substr(JSON.stringify(JSONmainMenu[0].image)),
+                name,
+                distance : _computeDistance(myCoords, {latitude,longitude}),
+                reservationId,
+                storeId,
+                latitude, 
+                longitude,
+                theme : type
+            }
+        }))
     }
 
     const _onPressAlertOk = async() => {
@@ -55,9 +62,7 @@ const List = (props) => {
     }
 
     const _substr = (imageSource)=>{
-        var image = JSON.stringify(imageSource);
-        image = image.substring(4,image.length-4);
-        return Object({ uri : image });
+        return Object({ uri :imageSource.substring(2,imageSource.length-2) });
     }
 
     const degreesToRadians = (degrees)=> {
@@ -82,85 +87,20 @@ const List = (props) => {
     const _goHome = () =>{
         navigation.navigate('Splash');
     }
-
+    const data = navigation.getParam('data');
     const [ isLoaded, setIsLoaded ] = useState(true);
+    const [ listData, setListData ] = useState([]);
 
-    const [ listData, setListData ] = useState([
-        {
-            mainImage : _substr(mainImage),
-            name,
-            distance : _computeDistance(myCoords, storeCoords),
-            reservationId,
-            storeId,
-            latitude,
-            longitude,
-            theme,
-        },
-    ]);
-9
     const _handleChange = async(nextAppState)=>{
-        if(appState === 'active' && nextAppState === 'active') {
-            const token = await API.getLocal(API.LOCALKEY_TOKEN);
-            var res = await API.getReservation_accept(token);
-            res = res[res.length-1];
-            const {latitude,longitude,mainImage,name,reservationId,storeId,type} = res;
-            
-            if(res.length>listData.length){
-                setListData(listData.concat(
-                    {
-                        mainImage : _substr(mainImage),
-                        name : name,
-                        distance : _computeDistance(myCoords, { latitude,longitude}),
-                        reservationId,
-                        storeId,
-                        latitude,
-                        longitude,
-                        theme : type, 
-                    })
-                )                
-            }
-        }
+        if(appState === 'active' && nextAppState === 'active') _getServer();
         setAppState(nextAppState);
-    }
-    
-    const _oneSignalReceived = ({notification})=>{ 
-        if(!notification || AppState.currentState=='active')return;
-        const {latitude=null,longitude=null,mainImage=null,name=null,reservationId=null,storeId=null,storeType=null} = notification.payload.additionalData;
-       
-            setListData(listData.concat({
-                mainImage : _substr(mainImage),
-                name,
-                distance : _computeDistance(myCoords, {latitude,longitude}),
-                reservationId,
-                storeId,
-                latitude,
-                longitude,
-                theme : storeType,
-            }));
-      
-    }
-
-    const _oneSignalReceived_received = (notification)=>{
-        if(!notification)return;
-        const {latitude=null,longitude=null,mainImage=null,name=null,reservationId=null,storeId=null,storeType=null} = notification.payload.additionalData;
-       
-            setListData(listData.concat({
-                mainImage : _substr(mainImage),
-                name,
-                distance : _computeDistance(myCoords, {latitude,longitude}),
-                reservationId,
-                storeId,
-                latitude,
-                longitude,
-                theme : storeType,
-            }));
-   
     }
 
     useEffect(()=>{
         _timerStart();
-        OneSiganl.addEventListener('received',_oneSignalReceived_received);
-        OneSiganl.addEventListener('opened',_oneSignalReceived);
+        _getServer();
+        OneSiganl.addEventListener('received',_getServer);
+        OneSiganl.addEventListener('opened',_getServer);
         AppState.addEventListener('change',_handleChange);
         return()=>{
             AppState.removeEventListener('change',_handleChange);
@@ -195,7 +135,7 @@ const List = (props) => {
         })
     }
 
-    const _showStoreDetail = async({storeId,theme,distance})=>{
+    const _showStoreDetail = async({reservationId,storeId,theme,distance})=>{
         const token = await API.getLocal(API.LOCALKEY_TOKEN);
         const resDetail = await API.showStoreDetail(token,{storeId : storeId});
         const resReview = await API.showStoreReview(token,{storeId : storeId, page : 0});

@@ -10,7 +10,8 @@ export const updateAddress = createAction(UPDATE_ADDRESS);
 
 const initialState = Map({
     region : {
-        
+        latitude : 37.5514642,
+        longitude : 126.9250106
     },
     address : '찾는 중...',
 });
