@@ -11,6 +11,7 @@ import {
     Switch,
     ActivityIndicator,
 } from 'react-native';
+import FastImage from 'react-native-fast-image';
 import LogOut from './logout'
 import {CustomAlert,MenuButton,TopMenuButton,PushButton,} from '../../component/common'
 import * as Color from '../../utill/color'
@@ -74,17 +75,12 @@ const TabMy = ({navigation, userid, nickname, image, phone, point, name, reviewc
     const [pt, ptChange] = useState(point);
     const [nm, nmChange] = useState(name);
     const [rvcount, rvcountChange] = useState(reviewcount);
-   
-    console.log('im :' + image);
-    console.log('ph : ' + photo);
 
     const _logOut = async () => {
         await API.setLocal(API.LOCALKEY_TOKEN, 'null');
         setIsAlertVisible(false);
         navigation.navigate('Splash')
     }
-
-    const dispatch = useDispatch();
 
     return (
         <View style = {{flex : 1}}> 
@@ -117,7 +113,7 @@ const TabMy = ({navigation, userid, nickname, image, phone, point, name, reviewc
             >
                 <View style = {{flexDirection : 'row', alignContent : 'center'}}>
                     {photo &&  (
-                        <Image
+                        <FastImage
                             source={{uri : photo}}
                             style={{ width: 45, height: 45, borderRadius : 45/2}}
                         />

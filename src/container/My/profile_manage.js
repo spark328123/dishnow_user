@@ -12,6 +12,7 @@ import {
     ScrollView,
     Image,
 } from 'react-native';
+import FastImage from 'react-native-fast-image';
 import * as API from '../../utill/API';
 import * as Utill from '../../utill';
 import ImagePicker from 'react-native-image-picker';
@@ -109,7 +110,7 @@ const Profile = ({navigation, userid, nickname, image, phone, point, name}) => {
                 >
 
                 {photo &&  (
-                    <Image
+                    <FastImage
                         source={profile}
                         style={{ width: 90, height: 90, borderRadius : 45}}
                     />

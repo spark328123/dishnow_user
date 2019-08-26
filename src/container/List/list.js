@@ -6,8 +6,9 @@ import {
     TouchableOpacity,
     ActivityIndicator,
     AppState,
+    Image,
 } from 'react-native';
-import Image from 'react-native-fast-image';
+import FastImage from 'react-native-fast-image';
 import { connect } from 'react-redux';
 import { Text,CustomAlert } from '../../component/common';
 import * as Utill from '../../utill';
@@ -184,12 +185,12 @@ const List = (props) => {
                     onPress = {()=>_showStoreDetail(item)}
                 >
                 {isLoaded && <ActivityIndicator style = { styles.indicator } />} 
-                <Image
+                <FastImage
                     source = {item.mainImage}
                     style = {{width : Utill.screen.Screen.customWidth(160), height : Utill.screen.Screen.customHeight(180), marginBottom : 12}}
                     onLoadEnd = {()=>setIsLoaded(false)}
                     >
-                </Image>
+                </FastImage>
                 <Text style = {{fontSize : 16, color : Utill.color.black, marginBottom : 3}}>{item.name}</Text>
                 <View
                     style = {{flexDirection : 'row', justifyContent : 'space-between'}}>

@@ -10,6 +10,7 @@ import { View,
     ScrollView,
     Image,
 } from 'react-native';
+import FastImage from 'react-native-fast-image';
 
 import * as API from '../utill/API';
 import * as Utill from '../utill';
@@ -237,7 +238,7 @@ const ReviewWrite = (props) => {
                                     style = {[styles.picker, {marginTop: Utill.screen.Screen.customHeight(15)}]}
                                     onPress = {()=>
                                     { if(item.source===defaultImageSource || item.source===addImageSource){_picker(item)} else _deleteSource(item);}}>
-                                <Image
+                                <FastImage
                                     source = {item.source} 
                                     style = {styles.addimage} />
                                 {isLoaded && <ActivityIndicator style = {styles.indicator}/>}
