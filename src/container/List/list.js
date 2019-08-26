@@ -2,12 +2,12 @@ import React , { useEffect, useState } from 'react';
 import {
     StyleSheet,
     View,
-    Image,
     FlatList,
     TouchableOpacity,
     ActivityIndicator,
     AppState,
 } from 'react-native';
+import Image from 'react-native-fast-image';
 import { connect } from 'react-redux';
 import { Text,CustomAlert } from '../../component/common';
 import * as Utill from '../../utill';

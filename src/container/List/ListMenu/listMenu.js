@@ -321,7 +321,7 @@ const ListMenu = (props) =>  {
 
       {/* 매장 사진 */}
       <Animated.View style={[styles.header, {height: _backgroundHeight}]}>
-        <BannerView photos={photos}/>
+        <BannerView navigator = {_navigation} photos={photos}/>
       </Animated.View>
       
       {/* 탭 버튼 */}

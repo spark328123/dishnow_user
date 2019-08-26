@@ -1,16 +1,20 @@
 import React, {useState, memo} from 'react';
-import {Dimensions, View, Text,  FlatList, StyleSheet, ActivityIndicator, Image} from 'react-native';
+import {Dimensions, View, Text,  FlatList, StyleSheet, ActivityIndicator, Image, TouchableOpacity} from 'react-native';
 import { getInset } from 'react-native-safe-area-view';
+import FastImage from 'react-native-fast-image';
+import ImageView from 'react-native-image-view';
+import Lightbox from 'react-native-lightbox';
 
 const ratio = width/360;
 
 const {width, height} = Dimensions.get('screen');
 const HEADER_TOP_SAFE = getInset('top', false);
 
-export default memo(({photos}) => {
+export default memo(({photos,navigator}) => {
+    console.log(photos);
+    const [isImageViewVisible, setIsImageViewVisible] = useState(false);
 
     const [page, setPage] = useState(0);
-
     const bannerScrollHandle = (event) => {
         let contentOffset = event.nativeEvent.contentOffset;
         let viewSize = event.nativeEvent.layoutMeasurement;
@@ -18,11 +22,27 @@ export default memo(({photos}) => {
         setPage(pageNum);        
     }
 
+    const images = photos.map(item=>{
+        return {
+            source: {
+                uri: item,
+            },
+            width,
+            height: 180,
+        }
+    });
+        
 
     if (photos.length)
         return (
             <View style = {styles.container}>
-                
+                {/*
+                <ImageView
+                    images={images}
+                    imageIndex={0}
+                    isVisible={isImageViewVisible}
+                />
+                */}
                 {!photos && <Text></Text>}
                 {photos &&
                     <FlatList
@@ -33,28 +53,15 @@ export default memo(({photos}) => {
                         keyExtractor = {(item, index) => `bnv-${index}`}
                         onScroll={bannerScrollHandle}
                         renderItem= {({item}) =>{ 
-                            return <View>
-                                <Image
-                                    style={styles.images}
-                                    source={{uri:item}}
-                                    resizeMode={'cover'}
-                                />
-                                 {item.substring(0,1) == "p" && 
-                                    <Image
-                                        style={styles.container}
+                            return (<View>
+                                <Lightbox>
+                                    <FastImage
+                                        style={styles.images}
                                         source={{uri:item}}
-                                        resizeMode={'cover'}/>
-                                }
-
-                                {/*
-                                {item.substring(0,1) != "p" &&  
-                                    <FastImage 
-                                        style = {styles.container}
-                                        source = {{uri:item}}>
-                                    </FastImage>
-                                } 
-                            */}
-                            </View>      
+                                        resizeMode={'cover'}
+                                    />
+                                </Lightbox>
+                            </View>)    
                     }}/>
                 }
 
