@@ -23,7 +23,7 @@ const TabBooked = (props) =>{
         }
         setIsLoaded(false);
         setdata(resList);
-        Nowtime((new Date()).getTime());
+        setNowtime((new Date()).getTime());
     }
 
     const _showStoreDetail = async({storeId,reservationId,latitude,longitude})=>{
@@ -189,5 +189,4 @@ const styles = StyleSheet.create({
     timeout: {              // 리뷰작성시간 지났습니다
         fontSize : 16,
     },
-
 })

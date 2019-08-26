@@ -26,6 +26,8 @@ const TabHome = (props)=>{
     const dispatch = useDispatch();
     const [isLoaded, setIsLoaded] = useState(true);
     const [touch,setTouch] = useState(false);
+    var tabtimer;
+    const [nowtime, setNowtime] = useState((new Date()).getTime())
 
     const _me = async() => {
         const token = await API.getLocal(API.LOCALKEY_TOKEN);
@@ -34,6 +36,7 @@ const TabHome = (props)=>{
             Toast.show('네트워크 연결 상태를 확인해 주세요');
             return;
         }
+        tabtimer = await API.getTimer(API.TAB_TIMER);
         const userid = meRes.userId;
         const point = meRes.point;
         const name = meRes.name;
@@ -85,6 +88,17 @@ const TabHome = (props)=>{
             setTouch(false);
         },500)
 
+        // const readytime = await API.getTimer(API.TAB_TIMER);
+        // console.log("ready time : " + readytime);
+        // const tabtimer = (new Date()).getTime();
+        // console.log("tabtimer : " + tabtimer);
+        console.log("tabtimer : " + JSON.stringify(tabtimer));
+        console.log("nowtime : " + nowtime);
+        
+        if(tabtimer===null){
+            console.log("timer is null")
+        }
+
         if(parseInt(people.text)>0&&parseInt(arr[parseInt(time)])>0){
             const token = await API.getLocal(API.LOCALKEY_TOKEN);
             await API.reservation_revert(token);
@@ -96,6 +110,9 @@ const TabHome = (props)=>{
                 longitude, 
             }
             const res = await API.reservation(token,data);
+            // console.log("if문의 tabtimer : " + tabtimer);
+            // await API.setTimer(API.TAB_TIMER, tabtimer.toString);
+            // console.log("api tab_timer : " + API.getTimer(API.TAB_TIMER));
             navigation.navigate('onWait',{
                 people : people.text,
                 time : arr[parseInt(time)],
@@ -103,7 +120,6 @@ const TabHome = (props)=>{
                 address,
                 createdAt : `${res.substring(0,10)} ${res.substring(11,19)}`,
             });
-            console.log(res);
         }
         setIsAlertVisible(false);
     }
@@ -221,7 +237,7 @@ const TabHome = (props)=>{
                             <View style = {styles.item}><Text  style = {{color : temaList[5].color }}> 이자카야 </Text></View>
                         </TouchableOpacity>
                         </View>
-                        <View style = {{width : 70 }}>
+                        <View style = {{width : 50 }}>
 
                         </View>
                 </ScrollView>

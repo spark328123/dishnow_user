@@ -148,7 +148,7 @@ const OnWait =  (props) =>{
              {toggle ? (            
                 <View style = {styles.loading}>
                     <ActivityIndicator size = "large" color = {Utill.color.primary1}/>
-                    <Text style = {{fontSize : 18, marginBottom : 13, marginTop : 23}}>출발지 기준 200m 내 술집에 요청중</Text>
+                    <Text style = {{fontSize : 18, marginBottom : 13, marginTop : 23}}>출발지 기준 300m 내 술집에 요청중</Text>
                     <Text style = {{fontSize : 18,color : Utill.color.primary1}}>{`${Math.floor(timerCount/60)}:${timerCount%60}`}</Text>
                 </View>
                 ):(
