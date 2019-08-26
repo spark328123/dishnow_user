@@ -183,7 +183,9 @@ const ListMenu = (props) =>  {
         _navigation.navigate('Splash')
       }
       else
-      {_navigation.navigate('List')}
+      {
+            _navigation.navigate('List')
+      }
       
     }
     else
@@ -218,8 +220,9 @@ const ListMenu = (props) =>  {
     if(!isReservation)_navigation.navigate('TabBooked');
 
     //예약 중이 아니면 
-    else _navigation.pop();
-    console.log('_onPressBackButton');
+    else {
+        _navigation.pop();
+    }
     return;
   }
   // 화면 하단 전화기 버튼
