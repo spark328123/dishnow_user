@@ -1,5 +1,5 @@
 import React, {useState, memo} from 'react';
-import {Dimensions, View, Text, Image, FlatList, StyleSheet, ActivityIndicator} from 'react-native';
+import {Dimensions, View, Text,  FlatList, StyleSheet, ActivityIndicator, Image} from 'react-native';
 import { getInset } from 'react-native-safe-area-view';
 
 const ratio = width/360;
@@ -39,19 +39,21 @@ export default memo(({photos}) => {
                                     source={{uri:item}}
                                     resizeMode={'cover'}
                                 />
-                                {/* FastImage 사용시 */}
-                                {/* {item.substring(0,1) == "p" && 
+                                 {item.substring(0,1) == "p" && 
                                     <Image
                                         style={styles.container}
                                         source={{uri:item}}
                                         resizeMode={'cover'}/>
                                 }
+
+                                {/*
                                 {item.substring(0,1) != "p" &&  
                                     <FastImage 
                                         style = {styles.container}
                                         source = {{uri:item}}>
                                     </FastImage>
-                                } */}
+                                } 
+                            */}
                             </View>      
                     }}/>
                 }
