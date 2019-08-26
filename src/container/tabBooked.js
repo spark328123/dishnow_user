@@ -189,4 +189,5 @@ const styles = StyleSheet.create({
     timeout: {              // 리뷰작성시간 지났습니다
         fontSize : 16,
     },
+
 })

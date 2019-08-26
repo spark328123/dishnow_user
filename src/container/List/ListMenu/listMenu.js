@@ -277,7 +277,6 @@ const ListMenu = (props) =>  {
         alert('예약이 불가능한 상태입니다.');
       return;
     }
-    console.log('_onPressReservationButton');
     const token =  await API.getLocal(API.LOCALKEY_TOKEN);
     await API.reservation_confirm(token,{
         storeId : _navigation.getParam('storeId'), 

@@ -26,17 +26,16 @@ const TabHome = (props)=>{
     const dispatch = useDispatch();
     const [isLoaded, setIsLoaded] = useState(true);
     const [touch,setTouch] = useState(false);
-    var tabtimer;
-    const [nowtime, setNowtime] = useState((new Date()).getTime())
+    const [tabtimer, setTabtimer] = useState();
 
     const _me = async() => {
+        setTabtimer(API.getTimer(await API.TAB_TIMER));
         const token = await API.getLocal(API.LOCALKEY_TOKEN);
         const meRes = await API.me(token);
         if(meRes.error){
             Toast.show('네트워크 연결 상태를 확인해 주세요');
             return;
         }
-        tabtimer = await API.getTimer(API.TAB_TIMER);
         const userid = meRes.userId;
         const point = meRes.point;
         const name = meRes.name;
@@ -81,7 +80,6 @@ const TabHome = (props)=>{
     },[]);
 
     const _reservation = async()=>{
-        console.log(time);
         if(touch)return;
         setTouch(true);
         setTimeout(()=>{
@@ -92,14 +90,16 @@ const TabHome = (props)=>{
         // console.log("ready time : " + readytime);
         // const tabtimer = (new Date()).getTime();
         // console.log("tabtimer : " + tabtimer);
-        console.log("tabtimer : " + JSON.stringify(tabtimer));
-        console.log("nowtime : " + nowtime);
-        
-        if(tabtimer===null){
-            console.log("timer is null")
-        }
+        const nowtime = (new Date()).getTime();
+        console.log("tabtimer");
+        console.log(parseInt(tabtimer._55));
+        console.log("nowtime");
+        console.log(nowtime);
+        var twomin = (nowtime - parseInt(tabtimer._55))/1000/60;
+        console.log(twomin);
 
-        if(parseInt(people.text)>0&&parseInt(arr[parseInt(time)])>0){
+        if(twomin>2){
+            await API.setTimer(API.TAB_TIMER, JSON.stringify(new Date().getTime()));
             const token = await API.getLocal(API.LOCALKEY_TOKEN);
             await API.reservation_revert(token);
             const data = {
@@ -110,9 +110,11 @@ const TabHome = (props)=>{
                 longitude, 
             }
             const res = await API.reservation(token,data);
+
             // console.log("if문의 tabtimer : " + tabtimer);
             // await API.setTimer(API.TAB_TIMER, tabtimer.toString);
             // console.log("api tab_timer : " + API.getTimer(API.TAB_TIMER));
+
             navigation.navigate('onWait',{
                 people : people.text,
                 time : arr[parseInt(time)],
@@ -120,6 +122,9 @@ const TabHome = (props)=>{
                 address,
                 createdAt : `${res.substring(0,10)} ${res.substring(11,19)}`,
             });
+        }
+        else{
+            Toast.show("예약요청은 2분에 한번 가능합니다.")
         }
         setIsAlertVisible(false);
     }
