@@ -1,5 +1,6 @@
 import React, {useState, useEffect, memo, useRef} from 'react';
 import {View, FlatList, StyleSheet, Dimensions, Image, TouchableOpacity} from 'react-native';
+import FastImage from 'react-native-fast-image';
 import * as Utill from '../../../utill'
 import { Text } from '../../../component/common';
 
@@ -100,16 +101,16 @@ const ReviewItem =({data, onPressManageReviewButton}) => {
                     </View>
 
                      <View style={{marginTop:14,}}>
-                         {imageArray.length>=1 && imageArray[0].length>=3 &&  <Image 
+                         {imageArray.length>=1 && imageArray[0].length>=3 &&  <FastImage 
                             resizeMethod = 'resize'
                             style={{width : 272 * ratio, height : 150 * ratio, backgroundColor : '#eeeeee'}} 
                             source={{uri:imageArray[0].substring(1,imageArray[0].length-1)}}/>}
                         
-                        {imageArray.length>=2 &&   <Image 
+                        {imageArray.length>=2 &&   <FastImage 
                         resizeMethod = 'resize'
                             style={{width : 272 * ratio, height : 150 * ratio, backgroundColor : '#eeeeee'}} 
                             source={{uri:imageArray[1].substring(1,imageArray[1].length-1)}}/>}
-                        {imageArray.length>=3 &&   <Image 
+                        {imageArray.length>=3 &&   <FastImage 
                         resizeMethod = 'resize'
                             style={{width : 272 * ratio, height : 150 * ratio, backgroundColor : '#eeeeee'}} 
                             source={{uri:imageArray[2].substring(1,imageArray[2].length-1)}}/>}

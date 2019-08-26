@@ -1,5 +1,6 @@
 import React, { useEffect, useState,memo } from 'react';
-import { View, Text, StyleSheet, FlatList, Image, TouchableOpacity, ActivityIndicator } from 'react-native';
+import { View, Text, StyleSheet, FlatList,  TouchableOpacity, ActivityIndicator,Image } from 'react-native';
+import FastImage from 'react-native-fast-image';
 import {NavSwitchHead} from '../../component/common';
 import {handleAndroidBackButton,removeAndroidBackButtonHandler} from '../../component/common/hardwareBackButton';
 import {useDispatch} from 'react-redux';
@@ -130,7 +131,6 @@ export default Review = ({navigation}) =>{
                 <Dialog.Button label="취소" onPress = {()=>setVisible(false)} />
                 <Dialog.Button label="삭제"
                     onPress = {()=>{setVisible(false);_deleteReview(deleteReviewId)}}/>
-                
             </Dialog.Container>
         </View>
     )

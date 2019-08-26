@@ -27,6 +27,10 @@ const TabHome = (props)=>{
     const [isLoaded, setIsLoaded] = useState(true);
     const [touch,setTouch] = useState(false);
     const [tabtimer, setTabtimer] = useState();
+<<<<<<< HEAD
+=======
+    const [nowtime, setNowtime] = useState((new Date()).getTime())
+>>>>>>> ce710b96ff87f8a74debe9977dc9873cb3ac860d
 
     const _me = async() => {
         setTabtimer(API.getTimer(await API.TAB_TIMER));
@@ -73,6 +77,7 @@ const TabHome = (props)=>{
 
     useEffect(()=>{
         OneSignal.addEventListener('ids',onIds);
+        setTabtimer(API.getTimer(API.TAB_TIMER));
         _me();
         return () => {
             OneSignal.removeEventListener('ids',onIds);
@@ -80,6 +85,11 @@ const TabHome = (props)=>{
     },[]);
 
     const _reservation = async()=>{
+<<<<<<< HEAD
+=======
+        console.log(time);
+        console.log(tabtimer);
+>>>>>>> ce710b96ff87f8a74debe9977dc9873cb3ac860d
         if(touch)return;
         setTouch(true);
         setTimeout(()=>{
@@ -97,6 +107,7 @@ const TabHome = (props)=>{
         console.log(nowtime);
         var twomin = (nowtime - parseInt(tabtimer._55))/1000/60;
         console.log(twomin);
+
 
         if(twomin>2){
             await API.setTimer(API.TAB_TIMER, JSON.stringify(new Date().getTime()));

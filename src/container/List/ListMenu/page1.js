@@ -1,10 +1,12 @@
 import React, {useState, useEffect, memo, useRef} from 'react';
 import {View, FlatList,  TouchableOpacity, Dimensions, Image} from 'react-native';
+import FastImage from 'react-native-fast-image';
 import { Text } from '../../../component/common';
 import * as Utill from '../../../utill'
 
 import { getInset } from 'react-native-safe-area-view';
 import { ScrollView } from 'react-native-gesture-handler';
+
 const {width, height} = Dimensions.get('screen');
 const HEADER_BOTTOM_SAFE = getInset('bottom', false);
 const ratio = width/360;
@@ -120,10 +122,10 @@ const MainMenuItem = memo(({data})=> {
     const {uri, name, price} = data;
    return(
     <View style={{ justifyContent : 'flex-start'}}>
-        <Image 
-            style ={{width : 102*ratio, height : 102*ratio}}
-            source={{uri}}
-        />
+            <FastImage 
+                style ={{width : 102*ratio, height : 102*ratio}}
+                source={{uri}}
+            />
         <Text  style={{lineHeight : 17, marginTop:10, fontSize:14, fontWeight:'bold', }}>{name}</Text>
         <Text style={{marginTop:6, }}>{price}</Text>
     </View>
