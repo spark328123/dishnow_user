@@ -10,13 +10,24 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 
 
 const NavSwitchHead = (props) => {
-    const {navigation,navtitle, title='디쉬나우', onSavePress, BackbuttonDisable=false, paddingHorizontal = 15} = props;
+    const {navigation,navtitle, title='디쉬나우', onSavePress, BackbuttonDisable=false, paddingHorizontal = 15, token, type, kakaoProfile, faceBookProfile, naverProfile} = props;
     return (    
         <View style={styles.container}>
                 <View style={[styles.logo, {width : Utill.screen.screenWidth, height: (50*Utill.screen.screenRatio) + Utill.screen.topSafe, paddingTop:Utill.screen.topSafe, position: 'absolute', alignItems : 'center', justifyContent : 'center'}]}>
                     <Text style ={styles.titleText}>{title}</Text>
                 </View>
-                <BackButton onPress={()=>{if(!BackbuttonDisable)navigation.navigate(navtitle)}} paddingHorizontal={paddingHorizontal}/>
+                <BackButton onPress={()=>{
+                    if(navtitle==='Terms'){
+                        navigation.navigate('Terms',{
+                            type,
+                            token,
+                            kakaoProfile,
+                            faceBookProfile,
+                            naverProfile,
+                        })
+                    }
+                    else if(!BackbuttonDisable)navigation.navigate(navtitle)}} paddingHorizontal={paddingHorizontal}
+                />
                 
 
                 {onSavePress &&

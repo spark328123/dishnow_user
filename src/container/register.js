@@ -38,9 +38,20 @@ const Register = (props) => {
     const [alertTxt,setAlertTxt] = useState('전송되었습니다.');
     const [alertMainTxt,setAlertMainTxt] = useState('인증');
     const [isAlertVisible, setIsAlertVisible] = useState(false);
+    const [type] = useState(navigation.getParam('type'));
+    const [token] = useState(navigation.getParam('token'));
+    const [kakaoProfile] = useState(navigation.getParam('kakaoProfile'));
+    const [faceBookProfile] = useState(navigation.getParam('faceBookProfile'));
+    const [naverProfile] = useState(navigation.getParam('naverProfile'));
 
     _goBack = () =>{
-        navigation.navigate('Terms')
+        navigation.navigate('Terms',{
+            type,
+            token,
+            kakaoProfile,
+            faceBookProfile,
+            naverProfile,
+        })
     }
     handleAndroidBackButton(_goBack);
     const _onPressAlertCancel = () => {
@@ -105,6 +116,8 @@ const Register = (props) => {
         console.log('phoneRes:' + phoneRes);
         console.log('ps:' + phone.text );
     }
+
+    
 
     const _register = async () => {
         console.log('isisemail : ' + isitemail);
@@ -300,7 +313,7 @@ const Register = (props) => {
             keyboardShouldPersistTaps="handled"
             style={styles.container}
             contentContainerStyle={{ flexGrow: 1, justifyContent: 'center' }}>
-            <NavSwitchHead navigation = {navigation} navtitle = {'Terms'} title = {'회원가입'}/>
+            <NavSwitchHead navigation = {navigation} navtitle = {'Terms'} title = {'회원가입'} token={token} type={type} kakaoProfile={kakaoProfile} faceBookProfile={faceBookProfile} naverProfile={naverProfile}  />
             
             <View style = {{paddingLeft : 15,paddingRight : 15}}>
             <View style = {{flexDirection:'row',marginBottom:13}}>
@@ -358,12 +371,14 @@ const Register = (props) => {
                 onChangeText={(text)=>setBirth({text})}
             />
             <Text style={{ fontSize: 16, fontWeight: 'bold', marginBottom: 18, marginTop : 16}}>아이디 정보</Text>
-            <RegistInput
-                value = {email} 
-                title='이메일'
-                placeholder='이메일을 입력하세요'
-                onChangeText={(text)=>setEmail({text})}
-            />
+            {isitemail&&(
+                    <RegistInput
+                    value = {email} 
+                    title='이메일'
+                    placeholder='이메일을 입력하세요'
+                    onChangeText={(text)=>setEmail({text})}
+                />
+            )}
             {isitemail && (
                 <RegistInput 
                     secureTextEntry = {true}
