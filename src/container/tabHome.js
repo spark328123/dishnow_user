@@ -71,9 +71,9 @@ const TabHome = (props)=>{
         setIsAlertVisible(false);
     }
 
-    useEffect(async()=>{
+    useEffect(()=>{
         OneSignal.addEventListener('ids',onIds);
-        setTabtimer(await API.getTimer(API.TAB_TIMER));
+        setTabtimer(API.getTimer(API.TAB_TIMER));
         _me();
         return () => {
             OneSignal.removeEventListener('ids',onIds);
