@@ -192,7 +192,7 @@ const Register = (props) => {
                 await API.changenick(loginRes.token,{
                     nickname : nickname.text
                 });
-                API.setTimer(API.TAB_TIMER, JSON.stringify(new Date().getTime() - 60000));
+                API.setTimer(API.TAB_TIMER, JSON.stringify(new Date().getTime() - 120000));
                 await API.setLocal(API.LOCALKEY_TOKEN, loginRes.token);
                 dispatch(Regs.updateemail(email));
                 dispatch(User.updatenickname(nickname.text));
@@ -265,7 +265,7 @@ const Register = (props) => {
                 await API.changeprofile(loginRes.token,{
                     image : `["https://ssl.pstatic.net/static/pwe/address/img_profile.png"]`
                 })
-                API.setTimer(API.TAB_TIMER, JSON.stringify(new Date().getTime() - 60000));
+                API.setTimer(API.TAB_TIMER, JSON.stringify(new Date().getTime() - 120000));
                 await API.setLocal(API.LOCALKEY_TOKEN, loginRes.token);
                 dispatch(Regs.updateemail(email));
                 dispatch(User.updatenickname(nickname));
