@@ -89,7 +89,7 @@ const TabHome = (props)=>{
             const token = await API.getLocal(API.LOCALKEY_TOKEN);
             await API.reservation_revert(token);
             const data = {
-                storeTypeId : 1,
+                storeTypeId : tema + 1,
                 peopleNumber : parseInt(people.text),
                 minutes : parseInt(arr[parseInt(time)]),
                 latitude,
