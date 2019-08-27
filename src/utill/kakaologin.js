@@ -19,9 +19,11 @@ export default ({ navigation }) => {
        const tokens = loginRes.token;
        if (tokens==='') { return false; }
        await API.setLocal(API.LOCALKEY_TOKEN, tokens);
+       await API.setTimer(API.TAB_TIMER, JSON.stringify(new Date().getTime() - 120000));
        return true;
    }
- kakaoLogin = () => {
+ kakaoLogin = () => { 
+   API.setTimer(API.TAB_TIMER, JSON.stringify(new Date().getTime() - 120000));
    console.log("   kakaoLogin   ");
    RNKakaoLogins.login((err, result) => {
      if (err) {

@@ -4,7 +4,7 @@ import {createSwitchNavigator } from 'react-navigation';
 const HomeSwitch = createSwitchNavigator(
     {
        TabHome,
-       Departure,
+       Departure : {screen : Departure}
     },
     {
         initialRouteName : 'TabHome',

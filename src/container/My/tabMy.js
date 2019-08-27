@@ -11,6 +11,7 @@ import {
     Switch,
     ActivityIndicator,
 } from 'react-native';
+import FastImage from 'react-native-fast-image';
 import LogOut from './logout'
 import {CustomAlert,MenuButton,TopMenuButton,PushButton,} from '../../component/common'
 import * as Color from '../../utill/color'
@@ -36,16 +37,36 @@ const TabMy = ({navigation, userid, nickname, image, phone, point, name, reviewc
     useEffect(()=>{
         _me();
         _loadPhoto();
-    },[])
+    },[]);
+
+    const dispatch = useDispatch();
 
     const _me = async() => {
-        const res = await API.test();
-        if(res.error){
-            Toast.show('네트워크 상태를 확인해 주세요');
+        const token = await API.getLocal(API.LOCALKEY_TOKEN);
+        const meRes = await API.me(token);
+        if(meRes.error){
+            Toast.show('네트워크 연결 상태를 확인해 주세요');
             return;
         }
+        const userid = meRes.userId;
+        const point = meRes.point;
+        const name = meRes.name;
+        const phone = meRes.phone;
+        const image = meRes.image;
+        const reviewcount = meRes.reviewCount;
+        const nickname = meRes.nickname;
+        dispatch(User.updateuserid(userid));
+        dispatch(User.updatepoint(point));
+        dispatch(User.upadtename(name));
+        dispatch(User.updatephone(phone));
+        dispatch(User.updateimage(image));
+        dispatch(User.updatereviewcount(reviewcount));
+        dispatch(User.updatenickname(nickname));
+        const pushToken = await API.getPush(API.PUSH_TOKEN);
+        await API.setPushToken(token,{pushToken});
         setIsLoaded(false);
     }
+
     const _loadPhoto = () => {
         {!photo && 
         setPhotoLoaded(false);}
@@ -74,17 +95,12 @@ const TabMy = ({navigation, userid, nickname, image, phone, point, name, reviewc
     const [pt, ptChange] = useState(point);
     const [nm, nmChange] = useState(name);
     const [rvcount, rvcountChange] = useState(reviewcount);
-   
-    console.log('im :' + image);
-    console.log('ph : ' + photo);
 
     const _logOut = async () => {
         await API.setLocal(API.LOCALKEY_TOKEN, 'null');
         setIsAlertVisible(false);
         navigation.navigate('Splash')
     }
-
-    const dispatch = useDispatch();
 
     return (
         <View style = {{flex : 1}}> 
@@ -117,7 +133,7 @@ const TabMy = ({navigation, userid, nickname, image, phone, point, name, reviewc
             >
                 <View style = {{flexDirection : 'row', alignContent : 'center'}}>
                     {photo &&  (
-                        <Image
+                        <FastImage
                             source={{uri : photo}}
                             style={{ width: 45, height: 45, borderRadius : 45/2}}
                         />

@@ -76,6 +76,7 @@ export default (props) => {
 
                 <View style = {[inputStyle, {flexDirection : 'row', alignItems : 'center', flex : 1, borderBottomWidth : 1,}]}>
                     <TextInput 
+
                         value ={value}
                         keyboardType={'number-pad'}
                         style={styles.inputText}
@@ -113,8 +114,7 @@ const styles = StyleSheet.create({
     },
     inputText : {
         flex : 1,
-        margin : 0, 
-        padding : 0,
+        borderBottomColor : Utill.color.defaultColor,
     },
     inputValid : {
         borderBottomColor : Utill.color.primary1,

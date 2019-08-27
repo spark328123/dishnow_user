@@ -60,7 +60,7 @@ export default (props) => {
 
     return (
         <View style={styles.container}>
-            <View>
+            <View style={{marginBottom : 15}}>
                 <Text style = {styles.inputTitleText}>{title}</Text>
             </View>
             <View style = {inputStyle}>
@@ -76,7 +76,6 @@ export default (props) => {
                 {isValid !== null && <ValidIcon/>}
             </View>
                 {isValid === 'invalid' && <Text style={styles.validText}>{errorMsg}</Text>}
-                
         </View>
         
     )
@@ -84,7 +83,6 @@ export default (props) => {
 }
 
 const styles = StyleSheet.create({
-
 
     container : {
         paddingVertical : 15,

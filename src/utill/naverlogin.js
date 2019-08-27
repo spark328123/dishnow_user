@@ -16,6 +16,7 @@ const initials = {
 const login = async (token) => {
     const loginRes = await API.login({token,type});
     await API.setLocal(API.LOCALKEY_TOKEN, loginRes.token);
+    await API.setTimer(API.TAB_TIMER, JSON.stringify(new Date().getTime() - 120000));
     if(loginRes.token === '') {return false;}
     return true;
 }

@@ -183,7 +183,9 @@ const ListMenu = (props) =>  {
         _navigation.navigate('Splash')
       }
       else
-      {_navigation.navigate('List')}
+      {
+            _navigation.navigate('List')
+      }
       
     }
     else
@@ -218,8 +220,9 @@ const ListMenu = (props) =>  {
     if(!isReservation)_navigation.navigate('TabBooked');
 
     //예약 중이 아니면 
-    else _navigation.pop();
-    console.log('_onPressBackButton');
+    else {
+        _navigation.pop();
+    }
     return;
   }
   // 화면 하단 전화기 버튼
@@ -274,7 +277,6 @@ const ListMenu = (props) =>  {
         alert('예약이 불가능한 상태입니다.');
       return;
     }
-    console.log('_onPressReservationButton');
     const token =  await API.getLocal(API.LOCALKEY_TOKEN);
     await API.reservation_confirm(token,{
         storeId : _navigation.getParam('storeId'), 
@@ -318,7 +320,7 @@ const ListMenu = (props) =>  {
 
       {/* 매장 사진 */}
       <Animated.View style={[styles.header, {height: _backgroundHeight}]}>
-        <BannerView photos={photos}/>
+        <BannerView navigator = {_navigation} photos={photos}/>
       </Animated.View>
       
       {/* 탭 버튼 */}

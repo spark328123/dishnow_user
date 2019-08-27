@@ -18,7 +18,7 @@ import * as API from '../utill/API';
 import * as Utill from '../utill';
 import  * as User from '../store/modules/user'
 import ModalDropdown from 'react-native-modal-dropdown';
-import { BigButtonColor, Text, CustomAlert } from '../component/common'
+import { BigButtonColor, Text, CustomAlert, CustomAlert1 } from '../component/common'
 import OneSignal from 'react-native-onesignal';
 import Toast from 'react-native-simple-toast';
 
@@ -26,8 +26,10 @@ const TabHome = (props)=>{
     const dispatch = useDispatch();
     const [isLoaded, setIsLoaded] = useState(true);
     const [touch,setTouch] = useState(false);
+    const [tabtimer, setTabtimer] = useState();
 
     const _me = async() => {
+        setTabtimer(API.getTimer(await API.TAB_TIMER));
         const token = await API.getLocal(API.LOCALKEY_TOKEN);
         const meRes = await API.me(token);
         if(meRes.error){
@@ -64,13 +66,19 @@ const TabHome = (props)=>{
     const {navigation, latitude, longitude, address} = props;
 
     const [isAlertVisible, setIsAlertVisible] = useState(false);
+    const [isAlertVisible2, setIsAlertVisible2] = useState(false);
 
     const _onPressAlertCancel = async() => {
         setIsAlertVisible(false);
     }
 
+    const _onPressAlertOk = async() => {
+        setIsAlertVisible2(false); 
+    }
+
     useEffect(()=>{
         OneSignal.addEventListener('ids',onIds);
+        setTabtimer(API.getTimer(API.TAB_TIMER));
         _me();
         return () => {
             OneSignal.removeEventListener('ids',onIds);
@@ -78,14 +86,27 @@ const TabHome = (props)=>{
     },[]);
 
     const _reservation = async()=>{
-        console.log(time);
+
         if(touch)return;
         setTouch(true);
         setTimeout(()=>{
             setTouch(false);
         },500)
 
-        if(parseInt(people.text)>0&&parseInt(arr[parseInt(time)])>0){
+        // const readytime = await API.getTimer(API.TAB_TIMER);
+        // console.log("ready time : " + readytime);
+        // const tabtimer = (new Date()).getTime();
+        // console.log("tabtimer : " + tabtimer);
+        const nowtime = (new Date()).getTime();
+        console.log("tabtimer");
+        console.log(parseInt(tabtimer._55));
+        console.log("nowtime");
+        console.log(nowtime);
+        var twomin = (nowtime - parseInt(tabtimer._55))/1000/60;
+        console.log(twomin);
+
+        if(twomin>2){
+            await API.setTimer(API.TAB_TIMER, JSON.stringify(new Date().getTime()));
             const token = await API.getLocal(API.LOCALKEY_TOKEN);
             await API.reservation_revert(token);
             const data = {
@@ -96,6 +117,11 @@ const TabHome = (props)=>{
                 longitude, 
             }
             const res = await API.reservation(token,data);
+
+            // console.log("if문의 tabtimer : " + tabtimer);
+            // await API.setTimer(API.TAB_TIMER, tabtimer.toString);
+            // console.log("api tab_timer : " + API.getTimer(API.TAB_TIMER));
+
             navigation.navigate('onWait',{
                 people : people.text,
                 time : arr[parseInt(time)],
@@ -103,7 +129,10 @@ const TabHome = (props)=>{
                 address,
                 createdAt : `${res.substring(0,10)} ${res.substring(11,19)}`,
             });
-            console.log(res);
+        }
+        else{
+            setIsAlertVisible(false);
+            setIsAlertVisible2(true);
         }
         setIsAlertVisible(false);
     }
@@ -168,6 +197,15 @@ const TabHome = (props)=>{
                 onPress={_reservation} 
                 onPressCancel = {_onPressAlertCancel}
             />
+            <CustomAlert1
+                visible={isAlertVisible2} 
+                mainTitle={'요청 안내'}
+                mainTextStyle = {styles.txtStyle}
+                subTitle = {'콜은 2분에 한번만 가능합니다.'}
+                subTextStyle = {styles.subtxtStyle}
+                buttonText1 = {'확인'}
+                onPress={_onPressAlertOk}
+            />
             {!isLoaded?(
                 <KeyboardAvoidingView style={styles.container} behavior= "height" enabled>
                  <View style = {styles.map}>
@@ -221,7 +259,7 @@ const TabHome = (props)=>{
                             <View style = {styles.item}><Text  style = {{color : temaList[5].color }}> 이자카야 </Text></View>
                         </TouchableOpacity>
                         </View>
-                        <View style = {{width : 70 }}>
+                        <View style = {{width : 50 }}>
 
                         </View>
                 </ScrollView>
@@ -411,6 +449,6 @@ const styles = StyleSheet.create({
         marginBottom : Utill.screen.Screen.customHeight(35),
         fontSize : 16,
         color : Utill.color.textBlack,
-        alignSelf : 'center',
+        textAlign : 'center',
     },
 })

@@ -55,6 +55,8 @@ target 'react_dishnow_user' do
     pod 'react-native-simple-toast', :path => '../node_modules/react-native-simple-toast'
 	 pod 'FBSDKLoginKit'
 	 pod 'FacebookSDK' 
+    pod 'RNFastImage', :path => '../node_modules/react-native-fast-image'
+
   end
   
   post_install do |installer|

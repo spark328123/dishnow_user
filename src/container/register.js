@@ -38,9 +38,20 @@ const Register = (props) => {
     const [alertTxt,setAlertTxt] = useState('전송되었습니다.');
     const [alertMainTxt,setAlertMainTxt] = useState('인증');
     const [isAlertVisible, setIsAlertVisible] = useState(false);
+    const [type] = useState(navigation.getParam('type'));
+    const [token] = useState(navigation.getParam('token'));
+    const [kakaoProfile] = useState(navigation.getParam('kakaoProfile'));
+    const [faceBookProfile] = useState(navigation.getParam('faceBookProfile'));
+    const [naverProfile] = useState(navigation.getParam('naverProfile'));
 
     _goBack = () =>{
-        navigation.navigate('Terms')
+        navigation.navigate('Terms',{
+            type,
+            token,
+            kakaoProfile,
+            faceBookProfile,
+            naverProfile,
+        })
     }
     handleAndroidBackButton(_goBack);
     const _onPressAlertCancel = () => {
@@ -59,7 +70,6 @@ const Register = (props) => {
                 <Image style = {{width : 22,height : 22,marginRight:10}} source = {{uri : 'icon_check_box_purple'}}/>
             )
         }
-
         else{
             return(
                 <Image style = {{width : 22,height : 22,marginRight:10}} source = {{uri : 'icon_check_box_grey'}}/>
@@ -92,7 +102,7 @@ const Register = (props) => {
             setMan(false);
             setWoman(false);
             setNosex(true);
-            setSex('Nosex');
+            setSex('d');
         }else{
             setNosex(false);
         }
@@ -107,6 +117,8 @@ const Register = (props) => {
         console.log('ps:' + phone.text );
     }
 
+    
+
     const _register = async () => {
         console.log('isisemail : ' + isitemail);
 
@@ -117,7 +129,6 @@ const Register = (props) => {
             const res1 = /^[가-힣]{2,25}|[a-zA-Z]{2,25}\s[a-zA-Z]{2,25}$/.test(name.text);
             const res2 = /^\d{11}$/.test(phone.text);
             const res5 = /^[가-힣A-Za-z0-9]{2,20}$/.test(nickname.text)&&nickname.text!==undefined;
-            const res6 = /^[a-z0-9_+.-]+@([a-z0-9-]+\.)+[a-z0-9]{2,4}$/.test(email.text)&&email.text!==undefined;
             const res7 = /^\d{8}$/.test(birthDate.text);
             const res8 = man||woman||nosex;
 
@@ -136,13 +147,10 @@ const Register = (props) => {
             else if(!res7){
                 Toast.show('생년월일을 확인해주세요');
             }
-            else if(!res6){
-                Toast.show('이메일을 확인해주세요');
-            }
             else if(!res5){
                 Toast.show('닉네임을 확인해주세요');
             }
-            else if(isitokay&&res1&&res2&&res5&&res6) {
+            else if(isitokay&&res1&&res2&&res5) {
                 const regRes = await API.register({
                     token,
                     type,
@@ -180,6 +188,7 @@ const Register = (props) => {
                 await API.changenick(loginRes.token,{
                     nickname : nickname.text
                 });
+                API.setTimer(API.TAB_TIMER, JSON.stringify(new Date().getTime() - 120000));
                 await API.setLocal(API.LOCALKEY_TOKEN, loginRes.token);
                 dispatch(Regs.updateemail(email));
                 dispatch(User.updatenickname(nickname.text));
@@ -252,6 +261,7 @@ const Register = (props) => {
                 await API.changeprofile(loginRes.token,{
                     image : `["https://ssl.pstatic.net/static/pwe/address/img_profile.png"]`
                 })
+                API.setTimer(API.TAB_TIMER, JSON.stringify(new Date().getTime() - 120000));
                 await API.setLocal(API.LOCALKEY_TOKEN, loginRes.token);
                 dispatch(Regs.updateemail(email));
                 dispatch(User.updatenickname(nickname));
@@ -301,7 +311,7 @@ const Register = (props) => {
             keyboardShouldPersistTaps="handled"
             style={styles.container}
             contentContainerStyle={{ flexGrow: 1, justifyContent: 'center' }}>
-            <NavSwitchHead navigation = {navigation} navtitle = {'Terms'} title = {'회원가입'}/>
+            <NavSwitchHead navigation = {navigation} navtitle = {'Terms'} title = {'회원가입'} token={token} type={type} kakaoProfile={kakaoProfile} faceBookProfile={faceBookProfile} naverProfile={naverProfile}  />
             
             <View style = {{paddingLeft : 15,paddingRight : 15}}>
             <View style = {{flexDirection:'row',marginBottom:13}}>
@@ -325,7 +335,7 @@ const Register = (props) => {
             <RegisterInputPhone 
                 value = {phone} 
                 title='휴대폰 번호'
-                placeholder={`휴대폰 번호를 '-'없이 입력하세요`}
+                placeholder={`휴대폰 번호를 '-' 없이 입력하세요`}
                 onChangeText= {text=>setPhone({text})}
                 onPress = {_phoneAuth}
             />
@@ -338,9 +348,9 @@ const Register = (props) => {
                 onPress={()=>_onPressVerifyCode(phoneRes)}
                 time={timerCount}
             />
-            <Text style={{ fontSize: 16, fontWeight: 'bold', marginBottom: 18}}>추가 정보</Text>
+            <Text style={{ fontSize: 16, fontWeight: 'bold', marginBottom: 18, marginTop : 16}}>추가 정보</Text>
             <Text style={styles.textTitle}>성별</Text>
-            <View style={{flexDirection : 'row'}}>
+            <View style={{flexDirection : 'row', marginBottom : 12}}>
                 <TouchableOpacity onPress = {()=>_onPressMan(man)} style={{flexDirection : 'row'}}>
                     <_renderSex check={man}></_renderSex><Text style ={{marginRight:48}}>남자</Text>
                 </TouchableOpacity>
@@ -358,13 +368,15 @@ const Register = (props) => {
                 placeholder='생년월일을 입력하세요 ex)19901231'
                 onChangeText={(text)=>setBirth({text})}
             />
-            <Text style={{ fontSize: 16, fontWeight: 'bold', marginBottom: 18}}>아이디 정보</Text>
-            <RegistInput
-                value = {email} 
-                title='이메일'
-                placeholder='이메일을 입력하세요'
-                onChangeText={(text)=>setEmail({text})}
-            />
+            <Text style={{ fontSize: 16, fontWeight: 'bold', marginBottom: 18, marginTop : 16}}>아이디 정보</Text>
+            {isitemail&&(
+                    <RegistInput
+                    value = {email} 
+                    title='이메일'
+                    placeholder='이메일을 입력하세요'
+                    onChangeText={(text)=>setEmail({text})}
+                />
+            )}
             {isitemail && (
                 <RegistInput 
                     secureTextEntry = {true}
@@ -412,6 +424,7 @@ const styles = StyleSheet.create({
         backgroundColor:Utill.color.white
     },
     textTitle: {
+        color : Utill.color.itemTitle,
         fontSize: 14,
         marginBottom: 12,
     },

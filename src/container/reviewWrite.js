@@ -10,6 +10,7 @@ import { View,
     ScrollView,
     Image,
 } from 'react-native';
+import FastImage from 'react-native-fast-image';
 
 import * as API from '../utill/API';
 import * as Utill from '../utill';
@@ -159,9 +160,7 @@ const ReviewWrite = (props) => {
             image,
             isUpdate,
         }
-        console.log(data);
         const res = await API.reviewWirte(token,data);
-        console.log(res);
         if(res){
             if(isUpdate==='false'){
                 Toast.show('리뷰가 등록되었습니다!');
