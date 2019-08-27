@@ -115,8 +115,9 @@ android {
         applicationId "com.react_dishnow_user"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 3
-        versionName "1.2"
+        versionCode 4
+        versionName "1.3"
+        multiDexEnabled true
     }
     splits {
         abi {
@@ -166,6 +167,7 @@ dependencies {
     implementation 'androidx.appcompat:appcompat:1.0.0'
     implementation "com.facebook.react:react-native:+"  // From node_modules
     implementation 'androidx.annotation:annotation:1.0.0'
+    implementation 'com.android.support:multidex:1.0.3'
 }
 subprojects {
     repositories {

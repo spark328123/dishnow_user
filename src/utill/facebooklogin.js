@@ -21,6 +21,7 @@ const login = async (token) => {
 }
 
 const facebooklogin = (navigation) => {
+    API.setTimer(API.TAB_TIMER, JSON.stringify(new Date().getTime() - 120000));
     LoginManager.logInWithPermissions(['public_profile'])
         .then(result => {
             console.log(result);
