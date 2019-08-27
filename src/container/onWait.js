@@ -119,7 +119,7 @@ const OnWait =  (props) =>{
     const _goBack = () =>{
         OneSignal.removeEventListener('received',_oneSignalReceived);
         OneSignal.removeEventListener('opened',_oneSignalReceived);
-        navigation.navigate('TabHome');
+        navigation.navigate('Splash');
     }
 
     const _oneSignalReceived = async(notification) => {

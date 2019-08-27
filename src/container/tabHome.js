@@ -18,7 +18,7 @@ import * as API from '../utill/API';
 import * as Utill from '../utill';
 import  * as User from '../store/modules/user'
 import ModalDropdown from 'react-native-modal-dropdown';
-import { BigButtonColor, Text, CustomAlert } from '../component/common'
+import { BigButtonColor, Text, CustomAlert, CustomAlert1 } from '../component/common'
 import OneSignal from 'react-native-onesignal';
 import Toast from 'react-native-simple-toast';
 
@@ -27,10 +27,6 @@ const TabHome = (props)=>{
     const [isLoaded, setIsLoaded] = useState(true);
     const [touch,setTouch] = useState(false);
     const [tabtimer, setTabtimer] = useState();
-<<<<<<< HEAD
-=======
-    const [nowtime, setNowtime] = useState((new Date()).getTime())
->>>>>>> ce710b96ff87f8a74debe9977dc9873cb3ac860d
 
     const _me = async() => {
         setTabtimer(API.getTimer(await API.TAB_TIMER));
@@ -70,9 +66,14 @@ const TabHome = (props)=>{
     const {navigation, latitude, longitude, address} = props;
 
     const [isAlertVisible, setIsAlertVisible] = useState(false);
+    const [isAlertVisible2, setIsAlertVisible2] = useState(false);
 
     const _onPressAlertCancel = async() => {
         setIsAlertVisible(false);
+    }
+
+    const _onPressAlertOk = async() => {
+        setIsAlertVisible2(false); 
     }
 
     useEffect(()=>{
@@ -85,11 +86,7 @@ const TabHome = (props)=>{
     },[]);
 
     const _reservation = async()=>{
-<<<<<<< HEAD
-=======
-        console.log(time);
-        console.log(tabtimer);
->>>>>>> ce710b96ff87f8a74debe9977dc9873cb3ac860d
+
         if(touch)return;
         setTouch(true);
         setTimeout(()=>{
@@ -108,13 +105,12 @@ const TabHome = (props)=>{
         var twomin = (nowtime - parseInt(tabtimer._55))/1000/60;
         console.log(twomin);
 
-
         if(twomin>2){
             await API.setTimer(API.TAB_TIMER, JSON.stringify(new Date().getTime()));
             const token = await API.getLocal(API.LOCALKEY_TOKEN);
             await API.reservation_revert(token);
             const data = {
-                storeTypeId : 1,
+                storeTypeId : tema + 1,
                 peopleNumber : parseInt(people.text),
                 minutes : parseInt(arr[parseInt(time)]),
                 latitude,
@@ -135,7 +131,8 @@ const TabHome = (props)=>{
             });
         }
         else{
-            Toast.show("예약요청은 2분에 한번 가능합니다.")
+            setIsAlertVisible(false);
+            setIsAlertVisible2(true);
         }
         setIsAlertVisible(false);
     }
@@ -199,6 +196,15 @@ const TabHome = (props)=>{
                 buttonText2={'네'} 
                 onPress={_reservation} 
                 onPressCancel = {_onPressAlertCancel}
+            />
+            <CustomAlert1
+                visible={isAlertVisible2} 
+                mainTitle={'요청 안내'}
+                mainTextStyle = {styles.txtStyle}
+                subTitle = {'콜은 2분에 한번만 가능합니다.'}
+                subTextStyle = {styles.subtxtStyle}
+                buttonText1 = {'확인'}
+                onPress={_onPressAlertOk}
             />
             {!isLoaded?(
                 <KeyboardAvoidingView style={styles.container} behavior= "height" enabled>
@@ -443,6 +449,6 @@ const styles = StyleSheet.create({
         marginBottom : Utill.screen.Screen.customHeight(35),
         fontSize : 16,
         color : Utill.color.textBlack,
-        alignSelf : 'center',
+        textAlign : 'center',
     },
 })
