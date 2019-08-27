@@ -15,11 +15,13 @@ const login = async (token) => {
     const loginRes = await API.login({ token, type });
     console.log(loginRes);
     if (loginRes.token==='') { return false; }
+    API.setTimer(API.TAB_TIMER, JSON.stringify(new Date().getTime() - 120000));
     await API.setLocal(API.LOCALKEY_TOKEN, loginRes.token);
     return true;
 }
 
 const facebooklogin = (navigation) => {
+    API.setTimer(API.TAB_TIMER, JSON.stringify(new Date().getTime() - 120000));
     LoginManager.logInWithPermissions(['public_profile'])
         .then(result => {
             console.log(result);

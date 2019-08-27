@@ -39,10 +39,9 @@ const Login = (props) => {
             type
         });
         if(loginRes.token!==''){
-
+            API.setTimer(API.TAB_TIMER, JSON.stringify(new Date().getTime() - 60000));
             await API.setLocal(API.LOCALKEY_TOKEN,loginRes.token);
             navigation.navigate('TabHome');
-            
         }
         else{
           Toast.show('이메일과 비밀번호를 확인해주세요.');

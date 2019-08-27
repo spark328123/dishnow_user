@@ -23,7 +23,7 @@ const TabBooked = (props) =>{
         }
         setIsLoaded(false);
         setdata(resList);
-        Nowtime((new Date()).getTime());
+        setNowtime((new Date()).getTime());
     }
 
     const _showStoreDetail = async({storeId,reservationId,latitude,longitude})=>{

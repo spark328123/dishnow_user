@@ -27,6 +27,9 @@ const OnWait =  (props) =>{
 
     const [isAlertVisible, setIsAlertVisible] = useState(false);
 
+    const restime = useState(navigation.getParam('time'));
+    const resnumber = useState(navigation.getParam('people'));
+
     const _onPressAlertCancel = () => {
         setIsAlertVisible(false);
     }
@@ -34,7 +37,6 @@ const OnWait =  (props) =>{
         setIsAlertVisible(false);
         const token = await API.getLocal(API.LOCALKEY_TOKEN);
         const res = await API.reservation_cancel(token);
-        console.log(res);
         Toast.show('예약을 취소했습니다');
        _goBack();
     }
@@ -51,26 +53,15 @@ const OnWait =  (props) =>{
   
 
     const _handleChange = async(nextAppState)=>{
-        console.log(appState, nextAppState);
         if(appState === 'active' && nextAppState === 'active') {
             const token = await API.getLocal(API.LOCALKEY_TOKEN);
-            var res = await API.getReservation_accept(token);
+            const res = await API.getReservation_accept(token);
+            console.log("RESSSSSSSSS");
             console.log(res);
-            res = res[res.length-1];
-            
-            const {latitude,longitude,mainImage,name,reservationId,storeId} = res;
-            navigation.navigate('List',{
-                latitude,
-                longitude,
-                mainImage,
-                name,
-                reservationId,
-                storeId,
-                theme : res.type,
-                peopleNumber : navigation.getParam('people'),
-                minutes : navigation.getParam('time'),
-                timerCount,
-            });
+            console.log(resnumber);
+            console.log(restime);
+            if(res.length)
+                await navigation.navigate('List',{timerCount,resnumber,restime,data:res});
         }
         setAppState(nextAppState);
     }
@@ -128,25 +119,18 @@ const OnWait =  (props) =>{
     const _goBack = () =>{
         OneSignal.removeEventListener('received',_oneSignalReceived);
         OneSignal.removeEventListener('opened',_oneSignalReceived);
-        navigation.navigate('TabHome');
+        navigation.navigate('Splash');
     }
 
-    const _oneSignalReceived = (notification) => {
+    const _oneSignalReceived = async(notification) => {
         if (!notification) return;
-        let notiData = notification.notification? {...notification.notification} : notification;
-        const {latitude=null,longitude=null,mainImage=null,name=null,reservationId=null,storeId=null,storeType=null} = notiData.payload.additionalData;
-        navigation.navigate('List',{
-            latitude,
-            longitude,
-            mainImage,
-            name,
-            reservationId,
-            storeId,
-            theme : storeType,
-            peopleNumber : navigation.getParam('people'),
-            minutes : navigation.getParam('time'),
-            timerCount,
-        });
+        const token = await API.getLocal(API.LOCALKEY_TOKEN);
+        const res = await API.getReservation_accept(token);
+        console.log("RESSSSSSSSS");
+        console.log(res);
+        console.log(resnumber);
+        console.log(restime);
+        await navigation.navigate('List',{timerCount,resnumber,restime,data:res});
     };
 
     return(
@@ -174,7 +158,7 @@ const OnWait =  (props) =>{
              {toggle ? (            
                 <View style = {styles.loading}>
                     <ActivityIndicator size = "large" color = {Utill.color.primary1}/>
-                    <Text style = {{fontSize : 18, marginBottom : 13, marginTop : 23}}>출발지 기준 200m 내 술집에 요청중</Text>
+                    <Text style = {{fontSize : 18, marginBottom : 13, marginTop : 23}}>출발지 기준 300m 내 술집에 요청중</Text>
                     <Text style = {{fontSize : 18,color : Utill.color.primary1}}>{timerCount%60 < 10 ? `${Math.floor(timerCount/60)} : 0${timerCount%60}` : `${Math.floor(timerCount/60)} : ${timerCount%60}`}</Text>
                 </View>
                 ):(
@@ -307,7 +291,6 @@ const styles = StyleSheet.create({
     },
     subtxtStyle : {
         marginBottom : 35,
-        width : Utill.screen.Screen.customWidth(262),
         fontSize : 16,
         color : Utill.color.textBlack,
         textAlign : 'center',

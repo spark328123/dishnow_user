@@ -47,12 +47,12 @@ export default (props)=>{
 
                                 <View style={styles.infoLine}>
                                     <Text style={styles.infoTitle}>{'인원'}</Text>
-                                    <Text style={styles.infoData}>{navigation.getParam('peopleNumber')}</Text>
+                                    <Text style={styles.infoData}>{navigation.getParam('peopleNumber')}</Text><Text style={styles.infoData}>명</Text>
                                 </View>
 
                                 <View style={[styles.infoLine, {marginTop:17}]}>
                                     <Text style={styles.infoTitle}>{'도착 예정 시간'}</Text>
-                                    <Text style={styles.infoData}>{`${minutes}분 후`}</Text>
+                                    <Text style={styles.infoData}>{`${minutes[0]}분 후`}</Text>
                                 </View>
                             </View>
                         </View>

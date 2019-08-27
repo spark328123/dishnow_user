@@ -1,4 +1,4 @@
-import React, { useState,useEffect } from 'react'
+import React, { useState,useEffect,Component } from 'react'
 import {
     View,
     StyleSheet,
@@ -74,8 +74,8 @@ export default Nick = ({navigation}) => {
                     mainTextStyle = {styles.txtStyle}
                     subTitle = {'닉네임을 변경하시겠습니까?'}
                     subTextStyle = {styles.subtxtStyle}
-                    buttonText1={'취소'} 
-                    buttonText2={'확인'} 
+                    buttonText1={'취소'}
+                    buttonText2={'확인'}
                     onPressCancel = {_onPressAlertCancel}
                     onPress={_saveNickName(nickName)}/>
                 }

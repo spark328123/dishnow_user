@@ -54,11 +54,12 @@ export default Client = ({navigation}) =>{
 
     const _setIsPressed = ({id})=>{
         setData(data.map(item => 
-            item.id===id ? {...item,isPressed:!item.isPressed} : item));
+            item.id===id ? {...item,isPressed:!item.isPressed} : {...item,isPressed:false}));
     }
 
     const _renderItem = ({item}) => {
         return (
+
             <View style = {styles.container}>
                 <TouchableOpacity onPress = {()=>_setIsPressed(item)}>
                     <View style= {{padding : 15}}>

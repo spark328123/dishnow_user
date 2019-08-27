@@ -3,8 +3,9 @@ import AsyncStorage from '@react-native-community/async-storage';
 
 export const apiUrl = 'http://54.180.6.107:8001/api/user/'; 
 
-export const LOCALKEY_TOKEN = 'LOC_STORE_KEY_TOKEN'
+export const LOCALKEY_TOKEN = 'LOC_STORE_KEY_TOKEN';
 export const PUSH_TOKEN = 'PUSH_TOKEN';
+export const TAB_TIMER = 'TAB_TIMER';
 
 
 export const getLocal =  async (key) => {
@@ -33,7 +34,24 @@ export const getPush = async (key) => {
     }
 }
 
-export const setPush = async (key ,data) => {
+export const setPush = async (key, data) => {
+    try {
+        await AsyncStorage.setItem(key,data);
+    } catch(e) {
+        console.log(e);
+    }
+}
+
+export const getTimer = async (key) => {
+    try {
+        const value = await AsyncStorage.getItem(key);
+        return value;
+    } catch(e) {
+        console.log(e);
+    }
+}
+
+export const setTimer = async (key, data) => {
     try {
         await AsyncStorage.setItem(key,data);
     } catch(e) {
