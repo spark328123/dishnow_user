@@ -160,9 +160,7 @@ const ReviewWrite = (props) => {
             image,
             isUpdate,
         }
-        console.log(data);
         const res = await API.reviewWirte(token,data);
-        console.log(res);
         if(res){
             if(isUpdate==='false'){
                 Toast.show('리뷰가 등록되었습니다!');
@@ -238,7 +236,7 @@ const ReviewWrite = (props) => {
                                     style = {[styles.picker, {marginTop: Utill.screen.Screen.customHeight(15)}]}
                                     onPress = {()=>
                                     { if(item.source===defaultImageSource || item.source===addImageSource){_picker(item)} else _deleteSource(item);}}>
-                                <FastImage
+                                <Image
                                     source = {item.source} 
                                     style = {styles.addimage} />
                                 {isLoaded && <ActivityIndicator style = {styles.indicator}/>}
