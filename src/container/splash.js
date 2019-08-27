@@ -51,7 +51,6 @@ export default (props) => {
             dispatch(User.updatereviewcount(reviewcount));
             dispatch(User.updatenickname(nickname));
             const pushToken = await API.getPush(API.PUSH_TOKEN);
-            API.setTimer(API.TAB_TIMER, JSON.stringify(new Date().getTime()));
             await API.setPushToken(token,{pushToken});
             navigation.navigate('Main');
         } else {

@@ -22,7 +22,8 @@ export default ({ navigation }) => {
        API.setTimer(API.TAB_TIMER, JSON.stringify(new Date().getTime() - 120000));
        return true;
    }
- kakaoLogin = () => {
+ kakaoLogin = () => { 
+   API.setTimer(API.TAB_TIMER, JSON.stringify(new Date().getTime() - 120000));
    console.log("   kakaoLogin   ");
    RNKakaoLogins.login((err, result) => {
      if (err) {
