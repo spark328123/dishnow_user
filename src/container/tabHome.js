@@ -86,6 +86,7 @@ const TabHome = (props)=>{
     },[]);
 
     const _reservation = async()=>{
+
         if(touch)return;
         setTouch(true);
         setTimeout(()=>{

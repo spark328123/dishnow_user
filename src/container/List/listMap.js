@@ -19,10 +19,21 @@ const ListMap = (props) => {
     const _goBack = ()=>{
         navigation.navigate('List',{data});
     }
+    const [flex, setFlex] = useState(0.9997);
+    const _setFlex =()=>{
+            setFlex(1);
+    }
+
+    useEffect (()=>{
+        setTimeout(()=>{
+            _setFlex();
+        }, 10);
+
+    })
     return(
         <View style ={{flex :1}}>
            <MapView 
-           style = {{flex :1}}
+           style = {{flex :flex}}
            initialRegion = {{latitude,longitude,latitudeDelta: 0.0162,longitudeDelta: 0.00421}}
             provider={PROVIDER_GOOGLE}
             showsUserLocation

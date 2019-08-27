@@ -19,7 +19,7 @@ import Toast from 'react-native-simple-toast';
 const List = (props) => {
 
     const { navigation, mylat, mylon } = props;
-    const WaitTime = 60*5+navigation.getParam('timerCount')-1;
+    const WaitTime = 60*5+navigation.getParam('timerCount');
 
     const [timer, setTimer] = useState(null);
     const [timerCount, setTimerCount] = useState(WaitTime);

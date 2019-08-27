@@ -87,14 +87,14 @@ const Help = (props) => {
                         <Text style={{fontSize:14, color:'#555555', marginLeft:20}}>{_timeToString(data.businessHour.sundayOpen, data.businessHour.sundayClose)}</Text>
                     </View> 
                 </View>
-                <View style={{marginTop : 30, paddingBottom:30}}>
+                <View style={{marginTop : 30, paddingBottom:30, }}>
                     <Text style={{
                         fontWeight : 'bold',
                         fontSize : 14,
                     }}>
                         {`편의시설`}
                     </Text>
-                    <View style={{flexDirection:'row', marginTop:15}}>
+                    <View style={{flexDirection:'row', marginTop:15 }}>
 
                         {data.facilities.wifi && <View style={{alignItems:'center', marginRight:20,}}>
                             <Image style={{width:40, height:40, marginBottom : 8,}} source={icon_wifi}/>

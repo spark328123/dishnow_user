@@ -129,7 +129,6 @@ const Register = (props) => {
             const res1 = /^[가-힣]{2,25}|[a-zA-Z]{2,25}\s[a-zA-Z]{2,25}$/.test(name.text);
             const res2 = /^\d{11}$/.test(phone.text);
             const res5 = /^[가-힣A-Za-z0-9]{2,20}$/.test(nickname.text)&&nickname.text!==undefined;
-            const res6 = /^[a-z0-9_+.-]+@([a-z0-9-]+\.)+[a-z0-9]{2,4}$/.test(email.text)&&email.text!==undefined;
             const res7 = /^\d{8}$/.test(birthDate.text);
             const res8 = man||woman||nosex;
 
@@ -148,13 +147,10 @@ const Register = (props) => {
             else if(!res7){
                 Toast.show('생년월일을 확인해주세요');
             }
-            else if(!res6){
-                Toast.show('이메일을 확인해주세요');
-            }
             else if(!res5){
                 Toast.show('닉네임을 확인해주세요');
             }
-            else if(isitokay&&res1&&res2&&res5&&res6) {
+            else if(isitokay&&res1&&res2&&res5) {
                 const regRes = await API.register({
                     token,
                     type,

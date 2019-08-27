@@ -24,7 +24,7 @@ const Welcome = (props) =>{
                 <Text style = {styles.text}>님, 회원가입을 축하합니다.</Text>
             </View>
             <Text style = {styles.text}>바로 서비스를 이용해 보세요.</Text>
-            <Image style = {{width: 145, height:145, marginTop: Utill.screen.Screen.customHeight(110), marginBottom: Utill.screen.Screen.customHeight(89)}}source = {{uri: "icon_eat"}}></Image>
+            <Image style = {{width: 145, height:145, marginTop: Utill.screen.Screen.customHeight(90), marginBottom: Utill.screen.Screen.customHeight(80)}}source = {{uri: "icon_eat"}}></Image>
             <BigButtonBorder title = '확인' onPress ={()=>{navigation.navigate('Main')}}></BigButtonBorder>
         </View>
     )

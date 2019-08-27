@@ -14,7 +14,7 @@ import * as API from '../utill/API';
 import Toast from 'react-native-simple-toast';
 
 const OnWait =  (props) =>{
-    const WaitTime = 119;
+    const WaitTime = 120;
     const { navigation, latitude, longitude } = props;
     const createdAt = navigation.getParam('createdAt');
     var address = navigation.getParam('address');
@@ -56,10 +56,6 @@ const OnWait =  (props) =>{
         if(appState === 'active' && nextAppState === 'active') {
             const token = await API.getLocal(API.LOCALKEY_TOKEN);
             const res = await API.getReservation_accept(token);
-            console.log("RESSSSSSSSS");
-            console.log(res);
-            console.log(resnumber);
-            console.log(restime);
             if(res.length)
                 await navigation.navigate('List',{timerCount,resnumber,restime,data:res});
         }
@@ -80,7 +76,7 @@ const OnWait =  (props) =>{
     const _reservation = async ()=>{
         const token = await API.getLocal(API.LOCALKEY_TOKEN);
         const data = {
-            storeTypeId : 1,
+            storeTypeId : tema+1,
             peopleNumber : parseInt(navigation.getParam('people')),
             minutes : parseInt(navigation.getParam('time')),
             latitude,
@@ -126,10 +122,6 @@ const OnWait =  (props) =>{
         if (!notification) return;
         const token = await API.getLocal(API.LOCALKEY_TOKEN);
         const res = await API.getReservation_accept(token);
-        console.log("RESSSSSSSSS");
-        console.log(res);
-        console.log(resnumber);
-        console.log(restime);
         await navigation.navigate('List',{timerCount,resnumber,restime,data:res});
     };
 
