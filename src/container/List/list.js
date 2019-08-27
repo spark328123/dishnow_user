@@ -224,7 +224,7 @@ const List = (props) => {
         />
         
             <View style = {styles.header}>
-                <Text style={{fontSize:14, color:"#733FFF" }}>{`${Math.floor(timerCount/60)}:${timerCount%60}`}</Text>
+                <Text style={{fontSize:14, color:"#733FFF" }}>{timerCount%60 < 10 ? `${Math.floor(timerCount/60)} : 0${timerCount%60}` : `${Math.floor(timerCount/60)} : ${timerCount%60}`}</Text>
                 <Text style = {{fontSize : 18, fontWeight:'bold', marginLeft:Utill.screen.Screen.customWidth(20)}}>
                     예약 가능 식당
                 </Text>
