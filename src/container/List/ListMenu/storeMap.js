@@ -23,12 +23,18 @@ const StoreMap = (props) => {
     const theme = navigation.getParam('theme');
     const isReservation = navigation.getParam('isReservation');
     const distance = navigation.getParam('distance');
+    const [flex, setFlex] = useState(0.9997);
 
     useEffect(()=>{
-        console.log(navigation);
-        console.log(latitude);
-        console.log(longitude,isReservation);
+        setTimeout(()=>{
+            _setFlex();
+        }, 10);
+
     },[])
+
+    const _setFlex =()=>{
+        setFlex(1);
+    }
 
     const _goBack = () => {
         navigation.navigate('ListMenu');
@@ -37,7 +43,7 @@ const StoreMap = (props) => {
     return(
         <View style ={{flex :1}}>
            <MapView 
-           style = {{flex :1}}
+           style = {{flex :flex}}
            initialRegion = {{latitude,longitude,latitudeDelta: 0.0162,longitudeDelta: 0.00421}}
             provider={PROVIDER_GOOGLE}
             showsUserLocation
