@@ -60,7 +60,7 @@ const TabHome = (props)=>{
     const [tema, setTema] = useState(0);
     const [bol, setBol] = useState(true);
     const [arr, setArr] = useState(
-        ['3', '5', '8', '10', '15', '20']
+        ['3', '5', '10', '15', '20']
     );
 
     const {navigation, latitude, longitude, address} = props;
@@ -293,7 +293,7 @@ const TabHome = (props)=>{
                                 textStyle = {{fontSize: 24, fontFamily: "NanumSquareOTFR", color: '#CCCCCC', marginTop : -2}}
                                 dropdownTextStyle = {{fontSize: 16, fontFamily: "NanumSquareOTFR", color: "#111111"}}
                                 style = {{width : 33, height : 31}} 
-                                options = {['3', '5', '8', '10', '15', '20']}
+                                options = {['3', '5', '10', '15', '20']}
                                 onDropdownWillShow = {()=>Keyboard.dismiss()}
                                 onSelect = {(idx) => _selectTime(idx)}
                                 />)}
@@ -302,7 +302,7 @@ const TabHome = (props)=>{
                                 textStyle = {{fontSize: 24, fontFamily: "NanumSquareOTFR", color: "#111111", marginTop : -2}}
                                 dropdownTextStyle = {{fontSize: 16, fontFamily: "NanumSquareOTFR", color: "#111111"}}
                                 style = {{width : 33, height : 31}} 
-                                options = {['3', '5', '8', '10', '15', '20']}
+                                options = {['3', '5', '10', '15', '20']}
                                 onSelect = {(idx) => _selectTime(idx)}
                                 onDropdownWillShow = {()=>Keyboard.dismiss()}
                                 />)}

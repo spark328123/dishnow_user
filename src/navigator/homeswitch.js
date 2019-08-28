@@ -15,11 +15,16 @@ const HomeSwitch = createSwitchNavigator(
 export default HomeSwitch;
 
 HomeSwitch.navigationOptions = ({ navigation }) => {
-    let navigationOptions = {};
-  if (navigation.state.index == 1) {
-    navigationOptions.tabBarVisible = false;
+    let tabBarVisible = true;
+    
+  if (navigation.state.index > 0) {
+    tabBarVisible = false;
+  }else if(navigation.state.index==0){
+      console.log(navigation.state.routes[0].index);
+    if(navigation.state.routes[0].index==1)tabBarVisible=false;
   }
+  
   return {
-    navigationOptions,
+    tabBarVisible,
   };
-}
+  }

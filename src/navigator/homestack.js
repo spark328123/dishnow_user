@@ -24,7 +24,6 @@ const HomeStack = createStackNavigator(
                 gesturesEnabled: false,
             }
         }
-        
     },
     {
         initialRouteName : 'HomeSwitch',
@@ -36,10 +35,13 @@ export default HomeStack;
 HomeStack.navigationOptions = ({ navigation }) => {
   let tabBarVisible = true;
   
-  console.log(navigation.state.index);
 if (navigation.state.index > 0) {
   tabBarVisible = false;
+}else if(navigation.state.index==0){
+  if(navigation.state.routes[0].index==1)tabBarVisible=false;
 }
+
+
 return {
   tabBarVisible,
 };

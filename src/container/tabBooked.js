@@ -68,6 +68,7 @@ const TabBooked = (props) =>{
     const _renderItem = ({item}) => {
         return (
             <View style={styles.list}>
+         
                 <TouchableOpacity style={styles.nameContainer}
                     onPressIn = {()=>{
                         _showStoreDetail(item);
@@ -103,13 +104,13 @@ const TabBooked = (props) =>{
                 {marginTop : topSafe}
             ]
         }>
-       
-        {!isLoaded?(  <FlatList
-            data = {data}
-            renderItem = {_renderItem}
-          />):(
-                <ActivityIndicator size="large" color={"#733FFF"}/>
-          )}
+            {isLoaded ? ( <ActivityIndicator size="large" color={"#733FFF"}/>) :(
+                data.length ?  (<FlatList
+                data = {data}
+                renderItem = {_renderItem}
+              />):(<Text> 예약 내역이 없습니다.</Text>)
+            )}
+            
            <TouchableOpacity style={styles.container} onPress ={()=>_onPress()}>
             <Image style={{height : 15, width : 15}} source={{uri : 'icon_logo_purple_main'}} />
             <Text style={styles.text}>새로고침</Text>
