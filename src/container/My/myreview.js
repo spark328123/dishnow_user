@@ -16,21 +16,9 @@ const empty_field_star = { uri : 'icon_star_empty_review'};
 
 export default Review = ({navigation}) =>{
     const [isAlertVisible, setIsAlertVisible] = useState(false);
-    const [ data, setData ] = useState([]);
-    const [ visible, setVisible ] = useState(false);
-    const [ imageList, setImageList ] = useState([]);
-    const [ isLoaded, setIsLoaded ] = useState(true);
-    const [ deleteReviewId, setDeleteReviewId] = useState();
+    
+
     const dispatch = useDispatch();
-
-    const _onPressAlertCancel = async() => {
-        setIsAlertVisible(false);
-    }
-
-    const _onPressAlertOk = async() => {
-        setIsAlertVisible2(false); 
-    }
-
     const _showReview = async() =>{
         const token = await API.getLocal(API.LOCALKEY_TOKEN);
         const res = await API.reviewMe(token);
@@ -43,14 +31,26 @@ export default Review = ({navigation}) =>{
         console.log(res);
     }
 
+    const _onPressAlertOk = () => {
+        setIsAlertVisible(false);
+        _deleteReview(deleteReviewId);
+    }
+    const _onPressAlertCancel = () => {
+        setIsAlertVisible(false);
+    }
     useEffect(()=>{
         _showReview();
     },[])
 
-   
+    const [ data, setData ] = useState([]);
+    const [ visible, setVisible ] = useState(false);
+    const [ imageList, setImageList ] = useState([]);
+    const [ isLoaded, setIsLoaded ] = useState(false);
+    const [ deleteReviewId, setDeleteReviewId] = useState();
     _goBack = () => {
         navigation.navigate('TabMy')
     }
+
     handleAndroidBackButton(_goBack)
     const _deleteReview = async (reviewId)=>{
         const token = await API.getLocal(API.LOCALKEY_TOKEN);
@@ -72,7 +72,7 @@ export default Review = ({navigation}) =>{
         
         if(item.rating!==null){
         return (
-            <View style = {styles.flatContainer}>
+            <View style = {styles.container}>
                 <Text style={styles.name}>{item.name}</Text>
                 <View style={styles.informationContainer}>
                     <View style = {{flexDirection : 'row'}}>
@@ -121,33 +121,35 @@ export default Review = ({navigation}) =>{
     }
 
     return(
-        <View style ={styles.container}>
-            <CustomAlert
+        <View style ={
+        {
+            flex : 1,
+            alignItems : 'center',
+            justifyContent : 'center',
+            backgroundColor : Utill.color.white,
+        }
+        
+        }>
+
+        <CustomAlert 
                 visible={isAlertVisible} 
                 mainTitle={'리뷰 삭제'}
                 mainTextStyle = {styles.txtStyle}
                 subTitle = {'리뷰를 삭제하시겠습니까?'}
                 subTextStyle = {styles.subtxtStyle}
-                buttonText1={'취소'}
+                buttonText1={'취소'} 
                 buttonText2={'삭제'} 
-                onPress={()=>{setIsAlertVisible(false);_deleteReview(deleteReviewId)}} 
+                onPress={_onPressAlertOk} 
                 onPressCancel = {_onPressAlertCancel}
-            />
-
-            <View style = {{flex : 1}}>
-                {!isLoaded ? <NavSwitchHead navigation={navigation} navtitle = {'TabMy'} title={`나의 리뷰`}/> : null}
-            </View>
-            
-            {/* 로딩 끝났을 때 */}
-            {!isLoaded ?  
-                // 리뷰가 없으면
-                (data.length ? 
-                    (<FlatList
-                        data = {data} renderItem = {_renderItem}/> )
-                    :
-                    (<Text style = {styles.reviewText}>리뷰를 작성해 주세요.</Text>))
-                : (<ActivityIndicator style = {styles.indicator} size="large" color="#733FFF"/>)
-            }
+        />
+        {!isLoaded? <NavSwitchHead navigation={navigation} navtitle = {'TabMy'} title={`나의 리뷰`}/> : null}
+        {!data.length && <Text style={{position : 'absolute', marginTop : 200}}>리뷰가 없습니다.</Text>}
+        {!isLoaded ?  
+          <FlatList
+            data = {data}
+            renderItem = {_renderItem}
+        />:<ActivityIndicator size="large" color="#0000ff"/>}
+           
         </View>
     )
 }
@@ -156,19 +158,7 @@ const styles = StyleSheet.create({
     container : {
         flex : 1,
         justifyContent:'center',
-        alignContent : 'center',
         backgroundColor : Utill.color.white,
-    },
-    flatContainer : {
-        flex : 1,
-        padding : 15,
-        backgroundColor : Utill.color.white,
-        justifyContent : 'center',
-    },
-    reviewText : {
-        flex : 1,
-        alignSelf : 'center',
-        justifyContent : 'center',
     },
     name: {
         fontSize: 16,
@@ -233,18 +223,13 @@ const styles = StyleSheet.create({
         fontSize : 18,
         fontWeight : 'bold',
         color : Utill.color.textBlack,
-        alignSelf : 'center',
+        textAlign : 'center',
     },
     subtxtStyle : {
-        width : 300,
         marginBottom : Utill.screen.Screen.customHeight(35),
+        width : Utill.screen.Screen.customWidth(262),
         fontSize : 16,
         color : Utill.color.textBlack,
         textAlign : 'center',
-    },
-    indicator: {
-        position: 'absolute',
-        left: Utill.screen.screenWidth/2-15,
-        top: Utill.screen.screenHeight/2-50        
     },
 })

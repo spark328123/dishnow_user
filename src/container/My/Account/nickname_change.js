@@ -53,14 +53,29 @@ export default Nick = ({navigation}) => {
     }
   
     _saveNickName = async (nickName)=>{
-        //토큰을 끌어옴
-        const token = await API.getLocal(API.LOCALKEY_TOKEN);
-        //토큰에 해당하는 db에 nickname을 바꿈
-        await API.changenick(token,{nickname:nickName});
-        console.log ((User.updatenickname(nickName)));
-        //바뀐 닉네임을 예쁘게 끌고와서 업데이트함
-        await(dispatch(User.updatenickname(nickName)));
-        navigation.navigate('Profile');
+        const ifnick = /^[가-힣A-Za-z0-9]{2,20}$/.test(nickName)&&nickName!==undefined;
+        if(ifnick){
+            //토큰을 끌어옴
+            const token = await API.getLocal(API.LOCALKEY_TOKEN);
+            //토큰에 해당하는 db에 nickname을 바꿈
+            await API.changenick(token,{nickname:nickName});
+            console.log ((User.updatenickname(nickName)));
+            //바뀐 닉네임을 예쁘게 끌고와서 업데이트함
+            await(dispatch(User.updatenickname(nickName)));
+            navigation.navigate('Profile');
+        }
+        else{
+            Alert.alert("닉네임은 2글자 이상이여야 합니다","",
+                [
+                    {
+                        text: '확인', onPress: () =>  _setNickName(''), 
+                    },
+                ],
+                {cancelable: false},
+            );
+        }
+
+
     }
    
     return (
