@@ -55,6 +55,7 @@ const List = (props) => {
         setIsAlertVisible(false);
         const token = await API.getLocal(API.LOCALKEY_TOKEN);
         await API.reservation_cancel(token);
+        _timerStop();
        _goHome();
     }
 

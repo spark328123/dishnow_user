@@ -38,6 +38,7 @@ const OnWait =  (props) =>{
         const token = await API.getLocal(API.LOCALKEY_TOKEN);
         const res = await API.reservation_cancel(token);
         Toast.show('예약을 취소했습니다');
+        _timerStop();
        _goBack();
     }
 
@@ -186,7 +187,7 @@ const OnWait =  (props) =>{
                              분 후
                         </Text>
                     </View>
-                    <View style={{flexDirection: 'row', alignItems: "flex-end"}}>
+                    <View style={{flexDirection: 'row', alignItems: "flex-start"}}>
                         <Text style={styles.dataText}>
                             출발지
                         </Text>

@@ -119,6 +119,7 @@ export default Review = ({navigation}) =>{
         
         }>
         {!isLoaded? <NavSwitchHead navigation={navigation} navtitle = {'TabMy'} title={`나의 리뷰`}/> : null}
+        {!data.length && !isLoaded  && <Text style={{position : 'absolute', marginTop : 200}}>리뷰가 없습니다.</Text>}
         {!isLoaded ?  
           <FlatList
             data = {data}
