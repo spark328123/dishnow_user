@@ -117,7 +117,6 @@ const Register = (props) => {
         console.log('ps:' + phone.text );
     }
 
-    
 
     const _register = async () => {
         console.log('isisemail : ' + isitemail);

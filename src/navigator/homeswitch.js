@@ -19,9 +19,6 @@ HomeSwitch.navigationOptions = ({ navigation }) => {
     
   if (navigation.state.index > 0) {
     tabBarVisible = false;
-  }else if(navigation.state.index==0){
-      console.log(navigation.state.routes[0].index);
-    if(navigation.state.routes[0].index==1)tabBarVisible=false;
   }
   
   return {
