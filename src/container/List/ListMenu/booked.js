@@ -51,7 +51,7 @@ export default (props)=>{
                                 </View>
 
                                 <View style={[styles.infoLine, {marginTop:17}]}>
-                                    <Text style={styles.infoTitle}>{'도착 예정 시간'}</Text>
+                                    <Text style={styles.infoTitle}>{'출발 예정 시간'}</Text>
                                     <Text style={styles.infoData}>{`${minutes[0]}분 후`}</Text>
                                 </View>
                             </View>
