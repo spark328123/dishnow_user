@@ -1,7 +1,7 @@
 import React, { useEffect, useState,memo } from 'react';
 import { View, Text, StyleSheet, FlatList,  TouchableOpacity, ActivityIndicator,Image } from 'react-native';
 import FastImage from 'react-native-fast-image';
-import {NavSwitchHead} from '../../component/common';
+import {NavSwitchHead,CustomAlert} from '../../component/common';
 import {handleAndroidBackButton,removeAndroidBackButtonHandler} from '../../component/common/hardwareBackButton';
 import {useDispatch} from 'react-redux';
 import * as User from '../../store/modules/user';
@@ -15,7 +15,17 @@ const full_field_star = { uri : 'icon_star_full_review'};
 const empty_field_star = { uri : 'icon_star_empty_review'};
 
 export default Review = ({navigation}) =>{
+    const [isAlertVisible, setIsAlertVisible] = useState(false);
     const dispatch = useDispatch();
+
+    const _onPressAlertCancel = async() => {
+        setIsAlertVisible(false);
+    }
+
+    const _onPressAlertOk = async() => {
+        setIsAlertVisible2(false); 
+    }
+
     const _showReview = async() =>{
         const token = await API.getLocal(API.LOCALKEY_TOKEN);
         const res = await API.reviewMe(token);
@@ -61,7 +71,7 @@ export default Review = ({navigation}) =>{
         
         if(item.rating!==null){
         return (
-            <View style = {styles.container}>
+            <View style = {styles.flatContainer}>
                 <Text style={styles.name}>{item.name}</Text>
                 <View style={styles.informationContainer}>
                     <View style = {{flexDirection : 'row'}}>
@@ -92,7 +102,7 @@ export default Review = ({navigation}) =>{
 
                     </TouchableOpacity>
                     <TouchableOpacity
-                     onPress ={()=>{setVisible(true);setDeleteReviewId(item.reviewId)}}
+                     onPress ={()=>{setIsAlertVisible(true);setDeleteReviewId(item.reviewId)}}
                      style={{marginLeft: Utill.screen.Screen.customWidth(21)}}>
                         <Text style={styles.buttonText}>삭제</Text>
                     </TouchableOpacity>
@@ -110,28 +120,34 @@ export default Review = ({navigation}) =>{
     }
 
     return(
-        <View style ={
-        {
-            flex : 1,
-            alignItems : 'center',
-            justifyContent : 'center',
-        }
-        
-        }>
-        {!isLoaded? <NavSwitchHead navigation={navigation} navtitle = {'TabMy'} title={`나의 리뷰`}/> : null}
-        {data.length && <Text>리뷰를 작성해 주세요.</Text>}
-        {!isLoaded ?  
-          <FlatList
-            data = {data}
-            renderItem = {_renderItem}
-        />:<ActivityIndicator size="large" color="#0000ff"/>}
-            <Dialog.Container visible = {visible}>
-                <Dialog.Description>리뷰를 삭제하시겠습니까?</Dialog.Description>
-                <Dialog.Title>리뷰 삭제</Dialog.Title>
-                <Dialog.Button label="취소" onPress = {()=>setVisible(false)} />
-                <Dialog.Button label="삭제"
-                    onPress = {()=>{setVisible(false);_deleteReview(deleteReviewId)}}/>
-            </Dialog.Container>
+        <View style ={styles.container}>
+            <CustomAlert
+                visible={isAlertVisible} 
+                mainTitle={'리뷰 삭제'}
+                mainTextStyle = {styles.txtStyle}
+                subTitle = {'리뷰를 삭제하시겠습니까?'}
+                subTextStyle = {styles.subtxtStyle}
+                buttonText1={'취소'}
+                buttonText2={'삭제'} 
+                onPress={()=>{setIsAlertVisible(false);_deleteReview(deleteReviewId)}} 
+                onPressCancel = {_onPressAlertCancel}
+            />
+
+            <View style = {{flex : 1}}>
+                {!isLoaded ? <NavSwitchHead navigation={navigation} navtitle = {'TabMy'} title={`나의 리뷰`}/> : null}
+            </View>
+            
+            {/* 로딩 끝났을 때 */}
+            <View style = {{flex : 1,}}>
+            {!isLoaded ?  
+                // 리뷰가 없으면
+                (data.length ? 
+                    (<FlatList  data = {data} renderItem = {_renderItem} /> )
+                    :
+                    (<Text style = {{flex : 1,alignSelf : 'center',justifyContent : 'center',}}>리뷰를 작성해 주세요.</Text>))
+                : (<ActivityIndicator size="large" color="#733FFF"/>)
+            }
+            </View>
         </View>
     )
 }
@@ -139,8 +155,15 @@ export default Review = ({navigation}) =>{
 const styles = StyleSheet.create({
     container : {
         flex : 1,
-        justifyContent:'center',
+        //justifyContent:'center',
+        alignContent : 'center',
         backgroundColor : Utill.color.white,
+    },
+    flatContainer : {
+        flex : 1,
+        padding : 15,
+        backgroundColor : Utill.color.white,
+        //justifyContent : 'center',
     },
     name: {
         fontSize: 16,
@@ -199,5 +222,19 @@ const styles = StyleSheet.create({
     },
     answerText :{
         fontSize: 12
-    }
+    },
+    txtStyle : {
+        marginBottom : Utill.screen.Screen.customHeight(9),
+        fontSize : 18,
+        fontWeight : 'bold',
+        color : Utill.color.textBlack,
+        alignSelf : 'center',
+    },
+    subtxtStyle : {
+        width : 300,
+        marginBottom : Utill.screen.Screen.customHeight(35),
+        fontSize : 16,
+        color : Utill.color.textBlack,
+        textAlign : 'center',
+    },
 })

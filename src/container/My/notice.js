@@ -30,7 +30,7 @@ export default Notice = ({navigation}) =>{
     
     const _setIsPressed = ({noticeId})=>{
         setData(data.map(item => 
-            item.noticeId===noticeId ? {...item,isPressed:!item.isPressed} : item));
+            item.noticeId===noticeId ? {...item,isPressed:!item.isPressed} : {...item,isPressed:false}));
     }
 
     const _parseTime = ({createdAt}) => {
