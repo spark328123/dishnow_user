@@ -148,7 +148,7 @@ const Profile = ({navigation, userid, nickname, image, phone, point, name}) => {
                         <Text style={{fontSize : 16, color : '#111111', fontFamily : 'NanumSquareOTF', alignSelf: 'flex-end'}}>{nm}</Text>
                     </View>
                 </View>
-                <TouchableOpacity style={styles.garo} onPress = {()=>navigation.navigate('PasswordCheck',{title : '휴대폰 번호 변경'})}>
+                <TouchableOpacity style={styles.garo}>
                     <View style={{width : '50%'}}>
                         <Text style={{fontSize : 14, color : '#555555', fontFamily : 'NanumSquareOTF' }}>휴대폰 번호</Text>
                     </View>
@@ -157,6 +157,7 @@ const Profile = ({navigation, userid, nickname, image, phone, point, name}) => {
                     </View>
                 </TouchableOpacity>
                 <View style = {styles.line}/>
+                {/*
                 <View style={styles.geajung}>
                 <Text >계정보안</Text>
                 </View>
@@ -171,7 +172,6 @@ const Profile = ({navigation, userid, nickname, image, phone, point, name}) => {
                         </View>
                     </View>
                 </TouchableOpacity>
-                */}
                 
                 <TouchableOpacity 
                     style={{height : Utill.screen.Screen.customHeight(43), flexDirection : 'row'}}
@@ -186,6 +186,7 @@ const Profile = ({navigation, userid, nickname, image, phone, point, name}) => {
                             </View>    
                     </View> 
                 </TouchableOpacity>
+                */}
             </View>
         </View>
     );
