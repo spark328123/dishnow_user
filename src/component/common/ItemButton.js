@@ -9,12 +9,13 @@ import { useDispatch } from 'react-redux';
 
 
 export default ItemButton = (props)=> {
-   const { point ,phone,data,name,diff,type, } = props;
+   const { point ,phone,data,diff,type, } = props;
    const dispatch = useDispatch();
    const [isAlertVisible, setIsAlertVisible] = useState(false);
    const [mainTxt,setMainTxt] = useState('');
    const [subTxt,setSubTxt] = useState('');
    const [isOk,setIsOk] = useState(false);
+   const [name,setName] = useState();
    const _onPressAlertOk =  async() => {
         setIsAlertVisible(false);
         if(isOk){
@@ -41,7 +42,7 @@ export default ItemButton = (props)=> {
             setSubTxt('2~3일 안에 카카오톡 선물하기로 개별 발송해드립니다.');
             setIsAlertVisible(true);            
             setIsOk(true);
-
+            setName(name);
         }
    }
 

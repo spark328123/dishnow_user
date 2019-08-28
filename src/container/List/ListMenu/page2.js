@@ -87,7 +87,7 @@ const Help = (props) => {
                         <Text style={{fontSize:14, color:'#555555', marginLeft:20}}>{_timeToString(data.businessHour.sundayOpen, data.businessHour.sundayClose)}</Text>
                     </View> 
                 </View>
-                <View style={{marginTop : 30, paddingBottom:30, }}>
+                <View style={{marginTop : 30, paddingBottom:30, width : 65}}>
                     <Text style={{
                         fontWeight : 'bold',
                         fontSize : 14,
@@ -98,29 +98,29 @@ const Help = (props) => {
 
                         {data.facilities.wifi && <View style={{alignItems:'center', marginRight:20,}}>
                             <Image style={{width:40, height:40, marginBottom : 8,}} source={icon_wifi}/>
-                            <Text>{`와이파이`}</Text>
+                            <Text style={{fontSize : 12}}>{`와이파이`}</Text>
                         </View>}
                         {data.facilities.battery && <View style={{alignItems:'center', marginRight:20,}}>
                             <Image style={{width:40, height:40, marginBottom : 8,}} source={icon_charger}/>
-                            <Text>{`휴대폰충전`}</Text>
+                            <Text style={{fontSize : 12}}>{`휴대폰 충전`}</Text>
                         </View>}
                         {data.facilities.parking && <View style={{alignItems:'center', marginRight:20,}}>
                             <Image style={{width:40, height:40, marginBottom : 8,}} source={icon_park}/>
-                            <Text>{`주차장`}</Text>
+                            <Text style={{fontSize : 12}}>{`주차장`}</Text>
                         </View>}
                     </View>
                     <View style={{flexDirection:'row', marginTop:15}}>
                         {data.facilities.kids && <View style={{alignItems:'center', marginRight:20,}}>
                             <Image style={{width:40, height:40, marginBottom : 8,}} source={icon_kids}/>
-                            <Text>{`키즈존`}</Text>
+                            <Text style={{fontSize : 12}}>{`키즈존`}</Text>
                         </View>}
                         {data.facilities.pet && <View style={{alignItems:'center', marginRight:20,}}>
                             <Image style={{width:40, height:40, marginBottom : 8,}} source={icon_pet}/>
-                            <Text>{`반려동물`}</Text>
+                            <Text style={{fontSize : 12}}>{`반려동물`}</Text>
                         </View>}
                         {data.facilities.somke && <View style={{alignItems:'center', marginRight:20,}}>
                             <Image style={{width:40, height:40, marginBottom : 8,}} source={icon_smoke}/>
-                            <Text>{`흡연실`}</Text>
+                            <Text style={{fontSize : 12}}>{`흡연실`}</Text>
                         </View>}
                     </View>
                 </View>
