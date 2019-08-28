@@ -1,167 +1,105 @@
-import React, { useState, useEffect } from 'react';
-import { View, StyleSheet, FlatList, Button,ScrollView } from 'react-native';
-import { connect, dispatch } from 'react-redux';
-import * as API from '../../../utill/API';
-import { Text,NavSwitchHead,BigButtonBorder,CustomAlert1 } from '../../../component/common';
+import React , { useState} from 'react';
+import { View, StyleSheet } from 'react-native';
+import {NavSwitchHead,Button,Text,LoadingModal,Screen} from '../../../component/common';
 import {handleAndroidBackButton} from '../../../component/common/hardwareBackButton';
+import {useSelector, useDispatch, connect} from 'react-redux'
 import * as Utill from '../../../utill'
-const MyPoint = (props)=>{
-    
-    const { navigation, point } = props;
-    const [ data, setData ] = useState([]); 
-    const [isAlertVisible, setIsAlertVisible] = useState(false);
-    
-    const _onPressAlertOk = () => {
-        setIsAlertVisible(false);
+import Toast from 'react-native-simple-toast';
+import Point1 from './5000point';
+import Point2 from './10000point';
+
+const Point = (props) =>{
+    const {navigation, point, phone} = props;
+    console.log(props);
+    const [isLoadingVisible, setIsLoadingVisible] = useState(true);
+    const [page, setPage] = useState(1);
+    const Screen =(props)=> {
+        if(props.page == 1) return <Point1 data={props.data} phone = {phone} point = {point}/>
+        return <Point2 data={props.data} phone = {phone} point = {point}/>
     }
 
     _goBack = () => {
-        navigation.navigate('TabMy')
+        navigation.navigate('myPoint')
     }
+
     handleAndroidBackButton(_goBack);
-    const _renderItem = ({item}) =>{
-        return (
-            <View style = {{height : 79}}>
-                <View style = {{flexDirection : 'row', justifyContent :'space-between',marginBottom:7,marginTop:12,}}>
-                    <Text style = {{fontSize : 14,color : Utill.color.textBlack}}>
-                        {item.name}
+    return(
+        <View style ={styles.container}>
+            <NavSwitchHead navigation={navigation} navtitle = {'TabMy'} title={`디나포인트`}/>
+            {/* <LoadingModal visible={isLoadingVisible} /> */}
+
+            <View style={styles.tabArea}>
+                <Button 
+                    style={page==1 ? styles.button : styles.buttonUnSelected} 
+                    onPress={()=>setPage(1)}>
+                    <Text
+                        style={page==1 ? styles.buttonTitle : styles.buttonTitleUnSelected}
+                    >
+                        {`5,000포인트`}
                     </Text>
-                    <Text style = {{color : item.type=='save'? Utill.color.primary1 : Utill.color.textBlack}}>
-                        {`${item.diff}원 ${item.type=='save'?'적립':'사용'}`}
+                </Button>
+
+                <Button 
+                    style={page==2 ? styles.button : styles.buttonUnSelected} 
+                    onPress={()=>setPage(2)}>
+                    <Text
+                        style={page==2 ? styles.buttonTitle : styles.buttonTitleUnSelected}
+                    >
+                        {`10,000포인트`}
                     </Text>
-                </View>
-                <Text style = {{color : Utill.color.textBlack,marginBottom:15}}>
-                    {
-                        `${parseInt(item.createdAt.substring(0,4))}.${item.createdAt.substring(5,7)}.${item.createdAt.substring(8,10)}`+
-                        `(${parseInt(item.createdAt.substring(0,4)) + 1}.${item.createdAt.substring(5,7)}.${item.createdAt.substring(8,10)}소멸)`
-                    }
-                </Text>
-                <View style = {styles.line}></View>
-            </View>
-        );
-    };
-
-    const _getDNpoint = async()=>{
-        const token = await API.getLocal(API.LOCALKEY_TOKEN);
-        const res = await API.getDNpoint(token);
-        console.log(res);
-        setData(res);
-    }
-
-    useEffect(()=>{
-        _getDNpoint();
-    },[])
-
-    return (
-        <View style = {styles.container}>
-            <NavSwitchHead navigation = {navigation} navtitle = {'TabMy'} title ={'디나포인트'}/>
-            <View style = {styles.upper}>  
-                <Text 
-                    style = {styles.mainTxt}>
-                    {`보유포인트 ${point}원`}
-                </Text>
-                <Text
-                    style = {styles.subTxt}
-                >
-                    5,000원 이상 100원 단위로 사용 가능합니다.
-                </Text>
-                <Text
-                    style = {styles.subTxt}
-                >
-                    {`이번 달 소멸 예정 포인트는 0원 입니다.`}
-                </Text>
-                <BigButtonBorder  
-                    style = {styles.button}
-                    title = '사용하기' 
-                    onPress = {()=>navigation.navigate('Point')}
-                />
-            </View>
-            <View style = {styles.greyArea}/>
-            <View style = {styles.lower}>
-                <Text style = {{
-                    fontSize : 16, 
-                    fontWeight : 'bold', 
-                    color:Utill.color.itemTitle,
-                    marginBottom : 14,
-                    marginTop : 18,
-                }}>
-                    포인트 내역
-                </Text>
-                <ScrollView >
-                    <FlatList removeClippedSubviews={true} data = {data} renderItem = {_renderItem}/>
-                    <View style={{height: 80}}/>
-                </ScrollView>
+                </Button>
                 
             </View>
+            <Screen page={page} data={page==1 ? Point1 : Point2}/>
         </View>
     )
 }
-
 const mapStateToProps = (state) => {
     return {
-        point : state.User._root.entries[1][1],       
+        phone : state.User._root.entries[3][1],
+        point : state.User._root.entries[1][1],
     }
 }
 
-export default connect(mapStateToProps)(MyPoint);
+export default connect(mapStateToProps)(Point);
 
 const styles = StyleSheet.create({
     container : {
         flex : 1,
-        backgroundColor : Utill.color.whtie
-    },
-    greyArea : {
-        height : '2%',
-        alignContent : 'center',
-        backgroundColor : Utill.color.border,
-    },
-    upper : {
-        height : '33%',
-        width: Utill.screen.Screen.customWidth(330),
-        alignContent : 'center',
-        marginLeft:15,
-        marginRight : 15,
         backgroundColor : Utill.color.white,
     },
-    lower : {
-        height : '61%',
-        alignContent : 'center',
-        width: Utill.screen.Screen.customWidth(330),
-        marginLeft:15,
-        marginRight : 15,
-        backgroundColor : Utill.color.white,
-    },
-    line : {
-        borderBottomWidth: 1,
-        borderBottomColor:Utill.color.border,
-    },
-    mainTxt : {
-        alignSelf:'center',
-        fontSize : 24, 
-        fontWeight : 'bold', 
-        color:Utill.color.textBlack,
-        marginTop : 14,
-        marginBottom : 31,
-        backgroundColor : Utill.color.white,
-    },
-    subTxt : {
-        alignSelf:'center',
-        fontSize : 14, 
-        color:Utill.color.itemTitle,
-        marginBottom : Utill.screen.Screen.customHeight(12),
-    },
-    button : {
-        borderRadius : 25,
-        width : '100%',
-        height : Utill.screen.Screen.customHeight(40),
+    tabArea : {
+        flexDirection : 'row',
+        width : Utill.screen.screenWidth,
+        paddingHorizontal : 22.5,
         justifyContent : 'center',
         alignItems : 'center',
-        backgroundColor : Utill.color.onColorBackground,
-        borderWidth : 1,
-        borderColor : Utill.color.primary1,
     },
-    pointCont : {
-        height : 60,
-
-    }
-});
+    screen : {
+        flex : 1,
+    },
+    button : {
+        flex : 1,
+        borderBottomWidth : 2,
+        justifyContent : 'center',
+        alignItems : 'center',
+        height : 39,
+    },
+    buttonUnSelected : {
+        flex : 1,
+        top : -0.25,
+        borderBottomWidth : 1,
+        borderBottomColor : Utill.color.defaultColor,
+        justifyContent : 'center',
+        alignItems : 'center',
+        height : 39.25,
+    },
+    buttonTitle : {
+        color : Utill.color.textBlack,
+        fontSize : 16,
+    },
+    buttonTitleUnSelected : {
+        color : Utill.color.border,
+        fontSize : 16,
+    },
+})
