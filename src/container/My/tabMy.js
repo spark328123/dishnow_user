@@ -105,7 +105,7 @@ const TabMy = ({navigation, userid, nickname, image, phone, point, name, reviewc
     }
 
     return (
-        <View style = {{flex : 1}}> 
+        <View style = {{flex : 1,backgroundColor : Utill.color.white}}> 
         <CustomAlert 
                 visible={isAlertVisible} 
                 mainTitle={'로그아웃'}

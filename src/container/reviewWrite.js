@@ -312,7 +312,8 @@ const styles = StyleSheet.create({
     },
     textInput : {
         fontSize: 14,
-        fontFamily: "NanumSquareOTFR"
+        fontFamily: "NanumSquareOTFR",
+        justifyContent : 'flex-start',
     },
     picker : {
         alignItems : 'center',
