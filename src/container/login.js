@@ -133,7 +133,7 @@ const styles = StyleSheet.create({
    justifyContent: "center"
  },
  dishnowLogo: {
-   marginTop: Utill.screen.Screen.customHeight(100),
+   marginTop: Utill.screen.Screen.customHeight(80),
    width: Utill.screen.Screen.customWidth(262),
    height: Utill.screen.Screen.customHeight(55.24)
  },
@@ -167,12 +167,12 @@ create : {
 createText: {
   fontSize: 16,
   color: "white",
-  marginBottom : Utill.screen.Screen.customHeight(10),
+  marginBottom : Utill.screen.Screen.customHeight(5),
 },
  loginButton : {
    alignItems: "center",
    justifyContent: "center",
-   marginTop: Utill.screen.Screen.customHeight(39)
+   marginTop: Utill.screen.Screen.customHeight(30)
  },
  input : {
    fontSize : 18,

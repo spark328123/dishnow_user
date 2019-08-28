@@ -146,7 +146,7 @@ export default Review = ({navigation}) =>{
                         data = {data} renderItem = {_renderItem}/> )
                     :
                     (<Text style = {styles.reviewText}>리뷰를 작성해 주세요.</Text>))
-                : (<ActivityIndicator style = {styles.indicator}size="large" color="#733FFF"/>)
+                : (<ActivityIndicator style = {styles.indicator} size="large" color="#733FFF"/>)
             }
         </View>
     )
