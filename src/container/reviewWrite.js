@@ -164,7 +164,7 @@ const ReviewWrite = (props) => {
         if(res){
             if(isUpdate==='false'){
                 Toast.show('리뷰가 등록되었습니다!');
-                navigation.navigate('TabBooked');
+                navigation.navigate('Splash');
                 await API.postDNpoint(token,{
                     phone,
                     type : 'save',
