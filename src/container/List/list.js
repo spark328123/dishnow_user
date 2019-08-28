@@ -148,19 +148,20 @@ const List = (props) => {
         photos.push(mainImage.substring(2,mainImage.length-2));
         subImage = subImage.substring(2,subImage.length-2);
         subImage = subImage.split(',');
-        if(subImage.length==1){
-            photos.push(subImage[0]);
-        }else{
-            const len = subImage.length;
-            for(var i = 0;i<len;i++){
-                if(i==0)photos.push(subImage[i].substring(0,subImage[i].length-1));
-                else if(i==len-1)photos.push(subImage[i].substring(1,subImage[i].length));
-                else photos.push(subImage[i].substring(1,subImage[i].length-1));
+            if(subImage[0]!='[]'){
+            console.log(subImage);
+            if(subImage.length==1){
+                console.log('asd');
+                photos.push(subImage[0]);
+            }else{
+                const len = subImage.length;
+                for(var i = 0;i<len;i++){
+                    if(i==0)photos.push(subImage[i].substring(0,subImage[i].length-1));
+                    else if(i==len-1)photos.push(subImage[i].substring(1,subImage[i].length));
+                    else photos.push(subImage[i].substring(1,subImage[i].length-1));
+                }
             }
         }
-        console.log("list의 n,t");
-        console.log(navigation.getParam('resnumber'));
-        console.log(navigation.getParam('restime'))
         navigation.push('ListMenu',{
             resDetail,
             resReview,
