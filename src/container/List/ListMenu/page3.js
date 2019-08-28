@@ -79,13 +79,13 @@ const ReviewItem =({data, onPressManageReviewButton}) => {
         profile = null
     } = data;
     var imageArray =  image.substring(1,image.length-1).split(',');
-    console.log(imageArray[0]);
-    console.log(imageArray[1]);
+    console.log(profile.substring(2,profile.length-2))
+
 
     return (
         <View style={{flexDirection:'row',  marginTop : 20, marginBottom : 12,}}>
             <View>
-                <Image style={{width : 45 * ratio, height : 45 * ratio, borderRadius:22.5 * ratio, backgroundColor:'#CCCCCC'}} source={{uri : profile}}/>
+                <FastImage style={{width : 45 * ratio, height : 45 * ratio, borderRadius:22.5 * ratio, backgroundColor:'#CCCCCC'}} source={{uri : profile.substring(2,profile.length-2)}}/>
             </View>
             <View style={{marginLeft:13 * ratio}}>
                 <View style={{paddingTop:7}}>
