@@ -89,6 +89,7 @@ const MyPoint = (props)=>{
                 </Text>
                 <ScrollView  >
                     <FlatList removeClippedSubviews={true} data = {data} renderItem = {_renderItem}/>
+                    <View style = {{height:80}}></View>
                 </ScrollView>
                 
             </View>
