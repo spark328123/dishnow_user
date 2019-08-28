@@ -16,6 +16,11 @@ const empty_field_star = { uri : 'icon_star_empty_review'};
 
 export default Review = ({navigation}) =>{
     const [isAlertVisible, setIsAlertVisible] = useState(false);
+    const [ data, setData ] = useState([]);
+    const [ visible, setVisible ] = useState(false);
+    const [ imageList, setImageList ] = useState([]);
+    const [ isLoaded, setIsLoaded ] = useState(true);
+    const [ deleteReviewId, setDeleteReviewId] = useState();
     const dispatch = useDispatch();
 
     const _onPressAlertCancel = async() => {
@@ -42,11 +47,7 @@ export default Review = ({navigation}) =>{
         _showReview();
     },[])
 
-    const [ data, setData ] = useState([]);
-    const [ visible, setVisible ] = useState(false);
-    const [ imageList, setImageList ] = useState([]);
-    const [ isLoaded, setIsLoaded ] = useState(false);
-    const [ deleteReviewId, setDeleteReviewId] = useState();
+   
     _goBack = () => {
         navigation.navigate('TabMy')
     }
@@ -138,16 +139,15 @@ export default Review = ({navigation}) =>{
             </View>
             
             {/* 로딩 끝났을 때 */}
-            <View style = {{flex : 1,}}>
             {!isLoaded ?  
                 // 리뷰가 없으면
                 (data.length ? 
-                    (<FlatList  data = {data} renderItem = {_renderItem} /> )
+                    (<FlatList
+                        data = {data} renderItem = {_renderItem}/> )
                     :
-                    (<Text style = {{flex : 1,alignSelf : 'center',justifyContent : 'center',}}>리뷰를 작성해 주세요.</Text>))
-                : (<ActivityIndicator size="large" color="#733FFF"/>)
+                    (<Text style = {styles.reviewText}>리뷰를 작성해 주세요.</Text>))
+                : (<ActivityIndicator style = {styles.indicator}size="large" color="#733FFF"/>)
             }
-            </View>
         </View>
     )
 }
@@ -155,7 +155,7 @@ export default Review = ({navigation}) =>{
 const styles = StyleSheet.create({
     container : {
         flex : 1,
-        //justifyContent:'center',
+        justifyContent:'center',
         alignContent : 'center',
         backgroundColor : Utill.color.white,
     },
@@ -163,7 +163,12 @@ const styles = StyleSheet.create({
         flex : 1,
         padding : 15,
         backgroundColor : Utill.color.white,
-        //justifyContent : 'center',
+        justifyContent : 'center',
+    },
+    reviewText : {
+        flex : 1,
+        alignSelf : 'center',
+        justifyContent : 'center',
     },
     name: {
         fontSize: 16,
@@ -236,5 +241,10 @@ const styles = StyleSheet.create({
         fontSize : 16,
         color : Utill.color.textBlack,
         textAlign : 'center',
+    },
+    indicator: {
+        position: 'absolute',
+        left: Utill.screen.screenWidth/2-15,
+        top: Utill.screen.screenHeight/2-50        
     },
 })

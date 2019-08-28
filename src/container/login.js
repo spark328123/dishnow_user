@@ -177,7 +177,7 @@ createText: {
  input : {
    fontSize : 18,
    width : Utill.screen.Screen.customWidth(278.5),
-   height: Utill.screen.Screen.customHeight(33),
+   height: 50,
    borderBottomWidth : 1.3,
    borderBottomColor : Utill.color.onColorBackground,
    color : Utill.color.onColorBackground,
