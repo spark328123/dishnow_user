@@ -21,45 +21,34 @@ export default (props) => {
     
       OneSignal.enableVibrate(true);
       OneSignal.inFocusDisplaying(2);
-    
       OneSignal.addEventListener('received', onReceived);
       OneSignal.addEventListener('opened', onOpened);
       OneSignal.addEventListener('ids', onIds);
-
       OneSignal.configure(); 	// triggers the ids event
-
- 
       //ReactPixel.pageView(); 					// For tracking page view
       //ReactPixel.track( event, data ) 		// For tracking default events, more info about events and data https://developers.facebook.com/docs/ads-for-websites/pixel-events/v2.9
       //ReactPixel.trackCustom( event, data ) 	// For tracking custom events
-
     return ()=> {
       OneSignal.removeEventListener('received', onReceived);
       OneSignal.removeEventListener('opened', onOpened);
       OneSignal.removeEventListener('ids', onIds);
     }
   },[])
-
-
   const onReceived = (notification) => {
     console.log("Notification received: ", notification);
   }
-
   const onOpened = (openResult) => {
     console.log('Message: ', openResult.notification.payload.body);
     console.log('Data: ', openResult.notification.payload.additionalData);
     console.log('isActive: ', openResult.notification.isAppInFocus);
     console.log('openResult: ', openResult);
-
     console.log(openResult.notification.payload.additionalData);
   }
-
   const onIds = (device) => {
     console.log('Device info: ', device);
     let token = device.userId;
     console.log(token);
   }
-
   return (
     <Provider store={Store}>
         <Navigatior/>

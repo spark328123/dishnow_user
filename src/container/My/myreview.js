@@ -1,7 +1,7 @@
 import React, { useEffect, useState,memo } from 'react';
 import { View, Text, StyleSheet, FlatList,  TouchableOpacity, ActivityIndicator,Image } from 'react-native';
 import FastImage from 'react-native-fast-image';
-import {NavSwitchHead} from '../../component/common';
+import {NavSwitchHead,CustomAlert} from '../../component/common';
 import {handleAndroidBackButton,removeAndroidBackButtonHandler} from '../../component/common/hardwareBackButton';
 import {useDispatch} from 'react-redux';
 import * as User from '../../store/modules/user';
@@ -15,6 +15,9 @@ const full_field_star = { uri : 'icon_star_full_review'};
 const empty_field_star = { uri : 'icon_star_empty_review'};
 
 export default Review = ({navigation}) =>{
+    const [isAlertVisible, setIsAlertVisible] = useState(false);
+    
+
     const dispatch = useDispatch();
     const _showReview = async() =>{
         const token = await API.getLocal(API.LOCALKEY_TOKEN);
@@ -28,6 +31,13 @@ export default Review = ({navigation}) =>{
         console.log(res);
     }
 
+    const _onPressAlertOk = () => {
+        setIsAlertVisible(false);
+        _deleteReview(deleteReviewId);
+    }
+    const _onPressAlertCancel = () => {
+        setIsAlertVisible(false);
+    }
     useEffect(()=>{
         _showReview();
     },[])
@@ -35,11 +45,12 @@ export default Review = ({navigation}) =>{
     const [ data, setData ] = useState([]);
     const [ visible, setVisible ] = useState(false);
     const [ imageList, setImageList ] = useState([]);
-    const [ isLoaded, setIsLoaded ] = useState(false);
+    const [ isLoaded, setIsLoaded ] = useState(true);
     const [ deleteReviewId, setDeleteReviewId] = useState();
     _goBack = () => {
         navigation.navigate('TabMy')
     }
+
     handleAndroidBackButton(_goBack)
     const _deleteReview = async (reviewId)=>{
         const token = await API.getLocal(API.LOCALKEY_TOKEN);
@@ -92,7 +103,7 @@ export default Review = ({navigation}) =>{
 
                     </TouchableOpacity>
                     <TouchableOpacity
-                     onPress ={()=>{setVisible(true);setDeleteReviewId(item.reviewId)}}
+                     onPress ={()=>{setIsAlertVisible(true);setDeleteReviewId(item.reviewId)}}
                      style={{marginLeft: Utill.screen.Screen.customWidth(21)}}>
                         <Text style={styles.buttonText}>삭제</Text>
                     </TouchableOpacity>
@@ -115,23 +126,30 @@ export default Review = ({navigation}) =>{
             flex : 1,
             alignItems : 'center',
             justifyContent : 'center',
+            backgroundColor : Utill.color.white,
         }
         
         }>
+
+        <CustomAlert 
+                visible={isAlertVisible} 
+                mainTitle={'리뷰 삭제'}
+                mainTextStyle = {styles.txtStyle}
+                subTitle = {'리뷰를 삭제하시겠습니까?'}
+                subTextStyle = {styles.subtxtStyle}
+                buttonText1={'취소'} 
+                buttonText2={'삭제'} 
+                onPress={_onPressAlertOk} 
+                onPressCancel = {_onPressAlertCancel}
+        />
         {!isLoaded? <NavSwitchHead navigation={navigation} navtitle = {'TabMy'} title={`나의 리뷰`}/> : null}
         {!data.length && !isLoaded  && <Text style={{position : 'absolute', marginTop : 200}}>리뷰가 없습니다.</Text>}
         {!isLoaded ?  
           <FlatList
             data = {data}
             renderItem = {_renderItem}
-        />:<ActivityIndicator size="large" color="#0000ff"/>}
-            <Dialog.Container visible = {visible}>
-                <Dialog.Description>리뷰를 삭제하시겠습니까?</Dialog.Description>
-                <Dialog.Title>리뷰 삭제</Dialog.Title>
-                <Dialog.Button label="취소" onPress = {()=>setVisible(false)} />
-                <Dialog.Button label="삭제"
-                    onPress = {()=>{setVisible(false);_deleteReview(deleteReviewId)}}/>
-            </Dialog.Container>
+        />:<ActivityIndicator size="large" color="#733FFF"/>}
+           
         </View>
     )
 }
@@ -199,5 +217,19 @@ const styles = StyleSheet.create({
     },
     answerText :{
         fontSize: 12
-    }
+    },
+    txtStyle : {
+        marginBottom : Utill.screen.Screen.customHeight(9),
+        fontSize : 18,
+        fontWeight : 'bold',
+        color : Utill.color.textBlack,
+        textAlign : 'center',
+    },
+    subtxtStyle : {
+        marginBottom : Utill.screen.Screen.customHeight(35),
+        width : Utill.screen.Screen.customWidth(262),
+        fontSize : 16,
+        color : Utill.color.textBlack,
+        textAlign : 'center',
+    },
 })

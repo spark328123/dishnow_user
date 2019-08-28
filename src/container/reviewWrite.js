@@ -224,7 +224,7 @@ const ReviewWrite = (props) => {
                             multiline = {true}
                             numberOfLines = {6}
                             onChangeText = { (text)=>_textListener(text) }
-                            style = {[styles.textInput,{width: Utill.screen.Screen.customWidth(306),
+                            style = {[styles.textInput,{width: Utill.screen.Screen.customWidth(295),
                                     height: Utill.screen.Screen.customHeight(120)}]} />
                         </KeyboardAwareScrollView>
 
@@ -308,11 +308,17 @@ const styles = StyleSheet.create({
         shadowRadius: 4.65,
         elevation: 6,
         backgroundColor: "#FFFFFF",
-        justifyContent: 'center'
+        justifyContent: 'flex-start',
+
     },
     textInput : {
         fontSize: 14,
-        fontFamily: "NanumSquareOTFR"
+        fontFamily: "NanumSquareOTFR",
+        justifyContent : 'flex-start',
+        textAlign: 'auto',
+        textAlignVertical: "top",
+        marginTop:10,
+
     },
     picker : {
         alignItems : 'center',
