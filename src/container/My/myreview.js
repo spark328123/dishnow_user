@@ -45,7 +45,7 @@ export default Review = ({navigation}) =>{
     const [ data, setData ] = useState([]);
     const [ visible, setVisible ] = useState(false);
     const [ imageList, setImageList ] = useState([]);
-    const [ isLoaded, setIsLoaded ] = useState(false);
+    const [ isLoaded, setIsLoaded ] = useState(true);
     const [ deleteReviewId, setDeleteReviewId] = useState();
     _goBack = () => {
         navigation.navigate('TabMy')
@@ -143,12 +143,12 @@ export default Review = ({navigation}) =>{
                 onPressCancel = {_onPressAlertCancel}
         />
         {!isLoaded? <NavSwitchHead navigation={navigation} navtitle = {'TabMy'} title={`나의 리뷰`}/> : null}
-        {!data.length && <Text style={{position : 'absolute', marginTop : 200}}>리뷰가 없습니다.</Text>}
+        {!data.length && !isLoaded  && <Text style={{position : 'absolute', marginTop : 200}}>리뷰가 없습니다.</Text>}
         {!isLoaded ?  
           <FlatList
             data = {data}
             renderItem = {_renderItem}
-        />:<ActivityIndicator size="large" color="#0000ff"/>}
+        />:<ActivityIndicator size="large" color="#733FFF"/>}
            
         </View>
     )

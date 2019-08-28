@@ -67,6 +67,10 @@ const GoogleMaps =  ({isPressed, toggle, navigation, latitudeDelta, latitude, lo
             })
     }
 
+    const _getStores = async()=>{
+        
+    }
+
     const _updateLocation = ()=>{
         dispatch(updateLocation({
             latitude : region.region.latitude,      
@@ -100,6 +104,7 @@ const GoogleMaps =  ({isPressed, toggle, navigation, latitudeDelta, latitude, lo
                 region=>{
                     setRegion({region})
                     _getAddress(region.latitude,region.longitude)   
+                    _getStores();
                 }}
             showsUserLocation = {isPressed}
             showsMyLocationButton = {isPressed}
