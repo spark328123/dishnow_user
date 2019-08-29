@@ -137,6 +137,13 @@ export const getReservation_accept = (token) => {
     .catch(error=>{error});
 }
 
+export const getReservation_accept_back = (token) => {
+    const url = `${apiUrl}reservation/acceptBack`;
+    return fetch.getAuthServer(url,token)
+    .then(res=>res.json())
+    .catch(error=>{error});
+}
+
 export const showRes = (token) => {
     const url = `${apiUrl}review`;
     return fetch.getAuthServer(url, token)
