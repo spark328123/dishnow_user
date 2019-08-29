@@ -1,6 +1,6 @@
 import React , { useState} from 'react';
 import { View, StyleSheet } from 'react-native';
-import {NavSwitchHead,Button,Text,CustomAlert1} from '../../../component/common';
+import {NavSwitchHead,Button,Text,LoadingModal,Screen} from '../../../component/common';
 import {handleAndroidBackButton} from '../../../component/common/hardwareBackButton';
 import {useSelector, useDispatch, connect} from 'react-redux'
 import * as Utill from '../../../utill'
@@ -10,11 +10,9 @@ import Point2 from './10000point';
 
 const Point = (props) =>{
     const {navigation, point, phone} = props;
-    const [isAlertVisible, setIsAlertVisible] = useState(false);
-
-    const _onPressAlertOk = () => {
-        setIsAlertVisible(false);
-    }
+    console.log(props);
+    const [isLoadingVisible, setIsLoadingVisible] = useState(true);
+    
     
     console.log(props);
     const [page, setPage] = useState(1);
@@ -30,8 +28,9 @@ const Point = (props) =>{
     handleAndroidBackButton(_goBack);
     return(
         <View style ={styles.container}>
-            <NavSwitchHead navigation={navigation} navtitle = {'myPoint'} title={`디나포인트`}/>
-            
+            <NavSwitchHead navigation={navigation} navtitle = {'TabMy'} title={`디나포인트`}/>
+            {/* <LoadingModal visible={isLoadingVisible} /> */}
+
             <View style={styles.tabArea}>
                 <Button 
                     style={page==1 ? styles.button : styles.buttonUnSelected} 
@@ -106,5 +105,4 @@ const styles = StyleSheet.create({
         color : Utill.color.border,
         fontSize : 16,
     },
-    
 })

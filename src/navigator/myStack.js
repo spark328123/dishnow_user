@@ -3,7 +3,6 @@ import React from 'react';
 import {Button} from 'react-native';
 import TabMy from '../container/My/tabMy';
 import Review from '../container/My/myreview';
-import Point from '../container/My/Point/point';
 import webView from '../container/webView';
 import Profile from '../container/My/profile_manage';
 import Client from '../container/My/client_center';
@@ -15,6 +14,7 @@ import Phone from '../container/My/Account/phone_change';
 import myTerms from '../container/My/myTerms';
 import myReview from '../navigator/reviewstack';
 import myPoint from '../container/My/Point/myPoint';
+import point from '../container/My/Point/point';
 
 import * as Utill from '../utill/';
 const mySwitch = createSwitchNavigator(
@@ -43,8 +43,9 @@ const mySwitch = createSwitchNavigator(
         Review : {
             screen : Review,
         },
+
         Point : {
-            screen : Point,
+            screen : point
         },
 
         Password : {
