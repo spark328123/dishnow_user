@@ -153,12 +153,13 @@ const TabHome = (props)=>{
 
     const _toggle = async(i,newTemaList) =>{ // 색깔바뀌는 함수 밖으로 빼냄
         await _selectTema(i);                // ***tema 동기화 잘안됨!
-        for(let k=0; k<6; k++){
-            if(i!==k){
-                newTemaList[k].color = '#111111';
-                newTemaList[k].isselect = false;
-            }
-        }
+                                            // 현재 테마 여러개 선택 가능해야함
+        // for(let k=0; k<6; k++){
+        //     if(i!==k){
+        //         newTemaList[k].color = '#111111';
+        //         newTemaList[k].isselect = false;
+        //     }
+        // }
         newTemaList[i].color = '#733FFF';
         newTemaList[i].isselect = true;
     }
