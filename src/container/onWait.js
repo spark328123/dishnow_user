@@ -57,8 +57,7 @@ const OnWait =  (props) =>{
         if(appState === 'active' && nextAppState === 'active') {
             const token = await API.getLocal(API.LOCALKEY_TOKEN);
             const res = await API.getReservation_accept(token);
-            if(res.length)
-                await navigation.navigate('List',{timerCount,resnumber,restime,data:res});
+            await navigation.navigate('List',{timerCount,resnumber,restime,data:res});
         }
         setAppState(nextAppState);
     }

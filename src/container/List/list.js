@@ -36,7 +36,8 @@ const List = (props) => {
         const token = await API.getLocal(API.LOCALKEY_TOKEN);
         const res = await API.getReservation_accept(token);
         setListData(res.map(item=>{
-            const {mainImage,name,reservationId,storeId,latitude,longitude,type,mainMenu}=item;
+            var {mainImage,name,reservationId,storeId,latitude,longitude,type,mainMenu,keyword}=item;
+            if(keyword.length>10)keyword = `${keyword.substring(0,11)}...`
             const JSONmainMenu = JSON.parse(mainMenu);
             return{
                 mainImage : _substr(JSON.stringify(JSONmainMenu[0].image)),
@@ -46,9 +47,36 @@ const List = (props) => {
                 storeId,
                 latitude, 
                 longitude,
-                theme : type
+                theme : keyword,
             }
-        }))
+        }));
+    }
+
+    const _getServer_back = async() => {
+        const token = await API.getLocal(API.LOCALKEY_TOKEN);
+        const res = await API.getReservation_accept_back(token);
+        /*
+        if(!res.length){
+            Toast.show('시간이 지났습니다. 홈 화면으로 이동합니다.');
+            navigation.navigate('Splash');
+        }
+        */
+        setListData(res.map(item=>{
+            var {mainImage,name,reservationId,storeId,latitude,longitude,type,mainMenu,keyword}=item;
+            console.log(keyword);
+            if(keyword.length>10)keyword = `${keyword.substring(0,11)}...`
+            const JSONmainMenu = JSON.parse(mainMenu);
+            return{
+                mainImage : _substr(JSON.stringify(JSONmainMenu[0].image)),
+                name,
+                distance : _computeDistance(myCoords, {latitude,longitude}),
+                reservationId,
+                storeId,
+                latitude, 
+                longitude,
+                theme : keyword,
+            }
+        }));
     }
 
     const _onPressAlertOk = async() => {
@@ -94,7 +122,7 @@ const List = (props) => {
     const [ listData, setListData ] = useState([]);
 
     const _handleChange = async(nextAppState)=>{
-        if(appState === 'active' && nextAppState === 'active') _getServer();
+        if(appState === 'active' && nextAppState === 'active') _getServer_back();
         setAppState(nextAppState);
     }
 
