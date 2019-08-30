@@ -7,17 +7,18 @@ import {
     ActivityIndicator,
     AppState,
     Image,
+    BackHandler,
 } from 'react-native';
 import FastImage from 'react-native-fast-image';
 import { connect } from 'react-redux';
 import { Text,CustomAlert } from '../../component/common';
+// import {handleAndroidBackButton,removeAndroidBackButtonHandler} from '../../component/common/hardwareBackButton'
 import * as Utill from '../../utill';
 import * as API from '../../utill/API';
 import OneSiganl from 'react-native-onesignal';
 import Toast from 'react-native-simple-toast';
 
 const List = (props) => {
-
     const { navigation, mylat, mylon } = props;
     const WaitTime = 60*5+navigation.getParam('timerCount');
 
@@ -31,6 +32,7 @@ const List = (props) => {
         longitude : mylon
     }
 
+   
 
     const _getServer = async() => {
         const token = await API.getLocal(API.LOCALKEY_TOKEN);
@@ -56,10 +58,7 @@ const List = (props) => {
         const token = await API.getLocal(API.LOCALKEY_TOKEN);
         const res = await API.getReservation_accept_back(token);
         
-        if(!res.length){
-            Toast.show('시간이 지났습니다. 홈 화면으로 이동합니다.');
-            navigation.navigate('Splash');
-        }
+        
         
         setListData(res.map(item=>{
             var {mainImage,name,reservationId,storeId,latitude,longitude,type,mainMenu,keyword}=item;
@@ -122,7 +121,9 @@ const List = (props) => {
     const [ listData, setListData ] = useState([]);
 
     const _handleChange = async(nextAppState)=>{
-        if(appState === 'active' && nextAppState === 'active') _getServer_back();
+        if(appState === 'active' && nextAppState === 'active') {
+            _getServer_back();
+        }
         setAppState(nextAppState);
     }
 

@@ -5,10 +5,11 @@ import {
     ActivityIndicator,
     TouchableOpacity,
     AppState,
+    BackHandler,
 } from 'react-native';
 import { connect } from 'react-redux';
 import { Text,CustomAlert } from '../component/common';
-import {handleAndroidBackButton} from '../component/common/hardwareBackButton'
+import {handleAndroidBackButton, removeAndroidBackButtonHandler} from '../component/common/hardwareBackButton'
 import * as Utill from '../utill';
 import OneSignal from 'react-native-onesignal';
 import * as API from '../utill/API';
@@ -45,10 +46,8 @@ const OnWait =  (props) =>{
     }
 
      const _goHome = () => {
-        setIsAlertVisible(true);
     }
-    handleAndroidBackButton(_goHome);
-
+   handleAndroidBackButton(_goHome);
     useEffect(()=>{
         _timerStart();
         OneSignal.addEventListener('received',_oneSignalReceived);
@@ -64,9 +63,13 @@ const OnWait =  (props) =>{
         if(appState === 'active' && nextAppState === 'active') {
             const token = await API.getLocal(API.LOCALKEY_TOKEN);
             const res = await API.getReservation_accept(token);
+            console.log(navigation);
+            AppState.removeEventListener('change',_handleChange);
+            //AppState.removeEventListener('change',handleAndroidBackButton(_goHome));
             if(res.length)
             await navigation.navigate('List',{timerCount,resnumber,restime,data:res});
         }
+       
         setAppState(nextAppState);
     }
     
