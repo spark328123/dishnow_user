@@ -108,12 +108,12 @@ const TabHome = (props)=>{
         var twomin = (nowtime - parseInt(tabtimer._55))/1000/60;
         console.log(twomin);
 
-        if(twomin>2){
+        if(true){
             await API.setTimer(API.TAB_TIMER, JSON.stringify(new Date().getTime()));
             const token = await API.getLocal(API.LOCALKEY_TOKEN);
             await API.reservation_revert(token);
             console.log("테마리스트씨발");
-            console.log([temaList[1].temaselect,temaList[2].temaselect,temaList[3].temaselect,temaList[4].temaselect,temaList[5].temaselect,temaList[6].temaselect]);
+            console.log(([temaList[1].temaselect,temaList[2].temaselect,temaList[3].temaselect,temaList[4].temaselect,temaList[5].temaselect,temaList[6].temaselect].toString()));
             const data = {
                 storeTypeId : [temaList[1].temaselect,temaList[2].temaselect,temaList[3].temaselect,temaList[4].temaselect,temaList[5].temaselect,temaList[6].temaselect],
                 peopleNumber : parseInt(people.text),
@@ -121,8 +121,10 @@ const TabHome = (props)=>{
                 latitude,
                 longitude, 
             }
+            console.log(data);
             const res = await API.reservation(token,data);
-
+            console.log(res);
+            console.log()
             // console.log("if문의 tabtimer : " + tabtimer);
             // await API.setTimer(API.TAB_TIMER, tabtimer.toString);
             // console.log("api tab_timer : " + API.getTimer(API.TAB_TIMER));
@@ -132,7 +134,7 @@ const TabHome = (props)=>{
                 time : arr[parseInt(time)],
                 tema : [temaList[1].temaselect,temaList[2].temaselect,temaList[3].temaselect,temaList[4].temaselect,temaList[5].temaselect,temaList[6].temaselect],
                 address,
-                newTemaList,
+                //newTemaList,
             });
         }
         else{
@@ -184,7 +186,7 @@ const TabHome = (props)=>{
             newTemaList[i].temaselect = 0;
         }
         settemaList(newTemaList);
-        console.log([temaList[1].temaselect,temaList[2].temaselect,temaList[3].temaselect,temaList[4].temaselect,temaList[5].temaselect,temaList[6].temaselect]);
+        console.log(`[${[temaList[1].temaselect,temaList[2].temaselect,temaList[3].temaselect,temaList[4].temaselect,temaList[5].temaselect,temaList[6].temaselect].toString()}]`);
     }
 
     const _selectTime = (rowData) =>{
@@ -415,6 +417,7 @@ const styles = StyleSheet.create({
         padding: 0,
         marginBottom: 2,
         borderWidth: 0, 
+        textAlign : 'center',
     },
     childchild1 : {
         marginBottom: Utill.screen.Screen.customHeight(15)    // 인원, 출발 예정 시간 (제목임)

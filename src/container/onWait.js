@@ -16,7 +16,7 @@ import Toast from 'react-native-simple-toast';
 const OnWait =  (props) =>{
     const WaitTime = 120;
     const { navigation, latitude, longitude, } = props;
-    const temaList = navigation.getParam('newTemaList');
+    //new temaList = navigation.getParam('temaList');
     const tema = navigation.getParam('tema');
     const createdAt = navigation.getParam('createdAt');
     var address = navigation.getParam('address');
@@ -32,7 +32,7 @@ const OnWait =  (props) =>{
     const resnumber = useState(navigation.getParam('people'));
 
     console.log('테마!', navigation.getParam('tema'));
-    console.log('테마리스트',navigation.getParam('temaList'));
+    //console.log('테마리스트',navigation.getParam('temaList'));
     const _onPressAlertCancel = () => {
         setIsAlertVisible(false);
     }
@@ -47,7 +47,7 @@ const OnWait =  (props) =>{
 
     useEffect(()=>{
         _timerStart();
-        _temaText();
+        //_temaText();
         OneSignal.addEventListener('received',_oneSignalReceived);
         OneSignal.addEventListener('opened',_oneSignalReceived)
         AppState.addEventListener('change',_handleChange);
@@ -69,17 +69,18 @@ const OnWait =  (props) =>{
            {
                if(tema[i] === 1)
                {
-                   push.setTemaText(temaList[i].id);
+                   setTemaText(concat(newTemaList[i].id));
                }
            }
        }
-       console.log("테마 글씨",temaText);
     }
 
     const _handleChange = async(nextAppState)=>{
         if(appState === 'active' && nextAppState === 'active') {
             const token = await API.getLocal(API.LOCALKEY_TOKEN);
             const res = await API.getReservation_accept(token);
+            console.log(res);
+            if(res.length)
             await navigation.navigate('List',{timerCount,resnumber,restime,data:res});
         }
         setAppState(nextAppState);
