@@ -46,7 +46,7 @@ const Help = (props) => {
     return (
         <View style = {{flex : 1, paddingBottom : 50+HEADER_BOTTOM_SAFE,}}>
             <FlatList
-                contentContainerStyle ={{paddingTop, zIndex : 0, backgroundColor : '#CCCCCC', paddingBottom : 50,}}
+                contentContainerStyle ={{paddingTop, zIndex : 0, backgroundColor : '#EEEEEE', paddingBottom : 50,}}
                 nestedScrollEnabled={true}
                 scrollEventThrottle={16}
                 ref = {r=>setRefFaletList(r)}
@@ -174,7 +174,7 @@ const ListItem = memo((props) => {
                 shadowOffset:{  width: 0,  height: 0.3,  },
             }}> 
                 <Text style={{fontSize:16, fontWeight:'bold'}}>{name}</Text>
-                <TouchableOpacity onPress={()=>setIsOpen(open=>!open)}>
+                <TouchableOpacity onPress={()=>setIsOpen(open=>!open)} style={{width:17, height:17, alignContent:"center", justifyContent:"center"}}>
                     <Image style={{width:15, height:8.9}} source={icon_square_bracket_down} />
                 </TouchableOpacity>
             </View>
