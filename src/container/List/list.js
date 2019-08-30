@@ -56,7 +56,7 @@ const List = (props) => {
         const token = await API.getLocal(API.LOCALKEY_TOKEN);
         const res = await API.getReservation_accept_back(token);
         
-        if(res=='[]'){
+        if(!res.length){
             Toast.show('시간이 지났습니다. 홈 화면으로 이동합니다.');
             navigation.navigate('Splash');
         }
