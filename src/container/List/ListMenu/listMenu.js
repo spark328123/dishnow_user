@@ -8,10 +8,11 @@ import {
   TouchableOpacity,
   Dimensions,
   Platform,
+  BackHandler
 } from 'react-native';
 import { getInset } from 'react-native-safe-area-view';
 import {NavHead, NavSwitchHead, Button} from '../../../component/common';
-import {handleAndroidBackButton} from '../../../component/common/hardwareBackButton'
+import {handleAndroidBackButton,removeAndroidBackButtonHandler} from '../../../component/common/hardwareBackButton'
 import BannerView from '../../../component/bannerView';
 import TabButton from '../../../component/TabButton';
 import Page1 from './page1';
@@ -49,6 +50,7 @@ const HEADER_TAB_HEIGHT = 88;
 const SCREEN_HEIGHT = height - HEADER_MAX_HEIGHT;
 
 const ListMenu = (props) =>  {
+  
   const BookedNavigation = props.navigation.dangerouslyGetParent();
   var _navigation = props.navigation;
   var isReservation = true;
@@ -233,6 +235,7 @@ const ListMenu = (props) =>  {
     }
   call(args).catch(console.error)
     console.log('_onPressPhoneButton');
+   
     return;
   }
   // 화면 하단 지도 버튼
@@ -301,6 +304,11 @@ const ListMenu = (props) =>  {
 
   return (
     <View style ={{flex : 1,backgroundColor:'#EEEEEE'}}>
+      {isConfirm ?  (BackHandler.removeEventListener('hardwareBackPress', function() {
+      // this.onMainScreen and this.goBack are just examples, you need to use your own implementation here
+      // Typically you would use the navigator here to go to the last state.
+        return true;
+    })):null}
        <CustomAlert 
         visible={isAlertVisible} 
         mainTitle={isConfirm ? "도착완료":"예약"}

@@ -187,7 +187,7 @@ const Register = (props) => {
                 await API.changenick(loginRes.token,{
                     nickname : nickname.text
                 });
-                API.setTimer(API.TAB_TIMER, JSON.stringify(new Date().getTime() - 120000));
+                API.setTimer(API.TAB_TIMER, JSON.stringify(new Date().getTime() - 300000));
                 await API.setLocal(API.LOCALKEY_TOKEN, loginRes.token);
                 dispatch(Regs.updateemail(email));
                 dispatch(User.updatenickname(nickname.text));

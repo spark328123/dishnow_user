@@ -39,7 +39,7 @@ const Login = (props) => {
             type
         });
         if(loginRes.token!==''){
-            API.setTimer(API.TAB_TIMER, JSON.stringify(new Date().getTime() - 60000));
+            API.setTimer(API.TAB_TIMER, JSON.stringify(new Date().getTime() - 120000));
             await API.setLocal(API.LOCALKEY_TOKEN,loginRes.token);
             navigation.navigate('TabHome');
         }
