@@ -57,7 +57,9 @@ const TabHome = (props)=>{
 
     const [people, setPeople] = useState('');
     const [time, setTime] = useState('');
-    const [tema, setTema] = useState(0);
+    // const [tema, setTema] = useState(
+    //     [0,0,0,0,0,0]
+    // );
     const [bol, setBol] = useState(true);
     const [arr, setArr] = useState(
         ['3', '5', '10', '15', '20']
@@ -79,6 +81,7 @@ const TabHome = (props)=>{
     useEffect(()=>{
         OneSignal.addEventListener('ids',onIds);
         setTabtimer(API.getTimer(API.TAB_TIMER));
+        console.log([temaList[1].temaselect,temaList[2].temaselect,temaList[3].temaselect,temaList[4].temaselect,temaList[5].temaselect,temaList[6].temaselect]);
         _me();
         return () => {
             OneSignal.removeEventListener('ids',onIds);
@@ -109,8 +112,10 @@ const TabHome = (props)=>{
             await API.setTimer(API.TAB_TIMER, JSON.stringify(new Date().getTime()));
             const token = await API.getLocal(API.LOCALKEY_TOKEN);
             await API.reservation_revert(token);
+            console.log("테마리스트씨발");
+            console.log([temaList[1].temaselect,temaList[2].temaselect,temaList[3].temaselect,temaList[4].temaselect,temaList[5].temaselect,temaList[6].temaselect]);
             const data = {
-                storeTypeId : tema + 1,
+                storeTypeId : [temaList[1].temaselect,temaList[2].temaselect,temaList[3].temaselect,temaList[4].temaselect,temaList[5].temaselect,temaList[6].temaselect],
                 peopleNumber : parseInt(people.text),
                 minutes : parseInt(arr[parseInt(time)]),
                 latitude,
@@ -125,9 +130,9 @@ const TabHome = (props)=>{
             navigation.navigate('onWait',{
                 people : people.text,
                 time : arr[parseInt(time)],
-                tema : temaList[tema].id,
+                tema : [temaList[1].temaselect,temaList[2].temaselect,temaList[3].temaselect,temaList[4].temaselect,temaList[5].temaselect,temaList[6].temaselect],
                 address,
-                createdAt : `${res.substring(0,10)} ${res.substring(11,19)}`,
+                newTemaList,
             });
         }
         else{
@@ -143,27 +148,30 @@ const TabHome = (props)=>{
       })
 
     const [temaList, settemaList] = useState([  // 테마배열
-        {   color : '#111111', isselect : false, id : '전체',},
-        {   color : '#111111', isselect : false, id : '단체',},
-        {   color : '#111111', isselect : false, id : '가성비',},
-        {   color : '#111111', isselect : false, id : '데이트',},
-        {   color : '#111111', isselect : false, id : '밥&술',},
-        {   color : '#111111', isselect : false, id : '이자카야',},
+        {   color : '#733FFF', isselect : true, id : '전체', temaselect : 1},
+        {   color : '#111111', isselect : false, id : '단체', temaselect : 0},
+        {   color : '#111111', isselect : false, id : '가성비', temaselect : 0},
+        {   color : '#111111', isselect : false, id : '데이트', temaselect : 0},
+        {   color : '#111111', isselect : false, id : '밥&술', temaselect : 0},
+        {   color : '#111111', isselect : false, id : '이자카야', temaselect : 0},
+        {   color : '#111111', isselect : false, id : '옛날감성', temaselect : 0},
     ]);
 
     const _toggle = async(i,newTemaList) =>{ // 색깔바뀌는 함수 밖으로 빼냄
-        await _selectTema(i);                // ***tema 동기화 잘안됨!
         if(i!==0){
             newTemaList[0].color = '#111111';
             newTemaList[0].isselect = false;
+            newTemaList[0].temaselect = 0;
         }else{
-            for(let k=1; k<6; k++){
+            for(let k=1; k<7; k++){
                 newTemaList[k].color = '#111111';
                 newTemaList[k].isselect = false;
+                newTemaList[k].temaselect = 0;
             }
         }
         newTemaList[i].color = '#733FFF';
         newTemaList[i].isselect = true;
+        newTemaList[i].temaselect = 1;
     }
 
     const _changeTemaColor = async(i) => {  // 테마선택 색깔,선택 바뀌게하는 함수
@@ -173,12 +181,10 @@ const TabHome = (props)=>{
         }else{
             newTemaList[i].color = '#111111';
             newTemaList[i].isselect = false;
+            newTemaList[i].temaselect = 0;
         }
         settemaList(newTemaList);
-    }
-
-    const _selectTema = (i) =>{
-        setTema(i);
+        console.log([temaList[1].temaselect,temaList[2].temaselect,temaList[3].temaselect,temaList[4].temaselect,temaList[5].temaselect,temaList[6].temaselect]);
     }
 
     const _selectTime = (rowData) =>{
@@ -186,7 +192,6 @@ const TabHome = (props)=>{
         setBol(false);
     }
     
-   
     return(
         <View style = {{flex : 1}}>
              <CustomAlert
@@ -262,6 +267,11 @@ const TabHome = (props)=>{
                             <View style = {styles.item}><Text  style = {{color : temaList[5].color }}> 이자카야 </Text></View>
                         </TouchableOpacity>
                         </View>
+                        <View style = {styles.item}>
+                        <TouchableOpacity onPress = {()=>_changeTemaColor(6)}>
+                            <View style = {styles.item}><Text  style = {{color : temaList[6].color }}> 옛날감성 </Text></View>
+                        </TouchableOpacity>
+                        </View>
                         <View style = {{width : 50 }}>
 
                         </View>
@@ -295,7 +305,7 @@ const TabHome = (props)=>{
                                 defaultValue = {0} 
                                 textStyle = {{fontSize: 24, fontFamily: "NanumSquareOTFR", color: '#CCCCCC', marginTop : -2}}
                                 dropdownTextStyle = {{fontSize: 16, fontFamily: "NanumSquareOTFR", color: "#111111"}}
-                                style = {{ width : 33, height : 31, alignItems:"flex-end",justifyContent:"flex-end", marginRight:3}} 
+                                style = {{ width : 33, height : 31, alignItems:"flex-end",justifyContent:"flex-end", marginRight:3, marginBottom: 0}} 
                                 options = {['3', '5', '10', '15', '20']}
                                 onDropdownWillShow = {()=>Keyboard.dismiss()}
                                 onSelect = {(idx) => _selectTime(idx)}
@@ -304,7 +314,7 @@ const TabHome = (props)=>{
                                 defaultValue = {arr[time]}
                                 textStyle = {{fontSize: 24, fontFamily: "NanumSquareOTFR", color: "#111111", marginTop : -2}}
                                 dropdownTextStyle = {{fontSize: 16, fontFamily: "NanumSquareOTFR", color: "#111111"}}
-                                style = {{ width : 33, height : 31, alignItems:"flex-end",justifyContent:"flex-end", marginRight:3, marginBottom: 4}} 
+                                style = {{ width : 33, height : 31, alignItems:"flex-end",justifyContent:"flex-end", marginRight:3, marginBottom: 0}} 
                                 options = {['3', '5', '10', '15', '20']}
                                 onSelect = {(idx) => _selectTime(idx)}
                                 onDropdownWillShow = {()=>Keyboard.dismiss()}
@@ -322,7 +332,7 @@ const TabHome = (props)=>{
             <View style={{alignItems: 'center'}}>
             <BigButtonColor 
                     style={[styles.find, {marginBottom: Utill.screen.Screen.customHeight(52)}]}
-                    onPress ={()=> ((tema+1)&&parseInt(people.text)>0&&parseInt(arr[parseInt(time)])>0) ? setIsAlertVisible(true) : Toast.show("테마, 인원, 출발 예정 시간을 확인해주세요.")}
+                    onPress ={()=> (parseInt(people.text)>0&&parseInt(arr[parseInt(time)])>0) ? setIsAlertVisible(true) : Toast.show("테마, 인원, 출발 예정 시간을 확인해주세요.")}
                     title = {'술집 찾기'}
             />
             </View>

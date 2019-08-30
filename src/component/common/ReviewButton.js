@@ -8,9 +8,7 @@ export default  (props) => {
 
     var between = props.newdate - props.date
     var betday = between/1000/60/60/24;
-    console.log("betday : " + betday + " / bool : " + (betday < parseFloat(7)));
     if(betday > parseFloat(7)){
-        console.log("betday : " + betday + " / bool : " + (betday < parseFloat(7)))
         return(
             <View style={styles.reviewText}>
                 <Text style={styles.CanNotWrite}> 리뷰 작성기간이 지났습니다 </Text>
