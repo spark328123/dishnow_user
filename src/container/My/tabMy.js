@@ -23,7 +23,6 @@ import OneSignal from 'react-native-onesignal';
 import Toast from 'react-native-simple-toast';
 
 const TabMy = ({navigation, userid, nickname, image, phone, point, name, reviewcount}) => { 
-    console.log(reviewcount);
     const [Pressed,setPressed] = useState(false);
     const [isLoaded,setIsLoaded] = useState(true);
     const [isPhotoLoaded,setPhotoLoaded] = useState(true);
@@ -103,7 +102,7 @@ const TabMy = ({navigation, userid, nickname, image, phone, point, name, reviewc
         setIsAlertVisible(false);
         navigation.navigate('Splash')
     }
-
+    console.log('리뷰 개수', reviewcount);
     return (
         <View style = {{flex : 1,backgroundColor : Utill.color.white}}> 
         <CustomAlert 
@@ -221,8 +220,6 @@ const TabMy = ({navigation, userid, nickname, image, phone, point, name, reviewc
                 onValueChange = {()=>{_setPressed(Pressed);_push(Pressed)}}
                 value = {!Pressed}
             />
-                
-
             
             <MenuButton 
                 title={'로그아웃'} 
