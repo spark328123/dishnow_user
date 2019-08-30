@@ -8,6 +8,7 @@ import {
   TouchableOpacity,
   Dimensions,
   Platform,
+  BackHandler
 } from 'react-native';
 import { getInset } from 'react-native-safe-area-view';
 import {NavHead, NavSwitchHead, Button} from '../../../component/common';

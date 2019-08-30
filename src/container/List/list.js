@@ -32,8 +32,6 @@ const List = (props) => {
         longitude : mylon
     }
 
-   
-
     const _getServer = async() => {
         const token = await API.getLocal(API.LOCALKEY_TOKEN);
         const res = await API.getReservation_accept(token);
@@ -44,10 +42,10 @@ const List = (props) => {
             return{
                 mainImage : _substr(JSON.stringify(JSONmainMenu[0].image)),
                 name,
-                distance : _computeDistance(myCoords, {latitude,longitude}),
+                distance : _computeDistance(myCoords, {latitude,longitude}), 
                 reservationId,
                 storeId,
-                latitude, 
+                latitude,  
                 longitude,
                 theme : keyword,
             }
@@ -57,9 +55,6 @@ const List = (props) => {
     const _getServer_back = async() => {
         const token = await API.getLocal(API.LOCALKEY_TOKEN);
         const res = await API.getReservation_accept_back(token);
-        
-        
-        
         setListData(res.map(item=>{
             var {mainImage,name,reservationId,storeId,latitude,longitude,type,mainMenu,keyword}=item;
             console.log(keyword);
@@ -139,7 +134,7 @@ const List = (props) => {
     },[]);
 
     useEffect(()=>{
-        if (timer && (timerCount <= 0)) {
+        if ((timerCount <= 0)) {
             _timerStop();
             Toast.show('선택 시간이 지났습니다. 홈 화면으로 이동합니다');
             navigation.navigate('Splash');

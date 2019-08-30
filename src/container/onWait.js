@@ -65,7 +65,6 @@ const OnWait =  (props) =>{
             const res = await API.getReservation_accept(token);
             console.log(navigation);
             AppState.removeEventListener('change',_handleChange);
-            //AppState.removeEventListener('change',handleAndroidBackButton(_goHome));
             if(res.length)
             await navigation.navigate('List',{timerCount,resnumber,restime,data:res});
         }

@@ -131,9 +131,9 @@ const TabHome = (props)=>{
             }
             const res = await API.reservation(token,data);
 
-            // console.log("if문의 tabtimer : " + tabtimer);
-            // await API.setTimer(API.TAB_TIMER, tabtimer.toString);
-            // console.log("api tab_timer : " + API.getTimer(API.TAB_TIMER));
+             console.log("if문의 tabtimer : " + tabtimer);
+             await API.setTimer(API.TAB_TIMER, tabtimer.toString());
+             console.log("api tab_timer : " + API.getTimer(API.TAB_TIMER));
 
             navigation.navigate('onWait',{
                 people : people.text,
@@ -235,7 +235,7 @@ const TabHome = (props)=>{
             <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={true}>
             <View>
                 <View style={{alignItems : 'center', justifyContent : 'center', height : 40}}>
-                    <Text style={{fontSize : 18, fontFamily: "NanumSquareOTFR", color: "#111111"}}> 테마 </Text>
+                    <Text style={{fontSize : 15.5, fontWeight:'bold', fontFamily: "NanumSquareOTFR", color: "#111111"}}> 테마 </Text>
                 </View>
             <ScrollView
                     style = {styles.scrollViewContainer}
@@ -316,7 +316,7 @@ const TabHome = (props)=>{
                                 defaultValue = {0} 
                                 textStyle = {{fontSize: 24, fontFamily: "NanumSquareOTFR", color: '#CCCCCC', marginTop : -2}}
                                 dropdownTextStyle = {{fontSize: 16, fontFamily: "NanumSquareOTFR", color: "#111111"}}
-                                style = {{ width : 33, height : 31, alignItems:"flex-end",justifyContent:"flex-end", marginRight:3, marginBottom: 0}} 
+                                style = {{ width : 33, height : 31, alignItems:"flex-end",justifyContent:"flex-end", marginRight:3, marginBottom: 4}} 
                                 options = {['3', '5', '10', '15', '20']}
                                 onDropdownWillShow = {()=>Keyboard.dismiss()}
                                 onSelect = {(idx) => _selectTime(idx)}
@@ -325,7 +325,7 @@ const TabHome = (props)=>{
                                 defaultValue = {arr[time]}
                                 textStyle = {{fontSize: 24, fontFamily: "NanumSquareOTFR", color: "#111111", marginTop : -2}}
                                 dropdownTextStyle = {{fontSize: 16, fontFamily: "NanumSquareOTFR", color: "#111111"}}
-                                style = {{ width : 33, height : 31, alignItems:"flex-end",justifyContent:"flex-end", marginRight:3, marginBottom: 0}} 
+                                style = {{ width : 33, height : 31, alignItems:"flex-end",justifyContent:"flex-end", marginRight:3, marginBottom: 4}} 
                                 options = {['3', '5', '10', '15', '20']}
                                 onSelect = {(idx) => _selectTime(idx)}
                                 onDropdownWillShow = {()=>Keyboard.dismiss()}
