@@ -107,24 +107,30 @@ const TabHome = (props)=>{
         console.log(nowtime);
         var twomin = (nowtime - parseInt(tabtimer._55))/1000/60;
         console.log(twomin);
+        var tema_name = "";
 
-        if(true){
+        if(temaList[0].isselect){
+            tema_name = "전체"
+        }
+        else{
+            for(let k=1; k<7; k++){
+                if(temaList[k].isselect)tema_name += temaList[k].id + " "
+            }
+        }
+
+        if(twomin>2){
             await API.setTimer(API.TAB_TIMER, JSON.stringify(new Date().getTime()));
             const token = await API.getLocal(API.LOCALKEY_TOKEN);
             await API.reservation_revert(token);
-            console.log("테마리스트씨발");
-            console.log(([temaList[1].temaselect,temaList[2].temaselect,temaList[3].temaselect,temaList[4].temaselect,temaList[5].temaselect,temaList[6].temaselect].toString()));
             const data = {
-                storeTypeId : [temaList[1].temaselect,temaList[2].temaselect,temaList[3].temaselect,temaList[4].temaselect,temaList[5].temaselect,temaList[6].temaselect],
+                storeTypeId :  `${[temaList[1].temaselect,temaList[2].temaselect,temaList[3].temaselect,temaList[4].temaselect,temaList[5].temaselect,temaList[6].temaselect].toString()}`,
                 peopleNumber : parseInt(people.text),
                 minutes : parseInt(arr[parseInt(time)]),
                 latitude,
                 longitude, 
             }
-            console.log(data);
             const res = await API.reservation(token,data);
-            console.log(res);
-            console.log()
+
             // console.log("if문의 tabtimer : " + tabtimer);
             // await API.setTimer(API.TAB_TIMER, tabtimer.toString);
             // console.log("api tab_timer : " + API.getTimer(API.TAB_TIMER));
@@ -132,9 +138,9 @@ const TabHome = (props)=>{
             navigation.navigate('onWait',{
                 people : people.text,
                 time : arr[parseInt(time)],
-                tema : [temaList[1].temaselect,temaList[2].temaselect,temaList[3].temaselect,temaList[4].temaselect,temaList[5].temaselect,temaList[6].temaselect],
+                tema :  `${[temaList[1].temaselect,temaList[2].temaselect,temaList[3].temaselect,temaList[4].temaselect,temaList[5].temaselect,temaList[6].temaselect].toString()}`,
                 address,
-                //newTemaList,
+                temaname : tema_name,
             });
         }
         else{
@@ -186,7 +192,7 @@ const TabHome = (props)=>{
             newTemaList[i].temaselect = 0;
         }
         settemaList(newTemaList);
-        console.log(`[${[temaList[1].temaselect,temaList[2].temaselect,temaList[3].temaselect,temaList[4].temaselect,temaList[5].temaselect,temaList[6].temaselect].toString()}]`);
+        console.log([temaList[1].temaselect,temaList[2].temaselect,temaList[3].temaselect,temaList[4].temaselect,temaList[5].temaselect,temaList[6].temaselect]);
     }
 
     const _selectTime = (rowData) =>{
@@ -227,7 +233,10 @@ const TabHome = (props)=>{
             </GoogleMap>
             </View>
             <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={true}>
-            <View style = {styles.input}>
+            <View>
+                <View style={{alignItems : 'center', justifyContent : 'center', height : 40}}>
+                    <Text style={{fontSize : 18, fontFamily: "NanumSquareOTFR", color: "#111111"}}> 테마 </Text>
+                </View>
             <ScrollView
                     style = {styles.scrollViewContainer}
                     horizontal = {true}
@@ -321,7 +330,6 @@ const TabHome = (props)=>{
                                 onSelect = {(idx) => _selectTime(idx)}
                                 onDropdownWillShow = {()=>Keyboard.dismiss()}
                                 />)}
-                                <Image style = {{width: 8, height:4.75}} source = {{uri: "icon_rsquare_bracket_under"}}></Image>
                             </View> 
                             <Text style={{fontSize : 24, marginBottom: 5, color: "#111111"}}> 분 후</Text>
                         </View>
@@ -374,7 +382,6 @@ const styles = StyleSheet.create({
     scrollViewContainer :{
         height: 46,
         width: '100%',
-        marginTop: Utill.screen.Screen.customHeight(30),
         backgroundColor: "#EEEEEE",
     },
     scrollTheme: {

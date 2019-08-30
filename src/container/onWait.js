@@ -8,6 +8,7 @@ import {
 } from 'react-native';
 import { connect } from 'react-redux';
 import { Text,CustomAlert } from '../component/common';
+import {handleAndroidBackButton} from '../component/common/hardwareBackButton'
 import * as Utill from '../utill';
 import OneSignal from 'react-native-onesignal';
 import * as API from '../utill/API';
@@ -15,9 +16,7 @@ import Toast from 'react-native-simple-toast';
 
 const OnWait =  (props) =>{
     const WaitTime = 120;
-    const { navigation, latitude, longitude, } = props;
-    //new temaList = navigation.getParam('temaList');
-    const tema = navigation.getParam('tema');
+    const { navigation, latitude, longitude } = props;
     const createdAt = navigation.getParam('createdAt');
     var address = navigation.getParam('address');
     address = address.substring(0,15)+'\n'+' '+address.substring(15);
@@ -26,16 +25,16 @@ const OnWait =  (props) =>{
     const [timerCount, setTimerCount] = useState(WaitTime);
     const [toggle, setToggle] = useState(true);
     const [appState, setAppState] = useState(AppState.currentState);
+
     const [isAlertVisible, setIsAlertVisible] = useState(false);
-    const [temaText,setTemaText] = useState('');
+
     const restime = useState(navigation.getParam('time'));
     const resnumber = useState(navigation.getParam('people'));
 
-    console.log('테마!', navigation.getParam('tema'));
-    //console.log('테마리스트',navigation.getParam('temaList'));
     const _onPressAlertCancel = () => {
         setIsAlertVisible(false);
     }
+
     const _onPressAlertOk = async() => {
         setIsAlertVisible(false);
         const token = await API.getLocal(API.LOCALKEY_TOKEN);
@@ -45,9 +44,13 @@ const OnWait =  (props) =>{
        _goBack();
     }
 
+     const _goHome = () => {
+        setIsAlertVisible(true);
+    }
+    handleAndroidBackButton(_goHome);
+
     useEffect(()=>{
         _timerStart();
-        //_temaText();
         OneSignal.addEventListener('received',_oneSignalReceived);
         OneSignal.addEventListener('opened',_oneSignalReceived)
         AppState.addEventListener('change',_handleChange);
@@ -57,29 +60,10 @@ const OnWait =  (props) =>{
     },[]);
   
 
-    const _temaText = () => {
-        
-       if(tema[0]===1)
-       {
-           setTemaText('전체');
-       }
-       else
-       {
-           for(var i = 0; i<6; i++)
-           {
-               if(tema[i] === 1)
-               {
-                   setTemaText(concat(newTemaList[i].id));
-               }
-           }
-       }
-    }
-
     const _handleChange = async(nextAppState)=>{
         if(appState === 'active' && nextAppState === 'active') {
             const token = await API.getLocal(API.LOCALKEY_TOKEN);
             const res = await API.getReservation_accept(token);
-            console.log(res);
             if(res.length)
             await navigation.navigate('List',{timerCount,resnumber,restime,data:res});
         }
@@ -186,7 +170,7 @@ const OnWait =  (props) =>{
             <View style = {styles.data}>
                 <View style={styles.informationContainer}>
                     <Text style={styles.theme}>
-                        {`| ${temaText} |`}
+                        {`| ${navigation.getParam('temaname')} |`}
                     </Text>
                     <View style={styles.dataContainer}>
                         <Text style={styles.dataText}>
