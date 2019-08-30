@@ -311,6 +311,7 @@ const ListMenu = (props) =>  {
         buttonText2={'네'}
         onPressCancel = {_onPressAlertCancel}
         onPress={isConfirm? _isConfirm :_notConfirm }
+
       />
       {/* 각 페이지를 담는 부분입니다.*/}
       {page == 0 && <Page1 paddingTop={HEADER_MAX_HEIGHT + HEADER_TAB_HEIGHT} initialScroll={scrollY._value} onScroll={_onScroll} data={page1Data} />}

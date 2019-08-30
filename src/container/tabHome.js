@@ -153,8 +153,11 @@ const TabHome = (props)=>{
 
     const _toggle = async(i,newTemaList) =>{ // 색깔바뀌는 함수 밖으로 빼냄
         await _selectTema(i);                // ***tema 동기화 잘안됨!
-        for(let k=0; k<6; k++){
-            if(i!==k){
+        if(i!==0){
+            newTemaList[0].color = '#111111';
+            newTemaList[0].isselect = false;
+        }else{
+            for(let k=1; k<6; k++){
                 newTemaList[k].color = '#111111';
                 newTemaList[k].isselect = false;
             }
@@ -292,7 +295,7 @@ const TabHome = (props)=>{
                                 defaultValue = {0} 
                                 textStyle = {{fontSize: 24, fontFamily: "NanumSquareOTFR", color: '#CCCCCC', marginTop : -2}}
                                 dropdownTextStyle = {{fontSize: 16, fontFamily: "NanumSquareOTFR", color: "#111111"}}
-                                style = {{width : 33, height : 31}} 
+                                style = {{ width : 33, height : 31, alignItems:"flex-end",justifyContent:"flex-end", marginRight:3}} 
                                 options = {['3', '5', '10', '15', '20']}
                                 onDropdownWillShow = {()=>Keyboard.dismiss()}
                                 onSelect = {(idx) => _selectTime(idx)}
@@ -301,7 +304,7 @@ const TabHome = (props)=>{
                                 defaultValue = {arr[time]}
                                 textStyle = {{fontSize: 24, fontFamily: "NanumSquareOTFR", color: "#111111", marginTop : -2}}
                                 dropdownTextStyle = {{fontSize: 16, fontFamily: "NanumSquareOTFR", color: "#111111"}}
-                                style = {{width : 33, height : 31}} 
+                                style = {{ width : 33, height : 31, alignItems:"flex-end",justifyContent:"flex-end", marginRight:3, marginBottom: 4}} 
                                 options = {['3', '5', '10', '15', '20']}
                                 onSelect = {(idx) => _selectTime(idx)}
                                 onDropdownWillShow = {()=>Keyboard.dismiss()}

@@ -12,6 +12,9 @@ const Point = (props) =>{
     const {navigation, point, phone} = props;
     console.log(props);
     const [isLoadingVisible, setIsLoadingVisible] = useState(true);
+    
+    
+    console.log(props);
     const [page, setPage] = useState(1);
     const Screen =(props)=> {
         if(props.page == 1) return <Point1 data={props.data} phone = {phone} point = {point}/>
@@ -25,7 +28,7 @@ const Point = (props) =>{
     handleAndroidBackButton(_goBack);
     return(
         <View style ={styles.container}>
-            <NavSwitchHead navigation={navigation} navtitle = {'TabMy'} title={`디나포인트`}/>
+            <NavSwitchHead navigation={navigation} navtitle = {'myPoint'} title={`디나포인트`}/>
             {/* <LoadingModal visible={isLoadingVisible} /> */}
 
             <View style={styles.tabArea}>
