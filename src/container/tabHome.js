@@ -105,12 +105,12 @@ const TabHome = (props)=>{
         var twomin = (nowtime - parseInt(tabtimer._55))/1000/60;
         console.log(twomin);
 
-        if(true){
+        if(twomin>2){
             await API.setTimer(API.TAB_TIMER, JSON.stringify(new Date().getTime()));
             const token = await API.getLocal(API.LOCALKEY_TOKEN);
             await API.reservation_revert(token);
             const data = {
-                storeTypeId : '[0,0,0,0,0,0]',
+                storeTypeId : '[0,1,0,0,0,0]',
                 peopleNumber : parseInt(people.text),
                 minutes : parseInt(arr[parseInt(time)]),
                 latitude,
