@@ -304,11 +304,7 @@ const ListMenu = (props) =>  {
 
   return (
     <View style ={{flex : 1,backgroundColor:'#EEEEEE'}}>
-      {isConfirm ?  (BackHandler.removeEventListener('hardwareBackPress', function() {
-      // this.onMainScreen and this.goBack are just examples, you need to use your own implementation here
-      // Typically you would use the navigator here to go to the last state.
-        return true;
-    })):null}
+     
        <CustomAlert 
         visible={isAlertVisible} 
         mainTitle={isConfirm ? "도착완료":"예약"}
