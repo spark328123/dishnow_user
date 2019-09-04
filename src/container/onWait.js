@@ -47,8 +47,7 @@ const OnWait =  (props) =>{
 
      const _goHome = () => {
     }
-    handleAndroidBackButton(_goHome);
-
+   handleAndroidBackButton(_goHome);
     useEffect(()=>{
         _timerStart();
         OneSignal.addEventListener('received',_oneSignalReceived);

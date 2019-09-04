@@ -7,17 +7,18 @@ import {
     ActivityIndicator,
     AppState,
     Image,
+    BackHandler,
 } from 'react-native';
 import FastImage from 'react-native-fast-image';
 import { connect } from 'react-redux';
 import { Text,CustomAlert } from '../../component/common';
+// import {handleAndroidBackButton,removeAndroidBackButtonHandler} from '../../component/common/hardwareBackButton'
 import * as Utill from '../../utill';
 import * as API from '../../utill/API';
 import OneSiganl from 'react-native-onesignal';
 import Toast from 'react-native-simple-toast';
 
 const List = (props) => {
-
     const { navigation, mylat, mylon } = props;
     const WaitTime = 60*5+navigation.getParam('timerCount');
 
@@ -115,8 +116,9 @@ const List = (props) => {
     const [ listData, setListData ] = useState([]);
 
     const _handleChange = async(nextAppState)=>{
-        console.log(appState,nextAppState);
-        if(appState === 'active' && nextAppState === 'active') _getServer_back();
+        if(appState === 'active' && nextAppState === 'active') {
+            _getServer_back();
+        }
         setAppState(nextAppState);
     }
 
