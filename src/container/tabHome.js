@@ -131,6 +131,9 @@ const TabHome = (props)=>{
             }
             const res = await API.reservation(token,data);
 
+             console.log("if문의 tabtimer : " + tabtimer);
+             await API.setTimer(API.TAB_TIMER, tabtimer.toString());
+             console.log("api tab_timer : " + API.getTimer(API.TAB_TIMER));
 
             navigation.navigate('onWait',{
                 people : people.text,
