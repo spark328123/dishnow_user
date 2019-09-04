@@ -20,7 +20,7 @@ import Toast from 'react-native-simple-toast';
 
 const List = (props) => {
     const { navigation, mylat, mylon } = props;
-    const WaitTime = 60*5+navigation.getParam('timerCount');
+    const WaitTime = 60*7;
 
     const [timer, setTimer] = useState(null);
     const [timerCount, setTimerCount] = useState(WaitTime);
@@ -134,7 +134,8 @@ const List = (props) => {
     },[]);
 
     useEffect(()=>{
-        if ((timerCount <= 0)) {
+        if ((timer&&timerCount <= 0)) {
+            console.log(navigation.state);
             _timerStop();
             Toast.show('선택 시간이 지났습니다. 홈 화면으로 이동합니다');
             navigation.navigate('Splash');
@@ -197,6 +198,7 @@ const List = (props) => {
             distance,
             peopleNumber : navigation.getParam('resnumber'),
             minutes : navigation.getParam('restime'),
+            timer,
         })
         console.log(resDetail,resReview);
     }

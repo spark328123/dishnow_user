@@ -289,6 +289,7 @@ const ListMenu = (props) =>  {
         minutes : _navigation.getParam('minutes'),
         name : data.name,
     });
+    clearInterval(_navigation.getParam('timer'));
     return;
   }
 
