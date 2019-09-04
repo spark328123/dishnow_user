@@ -88,14 +88,14 @@ const Help = (props) => {
                                     <MainMenuItem 
                                         data={{
                                             uri: data.mainMenu[1].image[0],
-                                            name:data.mainMenu[1].name,
+                                            name:data.mainMenu[1].name.substring(0,8)+(data.mainMenu[1].name.length>=8 ? '\n' : '')+data.mainMenu[1].name.substring(8),
                                             price:_encodePrice(data.mainMenu[1].price),
                                         }}
                                     />
                                     <MainMenuItem 
                                         data={{
                                             uri: data.mainMenu[2].image[0],
-                                            name:data.mainMenu[2].name,
+                                            name:data.mainMenu[2].name.substring(0,8)+(data.mainMenu[2].name.length>=8 ? '\n' : '')+data.mainMenu[2].name.substring(8),
                                             price:_encodePrice(data.mainMenu[2].price),
                                         }}
                                     />
