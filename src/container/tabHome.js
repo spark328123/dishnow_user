@@ -118,7 +118,7 @@ const TabHome = (props)=>{
             }
         }
 
-        if(twomin>2){
+        if(twomin>2 || isNaN(twomin)){
             await API.setTimer(API.TAB_TIMER, JSON.stringify(new Date().getTime()));
             const token = await API.getLocal(API.LOCALKEY_TOKEN);
             await API.reservation_revert(token);
@@ -130,10 +130,6 @@ const TabHome = (props)=>{
                 longitude, 
             }
             const res = await API.reservation(token,data);
-
-             console.log("if문의 tabtimer : " + tabtimer);
-             await API.setTimer(API.TAB_TIMER, tabtimer.toString());
-             console.log("api tab_timer : " + API.getTimer(API.TAB_TIMER));
 
             navigation.navigate('onWait',{
                 people : people.text,
