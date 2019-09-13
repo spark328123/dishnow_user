@@ -52,23 +52,22 @@ const OnWait =  (props) =>{
         _timerStart();
         OneSignal.addEventListener('received',_oneSignalReceived);
         OneSignal.addEventListener('opened',_oneSignalReceived)
-        AppState.addEventListener('change',_handleChange);
+        AppState.addEventListener('change',_handleChange1);
         return()=>{
-            AppState.removeEventListener('change',_handleChange);
+            AppState.removeEventListener('change',_handleChange1);
         }
     },[]);
   
 
-    const _handleChange = async(nextAppState)=>{
+    const _handleChange1 = async(nextAppState)=>{
         if(appState === 'active' && nextAppState === 'active') {
             const token = await API.getLocal(API.LOCALKEY_TOKEN);
             const res = await API.getReservation_accept(token);
             console.log(navigation);
-            AppState.removeEventListener('change',_handleChange);
             if(res.length)
             await navigation.navigate('List',{timerCount,resnumber,restime,data:res});
+            AppState.removeEventListener('change',_handleChange1);
         }
-       
         setAppState(nextAppState);
     }
     
