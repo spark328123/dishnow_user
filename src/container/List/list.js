@@ -20,12 +20,9 @@ import Toast from 'react-native-simple-toast';
 
 const List = (props) => {
     const { navigation, mylat, mylon } = props;
-    const WaitTime = 60*7;
 
-    const [timer, setTimer] = useState(null);
-    const [timerCount, setTimerCount] = useState(WaitTime);
-    const [isAlertVisible, setIsAlertVisible] = useState(false);
-    const [appState, setAppState] = useState(AppState.currentState);
+    const [ isLoaded, setIsLoaded ] = useState(true);
+    const [ listData, setListData ] = useState([]);
 
     const myCoords = {
         latitude : mylat,
@@ -34,56 +31,26 @@ const List = (props) => {
 
     const _getServer = async() => {
         const token = await API.getLocal(API.LOCALKEY_TOKEN);
-        const res = await API.getReservation_accept(token);
+        const res = await API.getReservation_accept(token,myCoords);
+        console.log(res);
+        
         setListData(res.map(item=>{
-            var {mainImage,name,reservationId,storeId,latitude,longitude,type,mainMenu,keyword}=item;
+            var {mainImage,name,storeId,latitude,longitude,type,mainMenu,keyword}=item;
             if(keyword.length>10)keyword = `${keyword.substring(0,11)}...`
             const JSONmainMenu = JSON.parse(mainMenu);
             return{
                 mainImage : _substr(JSON.stringify(JSONmainMenu[0].image)),
                 name,
                 distance : _computeDistance(myCoords, {latitude,longitude}), 
-                reservationId,
                 storeId,
                 latitude,  
                 longitude,
                 theme : keyword,
             }
         }));
+        
     }
 
-    const _getServer_back = async() => {
-        const token = await API.getLocal(API.LOCALKEY_TOKEN);
-        const res = await API.getReservation_accept_back(token);
-        setListData(res.map(item=>{
-            var {mainImage,name,reservationId,storeId,latitude,longitude,type,mainMenu,keyword}=item;
-            console.log(keyword);
-            if(keyword.length>10)keyword = `${keyword.substring(0,11)}...`
-            const JSONmainMenu = JSON.parse(mainMenu);
-            return{
-                mainImage : _substr(JSON.stringify(JSONmainMenu[0].image)),
-                name,
-                distance : _computeDistance(myCoords, {latitude,longitude}),
-                reservationId,
-                storeId,
-                latitude, 
-                longitude,
-                theme : keyword,
-            }
-        }));
-    }
-
-    const _onPressAlertOk = async() => {
-        setIsAlertVisible(false);
-        const token = await API.getLocal(API.LOCALKEY_TOKEN);
-        await API.reservation_cancel(token);
-        _timerStop();
-       _goHome();
-    }
-
-    const _onPressAlertCancel = () => {
-        setIsAlertVisible(false);
-    }
 
     const _substr = (imageSource)=>{
         return Object({ uri :imageSource.substring(2,imageSource.length-2) });
@@ -108,61 +75,13 @@ const List = (props) => {
         return Math.floor(distance*1000);
     }
     
-    const _goHome = () =>{
-        navigation.navigate('Splash');
-    }
-    const data = navigation.getParam('data');
-    const [ isLoaded, setIsLoaded ] = useState(true);
-    const [ listData, setListData ] = useState([]);
 
-    const _handleChange = async(nextAppState)=>{
-        if(appState === 'active' && nextAppState === 'active') {
-            _getServer_back();
-        }
-        setAppState(nextAppState);
-    }
 
     useEffect(()=>{
-        _timerStart();
         _getServer();
-        OneSiganl.addEventListener('received',_getServer);
-        OneSiganl.addEventListener('opened',_getServer);
-        AppState.addEventListener('change',_handleChange);
-        return()=>{
-            AppState.removeEventListener('change',_handleChange);
-        }
     },[]);
 
-    useEffect(()=>{
-        if ((timer&&timerCount <= 0)) {
-            console.log(navigation.state);
-            _timerStop();
-            Toast.show('선택 시간이 지났습니다. 홈 화면으로 이동합니다');
-            navigation.navigate('Splash');
-        }
-    },[timerCount]);
-
-    const _timerStart = ()=> {
-        setTimer(timer=>{
-            if (timer==null) return setInterval(()=>_timerTick(), 1000);
-        });
-    }
-
-    const _timerTick =()=> {
-        setTimerCount(count=>count-1);
-    }
-
-    const _timerStop =()=> {
-        setTimer(timer=> {
-            if (timer!=null) {
-                clearInterval(timer);
-                return null;
-            }
-            return timer; 
-        })
-    }
-
-    const _showStoreDetail = async({reservationId,storeId,theme,distance})=>{
+    const _showStoreDetail = async({storeId,theme,distance})=>{
         const token = await API.getLocal(API.LOCALKEY_TOKEN);
         const resDetail = await API.showStoreDetail(token,{storeId : storeId});
         const resReview = await API.showStoreReview(token,{storeId : storeId, page : 0});
@@ -176,7 +95,6 @@ const List = (props) => {
             if(subImage[0]!='[]'){
             console.log(subImage);
             if(subImage.length==1){
-                console.log('asd');
                 photos.push(subImage[0]);
             }else{
                 const len = subImage.length;
@@ -191,14 +109,12 @@ const List = (props) => {
             resDetail,
             resReview,
             storeId,
-            reservationId,
             photos,
             isReservation : true,
             theme,
             distance,
-            peopleNumber : navigation.getParam('resnumber'),
-            minutes : navigation.getParam('restime'),
-            timer,
+            peopleNumber : navigation.getParam('people'),
+            minutes : navigation.getParam('time'),
         })
         console.log(resDetail,resReview);
     }
@@ -234,32 +150,17 @@ const List = (props) => {
                 </View>
                 </TouchableOpacity>
             </View>
-        )
+        );
     }
 
     return(
         <View style = {styles.container}>
-            <CustomAlert 
-                visible={isAlertVisible} 
-                mainTitle={'취소'}
-                mainTextStyle = {styles.txtStyle}
-                subTitle = {'이미 요청을 수락한 가게가 있습니다.\n정말 취소할까요?'}
-                subTextStyle = {styles.subtxtStyle}
-                buttonText1={'아니오'} 
-                buttonText2={'네'}
-                onPressCancel = {_onPressAlertCancel}
-                onPress={_onPressAlertOk} 
-        />
+        
         
             <View style = {styles.header}>
-                <Text style={{fontSize:14, color:"#733FFF" }}>{timerCount%60 < 10 ? `${Math.floor(timerCount/60)} : 0${timerCount%60}` : `${Math.floor(timerCount/60)} : ${timerCount%60}`}</Text>
                 <Text style = {{fontSize : 18, fontWeight:'bold', marginLeft:Utill.screen.Screen.customWidth(20)}}>
                     예약 가능 식당
                 </Text>
-                <TouchableOpacity
-                    onPress = {()=>setIsAlertVisible(true)}>
-                    <Text style = {{color : Utill.color.red, fontSize : 14, alignSelf:'flex-end'}}>취소하기</Text>
-                </TouchableOpacity>
             </View>
             <View style={{width:Utill.screen.Screen.customWidth(340),height:Utill.screen.Screen.customHeight(526), alignItems:"flex-start",}}>
                 <FlatList 
