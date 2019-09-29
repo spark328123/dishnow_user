@@ -118,10 +118,10 @@ const TabHome = (props)=>{
             }
         }
 
-        if(twomin>2 || isNaN(twomin)){
+        if(true){
             await API.setTimer(API.TAB_TIMER, JSON.stringify(new Date().getTime()));
             const token = await API.getLocal(API.LOCALKEY_TOKEN);
-            await API.reservation_revert(token);
+            //await API.reservation_revert(token);
             const data = {
                 storeTypeId :  `${[temaList[1].temaselect,temaList[2].temaselect,temaList[3].temaselect,temaList[4].temaselect,temaList[5].temaselect,temaList[6].temaselect].toString()}`,
                 peopleNumber : parseInt(people.text),
@@ -129,12 +129,12 @@ const TabHome = (props)=>{
                 latitude,
                 longitude, 
             }
-            const res = await API.reservation(token,data);
+            //const res = await API.reservation(token,data);
 
-            navigation.navigate('onWait',{
+            navigation.navigate('List',{
                 people : people.text,
                 time : arr[parseInt(time)],
-                tema :  `${[temaList[1].temaselect,temaList[2].temaselect,temaList[3].temaselect,temaList[4].temaselect,temaList[5].temaselect,temaList[6].temaselect].toString()}`,
+                //tema :  `${[temaList[1].temaselect,temaList[2].temaselect,temaList[3].temaselect,temaList[4].temaselect,temaList[5].temaselect,temaList[6].temaselect].toString()}`,
                 address,
                 temaname : tema_name,
             });

@@ -11,6 +11,7 @@ import com.dooboolab.kakaologins.RNKakaoLoginsPackage;
 import com.dooboolab.naverlogin.RNNaverLoginPackage;
 import com.facebook.CallbackManager;
 import com.facebook.react.ReactApplication;
+import com.microsoft.codepush.react.CodePush;
 import com.dylanvann.fastimage.FastImageViewPackage;
 import com.geektime.rnonesignalandroid.ReactNativeOneSignalPackage;
 
@@ -40,6 +41,11 @@ public class MainApplication extends Application implements ReactApplication {
 
   private final ReactNativeHost mReactNativeHost = new ReactNativeHost(this) {
     @Override
+    protected String getJSBundleFile(){
+      return CodePush.getJSBundleFile();
+    }
+
+    @Override
     public boolean getUseDeveloperSupport() {
       return BuildConfig.DEBUG;
     }
@@ -48,6 +54,7 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
+            new CodePush(getResources().getString(R.string.reactNativeCodePush_androidDeploymentKey), getApplicationContext(), BuildConfig.DEBUG),
             new FastImageViewPackage(),
             new ReactNativeOneSignalPackage(),
             new ImagePickerPackage(),
