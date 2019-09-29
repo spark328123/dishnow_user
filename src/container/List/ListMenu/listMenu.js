@@ -281,14 +281,19 @@ const ListMenu = (props) =>  {
       return;
     }
     const token =  await API.getLocal(API.LOCALKEY_TOKEN);
-    await API.reservation_confirm(token,{
+
+    const res = await API.reservation_request(token,{
         storeId : _navigation.getParam('storeId'), 
-        reservationId : _navigation.getParam('reservationId')})
-    _navigation.navigate('Booked',{
+        peopleNumber : _navigation.getParam('peopleNumber'),
+        minutes : _navigation.getParam('minutes'),
+        })
+    if(res){
+    _navigation.navigate('onWait',{
         peopleNumber : _navigation.getParam('peopleNumber'),
         minutes : _navigation.getParam('minutes'),
         name : data.name,
     });
+    }
     return;
   }
 
