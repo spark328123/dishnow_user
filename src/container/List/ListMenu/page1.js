@@ -81,21 +81,24 @@ const Help = (props) => {
                                     <MainMenuItem 
                                         data={{
                                             uri: data.mainMenu[0].image[0],
-                                            name:data.mainMenu[0].name.substring(0,8)+(data.mainMenu[0].name.length>=7 ? '\n' : '')+data.mainMenu[0].name.substring(7),
+                                            name:data.mainMenu[0].name.substring(0,6)+(data.mainMenu[0].name.length>=7 ? '\n' : '')+data.mainMenu[0].name.substring(6,12)+
+                                            (data.mainMenu[0].name.length>=13 ? '\n...' : ''),
                                             price:_encodePrice(data.mainMenu[0].price),
                                         }}
                                     />
                                     <MainMenuItem 
                                         data={{
                                             uri: data.mainMenu[1].image[0],
-                                            name:data.mainMenu[1].name.substring(0,8)+(data.mainMenu[1].name.length>=7 ? '\n' : '')+data.mainMenu[1].name.substring(7),
+                                            name:data.mainMenu[1].name.substring(0,6)+(data.mainMenu[1].name.length>=7 ? '\n' : '')+data.mainMenu[1].name.substring(6,12)+
+                                            (data.mainMenu[1].name.length>=13 ? '\n...' : ''),
                                             price:_encodePrice(data.mainMenu[1].price),
                                         }}
                                     />
                                     <MainMenuItem 
                                         data={{
                                             uri: data.mainMenu[2].image[0],
-                                            name:data.mainMenu[2].name.substring(0,8)+(data.mainMenu[2].name.length>=7 ? '\n' : '')+data.mainMenu[2].name.substring(7),
+                                            name:data.mainMenu[2].name.substring(0,6)+(data.mainMenu[2].name.length>=7 ? '\n' : '')+data.mainMenu[2].name.substring(6,12)+
+                                            (data.mainMenu[2].name.length>=13 ? '\n...' : ''),
                                             price:_encodePrice(data.mainMenu[2].price),
                                         }}
                                     />

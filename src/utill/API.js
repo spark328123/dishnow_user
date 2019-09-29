@@ -109,6 +109,13 @@ export const reservation = (token, data) => {
     .catch(error=>({error}));
 }
 
+export const reservation_request = (token, data) => {
+    const url = `${apiUrl}reservation/request`;
+    return fetch.postAuthServer(url,token,data)
+    .then(res => res.json())
+    .catch(error=>({error}));
+}
+
 export const reservation_confirm = (token, data) => {
     const url = `${apiUrl}reservation/confirm`;
     return fetch.putAuthServer(url,token,data)
@@ -127,6 +134,13 @@ export const reservation_revert = (token) => {
     const url = `${apiUrl}reservation/revert`;
     return fetch.putAuthServer(url,token)
     .then(res => ({isSuccess : res?true : false}))
+    .catch(error=>{error});
+}
+
+export const reservation_accept = (token) => {
+    const url = `${apiUrl}reservation/accept`;
+    return fetch.getAuthServer(url,token)
+    .then(res=>res.json())
     .catch(error=>{error});
 }
 
