@@ -20,8 +20,7 @@ import OneSiganl from 'react-native-onesignal';
 import Toast from 'react-native-simple-toast';
 
 const List = (props) => {
-    const { navigation, mylat, mylon } = props;
-
+    const { navigation, mylat, mylon, address} = props;
     const [ isLoaded, setIsLoaded ] = useState(true);
     const [ listData, setListData ] = useState([]);
 
@@ -88,7 +87,6 @@ const List = (props) => {
             var {mainImage,name,storeId,latitude,longitude,type,mainMenu,keyword,rating,content,storeTypeId,storeTypeId2,storeTypeId3,storeTypeId4,storeTypeId5,storeTypeId6}=item;
             if(keyword.length>10)keyword = `${keyword.substring(0,11)}...`
             const JSONmainMenu = JSON.parse(mainMenu);
-            
                 return{
                     mainImage : _substr(JSON.stringify(JSONmainMenu[0].image)),
                     name,
@@ -106,7 +104,6 @@ const List = (props) => {
                     storeTypeId5,
                     storeTypeId6,
                 }
-            
         }));
         
     }
@@ -179,10 +176,9 @@ const List = (props) => {
     }
 
     const _renderItem = ({item}) => {
-        console.log(item.content);
         if(temaList[0].isselect||(temaList[1].isselect&&item.storeTypeId==1)||(temaList[2].isselect&&item.storeTypeId2==1)||(temaList[3].isselect&&item.storeTypeId3==1)||(temaList[4].isselect&&item.storeTypeId4==1)
-            ||(temaList[5].isselect&&item.storeTypeId5==1)||(temaList[6].isselect&&item.storeTypeId6==1))
-            {
+        ||(temaList[5].isselect&&item.storeTypeId5==1)||(temaList[6].isselect&&item.storeTypeId6==1))
+        {
         return (
             <View style={styles.item}>
 
@@ -258,7 +254,7 @@ const List = (props) => {
                     
                 </Image>
                 <Text style = {{fontSize : 18, fontWeight:'bold', marginLeft:Utill.screen.Screen.customWidth(20)}}>
-                    마포구 창남 김민식
+                    {address}
                 </Text>
             </View>
 
@@ -274,11 +270,13 @@ const List = (props) => {
                     justifyContent: 'space-between',
                     marginLeft: 16
                 }}
-                    >
+            >
                         <View style = {{ marginLeft : 4, width : 55, height : 33,alignItems : 'center',justifyContent : 'center',backgroundColor: temaList[0].backcolor, borderRadius: 15 }}>
+
                         <TouchableOpacity onPress = {()=>_changeTemaColor(0)}>
                             <View><Text  style = {{color : temaList[0].color }}> 전체 </Text></View>
                         </TouchableOpacity>
+
                         </View>
                         <View style = {{ marginLeft : 4, width : 55, height : 33,alignItems : 'center',justifyContent : 'center',backgroundColor: temaList[1].backcolor, borderRadius: 15 }}>
                         <TouchableOpacity onPress = {()=>_changeTemaColor(1)}>
@@ -314,25 +312,30 @@ const List = (props) => {
 
                         </View>
             </ScrollView>
+
             <View style = {styles.line}></View>
-            <View style={{width:Utill.screen.Screen.customWidth(340),height:Utill.screen.Screen.customHeight(495), alignItems:"flex-start",}}>
+
+            <View style={{width:Utill.screen.Screen.customWidth(340),height:Utill.screen.Screen.customHeight(460),marginBottom:Utill.screen.Screen.customHeight(40), alignItems:"flex-start",}}>
                 <FlatList 
                     data = {listData}
                     renderItem = {_renderItem}
                     />
             </View>
+
                 <TouchableOpacity style = {styles.button} 
                     onPress = {()=>navigation.push('ListMap',{data:listData})}>              
                     <Image source = {{uri : 'icon_on_map_white'}} style = {{width: 20,height:16, paddingRight :7}} />
                     <Text style = {{fontSize : 16, color : '#FFFFFF'}}> 지도에서 보기</Text>
                 </TouchableOpacity>
         </View>
+
     )
 }
 const mapStateToProps = (state) => {
     return {
         mylat : state.Maps._root.entries[0][1].latitude,
         mylon : state.Maps._root.entries[0][1].longitude,
+        address : state.Maps._root.entries[1][1],
     }
 }
 
@@ -349,7 +352,7 @@ const styles = StyleSheet.create({
         justifyContent : 'center',
         alignItems: "center",
         height : Utill.screen.Screen.customHeight(45),
-       
+        marginTop:Utill.screen.Screen.topSafe,
         width: Utill.screen.Screen.customWidth(340),
         alignSelf: 'center'
     },
@@ -399,8 +402,8 @@ const styles = StyleSheet.create({
         height : Utill.screen.Screen.customHeight(96),
     },
     contentStar : {
-        width : 12,
-        height : 12,
+        width : 6.5,
+        height : 6.5,
         marginBottom : 12,
     },
     item3 : {
@@ -422,7 +425,7 @@ const styles = StyleSheet.create({
         borderRadius: 15,
     },
     line : {
-        borderBottomWidth: Utill.screen.Screen.customHeight(2),
-        borderBottomColor:Utill.color.textBlack,
+        borderBottomWidth: 2,
+        borderBottomColor: "#EEEEEE",
     },
 })
