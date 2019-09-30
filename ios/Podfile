@@ -57,6 +57,8 @@ target 'react_dishnow_user' do
 	 pod 'FacebookSDK' 
     pod 'RNFastImage', :path => '../node_modules/react-native-fast-image'
 
+    pod 'CodePush', :path => '../node_modules/react-native-code-push'
+
   end
   
   post_install do |installer|

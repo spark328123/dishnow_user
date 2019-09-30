@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key> NSLocationWhenInUseUsageDescription</key>
-	<string>현재 위치를 이용하는 실시간 예약 서비스를 이용하려면 위치 접근 권한을 허용해야 합니다</string>
+	<string>현재 위치를 이용하는 실시간 예약 서비스를 이용하려면 위치 접근 권한을 허용해야 합니다.</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>ko</string>
 	<key>CFBundleDisplayName</key>
@@ -19,7 +19,7 @@
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>1.11</string>
+	<string>1.19</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleURLTypes</key>
@@ -45,7 +45,7 @@
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>11</string>
+	<string>19</string>
 	<key>FacebookAppID</key>
 	<string>341578776721580</string>
 	<key>FacebookDisplayName</key>
@@ -79,13 +79,13 @@
 		</dict>
 	</dict>
 	<key>NSCameraUsageDescription</key>
-	<string>카메라를 사용하려면 카메라 접근 권한을 허용해야 합니다</string>
+	<string>카메라로 촬영하여 리뷰/프로필 이미지를 등록할 수 있습니다.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>사용자의 위치에 접근 하기 위하여 위치 권한을 허용해야 합니다</string>
+	<string>현재 위치를 이용하는 실시간 예약 서비스를 이용하려면 위치 접근 권한을 허용해야 합니다.</string>
 	<key>NSPhotoLibraryAddUsageDescription</key>
-	<string>사진첩을 이용하시려면, 사진 저장소 접근 권한을 허용해 주세요</string>
+	<string>사진첩에서 이미지를 선택하여 리뷰/프로필 이미지를 등록할 수 있습니다.</string>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>사진첩을 이용하시려면, 사진 저장소 접근 권한을 허용해 주세요</string>
+	<string>사진첩에서 이미지를 선택하여 리뷰/프로필 이미지를 등록할 수 있습니다.</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>NanumSquareOTFBold.otf</string>
@@ -111,5 +111,7 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
+	<key>CodePushDeploymentKey</key>
+	<string>3M0h0bCJVMiX8ttt5XsdneQ4VNgQda6d1b0c-ba1b-4ec9-a460-c4ca960e5ceb</string>
 </dict>
 </plist>

@@ -3,13 +3,11 @@ import {View, FlatList, StyleSheet, Dimensions, Image, TouchableOpacity} from 'r
 import FastImage from 'react-native-fast-image';
 import * as Utill from '../../../utill'
 import { Text } from '../../../component/common';
-
 import { getInset } from 'react-native-safe-area-view';
 
 const {width, height} = Dimensions.get('screen');
 const HEADER_BOTTOM_SAFE = getInset('bottom', false);
 const ratio = width/360;
-
 
 const icon_star = {uri : 'icon_star_full_review'}
 const icon_star_blur = {uri : 'icon_star_empty_review'};

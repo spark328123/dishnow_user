@@ -4,15 +4,28 @@ import {useSelector, useDispatch} from 'react-redux';
 import { Text,BigButtonBorder } from '../../../component/common';
 import { handleAndroidBackButton, removeAndroidBackButtonHandler } from '../../../component/common/hardwareBackButton';
 import * as Utill from '../../../utill'
+import * as API from '../../../utill/API';
+
 export default (props)=>{
     const { navigation } = props;
     const dispatch = useDispatch();
     const [isLoaded, setIsLoaded] = useState(false);
     let minutes = navigation.getParam('minutes');
+    const data = navigation.getParam('data');
+
+    const _reservation_confirm = async()=>{
+        const token = await API.getLocal(API.LOCALKEY_TOKEN);
+        const res = await API.reservation_confirm(token,{
+            reservationId : data.reservationId,
+            storeId : data.storeId,
+        });
+        console.log(res);
+        setIsLoaded(true);
+    }
 
     useEffect(()=> {
-        setIsLoaded(true);
-    },[minutes])
+        _reservation_confirm();
+    },[])
 
     _goBack = () => {
         navigation.navigate('ListMenu',{
@@ -39,7 +52,7 @@ export default (props)=>{
                         source={{uri:'bookedinfocard'}}
                     >
                         <View style={styles.nameArea}>
-                            <Text style={styles.name}>{navigation.getParam('name')}</Text>
+                            <Text style={styles.name}>{data.name}</Text>
                         </View>
 
                         <View style={{flex:1, justifyContent : 'center'}}>

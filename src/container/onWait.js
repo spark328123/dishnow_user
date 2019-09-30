@@ -17,20 +17,17 @@ import Toast from 'react-native-simple-toast';
 
 const OnWait =  (props) =>{
     const WaitTime = 120;
-    const { navigation, latitude, longitude } = props;
-    const createdAt = navigation.getParam('createdAt');
-    var address = navigation.getParam('address');
+    var { navigation, latitude, longitude, address } = props;
     address = address.substring(0,15)+'\n'+' '+address.substring(15);
 
     const [timer, setTimer] = useState(null);
     const [timerCount, setTimerCount] = useState(WaitTime);
     const [toggle, setToggle] = useState(true);
     const [appState, setAppState] = useState(AppState.currentState);
+    const [peopleNumber] = useState(navigation.getParam('peopleNumber'));
+    const [minutes] = useState(navigation.getParam('minutes'));
 
     const [isAlertVisible, setIsAlertVisible] = useState(false);
-
-    const restime = useState(navigation.getParam('time'));
-    const resnumber = useState(navigation.getParam('people'));
 
     const _onPressAlertCancel = () => {
         setIsAlertVisible(false);
@@ -52,23 +49,22 @@ const OnWait =  (props) =>{
         _timerStart();
         OneSignal.addEventListener('received',_oneSignalReceived);
         OneSignal.addEventListener('opened',_oneSignalReceived)
-        AppState.addEventListener('change',_handleChange);
+        AppState.addEventListener('change',_handleChange1);
         return()=>{
-            AppState.removeEventListener('change',_handleChange);
+            AppState.removeEventListener('change',_handleChange1);
         }
     },[]);
   
 
-    const _handleChange = async(nextAppState)=>{
+    const _handleChange1 = async(nextAppState)=>{
         if(appState === 'active' && nextAppState === 'active') {
             const token = await API.getLocal(API.LOCALKEY_TOKEN);
-            const res = await API.getReservation_accept(token);
-            console.log(navigation);
-            AppState.removeEventListener('change',_handleChange);
-            if(res.length)
-            await navigation.navigate('List',{timerCount,resnumber,restime,data:res});
+            const res = await API.reservation_accept(token);
+            console.log(res);
+            await navigation.navigate('Booked',{peopleNumber,minutes,data:res[0]});
+            _timerStop();
+            AppState.removeEventListener('change',_handleChange1);
         }
-       
         setAppState(nextAppState);
     }
     
@@ -80,13 +76,13 @@ const OnWait =  (props) =>{
         _toggle();
         setTimerCount(WaitTime);
         _timerStart();
-        _reservation();
+        _reservation_accept();
     }
 
     const _reservation = async ()=>{
         const token = await API.getLocal(API.LOCALKEY_TOKEN);
         const data = {
-            storeTypeId : navigation.getParam('tema'),
+            //storeTypeId : navigation.getParam('tema'),
             peopleNumber : parseInt(navigation.getParam('people')),
             minutes : parseInt(navigation.getParam('time')),
             latitude,
@@ -131,8 +127,9 @@ const OnWait =  (props) =>{
     const _oneSignalReceived = async(notification) => {
         if (!notification) return;
         const token = await API.getLocal(API.LOCALKEY_TOKEN);
-        const res = await API.getReservation_accept(token);
-        await navigation.navigate('List',{timerCount,resnumber,restime,data:res});
+        const res = await API.reservation_accept(token);
+        await navigation.navigate('Booked',{peopleNumber,minutes,data:notification.payload.additionalData});
+        _timerStop();
     };
 
     return(
@@ -171,15 +168,12 @@ const OnWait =  (props) =>{
             )}
             <View style = {styles.data}>
                 <View style={styles.informationContainer}>
-                    <Text style={styles.theme}>
-                        {`| ${navigation.getParam('temaname')} |`}
-                    </Text>
                     <View style={styles.dataContainer}>
                         <Text style={styles.dataText}>
                             인원
                         </Text>
                         <Text style={styles.paraText}>
-                            {navigation.getParam('people')}
+                            {peopleNumber}
                         </Text>
                         <Text style={styles.paraText}>
                              명
@@ -190,7 +184,7 @@ const OnWait =  (props) =>{
                             출발 예정 시간
                         </Text>
                         <Text style={styles.paraText}>
-                            {navigation.getParam('time')}
+                            {minutes}
                         </Text>
                         <Text style={styles.paraText}>
                              분 후
