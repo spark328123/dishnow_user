@@ -76,7 +76,7 @@ const OnWait =  (props) =>{
         _toggle();
         setTimerCount(WaitTime);
         _timerStart();
-        _reservation();
+        _reservation_accept();
     }
 
     const _reservation = async ()=>{
@@ -128,8 +128,7 @@ const OnWait =  (props) =>{
         if (!notification) return;
         const token = await API.getLocal(API.LOCALKEY_TOKEN);
         const res = await API.reservation_accept(token);
-        console.log(res);
-        navigation.navigate('Booked',{peopleNumber,minutes,data:res[0]});
+        await navigation.navigate('Booked',{peopleNumber,minutes,data:notification.payload.additionalData});
         _timerStop();
     };
 

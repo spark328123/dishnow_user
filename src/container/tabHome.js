@@ -81,7 +81,6 @@ const TabHome = (props)=>{
     useEffect(()=>{
         OneSignal.addEventListener('ids',onIds);
         setTabtimer(API.getTimer(API.TAB_TIMER));
-        console.log([temaList[1].temaselect,temaList[2].temaselect,temaList[3].temaselect,temaList[4].temaselect,temaList[5].temaselect,temaList[6].temaselect]);
         _me();
         return () => {
             OneSignal.removeEventListener('ids',onIds);
@@ -107,28 +106,28 @@ const TabHome = (props)=>{
         console.log(nowtime);
         var twomin = (nowtime - parseInt(tabtimer._55))/1000/60;
         console.log(twomin);
-        var tema_name = "";
+        // var tema_name = "";
 
-        if(temaList[0].isselect){
-            tema_name = "전체"
-        }
-        else{
-            for(let k=1; k<7; k++){
-                if(temaList[k].isselect)tema_name += temaList[k].id + " "
-            }
-        }
-
+        // if(temaList[0].isselect){
+        //     tema_name = "전체"
+        // }
+        // else{
+        //     for(let k=1; k<7; k++){
+        //         if(temaList[k].isselect)tema_name += temaList[k].id + " "
+        //     }s
+        // }
+        // twomin>2 || isNaN(twomin)
         if(true){
             await API.setTimer(API.TAB_TIMER, JSON.stringify(new Date().getTime()));
             const token = await API.getLocal(API.LOCALKEY_TOKEN);
             //await API.reservation_revert(token);
-            const data = {
-                storeTypeId :  `${[temaList[1].temaselect,temaList[2].temaselect,temaList[3].temaselect,temaList[4].temaselect,temaList[5].temaselect,temaList[6].temaselect].toString()}`,
-                peopleNumber : parseInt(people.text),
-                minutes : parseInt(arr[parseInt(time)]),
-                latitude,
-                longitude, 
-            }
+            // const data = {
+            //     storeTypeId :  `${[temaList[1].temaselect,temaList[2].temaselect,temaList[3].temaselect,temaList[4].temaselect,temaList[5].temaselect,temaList[6].temaselect].toString()}`,
+            //     peopleNumber : parseInt(people.text),
+            //     minutes : parseInt(arr[parseInt(time)]),
+            //     latitude,
+            //     longitude, 
+            // }
             //const res = await API.reservation(token,data);
 
             navigation.navigate('List',{
@@ -136,7 +135,6 @@ const TabHome = (props)=>{
                 time : arr[parseInt(time)],
                 //tema :  `${[temaList[1].temaselect,temaList[2].temaselect,temaList[3].temaselect,temaList[4].temaselect,temaList[5].temaselect,temaList[6].temaselect].toString()}`,
                 address,
-                temaname : tema_name,
             });
         }
         else{
@@ -151,45 +149,45 @@ const TabHome = (props)=>{
         API.setPush(API.PUSH_TOKEN,token);
       })
 
-    const [temaList, settemaList] = useState([  // 테마배열
-        {   color : '#733FFF', isselect : true, id : '전체', temaselect : 1},
-        {   color : '#111111', isselect : false, id : '단체', temaselect : 0},
-        {   color : '#111111', isselect : false, id : '가성비', temaselect : 0},
-        {   color : '#111111', isselect : false, id : '데이트', temaselect : 0},
-        {   color : '#111111', isselect : false, id : '밥&술', temaselect : 0},
-        {   color : '#111111', isselect : false, id : '이자카야', temaselect : 0},
-        {   color : '#111111', isselect : false, id : '옛날감성', temaselect : 0},
-    ]);
+    // const [temaList, settemaList] = useState([  // 테마배열
+    //     {   color : '#733FFF', isselect : true, id : '전체', temaselect : 1},
+    //     {   color : '#111111', isselect : false, id : '단체', temaselect : 0},
+    //     {   color : '#111111', isselect : false, id : '가성비', temaselect : 0},
+    //     {   color : '#111111', isselect : false, id : '데이트', temaselect : 0},
+    //     {   color : '#111111', isselect : false, id : '밥&술', temaselect : 0},
+    //     {   color : '#111111', isselect : false, id : '이자카야', temaselect : 0},
+    //     {   color : '#111111', isselect : false, id : '옛날감성', temaselect : 0},
+    // ]);
 
-    const _toggle = async(i,newTemaList) =>{ // 색깔바뀌는 함수 밖으로 빼냄
-        if(i!==0){
-            newTemaList[0].color = '#111111';
-            newTemaList[0].isselect = false;
-            newTemaList[0].temaselect = 0;
-        }else{
-            for(let k=1; k<7; k++){
-                newTemaList[k].color = '#111111';
-                newTemaList[k].isselect = false;
-                newTemaList[k].temaselect = 0;
-            }
-        }
-        newTemaList[i].color = '#733FFF';
-        newTemaList[i].isselect = true;
-        newTemaList[i].temaselect = 1;
-    }
+    // const _toggle = async(i,newTemaList) =>{ // 색깔바뀌는 함수 밖으로 빼냄
+    //     if(i!==0){
+    //         newTemaList[0].color = '#111111';
+    //         newTemaList[0].isselect = false;
+    //         newTemaList[0].temaselect = 0;
+    //     }else{
+    //         for(let k=1; k<7; k++){
+    //             newTemaList[k].color = '#111111';
+    //             newTemaList[k].isselect = false;
+    //             newTemaList[k].temaselect = 0;
+    //         }
+    //     }
+    //     newTemaList[i].color = '#733FFF';
+    //     newTemaList[i].isselect = true;
+    //     newTemaList[i].temaselect = 1;
+    // }
 
-    const _changeTemaColor = async(i) => {  // 테마선택 색깔,선택 바뀌게하는 함수
-        let newTemaList = [...temaList];
-        if(newTemaList[i].color === '#111111'){
-          await _toggle(i,newTemaList);
-        }else{
-            newTemaList[i].color = '#111111';
-            newTemaList[i].isselect = false;
-            newTemaList[i].temaselect = 0;
-        }
-        settemaList(newTemaList);
-        console.log([temaList[1].temaselect,temaList[2].temaselect,temaList[3].temaselect,temaList[4].temaselect,temaList[5].temaselect,temaList[6].temaselect]);
-    }
+    // const _changeTemaColor = async(i) => {  // 테마선택 색깔,선택 바뀌게하는 함수
+    //     let newTemaList = [...temaList];
+    //     if(newTemaList[i].color === '#111111'){
+    //       await _toggle(i,newTemaList);
+    //     }else{
+    //         newTemaList[i].color = '#111111';
+    //         newTemaList[i].isselect = false;
+    //         newTemaList[i].temaselect = 0;
+    //     }
+    //     settemaList(newTemaList);
+    //     console.log([temaList[1].temaselect,temaList[2].temaselect,temaList[3].temaselect,temaList[4].temaselect,temaList[5].temaselect,temaList[6].temaselect]);
+    // }
 
     const _selectTime = (rowData) =>{
         setTime(rowData);
@@ -231,9 +229,9 @@ const TabHome = (props)=>{
             <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={true}>
             <View>
                 <View style={{alignItems : 'center', justifyContent : 'center', height : 40}}>
-                    <Text style={{fontSize : 15.5, fontWeight:'bold', fontFamily: "NanumSquareOTFR", color: "#111111"}}> 테마 </Text>
+                    {/* <Text style={{fontSize : 15.5, fontWeight:'bold', fontFamily: "NanumSquareOTFR", color: "#111111"}}> 테마 </Text> */}
                 </View>
-            <ScrollView
+            {/* <ScrollView
                     style = {styles.scrollViewContainer}
                     horizontal = {true}
                     showsVerticalScrollIndicator = {true}
@@ -282,7 +280,7 @@ const TabHome = (props)=>{
                         <View style = {{width : 50 }}>
 
                         </View>
-                </ScrollView>
+                </ScrollView> */}
 
                 <View style={[styles.parent, {height: Utill.screen.Screen.customHomeHeight(172)}]} horizontal = {true}>
 
