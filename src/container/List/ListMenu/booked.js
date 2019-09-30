@@ -14,7 +14,6 @@ export default (props)=>{
     const data = navigation.getParam('data');
 
     const _reservation_confirm = async()=>{
-        console.log("데이터는~"+data);
         const token = await API.getLocal(API.LOCALKEY_TOKEN);
         const res = await API.reservation_confirm(token,{
             reservationId : data.reservationId,
