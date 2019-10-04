@@ -46,7 +46,7 @@ const facebooklogin = (navigation) => {
                                 faceBookProfile : `["${user.picture}"]`,
                             })
                         } else {
-                            navigation.navigate('Main');
+                            navigation.navigate('Splash');
                         }
                     })
                 }

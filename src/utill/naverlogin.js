@@ -35,7 +35,7 @@ const naverLogin = async (navigation) => {
                     naverProfile : `["${naverProfile}"]`
                 })
             }else{
-                navigation.navigate('Main');
+                navigation.navigate('Splash');
             }
         })
         console.log(token);
