@@ -50,7 +50,7 @@ export default ({ navigation }) => {
            kakaoProfile : image,
          });
        } else {
-         navigation.navigate('Main');
+         navigation.navigate('Splash');
        }
      });
    });

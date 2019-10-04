@@ -17,3 +17,4 @@ export {default as CustomAlert} from './CustomAlert';
 export {default as CustomAlert1} from './CustomAlert1';
 export {default as SmallButton} from './SmallButton';
 export {default as ItemButton} from './ItemButton';
+export {default as BigTuto} from './BigTuto';
