@@ -117,7 +117,7 @@ const TabHome = (props)=>{
         //     }s
         // }
         // twomin>2 || isNaN(twomin)
-        if(true){
+        if(twomin>2 || isNaN(twomin)){
             await API.setTimer(API.TAB_TIMER, JSON.stringify(new Date().getTime()));
             const token = await API.getLocal(API.LOCALKEY_TOKEN);
             //await API.reservation_revert(token);
@@ -196,17 +196,17 @@ const TabHome = (props)=>{
     
     return(
         <View style = {{flex : 1}}>
-             <CustomAlert
+             {/* <CustomAlert
                 visible={isAlertVisible} 
                 mainTitle={'요청 안내'}
                 mainTextStyle = {styles.txtStyle}
-                subTitle = {'요청을 보내게 되면 500m 내 전체 술집에 알람이 가게 됩니다. 실시간 예약 가능 여부를 물으시겠습니까?'}
+                subTitle = {'반경 400m 내 전체 술집을 보시겠습니까?'}
                 subTextStyle = {styles.subtxtStyle}
                 buttonText1={'아니오'}
                 buttonText2={'네'} 
                 onPress={_reservation} 
                 onPressCancel = {_onPressAlertCancel}
-            />
+            /> */}
             <CustomAlert1
                 visible={isAlertVisible2} 
                 mainTitle={'요청 안내'}
@@ -336,7 +336,7 @@ const TabHome = (props)=>{
             <View style={{alignItems: 'center'}}>
             <BigButtonColor 
                     style={[styles.find, {marginBottom: Utill.screen.Screen.customHeight(52)}]}
-                    onPress ={()=> (parseInt(people.text)>0&&parseInt(arr[parseInt(time)])>0) ? setIsAlertVisible(true) : Toast.show("테마, 인원, 출발 예정 시간을 확인해주세요.")}
+                    onPress ={()=> (parseInt(people.text)>0&&parseInt(arr[parseInt(time)])>0) ? _reservation() : Toast.show("인원, 출발 예정 시간을 확인해주세요.")}
                     title = {'술집 찾기'}
             />
             </View>

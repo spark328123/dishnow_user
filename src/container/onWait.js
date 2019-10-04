@@ -47,7 +47,7 @@ const OnWait =  (props) =>{
    handleAndroidBackButton(_goHome);
     useEffect(()=>{
         _timerStart();
-        OneSignal.addEventListener('received',_oneSignalReceived);
+        //OneSignal.addEventListener('received',_oneSignalReceived);
         OneSignal.addEventListener('opened',_oneSignalReceived)
         AppState.addEventListener('change',_handleChange1);
         return()=>{
@@ -128,7 +128,7 @@ const OnWait =  (props) =>{
         if (!notification) return;
         const token = await API.getLocal(API.LOCALKEY_TOKEN);
         const res = await API.reservation_accept(token);
-        await navigation.navigate('Booked',{peopleNumber,minutes,data:notification.payload.additionalData});
+        await navigation.navigate('Booked',{peopleNumber,minutes,data:notification.payload.additionalData[0]});
         _timerStop();
     };
 
@@ -157,7 +157,7 @@ const OnWait =  (props) =>{
              {toggle ? (            
                 <View style = {styles.loading}>
                     <ActivityIndicator size = "large" color = {Utill.color.primary1}/>
-                    <Text style = {{fontSize : 18, marginBottom : 13, marginTop : 23}}>출발지 기준 500m 내 술집에 요청중</Text>
+                    <Text style = {{fontSize : 18, marginBottom : 13, marginTop : 23}}>요청 중입니다! 잠시만 기다려 주세요:)</Text>
                     <Text style = {{fontSize : 18,color : Utill.color.primary1}}>{timerCount%60 < 10 ? `${Math.floor(timerCount/60)} : 0${timerCount%60}` : `${Math.floor(timerCount/60)} : ${timerCount%60}`}</Text>
                 </View>
                 ):(
