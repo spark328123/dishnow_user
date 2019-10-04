@@ -23,6 +23,7 @@ import Toast from 'react-native-simple-toast';
 const HEADER_TOP_SAFE = getInset('top', false);
 const icon_square_bracket_left = {uri : 'icon_back_button'};
 
+
 const List = (props) => {
     const { navigation, mylat, mylon, address} = props;
     const [ isLoaded, setIsLoaded ] = useState(true);
@@ -116,7 +117,9 @@ const List = (props) => {
                     storeTypeId5,
                     storeTypeId6,
                 }
-        }));      
+   
+        }));
+        
     }
 
 
@@ -281,6 +284,7 @@ const List = (props) => {
                     
                 </Image>
                 <Text style = {{fontSize : 18, fontWeight:'bold'}}>
+
                     {address}
                 </Text>
             </View>
@@ -343,6 +347,7 @@ const List = (props) => {
             <View style = {styles.line}></View>
 
             <View style={{width:Utill.screen.Screen.customWidth(340),height:Utill.screen.Screen.customHeight(465),marginBottom:Utill.screen.Screen.customHeight(40), alignItems:"flex-start",}}>
+
                 <FlatList 
                     data = {listData}
                     renderItem = {_renderItem}
@@ -432,6 +437,7 @@ const styles = StyleSheet.create({
     contentStar : {
         width : 6.5*1.4,
         height : 6.5*1.4,
+
         marginBottom : 12,
         marginRight : 0.5,
     },
