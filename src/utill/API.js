@@ -102,6 +102,13 @@ export const setPushToken = (token, data) => {
     .catch(error=>({error}));
 }
 
+export const setTutorial = (token) => {
+    const url = `${apiUrl}user/tutorial`;
+    return fetch.putAuthServer(url,token)
+    .then(res => ({isSuccess : res? true: false}))
+    .catch(error=>({error}));
+}
+
 export const reservation = (token, data) => {
     const url = `${apiUrl}reservation`;
     return fetch.postAuthServer(url,token,data)

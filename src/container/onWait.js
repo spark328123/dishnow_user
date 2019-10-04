@@ -47,7 +47,7 @@ const OnWait =  (props) =>{
    handleAndroidBackButton(_goHome);
     useEffect(()=>{
         _timerStart();
-        OneSignal.addEventListener('received',_oneSignalReceived);
+        //OneSignal.addEventListener('received',_oneSignalReceived);
         OneSignal.addEventListener('opened',_oneSignalReceived)
         AppState.addEventListener('change',_handleChange1);
         return()=>{
@@ -128,7 +128,7 @@ const OnWait =  (props) =>{
         if (!notification) return;
         const token = await API.getLocal(API.LOCALKEY_TOKEN);
         const res = await API.reservation_accept(token);
-        await navigation.navigate('Booked',{peopleNumber,minutes,data:notification.payload.additionalData});
+        await navigation.navigate('Booked',{peopleNumber,minutes,data:notification.payload.additionalData[0]});
         _timerStop();
     };
 
