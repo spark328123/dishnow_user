@@ -1,10 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { View, StyleSheet, Image, ActivityIndicator } from 'react-native';
 import { useDispatch } from 'react-redux';
-import * as API from '../utill/API';
-import * as Utill from '../utill';
-import { updateLocation, updateAddress } from '../store/modules/maps';
-import { Text } from '../component/common/'
 
 export default (props) => {
 

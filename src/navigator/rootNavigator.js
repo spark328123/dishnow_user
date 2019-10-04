@@ -1,10 +1,13 @@
 import { createSwitchNavigator, createAppContainer } from 'react-navigation';
 
 import Splash from '../container/splash';
-import Login from './loginstack'
-import Main from './mainTab'
+import Login from './loginstack';
+import Main from './mainTab';
+import Tutorial from '../component/tutorial';
+
 const rootNav = createSwitchNavigator(
     {
+        Tutorial,
         Splash,
         Login,
         Main,
@@ -16,3 +19,4 @@ const rootNav = createSwitchNavigator(
 );
 
 export default createAppContainer(rootNav);
+

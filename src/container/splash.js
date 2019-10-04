@@ -43,6 +43,8 @@ export default (props) => {
             const image = meRes.image;
             const reviewcount = meRes.reviewCount;
             const nickname = meRes.nickname;
+            const isTutorial = meRes.isTutorial;
+            console.log(meRes);
             dispatch(User.updateuserid(userid));
             dispatch(User.updatepoint(point));
             dispatch(User.upadtename(name));
@@ -52,9 +54,15 @@ export default (props) => {
             dispatch(User.updatenickname(nickname));
             const pushToken = await API.getPush(API.PUSH_TOKEN);
             await API.setPushToken(token,{pushToken});
+            
+            if(isTutorial == "true")
             navigation.navigate('Main');
+            else navigation.navigate('Tutorial');
+         
+            
         } else {
             navigation.navigate('Login');
+           
         }
     }
 
