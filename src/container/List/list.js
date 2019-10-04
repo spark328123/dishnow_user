@@ -13,11 +13,15 @@ import {
 import FastImage from 'react-native-fast-image';
 import { connect } from 'react-redux';
 import { Text,CustomAlert } from '../../component/common';
+import { getInset } from 'react-native-safe-area-view';
 // import {handleAndroidBackButton,removeAndroidBackButtonHandler} from '../../component/common/hardwareBackButton'
 import * as Utill from '../../utill';
 import * as API from '../../utill/API';
 import OneSiganl from 'react-native-onesignal';
 import Toast from 'react-native-simple-toast';
+
+const HEADER_TOP_SAFE = getInset('top', false);
+const icon_square_bracket_left = {uri : 'icon_back_button'};
 
 const List = (props) => {
     const { navigation, mylat, mylon, address} = props;
@@ -198,7 +202,7 @@ const List = (props) => {
                     onPress = {()=>_showStoreDetail(item)}
                 >
 
-                {isLoaded && <ActivityIndicator style = { styles.indicator } />} 
+            
                 <FastImage
                     source = {item.mainImage}
                     style = {{width : Utill.screen.Screen.customWidth(73), height : Utill.screen.Screen.customHeight(73), marginBottom : 12,marginRight:14}}
@@ -255,10 +259,28 @@ const List = (props) => {
         <View style = {styles.container}>
         
             <View style = {styles.header}>
-                <Image style = {{width:14,height:19.5}} source = {{uri:'icon_pin'}}>
+                <TouchableOpacity 
+                 onPress={()=>{navigation.pop();}}
+                style={{  
+                position:'absolute', 
+                left : 6.525, 
+                width : 13*1.2,
+                height : 17*1.2,
+                zIndex : 1000, 
+                elevation : 1000,
+                }}>
+                 <Image 
+                  style={[
+                      {width:13, height : 17,},
+                    ]} 
+                   source={icon_square_bracket_left}
+                 />
+             </TouchableOpacity>
+                <Image style = {{marginLeft:Utill.screen.Screen.customWidth(20),width:Utill.screen.Screen.customWidth(14*1.5),height:Utill.screen.Screen.customHeight(19.5*1.5)}}
+                 source = {{uri:'icon_pin'}}>
                     
                 </Image>
-                <Text style = {{fontSize : 18, fontWeight:'bold', marginLeft:Utill.screen.Screen.customWidth(20)}}>
+                <Text style = {{fontSize : 18, fontWeight:'bold'}}>
                     {address}
                 </Text>
             </View>
@@ -320,7 +342,7 @@ const List = (props) => {
 
             <View style = {styles.line}></View>
 
-            <View style={{width:Utill.screen.Screen.customWidth(340),height:Utill.screen.Screen.customHeight(455),marginBottom:Utill.screen.Screen.customHeight(40), alignItems:"flex-start",}}>
+            <View style={{width:Utill.screen.Screen.customWidth(340),height:Utill.screen.Screen.customHeight(465),marginBottom:Utill.screen.Screen.customHeight(40), alignItems:"flex-start",}}>
                 <FlatList 
                     data = {listData}
                     renderItem = {_renderItem}
@@ -359,7 +381,8 @@ const styles = StyleSheet.create({
         height : Utill.screen.Screen.customHeight(45),
         marginTop:Utill.screen.Screen.topSafe,
         width: Utill.screen.Screen.customWidth(340),
-        alignSelf: 'center'
+        alignSelf: 'center',
+        top: 5 + HEADER_TOP_SAFE, 
     },
     button : {
         position: "absolute",
@@ -407,9 +430,10 @@ const styles = StyleSheet.create({
         height : Utill.screen.Screen.customHeight(96),
     },
     contentStar : {
-        width : 6.5,
-        height : 6.5,
+        width : 6.5*1.4,
+        height : 6.5*1.4,
         marginBottom : 12,
+        marginRight : 0.5,
     },
     item3 : {
         marginLeft : 4,
