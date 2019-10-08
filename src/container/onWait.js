@@ -47,21 +47,24 @@ const OnWait =  (props) =>{
    handleAndroidBackButton(_goHome);
     useEffect(()=>{
         _timerStart();
-        //OneSignal.addEventListener('received',_oneSignalReceived);
+        OneSignal.addEventListener('received',_oneSignalReceived);
         OneSignal.addEventListener('opened',_oneSignalReceived)
         AppState.addEventListener('change',_handleChange1);
         return()=>{
             AppState.removeEventListener('change',_handleChange1);
         }
-    },[]);
-  
+    },[timerCount]);
 
     const _handleChange1 = async(nextAppState)=>{
         if(appState === 'active' && nextAppState === 'active') {
             const token = await API.getLocal(API.LOCALKEY_TOKEN);
             const res = await API.reservation_accept(token);
             console.log(res);
-            await navigation.navigate('Booked',{peopleNumber,minutes,data:res[0]});
+            try{
+                if(res.length)await navigation.navigate('Booked',{peopleNumber,minutes,data:res[0]});
+            }catch(e){
+
+            }
             _timerStop();
             AppState.removeEventListener('change',_handleChange1);
         }
@@ -69,11 +72,11 @@ const OnWait =  (props) =>{
     }
     
     const _toggle = ()=>{
-        setToggle(!toggle);
+        setToggle(!toggle);                         
     }
 
     const _reFind = ()=>{
-        _toggle();
+        //_toggle();
         setTimerCount(WaitTime);
         _timerStart();
         _reservation_accept();
@@ -94,10 +97,10 @@ const OnWait =  (props) =>{
     useEffect(()=>{
         if (timer && (timerCount <= 0)) {
             _timerStop();
-            _toggle();
+            //_toggle();
         }
     },[timerCount]);
-
+    
     const _timerStart =()=> {
         setTimer(timer=>{
             if (timer==null) return setInterval(()=>_timerTick(), 1000);
@@ -114,7 +117,7 @@ const OnWait =  (props) =>{
                 clearInterval(timer);
                 return null;
             }
-            return timer; 
+            return timer; // 이거 리턴 없으면 앱 전체적으로 꼬임
         })
     }
    
@@ -158,7 +161,7 @@ const OnWait =  (props) =>{
                 <View style = {styles.loading}>
                     <ActivityIndicator size = "large" color = {Utill.color.primary1}/>
                     <Text style = {{fontSize : 18, marginBottom : 13, marginTop : 23}}>요청 중입니다! 잠시만 기다려 주세요:)</Text>
-                    <Text style = {{fontSize : 18,color : Utill.color.primary1}}>{timerCount%60 < 10 ? `${Math.floor(timerCount/60)} : 0${timerCount%60}` : `${Math.floor(timerCount/60)} : ${timerCount%60}`}</Text>
+                    {/*<Text style = {{fontSize : 18,color : Utill.color.primary1}}>{timerCount%60 < 10 ? `${Math.floor(timerCount/60)} : 0${timerCount%60}` : `${Math.floor(timerCount/60)} : ${timerCount%60}`}</Text>*/}
                 </View>
                 ):(
                 <View style = {styles.loading}>
