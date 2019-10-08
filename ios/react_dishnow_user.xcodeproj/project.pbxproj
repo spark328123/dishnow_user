@@ -37,8 +37,8 @@
 		3938C229699C46C9BC1920BA /* NanumSquareOTFRegular.otf in Resources */ = {isa = PBXBuildFile; fileRef = C69104E808AE49ADA9AEB1E0 /* NanumSquareOTFRegular.otf */; };
 		3FA227FBBD7E43B48CB9AD94 /* libRNNaverLogin.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 524140E5BF494F56B39EB3BD /* libRNNaverLogin.a */; };
 		6E75AADA37CF47DB9B9A84A1 /* NanumSquareOTFBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = C2E7B7BDF7AD44878FE6DCA7 /* NanumSquareOTFBold.otf */; };
-		7AE8379D48DD28A1880CCC38 /* libPods-react_dishnow_user.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DF5185B39DAFD3370F211B5E /* libPods-react_dishnow_user.a */; };
 		832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 832341B51AAA6A8300B99B32 /* libRCTText.a */; };
+		A379AD75FE4EAAADBE418FB6 /* libPods-react_dishnow_user.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DF5185B39DAFD3370F211B5E /* libPods-react_dishnow_user.a */; };
 		ADBDB9381DFEBF1600ED6528 /* libRCTBlob.a in Frameworks */ = {isa = PBXBuildFile; fileRef = ADBDB9271DFEBF0700ED6528 /* libRCTBlob.a */; };
 		C3A6A07FF33C48C3BB5DC733 /* libBVLinearGradient.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FB584D86DB21498A8E0F30C6 /* libBVLinearGradient.a */; };
 		D4DE3DF090044E8FB1ADCAFA /* NanumSquareOTFExtraBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 03374C41862540A0A3458039 /* NanumSquareOTFExtraBold.otf */; };
@@ -431,9 +431,9 @@
 				00C302EA1ABCBA2D00DB3ED1 /* libRCTVibration.a in Frameworks */,
 				139FDEF61B0652A700C62182 /* libRCTWebSocket.a in Frameworks */,
 				C3A6A07FF33C48C3BB5DC733 /* libBVLinearGradient.a in Frameworks */,
-				7AE8379D48DD28A1880CCC38 /* libPods-react_dishnow_user.a in Frameworks */,
 				D74A2E3D83B94EF4AC83BB10 /* libRNKakaoLogins.a in Frameworks */,
 				3FA227FBBD7E43B48CB9AD94 /* libRNNaverLogin.a in Frameworks */,
+				A379AD75FE4EAAADBE418FB6 /* libPods-react_dishnow_user.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
