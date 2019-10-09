@@ -53,7 +53,7 @@ const OnWait =  (props) =>{
         return()=>{
             AppState.removeEventListener('change',_handleChange1);
         }
-    },[timerCount]);
+    },[]);
 
     const _handleChange1 = async(nextAppState)=>{
         if(appState === 'active' && nextAppState === 'active') {
@@ -131,7 +131,12 @@ const OnWait =  (props) =>{
         if (!notification) return;
         const token = await API.getLocal(API.LOCALKEY_TOKEN);
         const res = await API.reservation_accept(token);
-        await navigation.navigate('Booked',{peopleNumber,minutes,data:notification.payload.additionalData[0]});
+        console.log(res);
+        try{
+            if(res.length)await navigation.navigate('Booked',{peopleNumber,minutes,data:res[0]});
+        }catch(e){
+
+        }
         _timerStop();
     };
 
